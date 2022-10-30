@@ -1,1 +1,0 @@
-The section of the project focuses on the web application development.
