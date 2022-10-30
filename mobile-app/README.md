@@ -1,1 +1,0 @@
-The section of the project focuses on the mobile application development.
