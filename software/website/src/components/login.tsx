@@ -1,5 +1,6 @@
 import * as React from "react";
-import "./../App.css";
+import "./../css/App.css";
+import "./../css/login.css";
 
 interface Props {}
 
@@ -9,21 +10,30 @@ class Login extends React.Component<Props, State> {
   state = {};
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img
-            src="/loading-icon.svg"
-            className="loading-icon"
-            alt="loading-icon"
-          />
-          <img
-            src="/loading-icon.svg"
-            className="loading-icon"
-            alt="loading-icon"
-          />
+      <div className="login">
+        <header className="login-header">
+          <img src="/baby.svg" className="baby-icon" alt="baby-icon" />
           <div>
             <h1>Transport Comfort Analysis</h1>
-            <button>Login</button>
+            <div className="input-container">
+              <input className="text-input" type="text" placeholder="Email" />
+            </div>
+            <div className="input-container">
+              <input
+                className="text-input"
+                type="password"
+                placeholder="Password"
+              />
+            </div>
+            <div>
+            <span className="login-link">No account? Sign up</span>
+            </div>
+            <div>
+            <span className="login-link">Forgot password?</span>
+            </div>
+            <div className="button-container">
+              <button>Login</button>
+            </div>
           </div>
         </header>
       </div>
