@@ -1,42 +1,67 @@
-import * as React from "react";
+import React, { useState } from "react";
 import "./../css/App.css";
 import "./../css/login.css";
+import Modal from "react-modal";
 
-interface Props {}
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
-interface State {}
+function Login() {
+  const [modalOpen, setModalOpen] = useState(false);
 
-class Login extends React.Component<Props, State> {
-  state = {};
-  render() {
-    return (
-      <div className="login">
-          <img src="/baby.svg" className="baby-icon" alt="baby-icon" />
-          <div>
-            <h1>Transport Comfort Analysis</h1>
-            <div className="input-container">
-              <input className="text-input" type="text" placeholder="Email" />
-            </div>
-            <div className="input-container">
-              <input
-                className="text-input"
-                type="password"
-                placeholder="Password"
-              />
-            </div>           
-            <div className="button-container">
-              <button>Login</button>
-            </div>
-            <div>
-              <span className="login-link">No account? Sign up</span>
-            </div>
-            <div>
-              <span className="login-link">Forgot password?</span>
-            </div>
-          </div>
-      </div>
-    );
+  function openModal() {
+    setModalOpen(true);
   }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
+
+  return (
+    <div className="login">
+      <img src="/baby.svg" className="baby-icon" alt="baby-icon" />
+      <div>
+        <h1>Transport Comfort Analysis</h1>
+        <div className="input-container">
+          <input className="text-input" type="text" placeholder="Email" />
+        </div>
+        <div className="input-container">
+          <input
+            className="text-input"
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <div className="button-container">
+          <button>Login</button>
+        </div>
+        <div>
+          <span className="login-link">
+            No account? Sign up
+          </span>
+        </div>
+        <div>
+          <span className="login-link" onClick={openModal}>Forgot password?</span>
+        </div>
+        <Modal
+          isOpen={modalOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Forgot Password"
+        >
+          Hello
+        </Modal>
+      </div>
+    </div>
+  );
 }
 
 export default Login;
