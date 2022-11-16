@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./../css/App.css";
-import "./../css/login.css";
+import "css/App.css";
+import "css/login.css";
 import Modal from "react-modal";
+import ForgotPasswordModalContent from "components/ForgotPasswordModalContent";
 
 const customStyles = {
   content: {
@@ -44,20 +45,19 @@ function Login() {
           <button>Login</button>
         </div>
         <div>
-          <span className="login-link">
-            No account? Sign up
-          </span>
+          <span className="login-link">No account? Sign up</span>
         </div>
         <div>
-          <span className="login-link" onClick={openModal}>Forgot password?</span>
+          <span className="login-link" onClick={openModal}>
+            Forgot password?
+          </span>
         </div>
         <Modal
           isOpen={modalOpen}
-          onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Forgot Password"
         >
-          Hello
+          <ForgotPasswordModalContent></ForgotPasswordModalContent>
         </Modal>
       </div>
     </div>
