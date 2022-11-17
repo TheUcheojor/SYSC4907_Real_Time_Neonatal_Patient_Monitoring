@@ -5,15 +5,18 @@ import CSS from "csstype";
 import ForgotPasswordModalContent from "components/ForgotPasswordModalContent";
 import Modal from "components/Modal";
 import SignUpModalContent from "components/SignUpModalContent";
-import NavHeader from "components/NavHeader";
 
-function LoginPage() {
+interface LoginPageProps {
+  setToken: (param: boolean) => void;
+}
+
+function LoginPage({ setToken }: LoginPageProps) {
   const [forgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
 
   const babyIconStyles: CSS.Properties = {
     height: "200px",
-    paddingTop: "40px"
+    paddingTop: "40px",
   };
 
   function closeModal() {
@@ -23,7 +26,6 @@ function LoginPage() {
 
   return (
     <div className="login">
-      <NavHeader></NavHeader>
       <img
         style={babyIconStyles}
         src="/baby.svg"
@@ -43,7 +45,7 @@ function LoginPage() {
           />
         </div>
         <div className="button-container">
-          <button>Login</button>
+          <button onClick={() => setToken(true)}>Login</button>
         </div>
         <div>
           <span className="login-link" onClick={() => setSignUpModalOpen(true)}>

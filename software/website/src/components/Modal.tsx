@@ -17,10 +17,10 @@ interface ModalProps {
   title: String;
   modalOpen: boolean;
   children: JSX.Element;
-  closeModal: (params: any) => void;
+  closeModal: () => void;
 }
 
-function Modal({title, children, modalOpen, closeModal }: ModalProps) {
+function Modal({ title, children, modalOpen, closeModal }: ModalProps) {
   const [isHover, setIsHover] = useState(false);
 
   const closeModalButtonStyles: CSS.Properties = {
@@ -43,7 +43,7 @@ function Modal({title, children, modalOpen, closeModal }: ModalProps) {
       <h2 className="modal-header2">{title}</h2>
       <span
         style={closeModalButtonStyles}
-        onClick={closeModal}
+        onClick={() => closeModal()}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >

@@ -3,42 +3,34 @@ import LoginPage from "components/pages/LoginPage";
 import OrganizationsPage from "components/pages/OrganizationsPage";
 import TripsPage from "components/pages/TripsPage";
 import MyAccountPage from "components/pages/MyAccountPage";
-import NavHeader from "./NavHeader";
-
-enum Page {
-  Organization,
-  Trips,
-  MyAccount,
-}
+import NavHeader from "components/NavHeader";
+import { PageEnum } from "constants/PageEnum";
 
 function App() {
-  const [activePage, setActivePage] = useState(Page.Organization);
-  const [token, setToken] = useState();
+  const [activePage, setActivePage] = useState(PageEnum.Organization);
+  const [token, setToken] = useState(false);
 
   function renderActivePage() {
     switch (activePage) {
-      case Page.Organization:
-        <OrganizationsPage />;
-        break;
-      case Page.Trips:
-        <TripsPage />;
-        break;
-      case Page.MyAccount:
-        <MyAccountPage />;
-        break;
+      case PageEnum.Organization:
+        return <OrganizationsPage />;
+      case PageEnum.Trips:
+        return <TripsPage />;
+      case PageEnum.MyAccount:
+        return <MyAccountPage />;
       default:
-        <LoginPage />;
+        return <LoginPage setToken={setToken} />;
     }
   }
 
   if (!token) {
-    return <LoginPage />;
+    return <LoginPage setToken={setToken} />;
   }
 
   return (
-    <div>
-      <NavHeader />
-      <div>{renderActivePage}</div>
+    <div className="App">
+      <NavHeader activePage={activePage} setActivePage={setActivePage} />
+      <div className="App-Content">{renderActivePage()}</div>
     </div>
   );
 }

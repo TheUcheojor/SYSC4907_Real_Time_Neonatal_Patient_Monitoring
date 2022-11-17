@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'css/index.css';
 import reportWebVitals from 'reportWebVitals';
-import App
-import LoginPage from 'components/LoginPage.tsx';
+import App from 'components/App.tsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -27,7 +27,7 @@ function SignUpModalContent() {
   };
 
   function signUp() {
-    console.log("Send temp password for: " + email);
+    console.log(email + "\n" + password + "\n" + passwordVerify);
   }
 
   function handleKeyUp() {
