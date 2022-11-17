@@ -22,7 +22,17 @@ button:hover {
   background-color: #2b2a2a;
 }
 
-.modal-header2 {
-  color: black;
+button:disabled {
+  background-color: #969696;
 }
 
+.modal-header2 {
+  color: black;
+  margin-top: 0;
+  border-bottom: 2px solid #969696;
+  padding-bottom: 8px;
+}
+
+span {
+  color: black;
+}

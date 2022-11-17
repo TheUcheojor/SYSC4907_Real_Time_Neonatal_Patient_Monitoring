@@ -1,29 +1,17 @@
 import React, { useState } from "react";
 import "css/App.css";
 import "css/login.css";
-import Modal from "react-modal";
 import ForgotPasswordModalContent from "components/ForgotPasswordModalContent";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import Modal from "components/Modal";
+import SignUpModalContent from "./SignUpModalContent";
 
 function Login() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  function openModal() {
-    setModalOpen(true);
-  }
+  const [forgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false);
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false);
 
   function closeModal() {
-    setModalOpen(false);
+    setSignUpModalOpen(false);
+    setForgotPasswordModalOpen(false);
   }
 
   return (
@@ -45,19 +33,26 @@ function Login() {
           <button>Login</button>
         </div>
         <div>
-          <span className="login-link">No account? Sign up</span>
+          <span className="login-link" onClick={() => setSignUpModalOpen(true)}>No account? Sign up</span>
         </div>
         <div>
-          <span className="login-link" onClick={openModal}>
+          <span className="login-link" onClick={() => setForgotPasswordModalOpen(true)}>
             Forgot password?
           </span>
         </div>
         <Modal
-          isOpen={modalOpen}
-          style={customStyles}
-          contentLabel="Forgot Password"
+          title="Forgot your password"
+          modalOpen={forgotPasswordModalOpen}
+          closeModal={closeModal}
         >
           <ForgotPasswordModalContent></ForgotPasswordModalContent>
+        </Modal>
+        <Modal
+          title="Sign up"
+          modalOpen={signUpModalOpen}
+          closeModal={closeModal}
+        >
+          <SignUpModalContent></SignUpModalContent>
         </Modal>
       </div>
     </div>
