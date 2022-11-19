@@ -5,6 +5,7 @@ import CSS from "csstype";
 import ForgotPasswordModalContent from "components/ForgotPasswordModalContent";
 import Modal from "components/Modal";
 import SignUpModalContent from "components/SignUpModalContent";
+import BabyIcon from "components/icons/BabyIcon";
 
 interface LoginPageProps {
   setToken: (param: boolean) => void;
@@ -26,12 +27,7 @@ function LoginPage({ setToken }: LoginPageProps) {
 
   return (
     <div className="login">
-      <img
-        style={babyIconStyles}
-        src="/baby.svg"
-        className="baby-icon"
-        alt="baby-icon"
-      />
+      <BabyIcon fill="black" styles={babyIconStyles} />
       <div>
         <h1>Transport Comfort Analysis</h1>
         <div className="input-container">

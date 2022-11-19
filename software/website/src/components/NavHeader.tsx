@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CSS from "csstype";
+import BabyIcon from "components/icons/BabyIcon";
+import UserIcon from "components/icons/UserIcon";
 import { PageEnum } from "constants/PageEnum";
 
 const headerStyles: CSS.Properties = {
@@ -77,12 +79,7 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
         onClick={() => setActivePage(PageEnum.Organization)}
       >
         <div style={headerTabDivStyles}>
-          <img
-            src="/white-baby.svg"
-            style={babyIconStyles}
-            alt="baby-icon"
-            color="white"
-          />
+          <BabyIcon fill="white" styles={babyIconStyles} />
         </div>
       </div>
       <div
@@ -116,6 +113,16 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
               visibility: activePage === PageEnum.Trips ? "visible" : "hidden",
             }}
           ></div>
+        </div>
+      </div>
+      <div
+        style={headerMasterTabDivStylesIcon}
+        onMouseEnter={() => setIconIsHover(true)}
+        onMouseLeave={() => setIconIsHover(false)}
+        onClick={() => setActivePage(PageEnum.Organization)}
+      >
+        <div style={headerTabDivStyles}>
+          <UserIcon fill="white" />
         </div>
       </div>
     </div>
