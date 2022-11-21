@@ -1,18 +1,20 @@
 import { View, Text, TextInput, Pressable } from "react-native";
 import { StyleSheet } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
 
 import { TextInputContainer } from "../components/TextInputContainer";
 import { RootStackParamList } from "../types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import {
-  APP_ICON,
-  BLACK_COLOR,
+  APP_NAME,
   EMAIL_PLACEHOLDER,
   EMAIL_TITLE,
+  FORGOT_PASSWORD_TEXT,
+  NO_ACCOUNT_SIGNUP_TEXT,
   PASSWORD_PLACEHOLDER,
   PASSWORD_TITLE,
+  LOGIN_BUTTON_TEXT,
 } from "../constants/ViewConstants";
+import LargeAppIcon from "../components/LargeAppIcon";
 
 /**
  * The login screen layout
@@ -21,10 +23,25 @@ import {
 export default ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, "Login">): JSX.Element => {
+  const ClickableText = ({
+    text,
+    nextPage,
+  }: {
+    text: string;
+    nextPage: keyof RootStackParamList;
+  }) => (
+    <Pressable
+      style={styles.clickableTextContainer}
+      onPress={() => navigation.navigate(nextPage as any)}
+    >
+      <Text style={styles.clickableText}> {text} </Text>
+    </Pressable>
+  );
+
   return (
     <View style={styles.container}>
-      <FontAwesome5 name={APP_ICON} size={100} color={BLACK_COLOR} />
-      <Text style={styles.title}>Transport Comfort Analysis</Text>
+      <LargeAppIcon />
+      <Text style={styles.title}>{APP_NAME}</Text>
 
       <TextInputContainer title={EMAIL_TITLE} placeholder={EMAIL_PLACEHOLDER} />
       <TextInputContainer
@@ -32,8 +49,8 @@ export default ({
         placeholder={PASSWORD_PLACEHOLDER}
       />
 
-      <ClickableText text="No account? Signup here" />
-      <ClickableText text="Forgot password?" />
+      <ClickableText text={NO_ACCOUNT_SIGNUP_TEXT} nextPage="Signup" />
+      <ClickableText text={FORGOT_PASSWORD_TEXT} nextPage="ForgotPassword" />
 
       <Pressable
         style={styles.buttonContainer}
@@ -43,22 +60,11 @@ export default ({
           })
         }
       >
-        <Text style={styles.buttonText}> LOGIN </Text>
+        <Text style={styles.buttonText}> {LOGIN_BUTTON_TEXT} </Text>
       </Pressable>
     </View>
   );
 };
-
-/**
- * Text that can be clicked
- * @param text the text
- * @returns
- */
-const ClickableText = ({ text }: { text: string }) => (
-  <Pressable style={styles.clickableTextContainer}>
-    <Text style={styles.clickableText}> {text} </Text>
-  </Pressable>
-);
 
 const styles = StyleSheet.create({
   container: {
