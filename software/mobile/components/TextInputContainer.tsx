@@ -9,12 +9,16 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 export const TextInputContainer = ({
   title,
   placeholder,
+  width,
 }: {
   title: string;
   placeholder: string;
+  width?: number;
 }) => {
+  // Assign the width accordingly (the default width is 300 px)
+  width = width ? width : 300;
   return (
-    <View style={styles.inputContainer}>
+    <View style={{ ...styles.inputContainer, width: width }}>
       <Text style={styles.textInputHeader}> {title} </Text>
       <TextInput style={styles.textInput} placeholder={placeholder} />
     </View>
@@ -38,7 +42,6 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 2,
     fontSize: 15,
-    width: 300,
     borderRadius: 10,
   },
 });
