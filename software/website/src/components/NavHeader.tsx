@@ -45,6 +45,12 @@ const babyIconStyles: CSS.Properties = {
   ...headerTabStyles,
 };
 
+const myAccIconStyles: CSS.Properties = {
+  height: "40px",
+  width: "50px",
+  ...headerTabStyles,
+};
+
 interface NavHeaderProps {
   activePage: PageEnum;
   setActivePage: (param: PageEnum) => void;
@@ -54,20 +60,27 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
   const [organizationIsHover, setOrganizationIsHover] = useState(false);
   const [iconIsHover, setIconIsHover] = useState(false);
   const [tripsIsHover, setTripsIsHover] = useState(false);
+  const [myAccIsHover, setMyAccIsHover] = useState(false);
 
   const headerMasterTabDivStylesIcon: CSS.Properties = {
-    ...headerMasterTabDivStyles,
     backgroundColor: iconIsHover ? "#2b2a2a" : "inherit",
+    ...headerMasterTabDivStyles,
   };
 
   const headerMasterTabDivStylesOrganization: CSS.Properties = {
-    ...headerMasterTabDivStyles,
     backgroundColor: organizationIsHover ? "#2b2a2a" : "inherit",
+    ...headerMasterTabDivStyles,
   };
 
   const headerMasterTabDivStylesTrips: CSS.Properties = {
-    ...headerMasterTabDivStyles,
     backgroundColor: tripsIsHover ? "#2b2a2a" : "inherit",
+    ...headerMasterTabDivStyles,
+  };
+
+  const headerMasterTabDivStylesMyAcc: CSS.Properties = {
+    backgroundColor: myAccIsHover ? "#2b2a2a" : "inherit",
+    marginLeft: "auto",
+    ...headerMasterTabDivStyles,
   };
 
   return (
@@ -116,13 +129,23 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
         </div>
       </div>
       <div
-        style={headerMasterTabDivStylesIcon}
-        onMouseEnter={() => setIconIsHover(true)}
-        onMouseLeave={() => setIconIsHover(false)}
-        onClick={() => setActivePage(PageEnum.Organization)}
+        style={{...headerMasterTabDivStylesMyAcc, ...{paddingLeft: 0}}}
+        onMouseEnter={() => setMyAccIsHover(true)}
+        onMouseLeave={() => setMyAccIsHover(false)}
+        onClick={() => setActivePage(PageEnum.MyAccount)}
       >
         <div style={headerTabDivStyles}>
-          <UserIcon fill="white" />
+          <UserIcon fill="white" styles={myAccIconStyles} />
+          <div style={headerTabDivStyles}>
+            <div
+              style={{
+                ...tabSelectorStyles,
+                visibility:
+                  activePage === PageEnum.MyAccount ? "visible" : "hidden",
+              }}
+            ></div>
+            <span style={{ color: "white" }}>My Account</span>
+          </div>
         </div>
       </div>
     </div>
