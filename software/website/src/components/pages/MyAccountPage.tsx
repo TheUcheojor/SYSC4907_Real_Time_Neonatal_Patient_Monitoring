@@ -19,6 +19,10 @@ const changePasswordButtonStyles: CSS.Properties = {
   fontSize: "20px",
 };
 
+const inputStyles: CSS.Properties = {
+  width: "100%",
+};
+
 function MyAccountPage() {
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
@@ -34,24 +38,29 @@ function MyAccountPage() {
             Change password
           </button>
         )}
-        {isChangingPassword &&
-      //   <input
-      //   className="text-input"
-      //   placeholder="Password"
-      //   type="password"
-      //   value={}
-      //   onKeyUp={() => {}}
-      //   onChange={() => {}}
-      // />
-      // <input
-      //   className="text-input"
-      //   placeholder="Password again"
-      //   type="password"
-      //   value={passwordVerify}
-      //   onKeyUp={handleKeyUp}
-      //   onChange={(event) => setPasswordVerify(event.target.value)}
-      // />
-        <span>tmp</span>}
+        {isChangingPassword && (
+          <div>
+            <div>
+              <label htmlFor="oldPassword">Old Password</label>
+              <input type="password" id="oldPassword" style={inputStyles} />
+            </div>
+            <div>
+              <label htmlFor="newPassword">New Password</label>
+              <input type="password" id="newPassword" style={inputStyles} />
+            </div>
+            <div>
+              <label htmlFor="newPassword">New Password again</label>
+              <input type="password" id="newPassword" style={inputStyles} />
+            </div>
+            <button style={{ fontSize: "20px" }}>Change Password</button>
+            <button
+              style={{ fontSize: "20px", marginLeft: "8px" }}
+              onClick={() => setIsChangingPassword(false)}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

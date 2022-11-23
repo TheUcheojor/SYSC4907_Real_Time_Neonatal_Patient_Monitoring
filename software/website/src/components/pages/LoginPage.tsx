@@ -54,7 +54,7 @@ function LoginPage({ setToken }: LoginPageProps) {
           <input type="password" placeholder="Password" />
         </div>
         <div>
-          <button onClick={() => setToken(true)}>Login</button>
+          <button style={{fontSize: "32px"}} onClick={() => setToken(true)}>Login</button>
         </div>
         <div>
           {" "}
