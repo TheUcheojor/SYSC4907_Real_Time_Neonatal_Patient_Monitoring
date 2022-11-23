@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
-.button-container {
-  padding-top: 6px;
-  padding-bottom: 6px;
-}
-
 button {
   font-family: 'Montserrat', serif;
   font-weight: 400;
@@ -26,7 +21,7 @@ button:disabled {
   background-color: #969696;
 }
 
-.modal-header2 {
+h2, h3 {
   color: black;
   margin-top: 0;
   border-bottom: 2px solid #969696;
@@ -35,4 +30,22 @@ button:disabled {
 
 span {
   color: black;
+}
+
+input {
+  font-family: 'Montserrat';
+  border: solid;
+  border-color: black;
+  border-width: 2px;
+  font-size: 16px;
+  width: 300px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  height: 35px;
+}
+
+input:focus{
+  outline:none;
+  border-color: rgb(24, 119, 242);
 }

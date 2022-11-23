@@ -40,7 +40,7 @@ function Modal({ title, children, modalOpen, closeModal }: ModalProps) {
       style={reactModalStyles}
       contentLabel={title}
     >
-      <h2 className="modal-header2">{title}</h2>
+      <h2>{title}</h2>
       <span
         style={closeModalButtonStyles}
         onClick={() => closeModal()}

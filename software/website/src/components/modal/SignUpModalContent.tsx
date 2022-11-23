@@ -31,7 +31,6 @@ function SignUpModalContent() {
   }
 
   function handleKeyUp() {
-    console.log(password);
     let regexMatches = email.trim().match(validEmailRegex);
     let regexMatch =
       regexMatches != null && regexMatches.length > 0 ? regexMatches[0] : null;
