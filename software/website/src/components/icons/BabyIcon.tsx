@@ -1,6 +1,11 @@
 import React from "react";
 
-function BabyIcon({fill, styles}) {
+interface iconProps {
+  fill: string;
+  styles?: React.CSSProperties;
+}
+
+function BabyIcon({ fill, styles }: iconProps) {
   return (
     <svg
       version="1.1"

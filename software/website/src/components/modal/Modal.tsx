@@ -49,7 +49,9 @@ function Modal({ title, children, modalOpen, closeModal }: ModalProps) {
       >
         X
       </span>
+      <div style={{minWidth: "300px"}}>
       {children}
+      </div>
     </ReactModal>
   );
 }

@@ -45,16 +45,18 @@ function LoginPage({ setToken }: LoginPageProps) {
   return (
     <div style={loginDivStyles}>
       <BabyIcon fill="black" styles={babyIconStyles} />
-      <div>
+      <div style={{ display: "flex", flexDirection:'column', alignItems: "center" }}>
         <h1>Transport Comfort Analysis</h1>
-        <div>
+        <div style={{ width: "300px" }}>
           <input type="text" placeholder="Email" />
         </div>
-        <div>
+        <div style={{ width: "300px" }}>
           <input type="password" placeholder="Password" />
         </div>
         <div>
-          <button style={{fontSize: "32px"}} onClick={() => setToken(true)}>Login</button>
+          <button style={{ fontSize: "32px" }} onClick={() => setToken(true)}>
+            Login
+          </button>
         </div>
         <div>
           {" "}

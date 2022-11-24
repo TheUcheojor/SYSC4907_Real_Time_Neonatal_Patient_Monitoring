@@ -10,11 +10,12 @@ button {
   background-color: black;
   border-radius: 6px;
   line-height: 20px;  
+  border: 0;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #2b2a2a;
+  background-color: #2a2a2a;
 }
 
 button:disabled {
@@ -43,7 +44,8 @@ input {
   border-color: black;
   border-width: 2px;
   font-size: 16px;
-  width: 300px;
+  min-width: 100px;
+  width: 100%;
   border-radius: 3px;
   margin-bottom: 10px;
   padding-left: 15px;
@@ -55,3 +57,25 @@ input:focus{
   outline:none;
   border-color: rgb(24, 119, 242);
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 2px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #d3d3d3;
+  border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} 
