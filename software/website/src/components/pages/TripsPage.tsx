@@ -5,19 +5,26 @@ import {
   CircleF,
   MarkerF,
 } from "@react-google-maps/api";
+import { routeMeasurementDataPoints } from "mock/mockTrip";
+
+const red = "#FF0000";
+const yellow = "#f5d742";
+const green = "#00FF00";
+
+function getColor(velocity: number): string {
+  if (velocity > 26) {
+    return red;
+  } else if (velocity > 24) {
+    return yellow;
+  } else {
+    return green;
+  }
+}
 
 const containerStyle = {
   width: "400px",
   height: "400px",
 };
-
-const coords = [
-  { lat: 45.387, lng: -75.69641 },
-  { lat: 45.3871, lng: -75.69643 },
-  { lat: 45.3869, lng: -75.6964 },
-  { lat: 45.3867, lng: -75.69639 },
-  { lat: 45.3872, lng: -75.69645 },
-];
 
 const circleOptions = {
   strokeOpacity: 0.9,
@@ -42,35 +49,47 @@ function TripsPage() {
     isLoaded && (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        center={coords[0]}
-        zoom={18}
+        center={{
+          lat: routeMeasurementDataPoints[0].coordinates[1],
+          lng: routeMeasurementDataPoints[0].coordinates[0],
+        }}
+        zoom={17}
       >
-        <MarkerF label="S" position={coords[3]} />
-        <MarkerF label="F" position={coords[4]} />
-        <CircleF
-          center={coords[0]}
-          options={{
-            strokeColor: "#FF0000",
-            fillColor: "#FF0000",
-            ...circleOptions,
+        <MarkerF
+          label="S"
+          position={{
+            lat: routeMeasurementDataPoints[0].coordinates[1],
+            lng: routeMeasurementDataPoints[0].coordinates[0],
           }}
         />
-        <CircleF
-          center={coords[1]}
-          options={{
-            strokeColor: "#f5d742",
-            fillColor: "#f5d742",
-            ...circleOptions,
+        <MarkerF
+          label="F"
+          position={{
+            lat: routeMeasurementDataPoints[
+              routeMeasurementDataPoints.length - 1
+            ].coordinates[1],
+            lng: routeMeasurementDataPoints[
+              routeMeasurementDataPoints.length - 1
+            ].coordinates[0],
           }}
         />
-        <CircleF
-          center={coords[2]}
-          options={{
-            strokeColor: "#00FF00",
-            fillColor: "#00FF00",
-            ...circleOptions,
-          }}
-        />
+        {routeMeasurementDataPoints.map((dp, i) => {
+          if (i !== 0 && i !== routeMeasurementDataPoints.length - 1) {
+            return (
+              <CircleF
+                center={{
+                  lat: dp.coordinates[1],
+                  lng: dp.coordinates[0],
+                }}
+                options={{
+                  strokeColor: getColor(dp.temperature),
+                  fillColor: getColor(dp.temperature),
+                  ...circleOptions,
+                }}
+              />
+            );
+          }
+        })}
       </GoogleMap>
     )
   );
