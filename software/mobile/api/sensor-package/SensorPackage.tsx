@@ -134,7 +134,7 @@ export default class SensorPackage {
   /**
    *
    */
-  public getLiveDataFeed() {
+  public getMeasurementPacketFeed() {
     this.sensorPackageDevice
       .connect()
       .then((device) => {
