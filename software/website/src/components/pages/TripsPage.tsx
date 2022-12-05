@@ -4,8 +4,19 @@ import {
   useJsApiLoader,
   CircleF,
   MarkerF,
+  PolylineF,
 } from "@react-google-maps/api";
 import { routeMeasurementDataPoints } from "mock/mockTrip";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 const red = "#FF0000";
 const yellow = "#f5d742";
@@ -38,6 +49,12 @@ const circleOptions = {
   zIndex: 1,
 };
 
+const data = [];
+
+routeMeasurementDataPoints.forEach((dp) => {
+  data.push({ name: dp.time, temperature: dp.temperature });
+});
+
 function TripsPage() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -47,50 +64,109 @@ function TripsPage() {
 
   return (
     isLoaded && (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={{
-          lat: routeMeasurementDataPoints[0].coordinates[1],
-          lng: routeMeasurementDataPoints[0].coordinates[0],
-        }}
-        zoom={17}
-      >
-        <MarkerF
-          label="S"
-          position={{
+      <div>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={{
             lat: routeMeasurementDataPoints[0].coordinates[1],
             lng: routeMeasurementDataPoints[0].coordinates[0],
           }}
-        />
-        <MarkerF
-          label="F"
-          position={{
-            lat: routeMeasurementDataPoints[
-              routeMeasurementDataPoints.length - 1
-            ].coordinates[1],
-            lng: routeMeasurementDataPoints[
-              routeMeasurementDataPoints.length - 1
-            ].coordinates[0],
+          zoom={17}
+        >
+          <MarkerF
+            label="S"
+            position={{
+              lat: routeMeasurementDataPoints[0].coordinates[1],
+              lng: routeMeasurementDataPoints[0].coordinates[0],
+            }}
+          />
+          <MarkerF
+            label="F"
+            position={{
+              lat: routeMeasurementDataPoints[
+                routeMeasurementDataPoints.length - 1
+              ].coordinates[1],
+              lng: routeMeasurementDataPoints[
+                routeMeasurementDataPoints.length - 1
+              ].coordinates[0],
+            }}
+          />
+          {routeMeasurementDataPoints.map((dp, i) => {
+            if (i !== 0 && i !== routeMeasurementDataPoints.length - 1) {
+              return (
+                <CircleF
+                  center={{
+                    lat: dp.coordinates[1],
+                    lng: dp.coordinates[0],
+                  }}
+                  options={{
+                    strokeColor: getColor(dp.temperature),
+                    fillColor: getColor(dp.temperature),
+                    ...circleOptions,
+                  }}
+                />
+              );
+            }
+          })}
+        </GoogleMap>
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={{
+            lat: routeMeasurementDataPoints[0].coordinates[1],
+            lng: routeMeasurementDataPoints[0].coordinates[0],
           }}
-        />
-        {routeMeasurementDataPoints.map((dp, i) => {
-          if (i !== 0 && i !== routeMeasurementDataPoints.length - 1) {
-            return (
-              <CircleF
-                center={{
-                  lat: dp.coordinates[1],
-                  lng: dp.coordinates[0],
-                }}
-                options={{
-                  strokeColor: getColor(dp.temperature),
-                  fillColor: getColor(dp.temperature),
-                  ...circleOptions,
-                }}
-              />
-            );
-          }
-        })}
-      </GoogleMap>
+          zoom={17}
+        >
+          <MarkerF
+            label="S"
+            position={{
+              lat: routeMeasurementDataPoints[0].coordinates[1],
+              lng: routeMeasurementDataPoints[0].coordinates[0],
+            }}
+          />
+          <MarkerF
+            label="F"
+            position={{
+              lat: routeMeasurementDataPoints[
+                routeMeasurementDataPoints.length - 1
+              ].coordinates[1],
+              lng: routeMeasurementDataPoints[
+                routeMeasurementDataPoints.length - 1
+              ].coordinates[0],
+            }}
+          />
+          {routeMeasurementDataPoints.map((dp, i) => {
+            if (i !== routeMeasurementDataPoints.length - 1) {
+              return (
+                <PolylineF
+                  path={[
+                    {
+                      lat: dp.coordinates[1],
+                      lng: dp.coordinates[0],
+                    },
+                    {
+                      lat: routeMeasurementDataPoints[i + 1].coordinates[1],
+                      lng: routeMeasurementDataPoints[i + 1].coordinates[0],
+                    },
+                  ]}
+                  options={{
+                    geodesic: true,
+                    strokeColor: getColor(dp.temperature),
+                    strokeWeight: 8,
+                    strokeOpacity: 0.6,
+                  }}
+                />
+              );
+            }
+          })}
+        </GoogleMap>
+        <LineChart width={500} height={300} data={data}>
+          <XAxis dataKey="name" />
+          <YAxis />
+          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+          <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
+        </LineChart>
+      </div>
     )
   );
 }
