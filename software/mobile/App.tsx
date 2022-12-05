@@ -12,6 +12,10 @@
 
 // import { BleError, BleManager, Device } from "react-native-ble-plx";
 // import { useEffect, useState } from "react";
+//import { LogBox } from "react-native";
+
+//LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
+//LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 // export default function App() {
 //   let [fontsLoaded] = useFonts({
