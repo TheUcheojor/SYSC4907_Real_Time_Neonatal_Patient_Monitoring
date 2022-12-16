@@ -214,7 +214,7 @@ for(let i = 0; i < coordinates.length; i++) {
         noise: i,
         vibration: i,
         temperature: (21 + Math.random() * 8),
-        annotation: "red herring",
+        annotation: Math.floor(Math.random() * 9) === 0 ? "red herring" : "",
         coordinates: coordinates[i]
     }
     routeMeasurementDataPoints.push(dp)

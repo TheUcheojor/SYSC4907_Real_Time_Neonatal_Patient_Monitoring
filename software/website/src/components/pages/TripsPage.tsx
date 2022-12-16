@@ -1,26 +1,31 @@
 import React from "react";
 import {
   GoogleMap,
+  useGoogleMap,
   useJsApiLoader,
-  CircleF,
   MarkerF,
   PolylineF,
 } from "@react-google-maps/api";
 import { routeMeasurementDataPoints } from "mock/mockTrip";
 import {
-  LineChart,
-  Line,
+  ComposedChart,
   XAxis,
   YAxis,
   CartesianGrid,
+  Area,
+  Scatter,
   Tooltip,
-  Legend,
-  ResponsiveContainer,
+  Dot,
 } from "recharts";
 
 const red = "#FF0000";
 const yellow = "#f5d742";
 const green = "#00FF00";
+
+const containerStyle = {
+  width: "400px",
+  height: "400px",
+};
 
 function getColor(velocity: number): string {
   if (velocity > 26) {
@@ -32,27 +37,38 @@ function getColor(velocity: number): string {
   }
 }
 
-const containerStyle = {
-  width: "400px",
-  height: "400px",
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div>
+        <p>{`reading : ${payload[0].payload.temperature}`}</p>
+        {payload[0].payload.annotation !== "" ? (
+          <p>{`annotation : ${payload[0].payload.annotation}`}</p>
+        ) : (
+          ""
+        )}
+      </div>
+    );
+  }
+
+  return null;
 };
 
-const circleOptions = {
-  strokeOpacity: 0.9,
-  strokeWeight: 2,
-  fillOpacity: 0.8,
-  clickable: false,
-  draggable: false,
-  editable: false,
-  visible: true,
-  radius: 3,
-  zIndex: 1,
+const RenderDot = ({ cx, cy }: any) => {
+  return <Dot cx={cx} cy={cy} fill={yellow} r={3} />;
 };
 
 const data = [];
 
 routeMeasurementDataPoints.forEach((dp) => {
-  data.push({ name: dp.time, temperature: dp.temperature });
+  data.push({
+    name: dp.time,
+    temperature: dp.temperature,
+    annotationPos: dp.annotation !== "" ? dp.temperature : undefined,
+    annotation: dp.annotation,
+    lon: dp.coordinates[0],
+    lat: dp.coordinates[1],
+  });
 });
 
 function TripsPage() {
@@ -62,59 +78,88 @@ function TripsPage() {
     libraries: ["geometry", "drawing"],
   });
 
+  let map;
+  const onLoad = React.useCallback(function onLoad(mapInstance) {
+    map = mapInstance;
+  }, []);
+  const chartClickHandler = (data: any, i: number) => {
+    console.log(data, i);
+    map.panTo();
+  };
+
   return (
-    isLoaded && (
-      <div>
-        <GoogleMap
-          mapContainerStyle={containerStyle}
-          center={{
-            lat: routeMeasurementDataPoints[0].coordinates[1],
-            lng: routeMeasurementDataPoints[0].coordinates[0],
-          }}
-          zoom={17}
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <span
+        style={{ marginBottom: "10px", textAlign: "center", fontWeight: 700 }}
+      >
+        Temperature
+      </span>
+      <div
+        style={{
+          marginLeft: "10px",
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "#000",
+          borderRadius: "6px",
+        }}
+      >
+        <ComposedChart
+          width={400}
+          height={200}
+          data={data}
+          margin={{ right: 20, top: 20 }}
+          onClick={chartClickHandler}
         >
-          <MarkerF
-            label="S"
-            position={{
-              lat: routeMeasurementDataPoints[0].coordinates[1],
-              lng: routeMeasurementDataPoints[0].coordinates[0],
-            }}
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="30%" stopColor="#0E9CFF" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#0E9CFF" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <title>Temperature</title>
+          <XAxis
+            dataKey="name"
+            tick={{ fill: "white" }}
+            tickLine={{ stroke: "white" }}
           />
-          <MarkerF
-            label="F"
-            position={{
-              lat: routeMeasurementDataPoints[
-                routeMeasurementDataPoints.length - 1
-              ].coordinates[1],
-              lng: routeMeasurementDataPoints[
-                routeMeasurementDataPoints.length - 1
-              ].coordinates[0],
-            }}
+          <YAxis
+            unit="C"
+            tick={{ fill: "white" }}
+            tickLine={{ stroke: "white" }}
           />
-          {routeMeasurementDataPoints.map((dp, i) => {
-            if (i !== 0 && i !== routeMeasurementDataPoints.length - 1) {
-              return (
-                <CircleF
-                  center={{
-                    lat: dp.coordinates[1],
-                    lng: dp.coordinates[0],
-                  }}
-                  options={{
-                    strokeColor: getColor(dp.temperature),
-                    fillColor: getColor(dp.temperature),
-                    ...circleOptions,
-                  }}
-                />
-              );
-            }
-          })}
-        </GoogleMap>
+          <CartesianGrid stroke="#fff" strokeDasharray="1 4" />
+          <Area
+            type="monotone"
+            dataKey="temperature"
+            fill="url(#colorUv)"
+            stroke="url(#colorUv)"
+            fillOpacity={0.7}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Scatter
+            dataKey="annotationPos"
+            fill="#f5d742"
+            shape={<RenderDot />}
+          ></Scatter>
+        </ComposedChart>
+      </div>
+      isLoaded && (
+      <div style={{ marginLeft: "10px", marginTop: "10px" }}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={{
             lat: routeMeasurementDataPoints[0].coordinates[1],
             lng: routeMeasurementDataPoints[0].coordinates[0],
           }}
+          onLoad={onLoad}
           zoom={17}
         >
           <MarkerF
@@ -160,14 +205,9 @@ function TripsPage() {
             }
           })}
         </GoogleMap>
-        <LineChart width={500} height={300} data={data}>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-          <Line type="monotone" dataKey="temperature" stroke="#8884d8" />
-        </LineChart>
       </div>
-    )
+      );
+    </div>
   );
 }
 
