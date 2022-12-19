@@ -17,6 +17,19 @@ const RenderDot = ({ cx, cy }: any) => {
   return <Dot cx={cx} cy={cy} fill={ColorEnum.Yellow} r={3} />;
 };
 
+function getChartColor(measurand: DatapointFieldEnum): ColorEnum {
+  switch (measurand) {
+    case DatapointFieldEnum.velocity:
+      return ColorEnum.Purple;
+    case DatapointFieldEnum.temperature:
+      return ColorEnum.Zomp;
+    case DatapointFieldEnum.vibration:
+      return ColorEnum.Blue;
+    case DatapointFieldEnum.noise:
+      return ColorEnum.Ice;
+  }
+}
+
 interface ChartProps {
   data: RouteMeasurementDataPoint[];
   measurand: DatapointFieldEnum;
@@ -67,12 +80,6 @@ function Chart({ data, measurand, chartClickHandler }: ChartProps) {
         margin={{ right: 20, top: 20 }}
         onClick={chartClickHandler}
       >
-        <defs>
-          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="30%" stopColor="#0E9CFF" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#0E9CFF" stopOpacity={0} />
-          </linearGradient>
-        </defs>
         <title>{measurand}</title>
         <XAxis
           dataKey={DatapointFieldEnum.time}
@@ -84,16 +91,12 @@ function Chart({ data, measurand, chartClickHandler }: ChartProps) {
         <Area
           type="monotone"
           dataKey={measurand}
-          fill="url(#colorUv)"
-          stroke="url(#colorUv)"
-          fillOpacity={0.7}
+          fill={getChartColor(measurand)}
+          stroke={getChartColor(measurand)}
+          fillOpacity={0.2}
         />
         <Tooltip content={<CustomTooltip />} />
-        <Scatter
-          dataKey="annotationPos"
-          fill="#f5d742"
-          shape={<RenderDot />}
-        ></Scatter>
+        <Scatter dataKey="annotationPos" shape={<RenderDot />}></Scatter>
       </ComposedChart>
     </div>
   );
