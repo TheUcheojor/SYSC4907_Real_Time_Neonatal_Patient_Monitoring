@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginPage from "components/pages/LoginPage";
 import OrganizationsPage from "components/pages/OrganizationsPage";
-import TripsPage from "components/pages/TripsPage";
+import TripsPage from "components/pages/Trips/TripsPage";
 import MyAccountPage from "components/pages/MyAccountPage";
 import NavHeader from "components/NavHeader";
 import { PageEnum } from "constants/PageEnum";

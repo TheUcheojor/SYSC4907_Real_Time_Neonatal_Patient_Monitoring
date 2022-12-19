@@ -1,35 +1,6 @@
-interface RouteMeasurementDataPoint {
-    routeDataPointId: string,
-    segmentId: string,
-    time: number,
-    velocity: number,
-    noise: number,
-    vibration: number,
-    temperature: number,
-    annotation: string,
-    coordinates: Array<number>
-}
-
-interface RouteSegment {
-    segmentId: string,
-    routeId: string,
-    segmentType: string,
-    startTime: number,
-    endTime: number,
-    startLocation: string,
-    endLocation: string
-}
-
-interface Route {
-    routeId: string,
-    ownerId: string,
-    organizationId: string,
-    totalVibrationExposure: number,
-    avgTemperature: number,
-    avgNoise: number,
-    avgVibration: number,
-    avgVelocity: number,
-}
+import RouteMeasurementDataPoint from "./RouteMeasurementDataPoint"
+import RouteSegment from "./RouteSegment"
+import Route from "./Route"
 
 const coordinates = 
 [
@@ -211,9 +182,9 @@ for(let i = 0; i < coordinates.length; i++) {
         segmentId: "1",
         time: Date.now(),
         velocity: ((i % (coordinates.length / 3)) * 3),
-        noise: i,
+        noise: i % 2 + 60,
         vibration: i,
-        temperature: (21 + Math.random() * 8),
+        temperature: 21 + Math.floor(Math.random() * 8),
         annotation: Math.floor(Math.random() * 9) === 0 ? "red herring" : "",
         coordinates: coordinates[i]
     }

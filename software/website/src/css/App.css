@@ -59,6 +59,7 @@ input:focus{
 }
 
 ::-webkit-scrollbar {
+  height: 10px;
   width: 10px;
   border-radius: 2px;
 }
