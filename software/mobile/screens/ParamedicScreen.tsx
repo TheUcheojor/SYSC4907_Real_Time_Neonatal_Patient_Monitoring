@@ -11,7 +11,7 @@ export default ({
 }: NativeStackScreenProps<MainStackParamList, "Paramedic">): JSX.Element => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <MetricLiveView></MetricLiveView>
+      <MetricLiveView />
     </View>
   );
 };
