@@ -1,6 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, Text } from "react-native";
-import Gauge from "../components/Gauge";
+import Gauge from "../components/Gauge/Gauge";
+
 import { MainStackParamList } from "../types";
 
 /**
