@@ -1,10 +1,14 @@
 /**
- * This class acts are the sensor package in which user can connect to.
+ * Author: Paul Okenne
+ * File: Sensor Package
+ * Purpose: This class acts as the sensor package in which user can connect to.
  */
 
 import { BleError, BleManager, Device } from "react-native-ble-plx";
 import base64 from "react-native-base64";
 import { PermissionsAndroid } from "react-native";
+import MeasurementPacket from "./models/MeasurementPacket";
+import { convertUnixTimestampToUTCTime } from "./util";
 
 export default class SensorPackage {
   /**
@@ -17,26 +21,46 @@ export default class SensorPackage {
    * The amount of time to spend scanning for devices
    */
   private static readonly DEVICE_SCAN_TIMEOUT = 5000;
-  /**
-   * The service UUID
-   */
-  private static SERVICE_UUID: string = "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
 
   /**
-   * The characteristic UUID
+   * The measurement packet service UUID
    */
-  private static CHARACTERISTIC_UUID: string =
+  private static MEASUREMENT_PACKET_SERVICE_UUID: string =
+    "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+
+  /**
+   * The measurement packet characteristic UUID
+   */
+  private static MEASUREMENT_PACKET_CHARACTERISTIC_UUID: string =
     "beb5483e-36e1-4688-b7f5-ea07361b26a8";
+
+  /**
+   * The sensor package communication service UUID
+   */
+  private static SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID: string =
+    "4fafc201-1fb5-459e-8fcc-c5c9c331914b";
+
+  /**
+   * The mobile application request characteristic UUID
+   */
+  private static APP_REQUEST_CHARACTERISTIC_UUID: string =
+    "5cbb9b6c-744a-11ed-a1eb-0242ac120002";
+
+  /**
+   * The sensor package request characteristic UUID
+   */
+  private static SENSOR_PACKAGE_REQUEST_CHARACTERISTIC_UUID: string =
+    "d91a253e-744a-11ed-a1eb-0242ac120002";
 
   /**
    * The sensor package device
    */
-  private sensorPackageDevice: Device;
+  private sensorPackageDevice: Device | null = null;
 
   /**
    * A flag indicating whether the sensor package device is connected
    */
-  private isSensorPackageDeviceConnected: boolean;
+  private isSensorPackageDeviceConnected: boolean = false;
 
   /**
    * The SensorPackage constructor
@@ -64,8 +88,10 @@ export default class SensorPackage {
       buttonNeutral: "Later",
       buttonNegative: "Cancel",
       buttonPositive: "OK",
-    }).then((answere) => {
-      console.log("x: " + answere);
+    }).then((userResponse) => {
+      console.log(
+        "PERMISSIONS.BLUETOOTH_SCAN -> userResponse: " + userResponse
+      );
     });
 
     PermissionsAndroid.request(
@@ -77,8 +103,10 @@ export default class SensorPackage {
         buttonNegative: "Cancel",
         buttonPositive: "OK",
       }
-    ).then((answere) => {
-      console.log("y: " + answere);
+    ).then((userResponse) => {
+      console.log(
+        "PERMISSIONS.BLUETOOTH_CONNECT -> userResponse: " + userResponse
+      );
     });
   }
 
@@ -121,20 +149,62 @@ export default class SensorPackage {
   public async connectDevice(device: Device) {
     console.log("connecting to Device:", device.name);
 
-    device.connect().then((device) => {
-      console.log("connected to " + device.name + "!");
+    device
+      .connect()
+      .then((device) => {
+        console.log("connected to " + device.name + "!");
+        return device.discoverAllServicesAndCharacteristics();
+      })
+      .then((device) => {
+        this.setSensorPackageDevice(device);
+        this.isSensorPackageDeviceConnected = true;
 
-      this.setSensorPackageDevice(device);
-      this.isSensorPackageDeviceConnected = true;
-
-      return device.discoverAllServicesAndCharacteristics();
-    });
+        //Set the disconnection behaviour
+        SensorPackage.BLE_MANAGER.onDeviceDisconnected(
+          device.id,
+          (error, device) => {
+            console.log("Device " + device?.name + "has been disconnected");
+            this.isSensorPackageDeviceConnected = false;
+            this.sensorPackageDevice = null;
+          }
+        );
+      });
   }
 
   /**
    *
    */
-  public getMeasurementPacketFeed() {
+  public async getMeasurementPacketFeed(
+    measurementFeed: Array<MeasurementPacket>
+  ) {
+    if (
+      this.sensorPackageDevice == null ||
+      !this.isSensorPackageDeviceConnected
+    )
+      return;
+
+    // Watch the measurement packet characteristic and update the measurement-feed collection accordingly
+    // The characteristic is expected to be notifable to enable monitoring.
+    this.sensorPackageDevice.monitorCharacteristicForService(
+      SensorPackage.MEASUREMENT_PACKET_SERVICE_UUID,
+      SensorPackage.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
+      (error, characteristic) => {
+        if (error || !characteristic?.value) return;
+
+        let measurementPacket: MeasurementPacket = JSON.parse(
+          characteristic.value
+        );
+
+        //Covert the unix time stamp
+        measurementPacket.time = convertUnixTimestampToUTCTime(
+          measurementPacket.time as number
+        );
+        measurementFeed.push(measurementPacket);
+
+        console.log("Received new measurementpacket: ", measurementPacket);
+      }
+    );
+
     this.sensorPackageDevice
       .connect()
       .then((device) => {
@@ -146,45 +216,34 @@ export default class SensorPackage {
         return device.discoverAllServicesAndCharacteristics();
       })
       .then((device) => {
-        //  Set what to do when DC is detected
-        SensorPackage.BLE_MANAGER.onDeviceDisconnected(
-          device.id,
-          (error, device) => {
-            console.log("Device " + device?.name + "has been disconnected");
-            this.isSensorPackageDeviceConnected = false;
+        //Update the measurement feed
+        device.monitorCharacteristicForService(
+          SensorPackage.MEASUREMENT_PACKET_SERVICE_UUID,
+          SensorPackage.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
+          (error, characteristic) => {
+            if (error || !characteristic?.value) return;
+
+            let measurementPacket = JSON.parse(characteristic.value);
+            measurementFeed.push(measurementPacket);
+
+            console.log("Received new measurementpacket: ", measurementPacket);
           }
         );
 
-        //Read inital values
-        // console.log("device.serviceUUIDs: ", device.serviceUUIDs);
-
-        console.log("\n: Reading from sensor package");
-
-        SensorPackage.BLE_MANAGER.readCharacteristicForDevice(
-          device?.id,
-          SensorPackage.SERVICE_UUID,
-          SensorPackage.CHARACTERISTIC_UUID
-        )
-          .then((characteristic) => {
-            console.log(
-              "READ Value: Boxvalue changed to :",
-              base64.decode(characteristic.value as string)
-            );
-          })
-          .then(() => {
-            console.log("WRITE: Sending 'Hello shyam!!!!!'");
-            BLTManager.writeCharacteristicWithResponseForDevice(
-              device?.id,
-              SERVICE_UUID,
-              BOX_UUID,
-              base64.encode("Hello shyam!!!!!")
-            ).then((characteristic) => {
-              console.log(
-                "AFTER WRITE: Boxvalue changed to :",
-                base64.decode(characteristic.value as string)
-              );
-            });
-          });
+        // .then(() => {
+        //   console.log("WRITE: Sending 'Hello shyam!!!!!'");
+        //   SensorPackage.BLE_MANAGER.writeCharacteristicWithResponseForDevice(
+        //     device?.id,
+        //     SERVICE_UUID,
+        //     BOX_UUID,
+        //     base64.encode("Hello shyam!!!!!")
+        //   ).then((characteristic) => {
+        //     console.log(
+        //       "AFTER WRITE: Boxvalue changed to :",
+        //       base64.decode(characteristic.value as string)
+        //     );
+        //   });
+        // });
 
         //Message
         // device
@@ -238,5 +297,20 @@ export default class SensorPackage {
 
         console.log("Connection established");
       });
+  }
+
+  public sendRequest() {
+    if (
+      this.sensorPackageDevice == null ||
+      !this.isSensorPackageDeviceConnected
+    )
+      return;
+
+    //Send the given request
+    this.sensorPackageDevice.writeCharacteristicWithResponseForService(
+      SensorPackage.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
+      SensorPackage.APP_REQUEST_CHARACTERISTIC_UUID,
+      "" //The base64 encode message
+    );
   }
 }
