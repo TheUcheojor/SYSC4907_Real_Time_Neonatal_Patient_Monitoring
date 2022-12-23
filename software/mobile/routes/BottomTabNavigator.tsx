@@ -9,6 +9,8 @@ import ParamedicScreen from "../screens/ParamedicScreen";
 import DriverScreen from "../screens/DriverScreen";
 
 import MenuItemContainer from "../components/MenuItemContainer";
+import MainHeader from "../components/MainHeader";
+import { RouteProp } from "@react-navigation/native";
 
 const BottomTab = createBottomTabNavigator<MainStackParamList>();
 
@@ -19,11 +21,13 @@ const BottomTab = createBottomTabNavigator<MainStackParamList>();
 export default () => (
   <BottomTab.Navigator
     initialRouteName="Paramedic"
-    screenOptions={{
-      headerShown: false,
+    screenOptions={({ navigation }: { navigation: any }) => ({
+      headerTitle: () => <MainHeader navigation={navigation} />,
+      // header: (navigation ) => <MainHeader {...navigation}} />,
+      headerShown: true,
       tabBarShowLabel: false,
       tabBarStyle: styles.menuContainer,
-    }}
+    })}
   >
     <BottomTab.Screen
       name="Driver"

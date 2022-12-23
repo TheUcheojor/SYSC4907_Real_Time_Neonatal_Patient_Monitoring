@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, Text, Pressable } from "react-native";
-import LargeAppIcon from "../components/LargeAppIcon";
+import AppIcon from "../components/AppIcon";
 import { RootStackParamList } from "../types";
 import { StyleSheet } from "react-native";
 import React, { useState } from "react";
@@ -27,7 +27,7 @@ export default ({
 
   return (
     <View style={styles.container}>
-      <LargeAppIcon />
+      <AppIcon size={undefined} />
 
       <Text style={styles.title}>{APP_NAME}</Text>
 
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     padding: 16,
+    backgroundColor: "white",
   },
 
   title: {

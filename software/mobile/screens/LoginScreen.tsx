@@ -14,7 +14,7 @@ import {
   PASSWORD_TITLE,
   LOGIN_BUTTON_TEXT,
 } from "../constants/ViewConstants";
-import LargeAppIcon from "../components/LargeAppIcon";
+import AppIcon from "../components/AppIcon";
 
 /**
  * The login screen layout
@@ -40,7 +40,7 @@ export default ({
 
   return (
     <View style={styles.container}>
-      <LargeAppIcon />
+      <AppIcon size={undefined} />
       <Text style={styles.title}>{APP_NAME}</Text>
 
       <TextInputContainer title={EMAIL_TITLE} placeholder={EMAIL_PLACEHOLDER} />
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
     padding: 16,
+    backgroundColor: "white",
   },
 
   title: {

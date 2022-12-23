@@ -9,7 +9,14 @@ export default ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, "Signup">): JSX.Element => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "white",
+      }}
+    >
       <Text> This is the signup screen</Text>
     </View>
   );
