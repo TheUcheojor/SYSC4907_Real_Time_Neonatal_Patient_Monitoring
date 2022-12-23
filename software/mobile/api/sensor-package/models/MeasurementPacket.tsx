@@ -8,32 +8,32 @@ export default interface MeasurementPacket {
   /**
    * The noise in Decibels
    */
-  noise: number;
+  readonly noise: number;
 
   /**
    * The temperature in Celsius
    */
-  temperature: number;
+  readonly temperature: number;
 
   /**
    * The vibration level in Hertz
    */
-  vibration: number;
+  readonly vibration: number;
 
   /**
    * The air pressure in Pascals
    */
-  airPressure: number;
+  readonly airPressure: number;
 
   /**
    * The velocity in meters per seconds
    */
-  velocity: number;
+  readonly velocity: number;
 
   /**
    * The battern percentage
    */
-  battery: number;
+  readonly battery: number;
 
   /**
    * The time stamp formatted in the UTC Format:  YYYY-DD-MM T HH:MM:SSZ.
@@ -44,5 +44,5 @@ export default interface MeasurementPacket {
   /**
    * The location, a latitude-longitude pair in degrees.
    */
-  location: { longitude: number; latitude: number };
+  readonly location: { readonly longitude: number; readonly latitude: number };
 }

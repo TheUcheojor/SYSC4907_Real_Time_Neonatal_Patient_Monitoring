@@ -7,33 +7,45 @@
 
 import { RequestType } from "./RequestType";
 
-export interface BaseRequest {
+export interface BaseRequestInterface {
   /**
    * The request type
    */
-  requestType: RequestType;
+  readonly requestType: RequestType;
 
-  //   /**
-  //    * The BaseRequest constructor
-  //    * @param requestType the request type
-  //    */
-  //   constructor(requestType: RequestType) {
-  //     this.requestType = requestType;
-  //   }
+  /**
+   * The time at which the request was sent
+   */
+  readonly timestamp: number;
+}
 
-  //   /**
-  //    * Returns the request type
-  //    * @returns the request type
-  //    */
-  //   public getRequestType(): RequestType {
-  //     return this.requestType;
-  //   }
+export class BaseRequest implements BaseRequestInterface {
+  /**
+   * The request type
+   */
+  public readonly requestType: RequestType;
 
-  //   /**
-  //    * Sets the requestType
-  //    * @param requestType the requestType
-  //    */
-  //   public setRequestType(requestType: RequestType) {
-  //     this.requestType = requestType;
-  //   }
+  /**
+   * The time stamp
+   */
+  public readonly timestamp: number;
+
+  /**
+   * The BaseRequest constructor
+   * @param requestType the request type
+   */
+  constructor(requestType: RequestType) {
+    this.requestType = requestType;
+    this.timestamp = Date.now();
+  }
+
+  /**
+   * Generate a request object
+   * @returns a request object
+   */
+  public generateObject(): {} {
+    return {
+      requestType: this.requestType,
+    };
+  }
 }

@@ -4,11 +4,21 @@
  * Purpose: This class acts as the sensor package in which user can connect to.
  */
 
-import { BleError, BleManager, Device } from "react-native-ble-plx";
+import {
+  BleError,
+  BleManager,
+  Characteristic,
+  Device,
+} from "react-native-ble-plx";
 import base64 from "react-native-base64";
 import { PermissionsAndroid } from "react-native";
 import MeasurementPacket from "./models/MeasurementPacket";
 import { convertUnixTimestampToUTCTime } from "./util";
+import {
+  BaseRequest,
+  BaseRequestInterface,
+} from "./models/requests/BaseRequest";
+import { BaseResponse } from "./models/requests/BaseResponse";
 
 export default class SensorPackage {
   /**
@@ -172,7 +182,8 @@ export default class SensorPackage {
   }
 
   /**
-   *
+   * Update the given measurement-feed with the latest packets
+   * @param measurementFeed the measurement-feed
    */
   public async getMeasurementPacketFeed(
     measurementFeed: Array<MeasurementPacket>
@@ -204,113 +215,71 @@ export default class SensorPackage {
         console.log("Received new measurementpacket: ", measurementPacket);
       }
     );
+  }
 
-    this.sensorPackageDevice
-      .connect()
-      .then((device) => {
-        console.log("connected to " + device.name + "!");
+  /**
+   * Sends the given request
+   * @param request
+   */
+  public sendRequest(request: BaseRequest): Promise<BaseResponse> {
+    if (
+      this.sensorPackageDevice == null ||
+      !this.isSensorPackageDeviceConnected
+    )
+      return new Promise(() => null);
 
-        this.setSensorPackageDevice(device);
-        this.isSensorPackageDeviceConnected = true;
+    //Send the given request
+    return this.sensorPackageDevice
+      .writeCharacteristicWithResponseForService(
+        SensorPackage.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
+        SensorPackage.APP_REQUEST_CHARACTERISTIC_UUID,
+        base64.encode(JSON.stringify(request.generateObject())) //The base64 encode message
+      )
+      .then((characteristic: Characteristic | null) => {
+        //Check that the operation has been successful
+        if (!characteristic || !characteristic.value) {
+          return {
+            operationSuccess: false,
+            message: "Null Characteristic! ",
+          } as BaseResponse;
+        }
 
-        return device.discoverAllServicesAndCharacteristics();
-      })
-      .then((device) => {
-        //Update the measurement feed
-        device.monitorCharacteristicForService(
-          SensorPackage.MEASUREMENT_PACKET_SERVICE_UUID,
-          SensorPackage.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
-          (error, characteristic) => {
-            if (error || !characteristic?.value) return;
+        let response: BaseResponse = JSON.parse(characteristic.value);
 
-            let measurementPacket = JSON.parse(characteristic.value);
-            measurementFeed.push(measurementPacket);
-
-            console.log("Received new measurementpacket: ", measurementPacket);
-          }
-        );
-
-        // .then(() => {
-        //   console.log("WRITE: Sending 'Hello shyam!!!!!'");
-        //   SensorPackage.BLE_MANAGER.writeCharacteristicWithResponseForDevice(
-        //     device?.id,
-        //     SERVICE_UUID,
-        //     BOX_UUID,
-        //     base64.encode("Hello shyam!!!!!")
-        //   ).then((characteristic) => {
-        //     console.log(
-        //       "AFTER WRITE: Boxvalue changed to :",
-        //       base64.decode(characteristic.value as string)
-        //     );
-        //   });
-        // });
-
-        //Message
-        // device
-        //   .readCharacteristicForService(SERVICE_UUID, MESSAGE_UUID)
-        //   .then((valenc) => {
-        //     // setMessage(base64.decode(valenc?.value));
-        //     setMessage(valenc?.value as string);
-        //     console.log("Message: ", valenc?.value as string);
-        //   });
-
-        // //BoxValue
-        // device
-        //   .readCharacteristicForService(SERVICE_UUID, BOX_UUID)
-        //   .then((valenc) => {
-        //     setBoxValue(StringToBool(base64.decode(valenc?.value)));
-        //   });
-
-        //monitor values and tell what to do when receiving an update
-
-        //Message
-        // device.monitorCharacteristicForService(
-        //   SERVICE_UUID,
-        //   MESSAGE_UUID,
-        //   (error, characteristic) => {
-        //     if (characteristic?.value != null) {
-        //       setMessage(base64.decode(characteristic?.value));
-        //       console.log(
-        //         "Message update received: ",
-        //         base64.decode(characteristic?.value)
-        //       );
-        //     }
-        //   },
-        //   "messagetransaction"
-        // );
-
-        // //BoxValue
-        // device.monitorCharacteristicForService(
-        //   SERVICE_UUID,
-        //   BOX_UUID,
-        //   (error, characteristic) => {
-        //     if (characteristic?.value != null) {
-        //       // setBoxValue(StringToBool(base64.decode(characteristic?.value)));
-        //       console.log(
-        //         "Box Value update received: ",
-        //         characteristic?.value as string
-        //       );
-        //     }
-        //   },
-        //   "boxtransaction"
-        // );
-
-        console.log("Connection established");
+        return response;
       });
   }
 
-  public sendRequest() {
+  /**
+   * Update the given request queue with the latest sensor package requests
+   * @param sensorPackageRequestQueue the request queue
+   */
+  public async receiveRequest(sensorPackageRequestQueue: Array<BaseRequest>) {
     if (
       this.sensorPackageDevice == null ||
       !this.isSensorPackageDeviceConnected
     )
       return;
 
-    //Send the given request
-    this.sensorPackageDevice.writeCharacteristicWithResponseForService(
+    // Watch the measurement packet characteristic and update the sensorPackageRequestQueue accordingly
+    // The characteristic is expected to be notifable to enable monitoring.
+    this.sensorPackageDevice.monitorCharacteristicForService(
       SensorPackage.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
-      SensorPackage.APP_REQUEST_CHARACTERISTIC_UUID,
-      "" //The base64 encode message
+      SensorPackage.SENSOR_PACKAGE_REQUEST_CHARACTERISTIC_UUID,
+      (error, characteristic) => {
+        if (error || !characteristic?.value) return;
+
+        let sensorPackageRequest: BaseRequest = JSON.parse(
+          characteristic.value
+        );
+
+        sensorPackageRequestQueue.push(sensorPackageRequest);
+
+        console.log(
+          "Received new sensorPackageRequest: ",
+          sensorPackageRequest
+        );
+      }
     );
   }
 }

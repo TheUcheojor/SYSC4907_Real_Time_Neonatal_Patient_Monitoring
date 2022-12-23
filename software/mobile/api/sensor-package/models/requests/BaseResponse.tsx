@@ -2,28 +2,17 @@
  * Author: Paul Okenne
  */
 
-import { BaseRequest } from "./BaseRequest";
+import { BaseRequest, BaseRequestInterface } from "./BaseRequest";
 import { RequestType } from "./RequestType";
 
-export interface BaseResponse extends BaseRequest {
+export interface BaseResponse extends BaseRequestInterface {
   /**
    * A flag that indicates whether a request was successfull
    */
-  operationSuccess: boolean;
+  readonly operationSuccess: boolean;
 
-  //   /**
-  //    * The BaseResponse constructor
-  //    * @param requestType
-  //    */
-  //   constructor(requestType: RequestType) {
-  //     super(requestType);
-  //   }
-
-  //   public getOperationSuccess(): boolean {
-  //     return this.operationSuccess;
-  //   }
-
-  //   public setOperationSuccess(operationSuccess: boolean) {
-  //     this.operationSuccess = operationSuccess;
-  //   }
+  /**
+   * Supporting message
+   */
+  readonly message: string | undefined;
 }
