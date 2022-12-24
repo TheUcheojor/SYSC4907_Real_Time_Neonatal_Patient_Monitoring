@@ -9,39 +9,42 @@ import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { APP_WIDTH } from "../constants/ViewConstants";
 import { MainStackParamList } from "../types";
 import AppIcon from "./AppIcon";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default ({
   navigation,
 }: NativeStackScreenProps<MainStackParamList, any> | any) => {
   return (
     <View style={style.headerContainer}>
-      <Pressable onPress={() => navigation.navigate("Driver")}>
-        <View style={style.logoContainer}>
-          <AppIcon size={30} />
-          <Text style={style.appNameText}>TCA</Text>
-        </View>
+      <Pressable
+        style={style.logoContainer}
+        onPress={() => navigation.navigate("Driver")}
+      >
+        <AppIcon size={30} />
+        <Text style={style.appNameText}>TCA</Text>
       </Pressable>
+
+      <View style={style.usernameContainer}>
+        <Text style={style.usernameText}>Username</Text>
+        <FontAwesome name="user-circle-o" size={30} color="black" />
+      </View>
     </View>
   );
 };
 
 const style = StyleSheet.create({
   headerContainer: {
-    // flex: 1,
-    width: APP_WIDTH - 50,
-    height: "100%",
+    width: APP_WIDTH - 25,
     flexDirection: "row",
-    alignContent: "center",
     alignItems: "center",
-    justifyContent: "flex-start",
-    // backgroundColor: "blue",
   },
 
   logoContainer: {
+    flex: 1,
     flexDirection: "row",
     alignContent: "center",
-    justifyContent: "center",
-    // textAlign: "center",
+    justifyContent: "flex-start",
+    textAlign: "center",
   },
 
   appNameText: {
@@ -49,5 +52,19 @@ const style = StyleSheet.create({
     paddingLeft: 10,
     fontFamily: "Montserrat_700Bold",
     fontSize: 20,
+  },
+
+  usernameContainer: {
+    flexDirection: "row-reverse",
+    justifyContent: "flex-start",
+    alignContent: "center",
+    flex: 2,
+  },
+
+  usernameText: {
+    fontFamily: "Montserrat_500Medium",
+    padding: 5,
+
+    fontSize: 15,
   },
 });

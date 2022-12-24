@@ -8,6 +8,7 @@ import {
   Montserrat_600SemiBold,
   Montserrat_700Bold,
   Montserrat_400Regular,
+  Montserrat_500Medium,
 } from "@expo-google-fonts/montserrat";
 
 import { LogBox } from "react-native";
@@ -21,6 +22,7 @@ export default function App() {
     Montserrat_600SemiBold,
     Montserrat_700Bold,
     Montserrat_400Regular,
+    Montserrat_500Medium,
   });
 
   return fontsLoaded ? (

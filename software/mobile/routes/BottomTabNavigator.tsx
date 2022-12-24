@@ -24,6 +24,11 @@ export default () => (
     screenOptions={({ navigation }: { navigation: any }) => ({
       headerTitle: () => <MainHeader navigation={navigation} />,
       // header: (navigation ) => <MainHeader {...navigation}} />,
+      // headerStatusBarHeight: 50,
+      headerStyle: {
+        // borderStartWidth: 1,
+        // bo/r,
+      },
       headerShown: true,
       tabBarShowLabel: false,
       tabBarStyle: styles.menuContainer,
