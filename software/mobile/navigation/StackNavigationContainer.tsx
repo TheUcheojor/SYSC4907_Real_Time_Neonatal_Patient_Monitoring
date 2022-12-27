@@ -5,12 +5,13 @@ import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
 import { RootStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
+import Drawer from "./Drawer";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 /**
  * The root navigation containing all screens within the application
  */
-export const RootNavigation = () => {
+export const StackNavigationContainer = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -18,7 +19,7 @@ export const RootNavigation = () => {
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
 
-        <Stack.Screen name="Main" component={BottomTabNavigator} />
+        <Stack.Screen name="Main" component={Drawer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

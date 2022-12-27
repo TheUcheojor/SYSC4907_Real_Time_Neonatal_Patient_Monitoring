@@ -12,6 +12,9 @@ import MenuItemContainer from "../components/MenuItemContainer";
 import MainHeader from "../components/MainHeader";
 import { RouteProp } from "@react-navigation/native";
 
+import Drawer from "./Drawer";
+import { NavigationContainer } from "@react-navigation/native";
+
 const BottomTab = createBottomTabNavigator<MainStackParamList>();
 
 /**

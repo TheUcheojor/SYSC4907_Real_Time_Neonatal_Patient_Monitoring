@@ -10,10 +10,15 @@ import { APP_WIDTH } from "../constants/ViewConstants";
 import { MainStackParamList } from "../types";
 import AppIcon from "./AppIcon";
 import { FontAwesome } from "@expo/vector-icons";
+import { DrawerActions } from "@react-navigation/native";
 
 export default ({
   navigation,
 }: NativeStackScreenProps<MainStackParamList, any> | any) => {
+  const openDrawer = (): void => {
+    navigation.openDrawer();
+  };
+
   return (
     <View style={style.headerContainer}>
       <Pressable
@@ -24,10 +29,10 @@ export default ({
         <Text style={style.appNameText}>TCA</Text>
       </Pressable>
 
-      <View style={style.usernameContainer}>
+      <Pressable style={style.usernameContainer} onPress={openDrawer}>
         <Text style={style.usernameText}>Username</Text>
         <FontAwesome name="user-circle-o" size={30} color="black" />
-      </View>
+      </Pressable>
     </View>
   );
 };

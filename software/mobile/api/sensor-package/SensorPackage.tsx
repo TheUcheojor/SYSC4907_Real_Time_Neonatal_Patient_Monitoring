@@ -219,7 +219,7 @@ export default class SensorPackage {
 
   /**
    * Sends the given request
-   * @param request
+   * @param request the request
    */
   public sendRequest(request: BaseRequest): Promise<BaseResponse> {
     if (
@@ -245,7 +245,7 @@ export default class SensorPackage {
         }
 
         let response: BaseResponse = JSON.parse(characteristic.value);
-
+        console.log("recevied response: ", response);
         return response;
       });
   }

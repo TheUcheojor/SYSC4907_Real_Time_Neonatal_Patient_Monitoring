@@ -18,4 +18,5 @@ export type MainStackParamList = {
   Paramedic: undefined;
   Settings: undefined;
   Trips: undefined;
+  BottomTab: undefined;
 };

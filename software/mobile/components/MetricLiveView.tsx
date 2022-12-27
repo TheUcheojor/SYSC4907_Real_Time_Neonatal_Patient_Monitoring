@@ -9,7 +9,7 @@ export default function MetricLiveView({}) {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]);
 
-  useEffect(() => {}, [liveData]);
+  // useEffect(() => {}, [liveData]);
 
   return (
     <View style={styles.container}>

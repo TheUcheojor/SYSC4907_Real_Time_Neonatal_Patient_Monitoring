@@ -1,6 +1,9 @@
+// import { GestureHandlerRootView } from "react-native-gesture-handler";
+// import "react-native-gesture-handler";
+
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { RootNavigation } from "./routes";
+import { StackNavigationContainer } from "./navigation/StackNavigationContainer";
 import { View, Text } from "react-native";
 import {
   useFonts,
@@ -12,6 +15,7 @@ import {
 } from "@expo-google-fonts/montserrat";
 
 import { LogBox } from "react-native";
+import React from "react";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -26,11 +30,16 @@ export default function App() {
   });
 
   return fontsLoaded ? (
+    // <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
-      <RootNavigation />
+      <StackNavigationContainer />
+
       <StatusBar />
     </SafeAreaProvider>
   ) : (
+    // </GestureHandlerRootView>
+    // <GestureHandlerRootView>
     <View></View>
+    // </GestureHandlerRootView>
   );
 }
