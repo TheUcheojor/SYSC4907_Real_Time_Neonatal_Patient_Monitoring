@@ -122,11 +122,15 @@ const styles = StyleSheet.create({
   iconContainer: {
     position: "absolute",
     top: -20,
-    left: 35,
-    width: 50,
-    height: 50,
+    left: 0,
+    width: 70,
+    height: 70,
     backgroundColor: "black",
-    borderRadius: 50 / 2,
+    borderRadius: 70 / 2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    padding: 5,
   },
 
   icon: {
