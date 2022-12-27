@@ -20,3 +20,11 @@ export type MainStackParamList = {
   Trips: undefined;
   BottomTab: undefined;
 };
+
+/**
+ * The params in the trip stack
+ */
+export type TripsStackParamList = {
+  ActiveTrip: undefined;
+  TripQuery: undefined;
+};

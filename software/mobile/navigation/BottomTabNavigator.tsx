@@ -14,6 +14,7 @@ import { RouteProp } from "@react-navigation/native";
 
 import Drawer from "./Drawer";
 import { NavigationContainer } from "@react-navigation/native";
+import TripsTopTabNavigator from "./TripsTopTabNavigator";
 
 const BottomTab = createBottomTabNavigator<MainStackParamList>();
 
@@ -58,7 +59,7 @@ export default () => (
 
     <BottomTab.Screen
       name="Trips"
-      component={TripsScreen}
+      component={TripsTopTabNavigator}
       options={{
         tabBarIcon: ({ focused }) => (
           <MenuItemContainer screenName="Trips" focused={focused} />
