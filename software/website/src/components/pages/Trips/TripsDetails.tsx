@@ -1,8 +1,9 @@
-import React from "react";
-import { routeMeasurementDataPoints } from "mock/mockTrip";
+import React, { useState } from "react";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import Chart from "components/Chart";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
+import Modal from "components/modal/Modal";
+import MapWithChart from "components/MapWithChart";
 
 const chartLabelStyles = {
   color: "black",
@@ -14,18 +15,51 @@ interface TripsDetailsProps {
 }
 
 function TripsDetails({ data }: TripsDetailsProps) {
-  console.log(routeMeasurementDataPoints);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activeMeasurand, setActiveMeasurand] = useState("");
+
+  function closeModal() {
+    setModalOpen(false);
+  }
+
+  function chartClickHandler(e: any) {
+    setActiveMeasurand(e.activePayload[0].dataKey);
+    setModalOpen(true);
+  }
+
   return (
     <div style={{ marginLeft: "10px" }}>
       <p style={chartLabelStyles}>Date</p>
       <p style={chartLabelStyles}>Vibration</p>
-      <Chart data={data} measurand={DatapointFieldEnum.vibration} />
+      <Chart
+        data={data}
+        measurand={DatapointFieldEnum.vibration}
+        onClick={chartClickHandler}
+      />
       <p style={chartLabelStyles}>Noise</p>
-      <Chart data={data} measurand={DatapointFieldEnum.noise} />
+      <Chart
+        data={data}
+        measurand={DatapointFieldEnum.noise}
+        onClick={chartClickHandler}
+      />
       <p style={chartLabelStyles}>Temperature</p>
-      <Chart data={data} measurand={DatapointFieldEnum.temperature} />
+      <Chart
+        data={data}
+        measurand={DatapointFieldEnum.temperature}
+        onClick={chartClickHandler}
+      />
       <p style={chartLabelStyles}>Velocity</p>
-      <Chart data={data} measurand={DatapointFieldEnum.velocity} />
+      <Chart
+        data={data}
+        measurand={DatapointFieldEnum.velocity}
+        onClick={chartClickHandler}
+      />
+      <Modal title="Compare" modalOpen={modalOpen} closeModal={closeModal}>
+        <MapWithChart
+          measurand={DatapointFieldEnum[activeMeasurand]}
+          data={data}
+        />
+      </Modal>
     </div>
   );
 }

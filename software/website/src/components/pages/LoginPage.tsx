@@ -45,7 +45,13 @@ function LoginPage({ setToken }: LoginPageProps) {
   return (
     <div style={loginDivStyles}>
       <BabyIcon fill="black" styles={babyIconStyles} />
-      <div style={{ display: "flex", flexDirection:'column', alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <h1>Transport Comfort Analysis</h1>
         <div style={{ width: "300px" }}>
           <input type="text" placeholder="Email" />

@@ -33,10 +33,10 @@ function getChartColor(measurand: DatapointFieldEnum): ColorEnum {
 interface ChartProps {
   data: RouteMeasurementDataPoint[];
   measurand: DatapointFieldEnum;
-  chartClickHandler?: (data: any) => void;
+  onClick?: (data: any) => void;
 }
 
-function Chart({ data, measurand, chartClickHandler }: ChartProps) {
+function Chart({ data, measurand, onClick }: ChartProps) {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -78,7 +78,8 @@ function Chart({ data, measurand, chartClickHandler }: ChartProps) {
         height={200}
         data={_data}
         margin={{ right: 20, top: 20 }}
-        onClick={chartClickHandler}
+        onClick={onClick}
+        style={{ cursor: onClick ? "pointer" : "auto" }}
       >
         <title>{measurand}</title>
         <XAxis
