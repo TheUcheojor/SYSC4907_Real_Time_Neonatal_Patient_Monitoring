@@ -4,7 +4,7 @@ import { MainStackParamList } from "../types";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import SettingsScreen from "../screens/SettingsScreen";
-import TripsScreen from "../screens/TripsScreen";
+import TripsScreen from "../screens/trips/TripsScreen";
 import ParamedicScreen from "../screens/ParamedicScreen";
 import DriverScreen from "../screens/DriverScreen";
 
