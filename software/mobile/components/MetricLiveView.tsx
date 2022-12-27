@@ -1,29 +1,79 @@
-import { View, StyleSheet, Text, Image, Button } from "react-native";
-import { VIBRATION_ICON } from "../constants/Images";
-import React, { useEffect, useState } from "react";
+/**
+ * Author: Paul Okenne
+ * File: MetricLiveView
+ * Purpose: Exports a component that displays metrics in real time and exports supporting interfaces/constants
+ */
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  ImageSourcePropType,
+} from "react-native";
 
 import { VictoryLine, VictoryChart, VictoryAxis } from "victory-native";
 
-export default function MetricLiveView({}) {
-  const [liveData, setLiveData] = useState<Array<number>>([
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  ]);
+/**
+ * The metric live view parameter
+ */
+export interface MetricLiveViewParameters {
+  /**
+   * The graph color
+   */
+  readonly graphColor: string;
 
-  // useEffect(() => {}, [liveData]);
+  /**
+   * The measured metric
+   */
+  readonly metricTitle: string;
 
+  /**
+   * The metric icon
+   */
+  readonly iconImageSource: ImageSourcePropType;
+
+  /**
+   * The units used to measured
+   */
+  readonly unitsLabel: string;
+
+  /**
+   * The live data feed
+   */
+  readonly liveData: Array<number>;
+}
+
+/**
+ * The number of points on the graph at any time
+ */
+export const NUMBER_OF_VISIBLE_METRIC_POINTS = 20;
+
+/**
+ * The MetricLiveView Component
+ */
+export default function MetricLiveView({
+  graphColor,
+  metricTitle,
+  iconImageSource,
+  unitsLabel,
+  liveData,
+}: MetricLiveViewParameters) {
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
-        <Image style={styles.icon} source={VIBRATION_ICON} />
+        <Image style={styles.icon} source={iconImageSource} />
       </View>
-      <Text style={styles.title}>Vibration</Text>
-      <Text style={styles.text}> {liveData[liveData.length - 1]} Hz</Text>
+      <Text style={styles.title}>{metricTitle}</Text>
+      <Text style={styles.text}>
+        {" "}
+        {liveData[liveData.length - 1]} {unitsLabel}
+      </Text>
 
       <View style={styles.graphContainer}>
-        <VictoryChart width={300} height={150}>
+        <VictoryChart width={270} height={150}>
           <VictoryLine
             style={{
-              data: { stroke: "#0E9CFF" },
+              data: { stroke: graphColor },
             }}
             data={liveData}
           />
@@ -38,37 +88,23 @@ export default function MetricLiveView({}) {
           />
         </VictoryChart>
       </View>
-
-      <Button
-        title="Demo"
-        onPress={() => {
-          setLiveData([
-            ...liveData.slice(1, liveData.length),
-            getRandomInt(1, 50),
-          ]);
-
-          console.log(liveData);
-        }}
-      />
     </View>
   );
 }
 
-function getRandomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 const styles = StyleSheet.create({
   container: {
-    width: 200,
+    width: 170,
     height: 200,
     backgroundColor: "black",
     borderRadius: 20,
     position: "relative",
+    marginVertical: 20,
   },
 
   title: {
     fontFamily: "Montserrat_700Bold",
-    fontSize: 18,
+    fontSize: 16,
     color: "white",
     marginTop: 40,
     marginLeft: 20,
