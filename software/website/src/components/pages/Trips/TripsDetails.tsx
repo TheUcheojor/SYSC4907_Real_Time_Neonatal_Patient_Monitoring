@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import Chart from "components/Chart";
-import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
 import Modal from "components/modal/Modal";
 import MapWithChart from "components/MapWithChart";
 import Route from "mock/Route";
 import { toClockString, toDateString } from "utility/StringUtil";
+import { queryTripDatapoints } from "interface/TripsInterface";
 
 const chartLabelStyles = {
   color: "black",
@@ -13,11 +13,10 @@ const chartLabelStyles = {
 };
 
 interface TripsDetailsProps {
-  data: RouteMeasurementDataPoint[];
-  route: Route;
+  selectedRoutes: Route[];
 }
 
-function TripsDetails({ data, route }: TripsDetailsProps) {
+function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeMeasurand, setActiveMeasurand] = useState("");
 
@@ -32,39 +31,56 @@ function TripsDetails({ data, route }: TripsDetailsProps) {
 
   return (
     <div style={{ marginLeft: "10px" }}>
-      <span style={chartLabelStyles}>{toDateString(route.startTime)}</span>
-      <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
-        {toClockString(route.startTime, route.endTime)}
-      </p>
-      <p style={chartLabelStyles}>Vibration</p>
-      <Chart
-        data={data}
-        measurand={DatapointFieldEnum.vibration}
-        onClick={chartClickHandler}
-      />
-      <p style={chartLabelStyles}>Noise</p>
-      <Chart
-        data={data}
-        measurand={DatapointFieldEnum.noise}
-        onClick={chartClickHandler}
-      />
-      <p style={chartLabelStyles}>Temperature</p>
-      <Chart
-        data={data}
-        measurand={DatapointFieldEnum.temperature}
-        onClick={chartClickHandler}
-      />
-      <p style={chartLabelStyles}>Velocity</p>
-      <Chart
-        data={data}
-        measurand={DatapointFieldEnum.velocity}
-        onClick={chartClickHandler}
-      />
+      <ul style={{ display: "flex" }}>
+        {selectedRoutes.map((route) => {
+          return (
+            <div style={{ marginLeft: "10px" }}>
+              <span style={chartLabelStyles}>
+                {toDateString(route.startTime)}
+              </span>
+              <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
+                {toClockString(route.startTime, route.endTime)}
+              </p>
+              <p style={chartLabelStyles}>Vibration</p>
+              <Chart
+                data={queryTripDatapoints(parseInt(route.routeId))}
+                measurand={DatapointFieldEnum.vibration}
+                onClick={chartClickHandler}
+              />
+              <p style={chartLabelStyles}>Noise</p>
+              <Chart
+                data={queryTripDatapoints(parseInt(route.routeId))}
+                measurand={DatapointFieldEnum.noise}
+                onClick={chartClickHandler}
+              />
+              <p style={chartLabelStyles}>Temperature</p>
+              <Chart
+                data={queryTripDatapoints(parseInt(route.routeId))}
+                measurand={DatapointFieldEnum.temperature}
+                onClick={chartClickHandler}
+              />
+              <p style={chartLabelStyles}>Velocity</p>
+              <Chart
+                data={queryTripDatapoints(parseInt(route.routeId))}
+                measurand={DatapointFieldEnum.velocity}
+                onClick={chartClickHandler}
+              />
+            </div>
+          );
+        })}
+      </ul>
       <Modal title="Compare" modalOpen={modalOpen} closeModal={closeModal}>
-        <MapWithChart
-          measurand={DatapointFieldEnum[activeMeasurand]}
-          data={data}
-        />
+        <ul style={{ display: "flex", padding: 0 }}>
+          {selectedRoutes.map((route) => {
+            return (
+              <MapWithChart
+                measurand={DatapointFieldEnum[activeMeasurand]}
+                data={queryTripDatapoints(parseInt(route.routeId))}
+                style={{ marginLeft: "5px", marginRight: "5px" }}
+              />
+            );
+          })}
+        </ul>
       </Modal>
     </div>
   );

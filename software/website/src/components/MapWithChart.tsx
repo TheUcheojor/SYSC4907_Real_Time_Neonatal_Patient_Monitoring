@@ -3,6 +3,7 @@ import Chart from "components/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
 import { toTitleCase } from "utility/StringUtil";
+import CSS from "csstype";
 import Map from "components/Map";
 
 const mapStyles = {
@@ -15,10 +16,11 @@ const mapStyles = {
 interface modalProps {
   data: RouteMeasurementDataPoint[];
   measurand: DatapointFieldEnum;
+  style?: CSS.Properties;
 }
 
-function MapWithChart({ data, measurand }: modalProps) {
-  console.log("MWC RENDER")
+function MapWithChart({ data, measurand, style }: modalProps) {
+  console.log("MWC RENDER");
   const [focusLat, setFocusLat] = useState(data[0].coordinates[1]);
   const [focusLon, setFocusLon] = useState(data[0].coordinates[0]);
 
@@ -38,6 +40,7 @@ function MapWithChart({ data, measurand }: modalProps) {
       style={{
         display: "flex",
         flexDirection: "column",
+        ...style,
       }}
     >
       <span

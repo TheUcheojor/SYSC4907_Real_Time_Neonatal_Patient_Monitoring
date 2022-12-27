@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -39,12 +39,29 @@ interface MapProps {
 }
 
 function Map({ data, focusLon, focusLat, measurand, style }: MapProps) {
+  const [map, setMap] = useState(null);
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA",
     libraries: libraries,
   });
   console.log("MAP RENDER");
+
+  const onLoad = React.useCallback((map) => {
+    setMap(map);
+  }, []);
+
+  useEffect(() => {
+    const bounds = new google.maps.LatLngBounds({
+      lat: focusLat,
+      lng: focusLon,
+    });
+    data.forEach((dp) => {
+      bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
+    });
+    if (map) map.fitBounds(bounds);
+  });
 
   return (
     isLoaded &&
@@ -61,6 +78,7 @@ function Map({ data, focusLon, focusLat, measurand, style }: MapProps) {
           clickableIcons: false,
           zoomControl: true,
         }}
+        onLoad={onLoad}
       >
         <MarkerF
           label="S"

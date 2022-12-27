@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { route1, route2 } from "mock/mockTrip";
+import { generateRandomDatapoints, route1, route2, route3 } from "mock/mockTrip";
 import CompareIcon from "components/icons/CompareIcon";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import { queryTripDatapoints } from "interface/TripsInterface";
@@ -10,8 +10,9 @@ import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import TripsDetails from "./TripsDetails";
 import BackIcon from "components/icons/BackIcon";
+import { coordsCivicToHull } from "mock/coords";
 
-const routes = [route1, route2];
+const routes = [route1, route2, route3];
 
 const pStyles = {
   fontWeight: 700,
@@ -135,7 +136,11 @@ function TripsPage() {
               }}
               onClick={() => {
                 setIsSelecting(false);
-                setSelectedRoutes([selectedRoutes[selectedRoutes.length - 1]]);
+                selectedRoutes.length > 0
+                  ? setSelectedRoutes([
+                      selectedRoutes[selectedRoutes.length - 1],
+                    ])
+                  : setSelectedRoutes([]);
               }}
               bgColor="#000"
               bgColorHover="#2a2a2a"
@@ -155,17 +160,7 @@ function TripsPage() {
       return (
         <div style={{ display: "flex" }}>
           <BackIcon onClick={() => setIsComparing(false)} />
-          <ul style={{ display: "flex" }}>
-            {selectedRoutes.map((selectedRoute) => {
-              console.log(selectedRoute);
-              return (
-                <TripsDetails
-                  route={selectedRoute}
-                  data={queryTripDatapoints(parseInt(selectedRoute.routeId))}
-                ></TripsDetails>
-              );
-            })}
-          </ul>
+          <TripsDetails selectedRoutes={selectedRoutes} />
         </div>
       );
     }

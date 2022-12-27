@@ -3,7 +3,6 @@ import CSS from "csstype";
 import SearchIcon from "components/icons/SearchIcon";
 import LeaveOrgIcon from "components/icons/LeaveOrgIcon";
 import HammerIcon from "components/icons/HammerIcon";
-import TestMap from "components/testMap";
 
 const MOCK_USERS = [
   {
@@ -257,7 +256,6 @@ function OrganizationsPage() {
             padding: 0,
           }}
         >
-          <TestMap />
           <HammerIcon
             fill="#ffffff"
             styles={{ width: "50px", height: "50px" }}

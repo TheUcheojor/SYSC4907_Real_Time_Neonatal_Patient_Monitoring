@@ -2064,10179 +2064,7939 @@ export const dpsCivicToHull =
     {
         "routeDataPointId": "0",
         "segmentId": "1",
-        "time": 1672158522543,
+        "time": 1672163850863,
         "velocity": 0,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72089,
-            45.39193
+            -75.72134,
+            45.39147
         ]
     },
     {
         "routeDataPointId": "1",
         "segmentId": "1",
-        "time": 1672158522553,
+        "time": 1672163850873,
         "velocity": 1,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72095,
-            45.39192
+            -75.72096,
+            45.39164
         ]
     },
     {
         "routeDataPointId": "2",
         "segmentId": "1",
-        "time": 1672158522563,
+        "time": 1672163850883,
         "velocity": 2,
         "noise": 60,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72105,
-            45.39192
+            -75.71915,
+            45.39243
         ]
     },
     {
         "routeDataPointId": "3",
         "segmentId": "1",
-        "time": 1672158522573,
+        "time": 1672163850893,
         "velocity": 3,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72115,
-            45.39194
+            -75.71864,
+            45.39266
         ]
     },
     {
         "routeDataPointId": "4",
         "segmentId": "1",
-        "time": 1672158522583,
+        "time": 1672163850903,
         "velocity": 4,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72122,
-            45.39196
+            -75.71773,
+            45.39305
         ]
     },
     {
         "routeDataPointId": "5",
         "segmentId": "1",
-        "time": 1672158522593,
+        "time": 1672163850913,
         "velocity": 5,
         "noise": 61,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72126,
-            45.39201
+            -75.71704,
+            45.39336
         ]
     },
     {
         "routeDataPointId": "6",
         "segmentId": "1",
-        "time": 1672158522603,
+        "time": 1672163850923,
         "velocity": 6,
         "noise": 60,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72129,
-            45.39207
+            -75.71637,
+            45.39366
         ]
     },
     {
         "routeDataPointId": "7",
         "segmentId": "1",
-        "time": 1672158522613,
+        "time": 1672163850933,
         "velocity": 7,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.7213,
-            45.39211
+            -75.71605,
+            45.39379
         ]
     },
     {
         "routeDataPointId": "8",
         "segmentId": "1",
-        "time": 1672158522623,
+        "time": 1672163850943,
         "velocity": 8,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72131,
-            45.39219
+            -75.71583,
+            45.39389
         ]
     },
     {
         "routeDataPointId": "9",
         "segmentId": "1",
-        "time": 1672158522633,
+        "time": 1672163850953,
         "velocity": 9,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72132,
-            45.39221
+            -75.71564,
+            45.39398
         ]
     },
     {
         "routeDataPointId": "10",
         "segmentId": "1",
-        "time": 1672158522643,
+        "time": 1672163850963,
         "velocity": 10,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72133,
-            45.39224
+            -75.71528,
+            45.39413
         ]
     },
     {
         "routeDataPointId": "11",
         "segmentId": "1",
-        "time": 1672158522653,
+        "time": 1672163850973,
         "velocity": 11,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72149,
-            45.39222
+            -75.71527,
+            45.39414
         ]
     },
     {
         "routeDataPointId": "12",
         "segmentId": "1",
-        "time": 1672158522663,
+        "time": 1672163850983,
         "velocity": 12,
         "noise": 60,
         "vibration": 3,
-        "temperature": 25,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72164,
-            45.3922
+            -75.71526,
+            45.39414
         ]
     },
     {
         "routeDataPointId": "13",
         "segmentId": "1",
-        "time": 1672158522673,
+        "time": 1672163850993,
         "velocity": 13,
         "noise": 61,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72203,
-            45.39214
+            -75.71486,
+            45.39432
         ]
     },
     {
         "routeDataPointId": "14",
         "segmentId": "1",
-        "time": 1672158522683,
+        "time": 1672163851003,
         "velocity": 14,
         "noise": 60,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72254,
-            45.39207
+            -75.71484,
+            45.39433
         ]
     },
     {
         "routeDataPointId": "15",
         "segmentId": "1",
-        "time": 1672158522693,
+        "time": 1672163851013,
         "velocity": 15,
         "noise": 61,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72306,
-            45.39198
+            -75.71483,
+            45.39433
         ]
     },
     {
         "routeDataPointId": "16",
         "segmentId": "1",
-        "time": 1672158522703,
+        "time": 1672163851023,
         "velocity": 16,
         "noise": 60,
         "vibration": 3,
-        "temperature": 28,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72314,
-            45.39196
+            -75.71465,
+            45.39441
         ]
     },
     {
         "routeDataPointId": "17",
         "segmentId": "1",
-        "time": 1672158522713,
+        "time": 1672163851033,
         "velocity": 17,
         "noise": 61,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72319,
-            45.39195
+            -75.71462,
+            45.39443
         ]
     },
     {
         "routeDataPointId": "18",
         "segmentId": "1",
-        "time": 1672158522723,
+        "time": 1672163851043,
         "velocity": 18,
         "noise": 60,
         "vibration": 1,
-        "temperature": 21,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72324,
-            45.39195
+            -75.71457,
+            45.39445
         ]
     },
     {
         "routeDataPointId": "19",
         "segmentId": "1",
-        "time": 1672158522733,
+        "time": 1672163851053,
         "velocity": 19,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72328,
-            45.39195
+            -75.7144,
+            45.39452
         ]
     },
     {
         "routeDataPointId": "20",
         "segmentId": "1",
-        "time": 1672158522743,
+        "time": 1672163851063,
         "velocity": 20,
         "noise": 60,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72332,
-            45.39197
+            -75.71434,
+            45.39455
         ]
     },
     {
         "routeDataPointId": "21",
         "segmentId": "1",
-        "time": 1672158522753,
+        "time": 1672163851073,
         "velocity": 21,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72335,
-            45.39198
+            -75.71363,
+            45.39486
         ]
     },
     {
         "routeDataPointId": "22",
         "segmentId": "1",
-        "time": 1672158522763,
+        "time": 1672163851083,
         "velocity": 22,
         "noise": 60,
         "vibration": 2,
-        "temperature": 23,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.7236,
-            45.39211
+            -75.71361,
+            45.39487
         ]
     },
     {
         "routeDataPointId": "23",
         "segmentId": "1",
-        "time": 1672158522773,
+        "time": 1672163851093,
         "velocity": 23,
         "noise": 61,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72362,
-            45.39212
+            -75.71337,
+            45.39497
         ]
     },
     {
         "routeDataPointId": "24",
         "segmentId": "1",
-        "time": 1672158522783,
+        "time": 1672163851103,
         "velocity": 24,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72363,
-            45.39212
+            -75.7133,
+            45.39501
         ]
     },
     {
         "routeDataPointId": "25",
         "segmentId": "1",
-        "time": 1672158522793,
+        "time": 1672163851113,
         "velocity": 25,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72367,
-            45.39213
+            -75.7132,
+            45.39505
         ]
     },
     {
         "routeDataPointId": "26",
         "segmentId": "1",
-        "time": 1672158522803,
+        "time": 1672163851123,
         "velocity": 26,
         "noise": 60,
         "vibration": 3,
-        "temperature": 21,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72388,
-            45.39208
+            -75.71299,
+            45.39515
         ]
     },
     {
         "routeDataPointId": "27",
         "segmentId": "1",
-        "time": 1672158522813,
+        "time": 1672163851133,
         "velocity": 27,
         "noise": 61,
         "vibration": 2,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72403,
-            45.39233
+            -75.71274,
+            45.39526
         ]
     },
     {
         "routeDataPointId": "28",
         "segmentId": "1",
-        "time": 1672158522823,
+        "time": 1672163851143,
         "velocity": 28,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72434,
-            45.39284
+            -75.71262,
+            45.39531
         ]
     },
     {
         "routeDataPointId": "29",
         "segmentId": "1",
-        "time": 1672158522833,
+        "time": 1672163851153,
         "velocity": 29,
         "noise": 61,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72434,
-            45.39285
+            -75.71248,
+            45.39538
         ]
     },
     {
         "routeDataPointId": "30",
         "segmentId": "1",
-        "time": 1672158522843,
+        "time": 1672163851163,
         "velocity": 30,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.72437,
-            45.3929
+            -75.71225,
+            45.39546
         ]
     },
     {
         "routeDataPointId": "31",
         "segmentId": "1",
-        "time": 1672158522853,
+        "time": 1672163851173,
         "velocity": 31,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72453,
-            45.39316
+            -75.71222,
+            45.39548
         ]
     },
     {
         "routeDataPointId": "32",
         "segmentId": "1",
-        "time": 1672158522863,
+        "time": 1672163851183,
         "velocity": 32,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72465,
-            45.39337
+            -75.71207,
+            45.39555
         ]
     },
     {
         "routeDataPointId": "33",
         "segmentId": "1",
-        "time": 1672158522873,
+        "time": 1672163851193,
         "velocity": 33,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72506,
-            45.39403
+            -75.71194,
+            45.39561
         ]
     },
     {
         "routeDataPointId": "34",
         "segmentId": "1",
-        "time": 1672158522883,
+        "time": 1672163851203,
         "velocity": 34,
         "noise": 60,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.7252,
-            45.39427
+            -75.71146,
+            45.39581
         ]
     },
     {
         "routeDataPointId": "35",
         "segmentId": "1",
-        "time": 1672158522893,
+        "time": 1672163851213,
         "velocity": 35,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72537,
-            45.39455
+            -75.71106,
+            45.39598
         ]
     },
     {
         "routeDataPointId": "36",
         "segmentId": "1",
-        "time": 1672158522903,
+        "time": 1672163851223,
         "velocity": 36,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72546,
-            45.39468
+            -75.71019,
+            45.39635
         ]
     },
     {
         "routeDataPointId": "37",
         "segmentId": "1",
-        "time": 1672158522913,
+        "time": 1672163851233,
         "velocity": 37,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72555,
-            45.39483
+            -75.70948,
+            45.39666
         ]
     },
     {
         "routeDataPointId": "38",
         "segmentId": "1",
-        "time": 1672158522923,
+        "time": 1672163851243,
         "velocity": 38,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72574,
-            45.39515
+            -75.70921,
+            45.39678
         ]
     },
     {
         "routeDataPointId": "39",
         "segmentId": "1",
-        "time": 1672158522933,
+        "time": 1672163851253,
         "velocity": 39,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72583,
-            45.39529
+            -75.70894,
+            45.3969
         ]
     },
     {
         "routeDataPointId": "40",
         "segmentId": "1",
-        "time": 1672158522943,
+        "time": 1672163851263,
         "velocity": 40,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72592,
-            45.39545
+            -75.70877,
+            45.39698
         ]
     },
     {
         "routeDataPointId": "41",
         "segmentId": "1",
-        "time": 1672158522953,
+        "time": 1672163851273,
         "velocity": 41,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72616,
-            45.39585
+            -75.70841,
+            45.39713
         ]
     },
     {
         "routeDataPointId": "42",
         "segmentId": "1",
-        "time": 1672158522963,
+        "time": 1672163851283,
         "velocity": 42,
         "noise": 60,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72625,
-            45.39602
+            -75.70764,
+            45.39748
         ]
     },
     {
         "routeDataPointId": "43",
         "segmentId": "1",
-        "time": 1672158522973,
+        "time": 1672163851293,
         "velocity": 43,
         "noise": 61,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72658,
-            45.39655
+            -75.70716,
+            45.3977
         ]
     },
     {
         "routeDataPointId": "44",
         "segmentId": "1",
-        "time": 1672158522983,
+        "time": 1672163851303,
         "velocity": 44,
         "noise": 60,
         "vibration": 3,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72659,
-            45.39657
+            -75.7071,
+            45.39772
         ]
     },
     {
         "routeDataPointId": "45",
         "segmentId": "1",
-        "time": 1672158522993,
+        "time": 1672163851313,
         "velocity": 45,
         "noise": 61,
         "vibration": 2,
-        "temperature": 28,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72682,
-            45.39692
+            -75.70679,
+            45.39787
         ]
     },
     {
         "routeDataPointId": "46",
         "segmentId": "1",
-        "time": 1672158523003,
+        "time": 1672163851323,
         "velocity": 46,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72651,
-            45.39709
+            -75.70652,
+            45.398
         ]
     },
     {
         "routeDataPointId": "47",
         "segmentId": "1",
-        "time": 1672158523013,
+        "time": 1672163851333,
         "velocity": 47,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72639,
-            45.39716
+            -75.70627,
+            45.39811
         ]
     },
     {
         "routeDataPointId": "48",
         "segmentId": "1",
-        "time": 1672158523023,
+        "time": 1672163851343,
         "velocity": 48,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72564,
-            45.39757
+            -75.70614,
+            45.39816
         ]
     },
     {
         "routeDataPointId": "49",
         "segmentId": "1",
-        "time": 1672158523033,
+        "time": 1672163851353,
         "velocity": 49,
         "noise": 61,
         "vibration": 2,
-        "temperature": 21,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.7255,
-            45.39764
+            -75.70567,
+            45.39836
         ]
     },
     {
         "routeDataPointId": "50",
         "segmentId": "1",
-        "time": 1672158523043,
+        "time": 1672163851363,
         "velocity": 50,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72542,
-            45.39769
+            -75.70554,
+            45.3984
         ]
     },
     {
         "routeDataPointId": "51",
         "segmentId": "1",
-        "time": 1672158523053,
+        "time": 1672163851373,
         "velocity": 51,
         "noise": 61,
         "vibration": 2,
-        "temperature": 24,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.72498,
-            45.39792
+            -75.70516,
+            45.39857
         ]
     },
     {
         "routeDataPointId": "52",
         "segmentId": "1",
-        "time": 1672158523063,
+        "time": 1672163851383,
         "velocity": 52,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72399,
-            45.39842
+            -75.705,
+            45.39865
         ]
     },
     {
         "routeDataPointId": "53",
         "segmentId": "1",
-        "time": 1672158523073,
+        "time": 1672163851393,
         "velocity": 53,
         "noise": 61,
         "vibration": 3,
-        "temperature": 26,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72387,
-            45.39848
+            -75.70443,
+            45.39892
         ]
     },
     {
         "routeDataPointId": "54",
         "segmentId": "1",
-        "time": 1672158523083,
+        "time": 1672163851403,
         "velocity": 54,
         "noise": 60,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72387,
-            45.39849
+            -75.70424,
+            45.399
         ]
     },
     {
         "routeDataPointId": "55",
         "segmentId": "1",
-        "time": 1672158523093,
+        "time": 1672163851413,
         "velocity": 55,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72387,
-            45.39859
+            -75.70433,
+            45.39912
         ]
     },
     {
         "routeDataPointId": "56",
         "segmentId": "1",
-        "time": 1672158523103,
+        "time": 1672163851423,
         "velocity": 56,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72362,
-            45.39871
+            -75.70438,
+            45.39921
         ]
     },
     {
         "routeDataPointId": "57",
         "segmentId": "1",
-        "time": 1672158523113,
+        "time": 1672163851433,
         "velocity": 57,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72348,
-            45.39877
+            -75.70459,
+            45.39956
         ]
     },
     {
         "routeDataPointId": "58",
         "segmentId": "1",
-        "time": 1672158523123,
+        "time": 1672163851443,
         "velocity": 58,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72336,
-            45.39882
+            -75.7046,
+            45.39958
         ]
     },
     {
         "routeDataPointId": "59",
         "segmentId": "1",
-        "time": 1672158523133,
+        "time": 1672163851453,
         "velocity": 59,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72323,
-            45.39888
+            -75.7048,
+            45.3999
         ]
     },
     {
         "routeDataPointId": "60",
         "segmentId": "1",
-        "time": 1672158523143,
+        "time": 1672163851463,
         "velocity": 60,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72311,
-            45.39894
+            -75.70499,
+            45.40022
         ]
     },
     {
         "routeDataPointId": "61",
         "segmentId": "1",
-        "time": 1672158523153,
+        "time": 1672163851473,
         "velocity": 61,
         "noise": 61,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.723,
-            45.39899
+            -75.70504,
+            45.4003
         ]
     },
     {
         "routeDataPointId": "62",
         "segmentId": "1",
-        "time": 1672158523163,
+        "time": 1672163851483,
         "velocity": 62,
         "noise": 60,
         "vibration": 2,
-        "temperature": 21,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72297,
-            45.399
+            -75.70516,
+            45.40051
         ]
     },
     {
         "routeDataPointId": "63",
         "segmentId": "1",
-        "time": 1672158523173,
+        "time": 1672163851493,
         "velocity": 63,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72284,
-            45.39906
+            -75.70549,
+            45.40105
         ]
     },
     {
         "routeDataPointId": "64",
         "segmentId": "1",
-        "time": 1672158523183,
+        "time": 1672163851503,
         "velocity": 64,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72272,
-            45.39912
+            -75.70581,
+            45.4016
         ]
     },
     {
         "routeDataPointId": "65",
         "segmentId": "1",
-        "time": 1672158523193,
+        "time": 1672163851513,
         "velocity": 65,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.7224,
-            45.39926
+            -75.70591,
+            45.40177
         ]
     },
     {
         "routeDataPointId": "66",
         "segmentId": "1",
-        "time": 1672158523203,
+        "time": 1672163851523,
         "velocity": 66,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.72234,
-            45.39929
+            -75.70611,
+            45.4021
         ]
     },
     {
         "routeDataPointId": "67",
         "segmentId": "1",
-        "time": 1672158523213,
+        "time": 1672163851533,
         "velocity": 67,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72221,
-            45.39935
+            -75.70641,
+            45.4026
         ]
     },
     {
         "routeDataPointId": "68",
         "segmentId": "1",
-        "time": 1672158523223,
+        "time": 1672163851543,
         "velocity": 68,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72208,
-            45.3994
+            -75.70651,
+            45.40277
         ]
     },
     {
         "routeDataPointId": "69",
         "segmentId": "1",
-        "time": 1672158523233,
+        "time": 1672163851553,
         "velocity": 69,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72195,
-            45.39946
+            -75.70667,
+            45.40303
         ]
     },
     {
         "routeDataPointId": "70",
         "segmentId": "1",
-        "time": 1672158523243,
+        "time": 1672163851563,
         "velocity": 70,
         "noise": 60,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.72182,
-            45.39951
+            -75.70685,
+            45.40333
         ]
     },
     {
         "routeDataPointId": "71",
         "segmentId": "1",
-        "time": 1672158523253,
+        "time": 1672163851573,
         "velocity": 71,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.72168,
-            45.39957
+            -75.70695,
+            45.40349
         ]
     },
     {
         "routeDataPointId": "72",
         "segmentId": "1",
-        "time": 1672158523263,
+        "time": 1672163851583,
         "velocity": 72,
         "noise": 60,
         "vibration": 3,
-        "temperature": 21,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72156,
-            45.39962
+            -75.70703,
+            45.40362
         ]
     },
     {
         "routeDataPointId": "73",
         "segmentId": "1",
-        "time": 1672158523273,
+        "time": 1672163851593,
         "velocity": 73,
         "noise": 61,
         "vibration": 3,
-        "temperature": 26,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.72144,
-            45.39967
+            -75.70704,
+            45.40365
         ]
     },
     {
         "routeDataPointId": "74",
         "segmentId": "1",
-        "time": 1672158523283,
+        "time": 1672163851603,
         "velocity": 74,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
+        "vibration": 2,
+        "temperature": 28,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.72129,
-            45.39974
+            -75.70712,
+            45.40376
         ]
     },
     {
         "routeDataPointId": "75",
         "segmentId": "1",
-        "time": 1672158523293,
+        "time": 1672163851613,
         "velocity": 75,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.72115,
-            45.39979
+            -75.70722,
+            45.40396
         ]
     },
     {
         "routeDataPointId": "76",
         "segmentId": "1",
-        "time": 1672158523303,
+        "time": 1672163851623,
         "velocity": 76,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.72093,
-            45.39988
+            -75.70731,
+            45.40409
         ]
     },
     {
         "routeDataPointId": "77",
         "segmentId": "1",
-        "time": 1672158523313,
+        "time": 1672163851633,
         "velocity": 77,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72074,
-            45.39996
+            -75.70732,
+            45.40411
         ]
     },
     {
         "routeDataPointId": "78",
         "segmentId": "1",
-        "time": 1672158523323,
+        "time": 1672163851643,
         "velocity": 78,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72055,
-            45.40003
+            -75.70757,
+            45.40453
         ]
     },
     {
         "routeDataPointId": "79",
         "segmentId": "1",
-        "time": 1672158523333,
+        "time": 1672163851653,
         "velocity": 79,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.72035,
-            45.40011
+            -75.70777,
+            45.40484
         ]
     },
     {
         "routeDataPointId": "80",
         "segmentId": "1",
-        "time": 1672158523343,
+        "time": 1672163851663,
         "velocity": 80,
         "noise": 60,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.72022,
-            45.40016
+            -75.70795,
+            45.40512
         ]
     },
     {
         "routeDataPointId": "81",
         "segmentId": "1",
-        "time": 1672158523353,
+        "time": 1672163851673,
         "velocity": 81,
         "noise": 61,
         "vibration": 2,
-        "temperature": 24,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.72009,
-            45.40021
+            -75.70802,
+            45.40524
         ]
     },
     {
         "routeDataPointId": "82",
         "segmentId": "1",
-        "time": 1672158523363,
+        "time": 1672163851683,
         "velocity": 82,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71995,
-            45.40027
+            -75.70803,
+            45.40529
         ]
     },
     {
         "routeDataPointId": "83",
         "segmentId": "1",
-        "time": 1672158523373,
+        "time": 1672163851693,
         "velocity": 83,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71981,
-            45.40032
+            -75.70804,
+            45.40531
         ]
     },
     {
         "routeDataPointId": "84",
         "segmentId": "1",
-        "time": 1672158523383,
+        "time": 1672163851703,
         "velocity": 84,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71968,
-            45.40037
+            -75.70816,
+            45.4055
         ]
     },
     {
         "routeDataPointId": "85",
         "segmentId": "1",
-        "time": 1672158523393,
+        "time": 1672163851713,
         "velocity": 85,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71955,
-            45.40042
+            -75.70836,
+            45.40585
         ]
     },
     {
         "routeDataPointId": "86",
         "segmentId": "1",
-        "time": 1672158523403,
+        "time": 1672163851723,
         "velocity": 86,
         "noise": 60,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.7194,
-            45.40047
+            -75.70848,
+            45.40603
         ]
     },
     {
         "routeDataPointId": "87",
         "segmentId": "1",
-        "time": 1672158523413,
+        "time": 1672163851733,
         "velocity": 87,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71927,
-            45.40052
+            -75.70871,
+            45.40638
         ]
     },
     {
         "routeDataPointId": "88",
         "segmentId": "1",
-        "time": 1672158523423,
+        "time": 1672163851743,
         "velocity": 88,
         "noise": 60,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71914,
-            45.40057
+            -75.70885,
+            45.40664
         ]
     },
     {
         "routeDataPointId": "89",
         "segmentId": "1",
-        "time": 1672158523433,
+        "time": 1672163851753,
         "velocity": 89,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.71901,
-            45.40062
+            -75.70902,
+            45.40694
         ]
     },
     {
         "routeDataPointId": "90",
         "segmentId": "1",
-        "time": 1672158523443,
+        "time": 1672163851763,
         "velocity": 90,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71886,
-            45.40067
+            -75.70909,
+            45.40707
         ]
     },
     {
         "routeDataPointId": "91",
         "segmentId": "1",
-        "time": 1672158523453,
+        "time": 1672163851773,
         "velocity": 91,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71873,
-            45.40072
+            -75.70943,
+            45.40763
         ]
     },
     {
         "routeDataPointId": "92",
         "segmentId": "1",
-        "time": 1672158523463,
+        "time": 1672163851783,
         "velocity": 92,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.7186,
-            45.40076
+            -75.70948,
+            45.40773
         ]
     },
     {
         "routeDataPointId": "93",
         "segmentId": "1",
-        "time": 1672158523473,
+        "time": 1672163851793,
         "velocity": 93,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.71845,
-            45.40081
+            -75.70956,
+            45.40786
         ]
     },
     {
         "routeDataPointId": "94",
         "segmentId": "1",
-        "time": 1672158523483,
+        "time": 1672163851803,
         "velocity": 94,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.7183,
-            45.40087
+            -75.7098,
+            45.40824
         ]
     },
     {
         "routeDataPointId": "95",
         "segmentId": "1",
-        "time": 1672158523493,
+        "time": 1672163851813,
         "velocity": 95,
         "noise": 61,
-        "vibration": 2,
+        "vibration": 3,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71805,
-            45.40095
+            -75.70985,
+            45.40832
         ]
     },
     {
         "routeDataPointId": "96",
         "segmentId": "1",
-        "time": 1672158523503,
+        "time": 1672163851823,
         "velocity": 96,
         "noise": 60,
         "vibration": 2,
-        "temperature": 21,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.7179,
-            45.401
+            -75.7099,
+            45.4084
         ]
     },
     {
         "routeDataPointId": "97",
         "segmentId": "1",
-        "time": 1672158523513,
+        "time": 1672163851833,
         "velocity": 97,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.71776,
-            45.40105
+            -75.70992,
+            45.40844
         ]
     },
     {
         "routeDataPointId": "98",
         "segmentId": "1",
-        "time": 1672158523523,
+        "time": 1672163851843,
         "velocity": 98,
         "noise": 60,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71763,
-            45.40109
+            -75.70995,
+            45.40847
         ]
     },
     {
         "routeDataPointId": "99",
         "segmentId": "1",
-        "time": 1672158523533,
+        "time": 1672163851853,
         "velocity": 99,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.7175,
-            45.40114
+            -75.71002,
+            45.4086
         ]
     },
     {
         "routeDataPointId": "100",
         "segmentId": "1",
-        "time": 1672158523543,
+        "time": 1672163851863,
         "velocity": 100,
         "noise": 60,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71735,
-            45.40118
+            -75.71004,
+            45.40862
         ]
     },
     {
         "routeDataPointId": "101",
         "segmentId": "1",
-        "time": 1672158523553,
+        "time": 1672163851873,
         "velocity": 101,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71714,
-            45.40125
+            -75.71008,
+            45.40868
         ]
     },
     {
         "routeDataPointId": "102",
         "segmentId": "1",
-        "time": 1672158523563,
+        "time": 1672163851883,
         "velocity": 102,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71694,
-            45.40131
+            -75.71012,
+            45.40874
         ]
     },
     {
         "routeDataPointId": "103",
         "segmentId": "1",
-        "time": 1672158523573,
+        "time": 1672163851893,
         "velocity": 103,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71679,
-            45.40136
+            -75.71019,
+            45.40887
         ]
     },
     {
         "routeDataPointId": "104",
         "segmentId": "1",
-        "time": 1672158523583,
+        "time": 1672163851903,
         "velocity": 104,
         "noise": 60,
         "vibration": 3,
-        "temperature": 28,
-        "annotation": "",
+        "temperature": 26,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.71664,
-            45.40141
+            -75.7103,
+            45.40906
         ]
     },
     {
         "routeDataPointId": "105",
         "segmentId": "1",
-        "time": 1672158523593,
+        "time": 1672163851913,
         "velocity": 105,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71652,
-            45.40145
+            -75.71048,
+            45.40936
         ]
     },
     {
         "routeDataPointId": "106",
         "segmentId": "1",
-        "time": 1672158523603,
+        "time": 1672163851923,
         "velocity": 106,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.71638,
-            45.40149
+            -75.71049,
+            45.40937
         ]
     },
     {
         "routeDataPointId": "107",
         "segmentId": "1",
-        "time": 1672158523613,
+        "time": 1672163851933,
         "velocity": 107,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71624,
-            45.40153
+            -75.71057,
+            45.40949
         ]
     },
     {
         "routeDataPointId": "108",
         "segmentId": "1",
-        "time": 1672158523623,
+        "time": 1672163851943,
         "velocity": 108,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71596,
-            45.40161
+            -75.71064,
+            45.40959
         ]
     },
     {
         "routeDataPointId": "109",
         "segmentId": "1",
-        "time": 1672158523633,
+        "time": 1672163851953,
         "velocity": 109,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.7158,
-            45.40166
+            -75.71066,
+            45.40963
         ]
     },
     {
         "routeDataPointId": "110",
         "segmentId": "1",
-        "time": 1672158523643,
+        "time": 1672163851963,
         "velocity": 110,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71537,
-            45.40178
+            -75.71068,
+            45.40966
         ]
     },
     {
         "routeDataPointId": "111",
         "segmentId": "1",
-        "time": 1672158523653,
+        "time": 1672163851973,
         "velocity": 111,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71523,
-            45.40182
+            -75.7107,
+            45.40968
         ]
     },
     {
         "routeDataPointId": "112",
         "segmentId": "1",
-        "time": 1672158523663,
+        "time": 1672163851983,
         "velocity": 112,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71509,
-            45.40186
+            -75.71078,
+            45.40981
         ]
     },
     {
         "routeDataPointId": "113",
         "segmentId": "1",
-        "time": 1672158523673,
+        "time": 1672163851993,
         "velocity": 113,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.71496,
-            45.4019
+            -75.7109,
+            45.41002
         ]
     },
     {
         "routeDataPointId": "114",
         "segmentId": "1",
-        "time": 1672158523683,
+        "time": 1672163852003,
         "velocity": 114,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.7148,
-            45.40194
+            -75.71096,
+            45.41013
         ]
     },
     {
         "routeDataPointId": "115",
         "segmentId": "1",
-        "time": 1672158523693,
+        "time": 1672163852013,
         "velocity": 115,
         "noise": 61,
         "vibration": 2,
-        "temperature": 28,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71479,
-            45.40194
+            -75.71101,
+            45.41022
         ]
     },
     {
         "routeDataPointId": "116",
         "segmentId": "1",
-        "time": 1672158523703,
+        "time": 1672163852023,
         "velocity": 116,
         "noise": 60,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71466,
-            45.40198
+            -75.71136,
+            45.4108
         ]
     },
     {
         "routeDataPointId": "117",
         "segmentId": "1",
-        "time": 1672158523713,
+        "time": 1672163852033,
         "velocity": 117,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71448,
-            45.40203
+            -75.71156,
+            45.41113
         ]
     },
     {
         "routeDataPointId": "118",
         "segmentId": "1",
-        "time": 1672158523723,
+        "time": 1672163852043,
         "velocity": 118,
         "noise": 60,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71436,
-            45.40206
+            -75.71165,
+            45.4113
         ]
     },
     {
         "routeDataPointId": "119",
         "segmentId": "1",
-        "time": 1672158523733,
+        "time": 1672163852053,
         "velocity": 119,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71423,
-            45.40209
+            -75.71175,
+            45.41147
         ]
     },
     {
         "routeDataPointId": "120",
         "segmentId": "1",
-        "time": 1672158523743,
+        "time": 1672163852063,
         "velocity": 120,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.71408,
-            45.40213
+            -75.71211,
+            45.41207
         ]
     },
     {
         "routeDataPointId": "121",
         "segmentId": "1",
-        "time": 1672158523753,
+        "time": 1672163852073,
         "velocity": 121,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71394,
-            45.40217
+            -75.71227,
+            45.41234
         ]
     },
     {
         "routeDataPointId": "122",
         "segmentId": "1",
-        "time": 1672158523763,
+        "time": 1672163852083,
         "velocity": 122,
         "noise": 60,
         "vibration": 1,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71379,
-            45.40221
+            -75.71233,
+            45.41246
         ]
     },
     {
         "routeDataPointId": "123",
         "segmentId": "1",
-        "time": 1672158523773,
+        "time": 1672163852093,
         "velocity": 123,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71372,
-            45.40222
+            -75.71237,
+            45.41254
         ]
     },
     {
         "routeDataPointId": "124",
         "segmentId": "1",
-        "time": 1672158523783,
+        "time": 1672163852103,
         "velocity": 124,
         "noise": 60,
         "vibration": 3,
-        "temperature": 21,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71365,
-            45.40224
+            -75.71255,
+            45.41282
         ]
     },
     {
         "routeDataPointId": "125",
         "segmentId": "1",
-        "time": 1672158523793,
+        "time": 1672163852113,
         "velocity": 125,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.7135,
-            45.40228
+            -75.71255,
+            45.41285
         ]
     },
     {
         "routeDataPointId": "126",
         "segmentId": "1",
-        "time": 1672158523803,
+        "time": 1672163852123,
         "velocity": 126,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71335,
-            45.40231
+            -75.71254,
+            45.41287
         ]
     },
     {
         "routeDataPointId": "127",
         "segmentId": "1",
-        "time": 1672158523813,
+        "time": 1672163852133,
         "velocity": 127,
         "noise": 61,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71322,
-            45.40235
+            -75.71255,
+            45.41291
         ]
     },
     {
         "routeDataPointId": "128",
         "segmentId": "1",
-        "time": 1672158523823,
+        "time": 1672163852143,
         "velocity": 128,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71305,
-            45.40239
+            -75.71256,
+            45.41295
         ]
     },
     {
         "routeDataPointId": "129",
         "segmentId": "1",
-        "time": 1672158523833,
+        "time": 1672163852153,
         "velocity": 129,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.7129,
-            45.40242
+            -75.71271,
+            45.41312
         ]
     },
     {
         "routeDataPointId": "130",
         "segmentId": "1",
-        "time": 1672158523843,
+        "time": 1672163852163,
         "velocity": 130,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.71277,
-            45.40245
+            -75.71274,
+            45.41316
         ]
     },
     {
         "routeDataPointId": "131",
         "segmentId": "1",
-        "time": 1672158523853,
+        "time": 1672163852173,
         "velocity": 131,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71269,
-            45.40247
+            -75.71289,
+            45.41338
         ]
     },
     {
         "routeDataPointId": "132",
         "segmentId": "1",
-        "time": 1672158523863,
+        "time": 1672163852183,
         "velocity": 132,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.71263,
-            45.40249
+            -75.7129,
+            45.4134
         ]
     },
     {
         "routeDataPointId": "133",
         "segmentId": "1",
-        "time": 1672158523873,
+        "time": 1672163852193,
         "velocity": 133,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71249,
-            45.40252
+            -75.71313,
+            45.41375
         ]
     },
     {
         "routeDataPointId": "134",
         "segmentId": "1",
-        "time": 1672158523883,
+        "time": 1672163852203,
         "velocity": 134,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71233,
-            45.40255
+            -75.71322,
+            45.41389
         ]
     },
     {
         "routeDataPointId": "135",
         "segmentId": "1",
-        "time": 1672158523893,
+        "time": 1672163852213,
         "velocity": 135,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.71224,
-            45.40257
+            -75.71328,
+            45.41399
         ]
     },
     {
         "routeDataPointId": "136",
         "segmentId": "1",
-        "time": 1672158523903,
+        "time": 1672163852223,
         "velocity": 136,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.71223,
-            45.40257
+            -75.71351,
+            45.41437
         ]
     },
     {
         "routeDataPointId": "137",
         "segmentId": "1",
-        "time": 1672158523913,
+        "time": 1672163852233,
         "velocity": 137,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71206,
-            45.40261
+            -75.71366,
+            45.41457
         ]
     },
     {
         "routeDataPointId": "138",
         "segmentId": "1",
-        "time": 1672158523923,
+        "time": 1672163852243,
         "velocity": 138,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.71191,
-            45.40265
+            -75.7138,
+            45.41485
         ]
     },
     {
         "routeDataPointId": "139",
         "segmentId": "1",
-        "time": 1672158523933,
+        "time": 1672163852253,
         "velocity": 139,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71176,
-            45.40268
+            -75.71385,
+            45.41494
         ]
     },
     {
         "routeDataPointId": "140",
         "segmentId": "1",
-        "time": 1672158523943,
+        "time": 1672163852263,
         "velocity": 140,
         "noise": 60,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71161,
-            45.40271
+            -75.71389,
+            45.41501
         ]
     },
     {
         "routeDataPointId": "141",
         "segmentId": "1",
-        "time": 1672158523953,
+        "time": 1672163852273,
         "velocity": 141,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71137,
-            45.40276
+            -75.7139,
+            45.41502
         ]
     },
     {
         "routeDataPointId": "142",
         "segmentId": "1",
-        "time": 1672158523963,
+        "time": 1672163852283,
         "velocity": 142,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71116,
-            45.4028
+            -75.71402,
+            45.41522
         ]
     },
     {
         "routeDataPointId": "143",
         "segmentId": "1",
-        "time": 1672158523973,
+        "time": 1672163852293,
         "velocity": 143,
         "noise": 61,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.71109,
-            45.40282
+            -75.71407,
+            45.41531
         ]
     },
     {
         "routeDataPointId": "144",
         "segmentId": "1",
-        "time": 1672158523983,
+        "time": 1672163852303,
         "velocity": 144,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.71106,
-            45.40283
+            -75.71424,
+            45.41565
         ]
     },
     {
         "routeDataPointId": "145",
         "segmentId": "1",
-        "time": 1672158523993,
+        "time": 1672163852313,
         "velocity": 145,
         "noise": 61,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.71082,
-            45.40287
+            -75.7146,
+            45.41627
         ]
     },
     {
         "routeDataPointId": "146",
         "segmentId": "1",
-        "time": 1672158524003,
+        "time": 1672163852323,
         "velocity": 146,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71066,
-            45.4029
+            -75.71434,
+            45.4164
         ]
     },
     {
         "routeDataPointId": "147",
         "segmentId": "1",
-        "time": 1672158524013,
+        "time": 1672163852333,
         "velocity": 147,
         "noise": 61,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71063,
-            45.40291
+            -75.71429,
+            45.41642
         ]
     },
     {
         "routeDataPointId": "148",
         "segmentId": "1",
-        "time": 1672158524023,
+        "time": 1672163852343,
         "velocity": 148,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.71028,
-            45.40298
+            -75.71421,
+            45.41646
         ]
     },
     {
         "routeDataPointId": "149",
         "segmentId": "1",
-        "time": 1672158524033,
+        "time": 1672163852353,
         "velocity": 149,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70999,
-            45.40304
+            -75.71413,
+            45.4165
         ]
     },
     {
         "routeDataPointId": "150",
         "segmentId": "1",
-        "time": 1672158524043,
+        "time": 1672163852363,
         "velocity": 150,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70976,
-            45.40308
+            -75.71402,
+            45.41658
         ]
     },
     {
         "routeDataPointId": "151",
         "segmentId": "1",
-        "time": 1672158524053,
+        "time": 1672163852373,
         "velocity": 151,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.70926,
-            45.40318
+            -75.71388,
+            45.41669
         ]
     },
     {
         "routeDataPointId": "152",
         "segmentId": "1",
-        "time": 1672158524063,
+        "time": 1672163852383,
         "velocity": 152,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.70896,
-            45.40323
+            -75.71386,
+            45.4167
         ]
     },
     {
         "routeDataPointId": "153",
         "segmentId": "1",
-        "time": 1672158524073,
+        "time": 1672163852393,
         "velocity": 153,
         "noise": 61,
         "vibration": 2,
-        "temperature": 28,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.70882,
-            45.40326
+            -75.71378,
+            45.41678
         ]
     },
     {
         "routeDataPointId": "154",
         "segmentId": "1",
-        "time": 1672158524083,
+        "time": 1672163852403,
         "velocity": 154,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.70871,
-            45.40328
+            -75.71377,
+            45.41678
         ]
     },
     {
         "routeDataPointId": "155",
         "segmentId": "1",
-        "time": 1672158524093,
+        "time": 1672163852413,
         "velocity": 155,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.70855,
-            45.40331
+            -75.71368,
+            45.41688
         ]
     },
     {
         "routeDataPointId": "156",
         "segmentId": "1",
-        "time": 1672158524103,
+        "time": 1672163852423,
         "velocity": 156,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.70834,
-            45.40335
+            -75.71359,
+            45.41698
         ]
     },
     {
         "routeDataPointId": "157",
         "segmentId": "1",
-        "time": 1672158524113,
+        "time": 1672163852433,
         "velocity": 157,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70808,
-            45.40341
+            -75.7135,
+            45.41711
         ]
     },
     {
         "routeDataPointId": "158",
         "segmentId": "1",
-        "time": 1672158524123,
+        "time": 1672163852443,
         "velocity": 158,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70793,
-            45.40343
+            -75.71343,
+            45.41721
         ]
     },
     {
         "routeDataPointId": "159",
         "segmentId": "1",
-        "time": 1672158524133,
+        "time": 1672163852453,
         "velocity": 159,
         "noise": 61,
         "vibration": 1,
         "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.70778,
-            45.40346
+            -75.71327,
+            45.41752
         ]
     },
     {
         "routeDataPointId": "160",
         "segmentId": "1",
-        "time": 1672158524143,
+        "time": 1672163852463,
         "velocity": 0,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.70764,
-            45.40349
+            -75.71308,
+            45.41787
         ]
     },
     {
         "routeDataPointId": "161",
         "segmentId": "1",
-        "time": 1672158524153,
+        "time": 1672163852473,
         "velocity": 1,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.70748,
-            45.40352
+            -75.71302,
+            45.41798
         ]
     },
     {
         "routeDataPointId": "162",
         "segmentId": "1",
-        "time": 1672158524163,
+        "time": 1672163852483,
         "velocity": 2,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.70733,
-            45.40355
+            -75.71292,
+            45.4181
         ]
     },
     {
         "routeDataPointId": "163",
         "segmentId": "1",
-        "time": 1672158524173,
+        "time": 1672163852493,
         "velocity": 3,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70719,
-            45.40358
+            -75.71282,
+            45.41819
         ]
     },
     {
         "routeDataPointId": "164",
         "segmentId": "1",
-        "time": 1672158524183,
+        "time": 1672163852503,
         "velocity": 4,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.70698,
-            45.40363
+            -75.71275,
+            45.41826
         ]
     },
     {
         "routeDataPointId": "165",
         "segmentId": "1",
-        "time": 1672158524193,
+        "time": 1672163852513,
         "velocity": 5,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.70677,
-            45.40367
+            -75.71262,
+            45.41835
         ]
     },
     {
         "routeDataPointId": "166",
         "segmentId": "1",
-        "time": 1672158524203,
+        "time": 1672163852523,
         "velocity": 6,
         "noise": 60,
         "vibration": 3,
-        "temperature": 26,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.70651,
-            45.40372
+            -75.7124,
+            45.41847
         ]
     },
     {
         "routeDataPointId": "167",
         "segmentId": "1",
-        "time": 1672158524213,
+        "time": 1672163852533,
         "velocity": 7,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.70644,
-            45.40374
+            -75.71231,
+            45.41851
         ]
     },
     {
         "routeDataPointId": "168",
         "segmentId": "1",
-        "time": 1672158524223,
+        "time": 1672163852543,
         "velocity": 8,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.7063,
-            45.40377
+            -75.71223,
+            45.41855
         ]
     },
     {
         "routeDataPointId": "169",
         "segmentId": "1",
-        "time": 1672158524233,
+        "time": 1672163852553,
         "velocity": 9,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.70613,
-            45.40381
+            -75.71216,
+            45.41858
         ]
     },
     {
         "routeDataPointId": "170",
         "segmentId": "1",
-        "time": 1672158524243,
+        "time": 1672163852563,
         "velocity": 10,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.70557,
-            45.40393
+            -75.71195,
+            45.41866
         ]
     },
     {
         "routeDataPointId": "171",
         "segmentId": "1",
-        "time": 1672158524253,
+        "time": 1672163852573,
         "velocity": 11,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70536,
-            45.40398
+            -75.71182,
+            45.41872
         ]
     },
     {
         "routeDataPointId": "172",
         "segmentId": "1",
-        "time": 1672158524263,
+        "time": 1672163852583,
         "velocity": 12,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.70493,
-            45.40407
+            -75.71173,
+            45.41877
         ]
     },
     {
         "routeDataPointId": "173",
         "segmentId": "1",
-        "time": 1672158524273,
+        "time": 1672163852593,
         "velocity": 13,
         "noise": 61,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.70443,
-            45.40418
+            -75.71158,
+            45.41888
         ]
     },
     {
         "routeDataPointId": "174",
         "segmentId": "1",
-        "time": 1672158524283,
+        "time": 1672163852603,
         "velocity": 14,
         "noise": 60,
         "vibration": 3,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.70413,
-            45.40425
+            -75.71149,
+            45.41895
         ]
     },
     {
         "routeDataPointId": "175",
         "segmentId": "1",
-        "time": 1672158524293,
+        "time": 1672163852613,
         "velocity": 15,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.70375,
-            45.40434
+            -75.71144,
+            45.419
         ]
     },
     {
         "routeDataPointId": "176",
         "segmentId": "1",
-        "time": 1672158524303,
+        "time": 1672163852623,
         "velocity": 16,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.70327,
-            45.40446
+            -75.71141,
+            45.41903
         ]
     },
     {
         "routeDataPointId": "177",
         "segmentId": "1",
-        "time": 1672158524313,
+        "time": 1672163852633,
         "velocity": 17,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.70296,
-            45.40454
+            -75.7114,
+            45.41909
         ]
     },
     {
         "routeDataPointId": "178",
         "segmentId": "1",
-        "time": 1672158524323,
+        "time": 1672163852643,
         "velocity": 18,
         "noise": 60,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.7028,
-            45.40458
+            -75.7114,
+            45.41914
         ]
     },
     {
         "routeDataPointId": "179",
         "segmentId": "1",
-        "time": 1672158524333,
+        "time": 1672163852653,
         "velocity": 19,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.70266,
-            45.40462
+            -75.71141,
+            45.41919
         ]
     },
     {
         "routeDataPointId": "180",
         "segmentId": "1",
-        "time": 1672158524343,
+        "time": 1672163852663,
         "velocity": 20,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.70252,
-            45.40465
+            -75.71143,
+            45.41923
         ]
     },
     {
         "routeDataPointId": "181",
         "segmentId": "1",
-        "time": 1672158524353,
+        "time": 1672163852673,
         "velocity": 21,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.70239,
-            45.40469
+            -75.71145,
+            45.41928
         ]
     },
     {
         "routeDataPointId": "182",
         "segmentId": "1",
-        "time": 1672158524363,
+        "time": 1672163852683,
         "velocity": 22,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.70224,
-            45.40473
+            -75.71148,
+            45.41932
         ]
     },
     {
         "routeDataPointId": "183",
         "segmentId": "1",
-        "time": 1672158524373,
+        "time": 1672163852693,
         "velocity": 23,
         "noise": 61,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.7021,
-            45.40477
+            -75.71154,
+            45.41938
         ]
     },
     {
         "routeDataPointId": "184",
         "segmentId": "1",
-        "time": 1672158524383,
+        "time": 1672163852703,
         "velocity": 24,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.70196,
-            45.40481
+            -75.7116,
+            45.41946
         ]
     },
     {
         "routeDataPointId": "185",
         "segmentId": "1",
-        "time": 1672158524393,
+        "time": 1672163852713,
         "velocity": 25,
         "noise": 61,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.70182,
-            45.40485
+            -75.71164,
+            45.4195
         ]
     },
     {
         "routeDataPointId": "186",
         "segmentId": "1",
-        "time": 1672158524403,
+        "time": 1672163852723,
         "velocity": 26,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.70166,
-            45.40489
+            -75.71198,
+            45.4199
         ]
     },
     {
         "routeDataPointId": "187",
         "segmentId": "1",
-        "time": 1672158524413,
+        "time": 1672163852733,
         "velocity": 27,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.70153,
-            45.40493
+            -75.71202,
+            45.41995
         ]
     },
     {
         "routeDataPointId": "188",
         "segmentId": "1",
-        "time": 1672158524423,
+        "time": 1672163852743,
         "velocity": 28,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.7014,
-            45.40497
+            -75.7121,
+            45.42004
         ]
     },
     {
         "routeDataPointId": "189",
         "segmentId": "1",
-        "time": 1672158524433,
+        "time": 1672163852753,
         "velocity": 29,
         "noise": 61,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.70124,
-            45.40502
+            -75.71219,
+            45.42014
         ]
     },
     {
         "routeDataPointId": "190",
         "segmentId": "1",
-        "time": 1672158524443,
+        "time": 1672163852763,
         "velocity": 30,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.70084,
-            45.40513
+            -75.7123,
+            45.42027
         ]
     },
     {
         "routeDataPointId": "191",
         "segmentId": "1",
-        "time": 1672158524453,
+        "time": 1672163852773,
         "velocity": 31,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.7004,
-            45.40527
+            -75.71236,
+            45.42034
         ]
     },
     {
         "routeDataPointId": "192",
         "segmentId": "1",
-        "time": 1672158524463,
+        "time": 1672163852783,
         "velocity": 32,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.70027,
-            45.40531
+            -75.71243,
+            45.42042
         ]
     },
     {
         "routeDataPointId": "193",
         "segmentId": "1",
-        "time": 1672158524473,
+        "time": 1672163852793,
         "velocity": 33,
         "noise": 61,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.70002,
-            45.40538
+            -75.71247,
+            45.42046
         ]
     },
     {
         "routeDataPointId": "194",
         "segmentId": "1",
-        "time": 1672158524483,
+        "time": 1672163852803,
         "velocity": 34,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69957,
-            45.40553
+            -75.71251,
+            45.4205
         ]
     },
     {
         "routeDataPointId": "195",
         "segmentId": "1",
-        "time": 1672158524493,
+        "time": 1672163852813,
         "velocity": 35,
         "noise": 61,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69943,
-            45.40557
+            -75.71265,
+            45.42068
         ]
     },
     {
         "routeDataPointId": "196",
         "segmentId": "1",
-        "time": 1672158524503,
+        "time": 1672163852823,
         "velocity": 36,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69928,
-            45.40562
+            -75.71277,
+            45.42083
         ]
     },
     {
         "routeDataPointId": "197",
         "segmentId": "1",
-        "time": 1672158524513,
+        "time": 1672163852833,
         "velocity": 37,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69914,
-            45.40567
+            -75.71286,
+            45.42098
         ]
     },
     {
         "routeDataPointId": "198",
         "segmentId": "1",
-        "time": 1672158524523,
+        "time": 1672163852843,
         "velocity": 38,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.699,
-            45.40571
+            -75.71288,
+            45.421
         ]
     },
     {
         "routeDataPointId": "199",
         "segmentId": "1",
-        "time": 1672158524533,
+        "time": 1672163852853,
         "velocity": 39,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.69886,
-            45.40576
+            -75.71295,
+            45.4211
         ]
     },
     {
         "routeDataPointId": "200",
         "segmentId": "1",
-        "time": 1672158524543,
+        "time": 1672163852863,
         "velocity": 40,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69866,
-            45.40583
+            -75.71304,
+            45.42126
         ]
     },
     {
         "routeDataPointId": "201",
         "segmentId": "1",
-        "time": 1672158524553,
+        "time": 1672163852873,
         "velocity": 41,
         "noise": 61,
         "vibration": 2,
-        "temperature": 21,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69849,
-            45.40589
+            -75.7131,
+            45.42137
         ]
     },
     {
         "routeDataPointId": "202",
         "segmentId": "1",
-        "time": 1672158524563,
+        "time": 1672163852883,
         "velocity": 42,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69831,
-            45.40595
+            -75.71315,
+            45.42148
         ]
     },
     {
         "routeDataPointId": "203",
         "segmentId": "1",
-        "time": 1672158524573,
+        "time": 1672163852893,
         "velocity": 43,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69817,
-            45.406
+            -75.71318,
+            45.42154
         ]
     },
     {
         "routeDataPointId": "204",
         "segmentId": "1",
-        "time": 1672158524583,
+        "time": 1672163852903,
         "velocity": 44,
         "noise": 60,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69803,
-            45.40605
+            -75.71321,
+            45.42162
         ]
     },
     {
         "routeDataPointId": "205",
         "segmentId": "1",
-        "time": 1672158524593,
+        "time": 1672163852913,
         "velocity": 45,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.69789,
-            45.4061
+            -75.71331,
+            45.42187
         ]
     },
     {
         "routeDataPointId": "206",
         "segmentId": "1",
-        "time": 1672158524603,
+        "time": 1672163852923,
         "velocity": 46,
         "noise": 60,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69776,
-            45.40615
+            -75.71343,
+            45.42212
         ]
     },
     {
         "routeDataPointId": "207",
         "segmentId": "1",
-        "time": 1672158524613,
+        "time": 1672163852933,
         "velocity": 47,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.69762,
-            45.4062
+            -75.71347,
+            45.42222
         ]
     },
     {
         "routeDataPointId": "208",
         "segmentId": "1",
-        "time": 1672158524623,
+        "time": 1672163852943,
         "velocity": 48,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69748,
-            45.40625
+            -75.71353,
+            45.42235
         ]
     },
     {
         "routeDataPointId": "209",
         "segmentId": "1",
-        "time": 1672158524633,
+        "time": 1672163852953,
         "velocity": 49,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.69734,
-            45.4063
+            -75.71362,
+            45.42257
         ]
     },
     {
         "routeDataPointId": "210",
         "segmentId": "1",
-        "time": 1672158524643,
+        "time": 1672163852963,
         "velocity": 50,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.6972,
-            45.40636
+            -75.71378,
+            45.42289
         ]
     },
     {
         "routeDataPointId": "211",
         "segmentId": "1",
-        "time": 1672158524653,
+        "time": 1672163852973,
         "velocity": 51,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.69698,
-            45.40644
+            -75.7138,
+            45.42293
         ]
     },
     {
         "routeDataPointId": "212",
         "segmentId": "1",
-        "time": 1672158524663,
+        "time": 1672163852983,
         "velocity": 52,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.6968,
-            45.40651
+            -75.71385,
+            45.42305
         ]
     },
     {
         "routeDataPointId": "213",
         "segmentId": "1",
-        "time": 1672158524673,
+        "time": 1672163852993,
         "velocity": 53,
         "noise": 61,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69666,
-            45.40656
+            -75.71387,
+            45.42312
         ]
     },
     {
         "routeDataPointId": "214",
         "segmentId": "1",
-        "time": 1672158524683,
+        "time": 1672163853003,
         "velocity": 54,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69653,
-            45.40661
+            -75.71393,
+            45.42329
         ]
     },
     {
         "routeDataPointId": "215",
         "segmentId": "1",
-        "time": 1672158524693,
+        "time": 1672163853013,
         "velocity": 55,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.6964,
-            45.40666
+            -75.71399,
+            45.42346
         ]
     },
     {
         "routeDataPointId": "216",
         "segmentId": "1",
-        "time": 1672158524703,
+        "time": 1672163853023,
         "velocity": 56,
         "noise": 60,
         "vibration": 3,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69626,
-            45.40672
+            -75.71401,
+            45.42352
         ]
     },
     {
         "routeDataPointId": "217",
         "segmentId": "1",
-        "time": 1672158524713,
+        "time": 1672163853033,
         "velocity": 57,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69613,
-            45.40677
+            -75.71403,
+            45.42361
         ]
     },
     {
         "routeDataPointId": "218",
         "segmentId": "1",
-        "time": 1672158524723,
+        "time": 1672163853043,
         "velocity": 58,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.696,
-            45.40682
+            -75.71405,
+            45.4237
         ]
     },
     {
         "routeDataPointId": "219",
         "segmentId": "1",
-        "time": 1672158524733,
+        "time": 1672163853053,
         "velocity": 59,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.69586,
-            45.40688
+            -75.71406,
+            45.42374
         ]
     },
     {
         "routeDataPointId": "220",
         "segmentId": "1",
-        "time": 1672158524743,
+        "time": 1672163853063,
         "velocity": 60,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69556,
-            45.40701
+            -75.71407,
+            45.42381
         ]
     },
     {
         "routeDataPointId": "221",
         "segmentId": "1",
-        "time": 1672158524753,
+        "time": 1672163853073,
         "velocity": 61,
         "noise": 61,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69552,
-            45.40702
+            -75.71409,
+            45.42393
         ]
     },
     {
         "routeDataPointId": "222",
         "segmentId": "1",
-        "time": 1672158524763,
+        "time": 1672163853083,
         "velocity": 62,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69521,
-            45.40715
+            -75.71409,
+            45.42399
         ]
     },
     {
         "routeDataPointId": "223",
         "segmentId": "1",
-        "time": 1672158524773,
+        "time": 1672163853093,
         "velocity": 63,
         "noise": 61,
         "vibration": 2,
-        "temperature": 28,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69508,
-            45.40721
+            -75.7141,
+            45.42405
         ]
     },
     {
         "routeDataPointId": "224",
         "segmentId": "1",
-        "time": 1672158524783,
+        "time": 1672163853103,
         "velocity": 64,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.69496,
-            45.40726
+            -75.7141,
+            45.42407
         ]
     },
     {
         "routeDataPointId": "225",
         "segmentId": "1",
-        "time": 1672158524793,
+        "time": 1672163853113,
         "velocity": 65,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69483,
-            45.40732
+            -75.7141,
+            45.42417
         ]
     },
     {
         "routeDataPointId": "226",
         "segmentId": "1",
-        "time": 1672158524803,
+        "time": 1672163853123,
         "velocity": 66,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.69468,
-            45.40738
+            -75.71409,
+            45.4242
         ]
     },
     {
         "routeDataPointId": "227",
         "segmentId": "1",
-        "time": 1672158524813,
+        "time": 1672163853133,
         "velocity": 67,
         "noise": 61,
         "vibration": 1,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.6945,
-            45.40746
+            -75.71407,
+            45.42432
         ]
     },
     {
         "routeDataPointId": "228",
         "segmentId": "1",
-        "time": 1672158524823,
+        "time": 1672163853143,
         "velocity": 68,
         "noise": 60,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69449,
-            45.40746
+            -75.71406,
+            45.42438
         ]
     },
     {
         "routeDataPointId": "229",
         "segmentId": "1",
-        "time": 1672158524833,
+        "time": 1672163853153,
         "velocity": 69,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69438,
-            45.40751
+            -75.71406,
+            45.42442
         ]
     },
     {
         "routeDataPointId": "230",
         "segmentId": "1",
-        "time": 1672158524843,
+        "time": 1672163853163,
         "velocity": 70,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69423,
-            45.40758
+            -75.71405,
+            45.42446
         ]
     },
     {
         "routeDataPointId": "231",
         "segmentId": "1",
-        "time": 1672158524853,
+        "time": 1672163853173,
         "velocity": 71,
         "noise": 61,
-        "vibration": 2,
+        "vibration": 1,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.6941,
-            45.40764
+            -75.71404,
+            45.42461
         ]
     },
     {
         "routeDataPointId": "232",
         "segmentId": "1",
-        "time": 1672158524863,
+        "time": 1672163853183,
         "velocity": 72,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69397,
-            45.4077
+            -75.71403,
+            45.42474
         ]
     },
     {
         "routeDataPointId": "233",
         "segmentId": "1",
-        "time": 1672158524873,
+        "time": 1672163853193,
         "velocity": 73,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69385,
-            45.40775
+            -75.71422,
+            45.42473
         ]
     },
     {
         "routeDataPointId": "234",
         "segmentId": "1",
-        "time": 1672158524883,
+        "time": 1672163853203,
         "velocity": 74,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69372,
-            45.40781
+            -75.7144,
+            45.42474
         ]
     },
     {
         "routeDataPointId": "235",
         "segmentId": "1",
-        "time": 1672158524893,
+        "time": 1672163853213,
         "velocity": 75,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69358,
-            45.40788
+            -75.71459,
+            45.42474
         ]
     },
     {
         "routeDataPointId": "236",
         "segmentId": "1",
-        "time": 1672158524903,
+        "time": 1672163853223,
         "velocity": 76,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69346,
-            45.40793
+            -75.71478,
+            45.42475
         ]
     },
     {
         "routeDataPointId": "237",
         "segmentId": "1",
-        "time": 1672158524913,
+        "time": 1672163853233,
         "velocity": 77,
         "noise": 61,
-        "vibration": 2,
+        "vibration": 1,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69332,
-            45.408
+            -75.71504,
+            45.42476
         ]
     },
     {
         "routeDataPointId": "238",
         "segmentId": "1",
-        "time": 1672158524923,
+        "time": 1672163853243,
         "velocity": 78,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69326,
-            45.40803
+            -75.71508,
+            45.42477
         ]
     },
     {
         "routeDataPointId": "239",
         "segmentId": "1",
-        "time": 1672158524933,
+        "time": 1672163853253,
         "velocity": 79,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69305,
-            45.40812
+            -75.7154,
+            45.42478
         ]
     },
     {
         "routeDataPointId": "240",
         "segmentId": "1",
-        "time": 1672158524943,
+        "time": 1672163853263,
         "velocity": 80,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.69281,
-            45.40824
+            -75.71569,
+            45.4248
         ]
     },
     {
         "routeDataPointId": "241",
         "segmentId": "1",
-        "time": 1672158524953,
+        "time": 1672163853273,
         "velocity": 81,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69268,
-            45.4083
+            -75.71598,
+            45.42481
         ]
     },
     {
         "routeDataPointId": "242",
         "segmentId": "1",
-        "time": 1672158524963,
+        "time": 1672163853283,
         "velocity": 82,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.69256,
-            45.40836
+            -75.71617,
+            45.42481
         ]
     },
     {
         "routeDataPointId": "243",
         "segmentId": "1",
-        "time": 1672158524973,
+        "time": 1672163853293,
         "velocity": 83,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69243,
-            45.40842
+            -75.71637,
+            45.42481
         ]
     },
     {
         "routeDataPointId": "244",
         "segmentId": "1",
-        "time": 1672158524983,
+        "time": 1672163853303,
         "velocity": 84,
         "noise": 60,
         "vibration": 2,
-        "temperature": 22,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.6923,
-            45.40849
+            -75.71662,
+            45.4248
         ]
     },
     {
         "routeDataPointId": "245",
         "segmentId": "1",
-        "time": 1672158524993,
+        "time": 1672163853313,
         "velocity": 85,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69218,
-            45.40855
+            -75.71679,
+            45.42477
         ]
     },
     {
         "routeDataPointId": "246",
         "segmentId": "1",
-        "time": 1672158525003,
+        "time": 1672163853323,
         "velocity": 86,
         "noise": 60,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69216,
-            45.40856
+            -75.71692,
+            45.42476
         ]
     },
     {
         "routeDataPointId": "247",
         "segmentId": "1",
-        "time": 1672158525013,
+        "time": 1672163853333,
         "velocity": 87,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69205,
-            45.40861
+            -75.71709,
+            45.42474
         ]
     },
     {
         "routeDataPointId": "248",
         "segmentId": "1",
-        "time": 1672158525023,
+        "time": 1672163853343,
         "velocity": 88,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.69192,
-            45.40867
+            -75.7173,
+            45.42471
         ]
     },
     {
         "routeDataPointId": "249",
         "segmentId": "1",
-        "time": 1672158525033,
+        "time": 1672163853353,
         "velocity": 89,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69182,
-            45.40872
+            -75.71757,
+            45.42466
         ]
     },
     {
         "routeDataPointId": "250",
         "segmentId": "1",
-        "time": 1672158525043,
+        "time": 1672163853363,
         "velocity": 90,
         "noise": 60,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.69174,
-            45.40876
+            -75.71783,
+            45.42461
         ]
     },
     {
         "routeDataPointId": "251",
         "segmentId": "1",
-        "time": 1672158525053,
+        "time": 1672163853373,
         "velocity": 91,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69165,
-            45.4088
+            -75.71798,
+            45.42458
         ]
     },
     {
         "routeDataPointId": "252",
         "segmentId": "1",
-        "time": 1672158525063,
+        "time": 1672163853383,
         "velocity": 92,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.69154,
-            45.40886
+            -75.7182,
+            45.42455
         ]
     },
     {
         "routeDataPointId": "253",
         "segmentId": "1",
-        "time": 1672158525073,
+        "time": 1672163853393,
         "velocity": 93,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69142,
-            45.40892
+            -75.71846,
+            45.42453
         ]
     },
     {
         "routeDataPointId": "254",
         "segmentId": "1",
-        "time": 1672158525083,
+        "time": 1672163853403,
         "velocity": 94,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.6913,
-            45.40897
+            -75.71856,
+            45.42453
         ]
     },
     {
         "routeDataPointId": "255",
         "segmentId": "1",
-        "time": 1672158525093,
+        "time": 1672163853413,
         "velocity": 95,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.69129,
-            45.40898
+            -75.71872,
+            45.42454
         ]
     },
     {
         "routeDataPointId": "256",
         "segmentId": "1",
-        "time": 1672158525103,
+        "time": 1672163853423,
         "velocity": 96,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.69116,
-            45.40904
+            -75.71881,
+            45.42455
         ]
     },
     {
         "routeDataPointId": "257",
         "segmentId": "1",
-        "time": 1672158525113,
+        "time": 1672163853433,
         "velocity": 97,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.69105,
-            45.40909
+            -75.71883,
+            45.42455
         ]
     },
     {
         "routeDataPointId": "258",
         "segmentId": "1",
-        "time": 1672158525123,
+        "time": 1672163853443,
         "velocity": 98,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.69092,
-            45.40916
+            -75.71896,
+            45.42457
         ]
     },
     {
         "routeDataPointId": "259",
         "segmentId": "1",
-        "time": 1672158525133,
+        "time": 1672163853453,
         "velocity": 99,
         "noise": 61,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.69079,
-            45.40922
+            -75.71904,
+            45.42459
         ]
     },
     {
         "routeDataPointId": "260",
         "segmentId": "1",
-        "time": 1672158525143,
+        "time": 1672163853463,
         "velocity": 100,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.69057,
-            45.40933
+            -75.71915,
+            45.42461
         ]
     },
     {
         "routeDataPointId": "261",
         "segmentId": "1",
-        "time": 1672158525153,
+        "time": 1672163853473,
         "velocity": 101,
         "noise": 61,
         "vibration": 3,
-        "temperature": 21,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.69029,
-            45.40946
+            -75.71979,
+            45.42477
         ]
     },
     {
         "routeDataPointId": "262",
         "segmentId": "1",
-        "time": 1672158525163,
+        "time": 1672163853483,
         "velocity": 102,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "foo bar",
+        "vibration": 2,
+        "temperature": 26,
+        "annotation": "",
         "coordinates": [
-            -75.69003,
-            45.40958
+            -75.71992,
+            45.42479
         ]
     },
     {
         "routeDataPointId": "263",
         "segmentId": "1",
-        "time": 1672158525173,
+        "time": 1672163853493,
         "velocity": 103,
         "noise": 61,
         "vibration": 3,
-        "temperature": 26,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68991,
-            45.40965
+            -75.72,
+            45.4248
         ]
     },
     {
         "routeDataPointId": "264",
         "segmentId": "1",
-        "time": 1672158525183,
+        "time": 1672163853503,
         "velocity": 104,
         "noise": 60,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.68978,
-            45.40971
+            -75.72004,
+            45.42481
         ]
     },
     {
         "routeDataPointId": "265",
         "segmentId": "1",
-        "time": 1672158525193,
+        "time": 1672163853513,
         "velocity": 105,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68965,
-            45.40977
+            -75.7201,
+            45.42481
         ]
     },
     {
         "routeDataPointId": "266",
         "segmentId": "1",
-        "time": 1672158525203,
+        "time": 1672163853523,
         "velocity": 106,
         "noise": 60,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68952,
-            45.40983
+            -75.72016,
+            45.42482
         ]
     },
     {
         "routeDataPointId": "267",
         "segmentId": "1",
-        "time": 1672158525213,
+        "time": 1672163853533,
         "velocity": 107,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.68939,
-            45.40989
+            -75.72026,
+            45.42482
         ]
     },
     {
         "routeDataPointId": "268",
         "segmentId": "1",
-        "time": 1672158525223,
+        "time": 1672163853543,
         "velocity": 108,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68928,
-            45.40994
+            -75.72039,
+            45.42481
         ]
     },
     {
         "routeDataPointId": "269",
         "segmentId": "1",
-        "time": 1672158525233,
+        "time": 1672163853553,
         "velocity": 109,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68922,
-            45.40997
+            -75.72062,
+            45.4248
         ]
     },
     {
         "routeDataPointId": "270",
         "segmentId": "1",
-        "time": 1672158525243,
+        "time": 1672163853563,
         "velocity": 110,
         "noise": 60,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68897,
-            45.41008
+            -75.72085,
+            45.42479
         ]
     },
     {
         "routeDataPointId": "271",
         "segmentId": "1",
-        "time": 1672158525253,
+        "time": 1672163853573,
         "velocity": 111,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68887,
-            45.41013
+            -75.72087,
+            45.42479
         ]
     },
     {
         "routeDataPointId": "272",
         "segmentId": "1",
-        "time": 1672158525263,
+        "time": 1672163853583,
         "velocity": 112,
         "noise": 60,
-        "vibration": 2,
+        "vibration": 1,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.68871,
-            45.4102
+            -75.72093,
+            45.42478
         ]
     },
     {
         "routeDataPointId": "273",
         "segmentId": "1",
-        "time": 1672158525273,
+        "time": 1672163853593,
         "velocity": 113,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.6884,
-            45.41034
+            -75.72114,
+            45.42476
         ]
     },
     {
         "routeDataPointId": "274",
         "segmentId": "1",
-        "time": 1672158525283,
+        "time": 1672163853603,
         "velocity": 114,
         "noise": 60,
         "vibration": 2,
-        "temperature": 21,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68823,
-            45.41041
+            -75.72136,
+            45.42475
         ]
     },
     {
         "routeDataPointId": "275",
         "segmentId": "1",
-        "time": 1672158525293,
+        "time": 1672163853613,
         "velocity": 115,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68811,
-            45.41047
+            -75.72166,
+            45.42472
         ]
     },
     {
         "routeDataPointId": "276",
         "segmentId": "1",
-        "time": 1672158525303,
+        "time": 1672163853623,
         "velocity": 116,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68797,
-            45.41052
+            -75.72173,
+            45.42471
         ]
     },
     {
         "routeDataPointId": "277",
         "segmentId": "1",
-        "time": 1672158525313,
+        "time": 1672163853633,
         "velocity": 117,
         "noise": 61,
         "vibration": 3,
-        "temperature": 27,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.68785,
-            45.41057
+            -75.72192,
+            45.42469
         ]
     },
     {
         "routeDataPointId": "278",
         "segmentId": "1",
-        "time": 1672158525323,
+        "time": 1672163853643,
         "velocity": 118,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68771,
-            45.41063
+            -75.72204,
+            45.42467
         ]
     },
     {
         "routeDataPointId": "279",
         "segmentId": "1",
-        "time": 1672158525333,
+        "time": 1672163853653,
         "velocity": 119,
         "noise": 61,
         "vibration": 2,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68758,
-            45.41069
+            -75.7221,
+            45.42467
         ]
     },
     {
         "routeDataPointId": "280",
         "segmentId": "1",
-        "time": 1672158525343,
+        "time": 1672163853663,
         "velocity": 120,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68745,
-            45.41074
+            -75.72227,
+            45.42466
         ]
     },
     {
         "routeDataPointId": "281",
         "segmentId": "1",
-        "time": 1672158525353,
+        "time": 1672163853673,
         "velocity": 121,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68732,
-            45.4108
+            -75.72255,
+            45.42463
         ]
     },
     {
         "routeDataPointId": "282",
         "segmentId": "1",
-        "time": 1672158525363,
+        "time": 1672163853683,
         "velocity": 122,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68708,
-            45.4109
+            -75.72258,
+            45.42462
         ]
     },
     {
         "routeDataPointId": "283",
         "segmentId": "1",
-        "time": 1672158525373,
+        "time": 1672163853693,
         "velocity": 123,
         "noise": 61,
         "vibration": 3,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68691,
-            45.41096
+            -75.72285,
+            45.42456
         ]
     },
     {
         "routeDataPointId": "284",
         "segmentId": "1",
-        "time": 1672158525383,
+        "time": 1672163853703,
         "velocity": 124,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68679,
-            45.41101
+            -75.72316,
+            45.42507
         ]
     },
     {
         "routeDataPointId": "285",
         "segmentId": "1",
-        "time": 1672158525393,
+        "time": 1672163853713,
         "velocity": 125,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68652,
-            45.41112
+            -75.72335,
+            45.42537
         ]
     },
     {
         "routeDataPointId": "286",
         "segmentId": "1",
-        "time": 1672158525403,
+        "time": 1672163853723,
         "velocity": 126,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68639,
-            45.41117
+            -75.72342,
+            45.42547
         ]
     },
     {
         "routeDataPointId": "287",
         "segmentId": "1",
-        "time": 1672158525413,
+        "time": 1672163853733,
         "velocity": 127,
         "noise": 61,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68628,
-            45.41121
+            -75.72358,
+            45.42571
         ]
     },
     {
         "routeDataPointId": "288",
         "segmentId": "1",
-        "time": 1672158525423,
+        "time": 1672163853743,
         "velocity": 128,
         "noise": 60,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68611,
-            45.41128
+            -75.72372,
+            45.42594
         ]
     },
     {
         "routeDataPointId": "289",
         "segmentId": "1",
-        "time": 1672158525433,
+        "time": 1672163853753,
         "velocity": 129,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.68599,
-            45.41132
+            -75.72388,
+            45.42619
         ]
     },
     {
         "routeDataPointId": "290",
         "segmentId": "1",
-        "time": 1672158525443,
+        "time": 1672163853763,
         "velocity": 130,
         "noise": 60,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68584,
-            45.41138
+            -75.72392,
+            45.42625
         ]
     },
     {
         "routeDataPointId": "291",
         "segmentId": "1",
-        "time": 1672158525453,
+        "time": 1672163853773,
         "velocity": 131,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68571,
-            45.41143
+            -75.72401,
+            45.4264
         ]
     },
     {
         "routeDataPointId": "292",
         "segmentId": "1",
-        "time": 1672158525463,
+        "time": 1672163853783,
         "velocity": 132,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68556,
-            45.41148
+            -75.72412,
+            45.42657
         ]
     },
     {
         "routeDataPointId": "293",
         "segmentId": "1",
-        "time": 1672158525473,
+        "time": 1672163853793,
         "velocity": 133,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68538,
-            45.41155
+            -75.7245,
+            45.42717
         ]
     },
     {
         "routeDataPointId": "294",
         "segmentId": "1",
-        "time": 1672158525483,
+        "time": 1672163853803,
         "velocity": 134,
         "noise": 60,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.68515,
-            45.41163
+            -75.72471,
+            45.42752
         ]
     },
     {
         "routeDataPointId": "295",
         "segmentId": "1",
-        "time": 1672158525493,
+        "time": 1672163853813,
         "velocity": 135,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68488,
-            45.41173
+            -75.72479,
+            45.42766
         ]
     },
     {
         "routeDataPointId": "296",
         "segmentId": "1",
-        "time": 1672158525503,
+        "time": 1672163853823,
         "velocity": 136,
         "noise": 60,
         "vibration": 3,
-        "temperature": 27,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.68475,
-            45.41178
+            -75.72489,
+            45.42782
         ]
     },
     {
         "routeDataPointId": "297",
         "segmentId": "1",
-        "time": 1672158525513,
+        "time": 1672163853833,
         "velocity": 137,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68461,
-            45.41183
+            -75.72506,
+            45.42814
         ]
     },
     {
         "routeDataPointId": "298",
         "segmentId": "1",
-        "time": 1672158525523,
+        "time": 1672163853843,
         "velocity": 138,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68448,
-            45.41187
+            -75.72522,
+            45.42842
         ]
     },
     {
         "routeDataPointId": "299",
         "segmentId": "1",
-        "time": 1672158525533,
+        "time": 1672163853853,
         "velocity": 139,
         "noise": 61,
         "vibration": 3,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68434,
-            45.41192
+            -75.72528,
+            45.42849
         ]
     },
     {
         "routeDataPointId": "300",
         "segmentId": "1",
-        "time": 1672158525543,
+        "time": 1672163853863,
         "velocity": 140,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68351,
-            45.4122
+            -75.72551,
+            45.42887
         ]
     },
     {
         "routeDataPointId": "301",
         "segmentId": "1",
-        "time": 1672158525553,
+        "time": 1672163853873,
         "velocity": 141,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68337,
-            45.41225
+            -75.72555,
+            45.42893
         ]
     },
     {
         "routeDataPointId": "302",
         "segmentId": "1",
-        "time": 1672158525563,
+        "time": 1672163853883,
         "velocity": 142,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68309,
-            45.41234
+            -75.72563,
+            45.42902
         ]
     },
     {
         "routeDataPointId": "303",
         "segmentId": "1",
-        "time": 1672158525573,
+        "time": 1672163853893,
         "velocity": 143,
         "noise": 61,
         "vibration": 3,
-        "temperature": 25,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68294,
-            45.41239
+            -75.72568,
+            45.42907
         ]
     },
     {
         "routeDataPointId": "304",
         "segmentId": "1",
-        "time": 1672158525583,
+        "time": 1672163853903,
         "velocity": 144,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68281,
-            45.41244
+            -75.72573,
+            45.42911
         ]
     },
     {
         "routeDataPointId": "305",
         "segmentId": "1",
-        "time": 1672158525593,
+        "time": 1672163853913,
         "velocity": 145,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68268,
-            45.41248
+            -75.72579,
+            45.42916
         ]
     },
     {
         "routeDataPointId": "306",
         "segmentId": "1",
-        "time": 1672158525603,
+        "time": 1672163853923,
         "velocity": 146,
         "noise": 60,
-        "vibration": 2,
+        "vibration": 3,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68247,
-            45.41255
+            -75.72583,
+            45.42918
         ]
     },
     {
         "routeDataPointId": "307",
         "segmentId": "1",
-        "time": 1672158525613,
+        "time": 1672163853933,
         "velocity": 147,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.68234,
-            45.4126
+            -75.7259,
+            45.42923
         ]
     },
     {
         "routeDataPointId": "308",
         "segmentId": "1",
-        "time": 1672158525623,
+        "time": 1672163853943,
         "velocity": 148,
         "noise": 60,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68207,
-            45.41269
+            -75.72598,
+            45.42927
         ]
     },
     {
         "routeDataPointId": "309",
         "segmentId": "1",
-        "time": 1672158525633,
+        "time": 1672163853953,
         "velocity": 149,
         "noise": 61,
         "vibration": 2,
-        "temperature": 24,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68192,
-            45.41273
+            -75.72609,
+            45.42931
         ]
     },
     {
         "routeDataPointId": "310",
         "segmentId": "1",
-        "time": 1672158525643,
+        "time": 1672163853963,
         "velocity": 150,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68179,
-            45.41278
+            -75.72621,
+            45.42935
         ]
     },
     {
         "routeDataPointId": "311",
         "segmentId": "1",
-        "time": 1672158525653,
+        "time": 1672163853973,
         "velocity": 151,
         "noise": 61,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.68164,
-            45.41283
+            -75.72638,
+            45.4294
         ]
     },
     {
         "routeDataPointId": "312",
         "segmentId": "1",
-        "time": 1672158525663,
+        "time": 1672163853983,
         "velocity": 152,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68138,
-            45.41292
+            -75.72661,
+            45.42945
         ]
     },
     {
         "routeDataPointId": "313",
         "segmentId": "1",
-        "time": 1672158525673,
+        "time": 1672163853993,
         "velocity": 153,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.68122,
-            45.41298
+            -75.7267,
+            45.42952
         ]
     },
     {
         "routeDataPointId": "314",
         "segmentId": "1",
-        "time": 1672158525683,
+        "time": 1672163854003,
         "velocity": 154,
         "noise": 60,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68109,
-            45.41303
+            -75.72694,
+            45.42958
         ]
     },
     {
         "routeDataPointId": "315",
         "segmentId": "1",
-        "time": 1672158525693,
+        "time": 1672163854013,
         "velocity": 155,
         "noise": 61,
         "vibration": 2,
-        "temperature": 27,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.68096,
-            45.41307
+            -75.72707,
+            45.42961
         ]
     },
     {
         "routeDataPointId": "316",
         "segmentId": "1",
-        "time": 1672158525703,
+        "time": 1672163854023,
         "velocity": 156,
         "noise": 60,
         "vibration": 2,
         "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68082,
-            45.41312
+            -75.72731,
+            45.42968
         ]
     },
     {
         "routeDataPointId": "317",
         "segmentId": "1",
-        "time": 1672158525713,
+        "time": 1672163854033,
         "velocity": 157,
         "noise": 61,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68071,
-            45.41317
+            -75.72734,
+            45.42969
         ]
     },
     {
         "routeDataPointId": "318",
         "segmentId": "1",
-        "time": 1672158525723,
+        "time": 1672163854043,
         "velocity": 158,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.68068,
-            45.41318
+            -75.72735,
+            45.4297
         ]
     },
     {
         "routeDataPointId": "319",
         "segmentId": "1",
-        "time": 1672158525733,
+        "time": 1672163854053,
         "velocity": 159,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.68054,
-            45.41323
+            -75.72759,
+            45.42977
         ]
     },
     {
         "routeDataPointId": "320",
         "segmentId": "1",
-        "time": 1672158525743,
+        "time": 1672163854063,
         "velocity": 0,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.68041,
-            45.41329
+            -75.72771,
+            45.42981
         ]
     },
     {
         "routeDataPointId": "321",
         "segmentId": "1",
-        "time": 1672158525753,
+        "time": 1672163854073,
         "velocity": 1,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.68029,
-            45.41334
+            -75.72781,
+            45.42984
         ]
     },
     {
         "routeDataPointId": "322",
         "segmentId": "1",
-        "time": 1672158525763,
+        "time": 1672163854083,
         "velocity": 2,
         "noise": 60,
         "vibration": 2,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.68004,
-            45.41345
+            -75.72786,
+            45.42985
         ]
     },
     {
         "routeDataPointId": "323",
         "segmentId": "1",
-        "time": 1672158525773,
+        "time": 1672163854093,
         "velocity": 3,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67978,
-            45.41356
+            -75.7279,
+            45.42987
         ]
     },
     {
         "routeDataPointId": "324",
         "segmentId": "1",
-        "time": 1672158525783,
+        "time": 1672163854103,
         "velocity": 4,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67977,
-            45.41356
+            -75.72814,
+            45.42993
         ]
     },
     {
         "routeDataPointId": "325",
         "segmentId": "1",
-        "time": 1672158525793,
+        "time": 1672163854113,
         "velocity": 5,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67963,
-            45.41363
+            -75.72849,
+            45.43003
         ]
     },
     {
         "routeDataPointId": "326",
         "segmentId": "1",
-        "time": 1672158525803,
+        "time": 1672163854123,
         "velocity": 6,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.6795,
-            45.41369
+            -75.72863,
+            45.43008
         ]
     },
     {
         "routeDataPointId": "327",
         "segmentId": "1",
-        "time": 1672158525813,
+        "time": 1672163854133,
         "velocity": 7,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67935,
-            45.41375
+            -75.72904,
+            45.43019
         ]
     },
     {
         "routeDataPointId": "328",
         "segmentId": "1",
-        "time": 1672158525823,
+        "time": 1672163854143,
         "velocity": 8,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67923,
-            45.41381
+            -75.72951,
+            45.43034
         ]
     },
     {
         "routeDataPointId": "329",
         "segmentId": "1",
-        "time": 1672158525833,
+        "time": 1672163854153,
         "velocity": 9,
         "noise": 61,
         "vibration": 2,
-        "temperature": 23,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67899,
-            45.41392
+            -75.72962,
+            45.4304
         ]
     },
     {
         "routeDataPointId": "330",
         "segmentId": "1",
-        "time": 1672158525843,
+        "time": 1672163854163,
         "velocity": 10,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67892,
-            45.41395
+            -75.7299,
+            45.43049
         ]
     },
     {
         "routeDataPointId": "331",
         "segmentId": "1",
-        "time": 1672158525853,
+        "time": 1672163854173,
         "velocity": 11,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67885,
-            45.41398
+            -75.73018,
+            45.43058
         ]
     },
     {
         "routeDataPointId": "332",
         "segmentId": "1",
-        "time": 1672158525863,
+        "time": 1672163854183,
         "velocity": 12,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67872,
-            45.41404
+            -75.73039,
+            45.43065
         ]
     },
     {
         "routeDataPointId": "333",
         "segmentId": "1",
-        "time": 1672158525873,
+        "time": 1672163854193,
         "velocity": 13,
         "noise": 61,
         "vibration": 1,
-        "temperature": 21,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6786,
-            45.4141
+            -75.73074,
+            45.43076
         ]
     },
     {
         "routeDataPointId": "334",
         "segmentId": "1",
-        "time": 1672158525883,
+        "time": 1672163854203,
         "velocity": 14,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.67847,
-            45.41416
+            -75.73129,
+            45.43093
         ]
     },
     {
         "routeDataPointId": "335",
         "segmentId": "1",
-        "time": 1672158525893,
+        "time": 1672163854213,
         "velocity": 15,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67834,
-            45.41422
+            -75.73165,
+            45.43104
         ]
     },
     {
         "routeDataPointId": "336",
         "segmentId": "1",
-        "time": 1672158525903,
+        "time": 1672163854223,
         "velocity": 16,
         "noise": 60,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67832,
-            45.41423
+            -75.73231,
+            45.43125
         ]
     },
     {
         "routeDataPointId": "337",
         "segmentId": "1",
-        "time": 1672158525913,
+        "time": 1672163854233,
         "velocity": 17,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67821,
-            45.41428
+            -75.73258,
+            45.43135
         ]
     },
     {
         "routeDataPointId": "338",
         "segmentId": "1",
-        "time": 1672158525923,
+        "time": 1672163854243,
         "velocity": 18,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.67798,
-            45.41439
+            -75.73275,
+            45.43142
         ]
     },
     {
         "routeDataPointId": "339",
         "segmentId": "1",
-        "time": 1672158525933,
+        "time": 1672163854253,
         "velocity": 19,
         "noise": 61,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67756,
-            45.41458
+            -75.73295,
+            45.43148
         ]
     },
     {
         "routeDataPointId": "340",
         "segmentId": "1",
-        "time": 1672158525943,
+        "time": 1672163854263,
         "velocity": 20,
         "noise": 60,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67745,
-            45.41463
+            -75.73302,
+            45.43149
         ]
     },
     {
         "routeDataPointId": "341",
         "segmentId": "1",
-        "time": 1672158525953,
+        "time": 1672163854273,
         "velocity": 21,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67733,
-            45.41469
+            -75.73303,
+            45.4315
         ]
     },
     {
         "routeDataPointId": "342",
         "segmentId": "1",
-        "time": 1672158525963,
+        "time": 1672163854283,
         "velocity": 22,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6772,
-            45.41475
+            -75.73303,
+            45.43151
         ]
     },
     {
         "routeDataPointId": "343",
         "segmentId": "1",
-        "time": 1672158525973,
+        "time": 1672163854293,
         "velocity": 23,
         "noise": 61,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67707,
-            45.41481
+            -75.73303,
+            45.43152
         ]
     },
     {
         "routeDataPointId": "344",
         "segmentId": "1",
-        "time": 1672158525983,
+        "time": 1672163854303,
         "velocity": 24,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67694,
-            45.41487
+            -75.73304,
+            45.43152
         ]
     },
     {
         "routeDataPointId": "345",
         "segmentId": "1",
-        "time": 1672158525993,
+        "time": 1672163854313,
         "velocity": 25,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67681,
-            45.41493
+            -75.73304,
+            45.43153
         ]
     },
     {
         "routeDataPointId": "346",
         "segmentId": "1",
-        "time": 1672158526003,
+        "time": 1672163854323,
         "velocity": 26,
         "noise": 60,
         "vibration": 1,
-        "temperature": 21,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67668,
-            45.41499
+            -75.73305,
+            45.43153
         ]
     },
     {
         "routeDataPointId": "347",
         "segmentId": "1",
-        "time": 1672158526013,
+        "time": 1672163854333,
         "velocity": 27,
         "noise": 61,
         "vibration": 3,
-        "temperature": 28,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.67656,
-            45.41505
+            -75.73305,
+            45.43154
         ]
     },
     {
         "routeDataPointId": "348",
         "segmentId": "1",
-        "time": 1672158526023,
+        "time": 1672163854343,
         "velocity": 28,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.67637,
-            45.41514
+            -75.73306,
+            45.43154
         ]
     },
     {
         "routeDataPointId": "349",
         "segmentId": "1",
-        "time": 1672158526033,
+        "time": 1672163854353,
         "velocity": 29,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.67629,
-            45.41518
+            -75.73306,
+            45.43155
         ]
     },
     {
         "routeDataPointId": "350",
         "segmentId": "1",
-        "time": 1672158526043,
+        "time": 1672163854363,
         "velocity": 30,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67616,
-            45.41524
+            -75.73307,
+            45.43155
         ]
     },
     {
         "routeDataPointId": "351",
         "segmentId": "1",
-        "time": 1672158526053,
+        "time": 1672163854373,
         "velocity": 31,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67601,
-            45.41531
+            -75.73308,
+            45.43156
         ]
     },
     {
         "routeDataPointId": "352",
         "segmentId": "1",
-        "time": 1672158526063,
+        "time": 1672163854383,
         "velocity": 32,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.67579,
-            45.41541
+            -75.73309,
+            45.43156
         ]
     },
     {
         "routeDataPointId": "353",
         "segmentId": "1",
-        "time": 1672158526073,
+        "time": 1672163854393,
         "velocity": 33,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67566,
-            45.41547
+            -75.7331,
+            45.43156
         ]
     },
     {
         "routeDataPointId": "354",
         "segmentId": "1",
-        "time": 1672158526083,
+        "time": 1672163854403,
         "velocity": 34,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67554,
-            45.41553
+            -75.73311,
+            45.43157
         ]
     },
     {
         "routeDataPointId": "355",
         "segmentId": "1",
-        "time": 1672158526093,
+        "time": 1672163854413,
         "velocity": 35,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67541,
-            45.41559
+            -75.73316,
+            45.43168
         ]
     },
     {
         "routeDataPointId": "356",
         "segmentId": "1",
-        "time": 1672158526103,
+        "time": 1672163854423,
         "velocity": 36,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67527,
-            45.41565
+            -75.73317,
+            45.43175
         ]
     },
     {
         "routeDataPointId": "357",
         "segmentId": "1",
-        "time": 1672158526113,
+        "time": 1672163854433,
         "velocity": 37,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67517,
-            45.4157
+            -75.73318,
+            45.4318
         ]
     },
     {
         "routeDataPointId": "358",
         "segmentId": "1",
-        "time": 1672158526123,
+        "time": 1672163854443,
         "velocity": 38,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.67502,
-            45.41577
+            -75.73318,
+            45.43182
         ]
     },
     {
         "routeDataPointId": "359",
         "segmentId": "1",
-        "time": 1672158526133,
+        "time": 1672163854453,
         "velocity": 39,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67489,
-            45.41583
+            -75.73317,
+            45.43188
         ]
     },
     {
         "routeDataPointId": "360",
         "segmentId": "1",
-        "time": 1672158526143,
+        "time": 1672163854463,
         "velocity": 40,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67475,
-            45.4159
+            -75.73315,
+            45.43197
         ]
     },
     {
         "routeDataPointId": "361",
         "segmentId": "1",
-        "time": 1672158526153,
+        "time": 1672163854473,
         "velocity": 41,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67462,
-            45.41596
+            -75.73312,
+            45.43198
         ]
     },
     {
         "routeDataPointId": "362",
         "segmentId": "1",
-        "time": 1672158526163,
+        "time": 1672163854483,
         "velocity": 42,
         "noise": 60,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67449,
-            45.41602
+            -75.7331,
+            45.43198
         ]
     },
     {
         "routeDataPointId": "363",
         "segmentId": "1",
-        "time": 1672158526173,
+        "time": 1672163854493,
         "velocity": 43,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67435,
-            45.41609
+            -75.73306,
+            45.432
         ]
     },
     {
         "routeDataPointId": "364",
         "segmentId": "1",
-        "time": 1672158526183,
+        "time": 1672163854503,
         "velocity": 44,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67421,
-            45.41615
+            -75.73303,
+            45.43201
         ]
     },
     {
         "routeDataPointId": "365",
         "segmentId": "1",
-        "time": 1672158526193,
+        "time": 1672163854513,
         "velocity": 45,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67408,
-            45.41621
+            -75.73302,
+            45.43203
         ]
     },
     {
         "routeDataPointId": "366",
         "segmentId": "1",
-        "time": 1672158526203,
+        "time": 1672163854523,
         "velocity": 46,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 25,
-        "annotation": "",
+        "vibration": 2,
+        "temperature": 21,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.67394,
-            45.41627
+            -75.73301,
+            45.43204
         ]
     },
     {
         "routeDataPointId": "367",
         "segmentId": "1",
-        "time": 1672158526213,
+        "time": 1672163854533,
         "velocity": 47,
         "noise": 61,
         "vibration": 1,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67378,
-            45.41633
+            -75.73298,
+            45.43207
         ]
     },
     {
         "routeDataPointId": "368",
         "segmentId": "1",
-        "time": 1672158526223,
+        "time": 1672163854543,
         "velocity": 48,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6736,
-            45.41641
+            -75.73296,
+            45.43209
         ]
     },
     {
         "routeDataPointId": "369",
         "segmentId": "1",
-        "time": 1672158526233,
+        "time": 1672163854553,
         "velocity": 49,
         "noise": 61,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67328,
-            45.41653
+            -75.73295,
+            45.43211
         ]
     },
     {
         "routeDataPointId": "370",
         "segmentId": "1",
-        "time": 1672158526243,
+        "time": 1672163854563,
         "velocity": 50,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.67314,
-            45.41658
+            -75.73294,
+            45.43213
         ]
     },
     {
         "routeDataPointId": "371",
         "segmentId": "1",
-        "time": 1672158526253,
+        "time": 1672163854573,
         "velocity": 51,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67301,
-            45.41663
+            -75.73293,
+            45.43216
         ]
     },
     {
         "routeDataPointId": "372",
         "segmentId": "1",
-        "time": 1672158526263,
+        "time": 1672163854583,
         "velocity": 52,
         "noise": 60,
         "vibration": 3,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67289,
-            45.41667
+            -75.73293,
+            45.43218
         ]
     },
     {
         "routeDataPointId": "373",
         "segmentId": "1",
-        "time": 1672158526273,
+        "time": 1672163854593,
         "velocity": 53,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67271,
-            45.41672
+            -75.73294,
+            45.43221
         ]
     },
     {
         "routeDataPointId": "374",
         "segmentId": "1",
-        "time": 1672158526283,
+        "time": 1672163854603,
         "velocity": 54,
         "noise": 60,
-        "vibration": 2,
+        "vibration": 3,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67259,
-            45.41676
+            -75.73294,
+            45.43223
         ]
     },
     {
         "routeDataPointId": "375",
         "segmentId": "1",
-        "time": 1672158526293,
+        "time": 1672163854613,
         "velocity": 55,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67244,
-            45.4168
+            -75.73295,
+            45.43225
         ]
     },
     {
         "routeDataPointId": "376",
         "segmentId": "1",
-        "time": 1672158526303,
+        "time": 1672163854623,
         "velocity": 56,
         "noise": 60,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6723,
-            45.41684
+            -75.73296,
+            45.43227
         ]
     },
     {
         "routeDataPointId": "377",
         "segmentId": "1",
-        "time": 1672158526313,
+        "time": 1672163854633,
         "velocity": 57,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.67214,
-            45.41688
+            -75.73298,
+            45.43229
         ]
     },
     {
         "routeDataPointId": "378",
         "segmentId": "1",
-        "time": 1672158526323,
+        "time": 1672163854643,
         "velocity": 58,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 24,
-        "annotation": "foo bar",
+        "annotation": "",
         "coordinates": [
-            -75.672,
-            45.41691
+            -75.73299,
+            45.43231
         ]
     },
     {
         "routeDataPointId": "379",
         "segmentId": "1",
-        "time": 1672158526333,
+        "time": 1672163854653,
         "velocity": 59,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67185,
-            45.41694
+            -75.73301,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "380",
         "segmentId": "1",
-        "time": 1672158526343,
+        "time": 1672163854663,
         "velocity": 60,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.67171,
-            45.41697
+            -75.73303,
+            45.43234
         ]
     },
     {
         "routeDataPointId": "381",
         "segmentId": "1",
-        "time": 1672158526353,
+        "time": 1672163854673,
         "velocity": 61,
         "noise": 61,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67157,
-            45.417
+            -75.73305,
+            45.43235
         ]
     },
     {
         "routeDataPointId": "382",
         "segmentId": "1",
-        "time": 1672158526363,
+        "time": 1672163854683,
         "velocity": 62,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67143,
-            45.41702
+            -75.73307,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "383",
         "segmentId": "1",
-        "time": 1672158526373,
+        "time": 1672163854693,
         "velocity": 63,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.67126,
-            45.41705
+            -75.7331,
+            45.43237
         ]
     },
     {
         "routeDataPointId": "384",
         "segmentId": "1",
-        "time": 1672158526383,
+        "time": 1672163854703,
         "velocity": 64,
         "noise": 60,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67111,
-            45.41707
+            -75.73313,
+            45.43238
         ]
     },
     {
         "routeDataPointId": "385",
         "segmentId": "1",
-        "time": 1672158526393,
+        "time": 1672163854713,
         "velocity": 65,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
-        "annotation": "",
+        "vibration": 2,
+        "temperature": 21,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.67098,
-            45.41709
+            -75.73316,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "386",
         "segmentId": "1",
-        "time": 1672158526403,
+        "time": 1672163854723,
         "velocity": 66,
         "noise": 60,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.67078,
-            45.41711
+            -75.73319,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "387",
         "segmentId": "1",
-        "time": 1672158526413,
+        "time": 1672163854733,
         "velocity": 67,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.67069,
-            45.41712
+            -75.73322,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "388",
         "segmentId": "1",
-        "time": 1672158526423,
+        "time": 1672163854743,
         "velocity": 68,
         "noise": 60,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.67059,
-            45.41713
+            -75.73326,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "389",
         "segmentId": "1",
-        "time": 1672158526433,
+        "time": 1672163854753,
         "velocity": 69,
         "noise": 61,
         "vibration": 1,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67044,
-            45.41714
+            -75.7333,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "390",
         "segmentId": "1",
-        "time": 1672158526443,
+        "time": 1672163854763,
         "velocity": 70,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.67029,
-            45.41715
+            -75.73333,
+            45.43238
         ]
     },
     {
         "routeDataPointId": "391",
         "segmentId": "1",
-        "time": 1672158526453,
+        "time": 1672163854773,
         "velocity": 71,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.67014,
-            45.41716
+            -75.73336,
+            45.43237
         ]
     },
     {
         "routeDataPointId": "392",
         "segmentId": "1",
-        "time": 1672158526463,
+        "time": 1672163854783,
         "velocity": 72,
         "noise": 60,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66994,
-            45.41717
+            -75.73339,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "393",
         "segmentId": "1",
-        "time": 1672158526473,
+        "time": 1672163854793,
         "velocity": 73,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
-        "annotation": "",
+        "vibration": 2,
+        "temperature": 26,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.66984,
-            45.41717
+            -75.73341,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "394",
         "segmentId": "1",
-        "time": 1672158526483,
+        "time": 1672163854803,
         "velocity": 74,
         "noise": 60,
         "vibration": 3,
-        "temperature": 28,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66967,
-            45.41717
+            -75.73343,
+            45.43235
         ]
     },
     {
         "routeDataPointId": "395",
         "segmentId": "1",
-        "time": 1672158526493,
+        "time": 1672163854813,
         "velocity": 75,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66954,
-            45.41717
+            -75.73345,
+            45.43233
         ]
     },
     {
         "routeDataPointId": "396",
         "segmentId": "1",
-        "time": 1672158526503,
+        "time": 1672163854823,
         "velocity": 76,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 2,
         "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66938,
-            45.41717
+            -75.73347,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "397",
         "segmentId": "1",
-        "time": 1672158526513,
+        "time": 1672163854833,
         "velocity": 77,
         "noise": 61,
         "vibration": 3,
-        "temperature": 21,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66931,
-            45.41717
+            -75.73357,
+            45.43229
         ]
     },
     {
         "routeDataPointId": "398",
         "segmentId": "1",
-        "time": 1672158526523,
+        "time": 1672163854843,
         "velocity": 78,
         "noise": 60,
         "vibration": 2,
-        "temperature": 28,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66923,
-            45.41717
+            -75.73363,
+            45.43228
         ]
     },
     {
         "routeDataPointId": "399",
         "segmentId": "1",
-        "time": 1672158526533,
+        "time": 1672163854853,
         "velocity": 79,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66893,
-            45.41716
+            -75.73367,
+            45.43227
         ]
     },
     {
         "routeDataPointId": "400",
         "segmentId": "1",
-        "time": 1672158526543,
+        "time": 1672163854863,
         "velocity": 80,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66877,
-            45.41714
+            -75.73371,
+            45.43226
         ]
     },
     {
         "routeDataPointId": "401",
         "segmentId": "1",
-        "time": 1672158526553,
+        "time": 1672163854873,
         "velocity": 81,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66862,
-            45.41713
+            -75.73376,
+            45.43226
         ]
     },
     {
         "routeDataPointId": "402",
         "segmentId": "1",
-        "time": 1672158526563,
+        "time": 1672163854883,
         "velocity": 82,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66847,
-            45.41712
+            -75.7338,
+            45.43225
         ]
     },
     {
         "routeDataPointId": "403",
         "segmentId": "1",
-        "time": 1672158526573,
+        "time": 1672163854893,
         "velocity": 83,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66831,
-            45.4171
+            -75.73385,
+            45.43225
         ]
     },
     {
         "routeDataPointId": "404",
         "segmentId": "1",
-        "time": 1672158526583,
+        "time": 1672163854903,
         "velocity": 84,
         "noise": 60,
         "vibration": 2,
-        "temperature": 28,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66815,
-            45.41708
+            -75.73389,
+            45.43225
         ]
     },
     {
         "routeDataPointId": "405",
         "segmentId": "1",
-        "time": 1672158526593,
+        "time": 1672163854913,
         "velocity": 85,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66814,
-            45.41708
+            -75.73396,
+            45.43225
         ]
     },
     {
         "routeDataPointId": "406",
         "segmentId": "1",
-        "time": 1672158526603,
+        "time": 1672163854923,
         "velocity": 86,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66801,
-            45.41707
+            -75.73448,
+            45.43226
         ]
     },
     {
         "routeDataPointId": "407",
         "segmentId": "1",
-        "time": 1672158526613,
+        "time": 1672163854933,
         "velocity": 87,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.66785,
-            45.41704
+            -75.73473,
+            45.43227
         ]
     },
     {
         "routeDataPointId": "408",
         "segmentId": "1",
-        "time": 1672158526623,
+        "time": 1672163854943,
         "velocity": 88,
         "noise": 60,
         "vibration": 2,
-        "temperature": 23,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66771,
-            45.41703
+            -75.73482,
+            45.43227
         ]
     },
     {
         "routeDataPointId": "409",
         "segmentId": "1",
-        "time": 1672158526633,
+        "time": 1672163854953,
         "velocity": 89,
         "noise": 61,
         "vibration": 2,
-        "temperature": 22,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66741,
-            45.41698
+            -75.73498,
+            45.43227
         ]
     },
     {
         "routeDataPointId": "410",
         "segmentId": "1",
-        "time": 1672158526643,
+        "time": 1672163854963,
         "velocity": 90,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.66732,
-            45.41697
+            -75.73558,
+            45.43229
         ]
     },
     {
         "routeDataPointId": "411",
         "segmentId": "1",
-        "time": 1672158526653,
+        "time": 1672163854973,
         "velocity": 91,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66711,
-            45.41694
+            -75.73573,
+            45.43229
         ]
     },
     {
         "routeDataPointId": "412",
         "segmentId": "1",
-        "time": 1672158526663,
+        "time": 1672163854983,
         "velocity": 92,
         "noise": 60,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.6668,
-            45.41689
+            -75.73574,
+            45.43229
         ]
     },
     {
         "routeDataPointId": "413",
         "segmentId": "1",
-        "time": 1672158526673,
+        "time": 1672163854993,
         "velocity": 93,
         "noise": 61,
         "vibration": 2,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66665,
-            45.41687
+            -75.73584,
+            45.4323
         ]
     },
     {
         "routeDataPointId": "414",
         "segmentId": "1",
-        "time": 1672158526683,
+        "time": 1672163855003,
         "velocity": 94,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66649,
-            45.41685
+            -75.7359,
+            45.4323
         ]
     },
     {
         "routeDataPointId": "415",
         "segmentId": "1",
-        "time": 1672158526693,
+        "time": 1672163855013,
         "velocity": 95,
         "noise": 61,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66634,
-            45.41683
+            -75.73603,
+            45.43231
         ]
     },
     {
         "routeDataPointId": "416",
         "segmentId": "1",
-        "time": 1672158526703,
+        "time": 1672163855023,
         "velocity": 96,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66614,
-            45.41681
+            -75.73603,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "417",
         "segmentId": "1",
-        "time": 1672158526713,
+        "time": 1672163855033,
         "velocity": 97,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66604,
-            45.4168
+            -75.73604,
+            45.43233
         ]
     },
     {
         "routeDataPointId": "418",
         "segmentId": "1",
-        "time": 1672158526723,
+        "time": 1672163855043,
         "velocity": 98,
         "noise": 60,
-        "vibration": 2,
+        "vibration": 1,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66588,
-            45.41679
+            -75.73605,
+            45.43233
         ]
     },
     {
         "routeDataPointId": "419",
         "segmentId": "1",
-        "time": 1672158526733,
+        "time": 1672163855053,
         "velocity": 99,
         "noise": 61,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66574,
-            45.41678
+            -75.73605,
+            45.43234
         ]
     },
     {
         "routeDataPointId": "420",
         "segmentId": "1",
-        "time": 1672158526743,
+        "time": 1672163855063,
         "velocity": 100,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66567,
-            45.41677
+            -75.73606,
+            45.43234
         ]
     },
     {
         "routeDataPointId": "421",
         "segmentId": "1",
-        "time": 1672158526753,
+        "time": 1672163855073,
         "velocity": 101,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66554,
-            45.41677
+            -75.73607,
+            45.43235
         ]
     },
     {
         "routeDataPointId": "422",
         "segmentId": "1",
-        "time": 1672158526763,
+        "time": 1672163855083,
         "velocity": 102,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "foo bar",
+        "vibration": 1,
+        "temperature": 22,
+        "annotation": "",
         "coordinates": [
-            -75.66526,
-            45.41676
+            -75.73609,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "423",
         "segmentId": "1",
-        "time": 1672158526773,
+        "time": 1672163855093,
         "velocity": 103,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6651,
-            45.41676
+            -75.73611,
+            45.43237
         ]
     },
     {
         "routeDataPointId": "424",
         "segmentId": "1",
-        "time": 1672158526783,
+        "time": 1672163855103,
         "velocity": 104,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66482,
-            45.41676
+            -75.73613,
+            45.43237
         ]
     },
     {
         "routeDataPointId": "425",
         "segmentId": "1",
-        "time": 1672158526793,
+        "time": 1672163855113,
         "velocity": 105,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66473,
-            45.41676
+            -75.73616,
+            45.43238
         ]
     },
     {
         "routeDataPointId": "426",
         "segmentId": "1",
-        "time": 1672158526803,
+        "time": 1672163855123,
         "velocity": 106,
         "noise": 60,
         "vibration": 2,
-        "temperature": 24,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66465,
-            45.41677
+            -75.73618,
+            45.43238
         ]
     },
     {
         "routeDataPointId": "427",
         "segmentId": "1",
-        "time": 1672158526813,
+        "time": 1672163855133,
         "velocity": 107,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6645,
-            45.41677
+            -75.73621,
+            45.43238
         ]
     },
     {
         "routeDataPointId": "428",
         "segmentId": "1",
-        "time": 1672158526823,
+        "time": 1672163855143,
         "velocity": 108,
         "noise": 60,
         "vibration": 3,
-        "temperature": 27,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66433,
-            45.41678
+            -75.73624,
+            45.43238
         ]
     },
     {
         "routeDataPointId": "429",
         "segmentId": "1",
-        "time": 1672158526833,
+        "time": 1672163855153,
         "velocity": 109,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66414,
-            45.4168
+            -75.73627,
+            45.43237
         ]
     },
     {
         "routeDataPointId": "430",
         "segmentId": "1",
-        "time": 1672158526843,
+        "time": 1672163855163,
         "velocity": 110,
         "noise": 60,
         "vibration": 3,
-        "temperature": 28,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.6638,
-            45.41683
+            -75.73629,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "431",
         "segmentId": "1",
-        "time": 1672158526853,
+        "time": 1672163855173,
         "velocity": 111,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.6636,
-            45.41684
+            -75.7363,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "432",
         "segmentId": "1",
-        "time": 1672158526863,
+        "time": 1672163855183,
         "velocity": 112,
         "noise": 60,
         "vibration": 1,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66322,
-            45.41688
+            -75.73631,
+            45.43236
         ]
     },
     {
         "routeDataPointId": "433",
         "segmentId": "1",
-        "time": 1672158526873,
+        "time": 1672163855193,
         "velocity": 113,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66284,
-            45.41691
+            -75.73632,
+            45.43235
         ]
     },
     {
         "routeDataPointId": "434",
         "segmentId": "1",
-        "time": 1672158526883,
+        "time": 1672163855203,
         "velocity": 114,
         "noise": 60,
         "vibration": 3,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66274,
-            45.41692
+            -75.73633,
+            45.43235
         ]
     },
     {
         "routeDataPointId": "435",
         "segmentId": "1",
-        "time": 1672158526893,
+        "time": 1672163855213,
         "velocity": 115,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66271,
-            45.41692
+            -75.73634,
+            45.43234
         ]
     },
     {
         "routeDataPointId": "436",
         "segmentId": "1",
-        "time": 1672158526903,
+        "time": 1672163855223,
         "velocity": 116,
         "noise": 60,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66252,
-            45.41694
+            -75.73635,
+            45.43234
         ]
     },
     {
         "routeDataPointId": "437",
         "segmentId": "1",
-        "time": 1672158526913,
+        "time": 1672163855233,
         "velocity": 117,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66241,
-            45.41695
+            -75.73646,
+            45.43233
         ]
     },
     {
         "routeDataPointId": "438",
         "segmentId": "1",
-        "time": 1672158526923,
+        "time": 1672163855243,
         "velocity": 118,
         "noise": 60,
         "vibration": 1,
-        "temperature": 21,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.6622,
-            45.41689
+            -75.73652,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "439",
         "segmentId": "1",
-        "time": 1672158526933,
+        "time": 1672163855253,
         "velocity": 119,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66219,
-            45.41689
+            -75.73656,
+            45.43231
         ]
     },
     {
         "routeDataPointId": "440",
         "segmentId": "1",
-        "time": 1672158526943,
+        "time": 1672163855263,
         "velocity": 120,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66218,
-            45.41689
+            -75.73668,
+            45.43231
         ]
     },
     {
         "routeDataPointId": "441",
         "segmentId": "1",
-        "time": 1672158526953,
+        "time": 1672163855273,
         "velocity": 121,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66159,
-            45.41692
+            -75.7367,
+            45.43231
         ]
     },
     {
         "routeDataPointId": "442",
         "segmentId": "1",
-        "time": 1672158526963,
+        "time": 1672163855283,
         "velocity": 122,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66145,
-            45.41693
+            -75.73698,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "443",
         "segmentId": "1",
-        "time": 1672158526973,
+        "time": 1672163855293,
         "velocity": 123,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66108,
-            45.41695
+            -75.73702,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "444",
         "segmentId": "1",
-        "time": 1672158526983,
+        "time": 1672163855303,
         "velocity": 124,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66086,
-            45.41696
+            -75.73712,
+            45.43232
         ]
     },
     {
         "routeDataPointId": "445",
         "segmentId": "1",
-        "time": 1672158526993,
+        "time": 1672163855313,
         "velocity": 125,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.6607,
-            45.41697
+            -75.73722,
+            45.43233
         ]
     },
     {
         "routeDataPointId": "446",
         "segmentId": "1",
-        "time": 1672158527003,
+        "time": 1672163855323,
         "velocity": 126,
         "noise": 60,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.6606,
-            45.41697
+            -75.7379,
+            45.43235
         ]
     },
     {
         "routeDataPointId": "447",
         "segmentId": "1",
-        "time": 1672158527013,
+        "time": 1672163855333,
         "velocity": 127,
         "noise": 61,
         "vibration": 3,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6604,
-            45.41698
+            -75.73858,
+            45.43234
         ]
     },
     {
         "routeDataPointId": "448",
         "segmentId": "1",
-        "time": 1672158527023,
+        "time": 1672163855343,
         "velocity": 128,
         "noise": 60,
         "vibration": 1,
-        "temperature": 21,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6603,
-            45.41699
+            -75.73917,
+            45.43237
         ]
     },
     {
         "routeDataPointId": "449",
         "segmentId": "1",
-        "time": 1672158527033,
+        "time": 1672163855353,
         "velocity": 129,
         "noise": 61,
         "vibration": 1,
-        "temperature": 26,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66015,
-            45.41699
+            -75.74037,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "450",
         "segmentId": "1",
-        "time": 1672158527043,
+        "time": 1672163855363,
         "velocity": 130,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.65979,
-            45.41697
+            -75.7405,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "451",
         "segmentId": "1",
-        "time": 1672158527053,
+        "time": 1672163855373,
         "velocity": 131,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.65975,
-            45.41697
+            -75.74059,
+            45.43239
         ]
     },
     {
         "routeDataPointId": "452",
         "segmentId": "1",
-        "time": 1672158527063,
+        "time": 1672163855383,
         "velocity": 132,
         "noise": 60,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65966,
-            45.41696
+            -75.74081,
+            45.4324
         ]
     },
     {
         "routeDataPointId": "453",
         "segmentId": "1",
-        "time": 1672158527073,
+        "time": 1672163855393,
         "velocity": 133,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.65956,
-            45.41694
+            -75.74084,
+            45.4324
         ]
     },
     {
         "routeDataPointId": "454",
         "segmentId": "1",
-        "time": 1672158527083,
+        "time": 1672163855403,
         "velocity": 134,
         "noise": 60,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65941,
-            45.41691
+            -75.74093,
+            45.4324
         ]
     },
     {
         "routeDataPointId": "455",
         "segmentId": "1",
-        "time": 1672158527093,
+        "time": 1672163855413,
         "velocity": 135,
         "noise": 61,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65929,
-            45.41688
+            -75.74097,
+            45.43241
         ]
     },
     {
         "routeDataPointId": "456",
         "segmentId": "1",
-        "time": 1672158527103,
+        "time": 1672163855423,
         "velocity": 136,
         "noise": 60,
         "vibration": 3,
-        "temperature": 27,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65919,
-            45.41684
+            -75.74106,
+            45.43241
         ]
     },
     {
         "routeDataPointId": "457",
         "segmentId": "1",
-        "time": 1672158527113,
+        "time": 1672163855433,
         "velocity": 137,
         "noise": 61,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6591,
-            45.4168
+            -75.74115,
+            45.43242
         ]
     },
     {
         "routeDataPointId": "458",
         "segmentId": "1",
-        "time": 1672158527123,
+        "time": 1672163855443,
         "velocity": 138,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65902,
-            45.41676
+            -75.74122,
+            45.43243
         ]
     },
     {
         "routeDataPointId": "459",
         "segmentId": "1",
-        "time": 1672158527133,
+        "time": 1672163855453,
         "velocity": 139,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65894,
-            45.41671
+            -75.74135,
+            45.43245
         ]
     },
     {
         "routeDataPointId": "460",
         "segmentId": "1",
-        "time": 1672158527143,
+        "time": 1672163855463,
         "velocity": 140,
         "noise": 60,
         "vibration": 3,
-        "temperature": 22,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.65887,
-            45.41667
+            -75.74137,
+            45.43246
         ]
     },
     {
         "routeDataPointId": "461",
         "segmentId": "1",
-        "time": 1672158527153,
+        "time": 1672163855473,
         "velocity": 141,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6588,
-            45.41662
+            -75.74138,
+            45.43247
         ]
     },
     {
         "routeDataPointId": "462",
         "segmentId": "1",
-        "time": 1672158527163,
+        "time": 1672163855483,
         "velocity": 142,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.65869,
-            45.41654
+            -75.74139,
+            45.43247
         ]
     },
     {
         "routeDataPointId": "463",
         "segmentId": "1",
-        "time": 1672158527173,
+        "time": 1672163855493,
         "velocity": 143,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65857,
-            45.41644
+            -75.74141,
+            45.43248
         ]
     },
     {
         "routeDataPointId": "464",
         "segmentId": "1",
-        "time": 1672158527183,
+        "time": 1672163855503,
         "velocity": 144,
         "noise": 60,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65837,
-            45.41628
+            -75.74143,
+            45.43249
         ]
     },
     {
         "routeDataPointId": "465",
         "segmentId": "1",
-        "time": 1672158527193,
+        "time": 1672163855513,
         "velocity": 145,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65826,
-            45.41621
+            -75.74145,
+            45.43249
         ]
     },
     {
         "routeDataPointId": "466",
         "segmentId": "1",
-        "time": 1672158527203,
+        "time": 1672163855523,
         "velocity": 146,
         "noise": 60,
-        "vibration": 2,
+        "vibration": 3,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.65817,
-            45.41616
+            -75.74146,
+            45.43249
         ]
     },
     {
         "routeDataPointId": "467",
         "segmentId": "1",
-        "time": 1672158527213,
+        "time": 1672163855533,
         "velocity": 147,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.6581,
-            45.41612
+            -75.74148,
+            45.4325
         ]
     },
     {
         "routeDataPointId": "468",
         "segmentId": "1",
-        "time": 1672158527223,
+        "time": 1672163855543,
         "velocity": 148,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65809,
-            45.41612
+            -75.74149,
+            45.4325
         ]
     },
     {
         "routeDataPointId": "469",
         "segmentId": "1",
-        "time": 1672158527233,
+        "time": 1672163855553,
         "velocity": 149,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "foo bar",
+        "vibration": 3,
+        "temperature": 21,
+        "annotation": "",
         "coordinates": [
-            -75.65803,
-            45.41609
+            -75.74151,
+            45.4325
         ]
     },
     {
         "routeDataPointId": "470",
         "segmentId": "1",
-        "time": 1672158527243,
+        "time": 1672163855563,
         "velocity": 150,
         "noise": 60,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.65802,
-            45.41608
+            -75.74153,
+            45.4325
         ]
     },
     {
         "routeDataPointId": "471",
         "segmentId": "1",
-        "time": 1672158527253,
+        "time": 1672163855573,
         "velocity": 151,
         "noise": 61,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.65795,
-            45.41606
+            -75.74154,
+            45.43249
         ]
     },
     {
         "routeDataPointId": "472",
         "segmentId": "1",
-        "time": 1672158527263,
+        "time": 1672163855583,
         "velocity": 152,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.65762,
-            45.41599
+            -75.74156,
+            45.43249
         ]
     },
     {
         "routeDataPointId": "473",
         "segmentId": "1",
-        "time": 1672158527273,
+        "time": 1672163855593,
         "velocity": 153,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6575,
-            45.41593
+            -75.74157,
+            45.43249
         ]
     },
     {
         "routeDataPointId": "474",
         "segmentId": "1",
-        "time": 1672158527283,
+        "time": 1672163855603,
         "velocity": 154,
         "noise": 60,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.6572,
-            45.41579
+            -75.74158,
+            45.43248
         ]
     },
     {
         "routeDataPointId": "475",
         "segmentId": "1",
-        "time": 1672158527293,
+        "time": 1672163855613,
         "velocity": 155,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65714,
-            45.41575
+            -75.74161,
+            45.43247
         ]
     },
     {
         "routeDataPointId": "476",
         "segmentId": "1",
-        "time": 1672158527303,
+        "time": 1672163855623,
         "velocity": 156,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.6571,
-            45.41571
+            -75.74162,
+            45.43247
         ]
     },
     {
         "routeDataPointId": "477",
         "segmentId": "1",
-        "time": 1672158527313,
+        "time": 1672163855633,
         "velocity": 157,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65706,
-            45.41566
+            -75.74163,
+            45.43247
         ]
     },
     {
         "routeDataPointId": "478",
         "segmentId": "1",
-        "time": 1672158527323,
+        "time": 1672163855643,
         "velocity": 158,
         "noise": 60,
         "vibration": 1,
-        "temperature": 25,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65706,
-            45.41565
+            -75.74163,
+            45.43246
         ]
     },
     {
         "routeDataPointId": "479",
         "segmentId": "1",
-        "time": 1672158527333,
+        "time": 1672163855653,
         "velocity": 159,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.65705,
-            45.41563
+            -75.74164,
+            45.43246
         ]
     },
     {
         "routeDataPointId": "480",
         "segmentId": "1",
-        "time": 1672158527343,
+        "time": 1672163855663,
         "velocity": 0,
         "noise": 60,
         "vibration": 1,
-        "temperature": 23,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65704,
-            45.4156
+            -75.74176,
+            45.43245
         ]
     },
     {
         "routeDataPointId": "481",
         "segmentId": "1",
-        "time": 1672158527353,
+        "time": 1672163855673,
         "velocity": 1,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.65703,
-            45.41557
+            -75.74184,
+            45.43244
         ]
     },
     {
         "routeDataPointId": "482",
         "segmentId": "1",
-        "time": 1672158527363,
+        "time": 1672163855683,
         "velocity": 2,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65702,
-            45.41552
+            -75.7419,
+            45.43243
         ]
     },
     {
         "routeDataPointId": "483",
         "segmentId": "1",
-        "time": 1672158527373,
+        "time": 1672163855693,
         "velocity": 3,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65701,
-            45.41533
+            -75.74199,
+            45.43243
         ]
     },
     {
         "routeDataPointId": "484",
         "segmentId": "1",
-        "time": 1672158527383,
+        "time": 1672163855703,
         "velocity": 4,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.6571,
-            45.41511
+            -75.74216,
+            45.43243
         ]
     },
     {
         "routeDataPointId": "485",
         "segmentId": "1",
-        "time": 1672158527393,
+        "time": 1672163855713,
         "velocity": 5,
         "noise": 61,
         "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
+        "temperature": 24,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.65754,
-            45.41415
+            -75.74242,
+            45.43244
         ]
     },
     {
         "routeDataPointId": "486",
         "segmentId": "1",
-        "time": 1672158527403,
+        "time": 1672163855723,
         "velocity": 6,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65769,
-            45.41385
+            -75.74267,
+            45.43244
         ]
     },
     {
         "routeDataPointId": "487",
         "segmentId": "1",
-        "time": 1672158527413,
+        "time": 1672163855733,
         "velocity": 7,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.6578,
-            45.41364
+            -75.74293,
+            45.43245
         ]
     },
     {
         "routeDataPointId": "488",
         "segmentId": "1",
-        "time": 1672158527423,
+        "time": 1672163855743,
         "velocity": 8,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65799,
-            45.4133
+            -75.74301,
+            45.43248
         ]
     },
     {
         "routeDataPointId": "489",
         "segmentId": "1",
-        "time": 1672158527433,
+        "time": 1672163855753,
         "velocity": 9,
         "noise": 61,
-        "vibration": 3,
+        "vibration": 1,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.65821,
-            45.41284
+            -75.74306,
+            45.4325
         ]
     },
     {
         "routeDataPointId": "490",
         "segmentId": "1",
-        "time": 1672158527443,
+        "time": 1672163855763,
         "velocity": 10,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.6585,
-            45.41225
+            -75.74315,
+            45.43252
         ]
     },
     {
         "routeDataPointId": "491",
         "segmentId": "1",
-        "time": 1672158527453,
+        "time": 1672163855773,
         "velocity": 11,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.65854,
-            45.41214
+            -75.74329,
+            45.43254
         ]
     },
     {
         "routeDataPointId": "492",
         "segmentId": "1",
-        "time": 1672158527463,
+        "time": 1672163855783,
         "velocity": 12,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.65857,
-            45.41208
+            -75.74346,
+            45.43256
         ]
     },
     {
         "routeDataPointId": "493",
         "segmentId": "1",
-        "time": 1672158527473,
+        "time": 1672163855793,
         "velocity": 13,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.65869,
-            45.41189
+            -75.74364,
+            45.4326
         ]
     },
     {
         "routeDataPointId": "494",
         "segmentId": "1",
-        "time": 1672158527483,
+        "time": 1672163855803,
         "velocity": 14,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65875,
-            45.41181
+            -75.74379,
+            45.43264
         ]
     },
     {
         "routeDataPointId": "495",
         "segmentId": "1",
-        "time": 1672158527493,
+        "time": 1672163855813,
         "velocity": 15,
         "noise": 61,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.65879,
-            45.41175
+            -75.7439,
+            45.43267
         ]
     },
     {
         "routeDataPointId": "496",
         "segmentId": "1",
-        "time": 1672158527503,
+        "time": 1672163855823,
         "velocity": 16,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.65888,
-            45.41163
+            -75.74391,
+            45.43268
         ]
     },
     {
         "routeDataPointId": "497",
         "segmentId": "1",
-        "time": 1672158527513,
+        "time": 1672163855833,
         "velocity": 17,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65894,
-            45.41155
+            -75.74405,
+            45.43273
         ]
     },
     {
         "routeDataPointId": "498",
         "segmentId": "1",
-        "time": 1672158527523,
+        "time": 1672163855843,
         "velocity": 18,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65901,
-            45.41147
+            -75.74411,
+            45.43275
         ]
     },
     {
         "routeDataPointId": "499",
         "segmentId": "1",
-        "time": 1672158527533,
+        "time": 1672163855853,
         "velocity": 19,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 1,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.65908,
-            45.4114
+            -75.74422,
+            45.4328
         ]
     },
     {
         "routeDataPointId": "500",
         "segmentId": "1",
-        "time": 1672158527543,
+        "time": 1672163855863,
         "velocity": 20,
         "noise": 60,
         "vibration": 2,
-        "temperature": 22,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65915,
-            45.41133
+            -75.74433,
+            45.43285
         ]
     },
     {
         "routeDataPointId": "501",
         "segmentId": "1",
-        "time": 1672158527553,
+        "time": 1672163855873,
         "velocity": 21,
         "noise": 61,
         "vibration": 3,
-        "temperature": 23,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.65922,
-            45.41127
+            -75.74446,
+            45.43292
         ]
     },
     {
         "routeDataPointId": "502",
         "segmentId": "1",
-        "time": 1672158527563,
+        "time": 1672163855883,
         "velocity": 22,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.6593,
-            45.41121
+            -75.7446,
+            45.433
         ]
     },
     {
         "routeDataPointId": "503",
         "segmentId": "1",
-        "time": 1672158527573,
+        "time": 1672163855893,
         "velocity": 23,
         "noise": 61,
         "vibration": 1,
-        "temperature": 24,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.65939,
-            45.41115
+            -75.74477,
+            45.43311
         ]
     },
     {
         "routeDataPointId": "504",
         "segmentId": "1",
-        "time": 1672158527583,
+        "time": 1672163855903,
         "velocity": 24,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65946,
-            45.4111
+            -75.74498,
+            45.43326
         ]
     },
     {
         "routeDataPointId": "505",
         "segmentId": "1",
-        "time": 1672158527593,
+        "time": 1672163855913,
         "velocity": 25,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.65965,
-            45.41099
+            -75.74499,
+            45.43326
         ]
     },
     {
         "routeDataPointId": "506",
         "segmentId": "1",
-        "time": 1672158527603,
+        "time": 1672163855923,
         "velocity": 26,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.65974,
-            45.41095
+            -75.74515,
+            45.43338
         ]
     },
     {
         "routeDataPointId": "507",
         "segmentId": "1",
-        "time": 1672158527613,
+        "time": 1672163855933,
         "velocity": 27,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
+        "vibration": 3,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.65975,
-            45.41094
+            -75.74532,
+            45.43352
         ]
     },
     {
         "routeDataPointId": "508",
         "segmentId": "1",
-        "time": 1672158527623,
+        "time": 1672163855943,
         "velocity": 28,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.65983,
-            45.4109
+            -75.74535,
+            45.43354
         ]
     },
     {
         "routeDataPointId": "509",
         "segmentId": "1",
-        "time": 1672158527633,
+        "time": 1672163855953,
         "velocity": 29,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.65994,
-            45.41086
+            -75.74542,
+            45.43361
         ]
     },
     {
         "routeDataPointId": "510",
         "segmentId": "1",
-        "time": 1672158527643,
+        "time": 1672163855963,
         "velocity": 30,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.65996,
-            45.41085
+            -75.74548,
+            45.43366
         ]
     },
     {
         "routeDataPointId": "511",
         "segmentId": "1",
-        "time": 1672158527653,
+        "time": 1672163855973,
         "velocity": 31,
         "noise": 61,
         "vibration": 2,
-        "temperature": 23,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66003,
-            45.41082
+            -75.74549,
+            45.43367
         ]
     },
     {
         "routeDataPointId": "512",
         "segmentId": "1",
-        "time": 1672158527663,
+        "time": 1672163855983,
         "velocity": 32,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66014,
-            45.41078
+            -75.74563,
+            45.43381
         ]
     },
     {
         "routeDataPointId": "513",
         "segmentId": "1",
-        "time": 1672158527673,
+        "time": 1672163855993,
         "velocity": 33,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66018,
-            45.41076
+            -75.74567,
+            45.43385
         ]
     },
     {
         "routeDataPointId": "514",
         "segmentId": "1",
-        "time": 1672158527683,
+        "time": 1672163856003,
         "velocity": 34,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
+        "vibration": 2,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66019,
-            45.41076
+            -75.74583,
+            45.43403
         ]
     },
     {
         "routeDataPointId": "515",
         "segmentId": "1",
-        "time": 1672158527693,
+        "time": 1672163856013,
         "velocity": 35,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "foo bar",
+        "vibration": 1,
+        "temperature": 23,
+        "annotation": "",
         "coordinates": [
-            -75.66027,
-            45.41073
+            -75.74616,
+            45.43443
         ]
     },
     {
         "routeDataPointId": "516",
         "segmentId": "1",
-        "time": 1672158527704,
+        "time": 1672163856023,
         "velocity": 36,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 26,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66039,
-            45.4107
+            -75.74621,
+            45.43448
         ]
     },
     {
         "routeDataPointId": "517",
         "segmentId": "1",
-        "time": 1672158527714,
+        "time": 1672163856033,
         "velocity": 37,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66067,
-            45.41063
+            -75.74625,
+            45.43451
         ]
     },
     {
         "routeDataPointId": "518",
         "segmentId": "1",
-        "time": 1672158527724,
+        "time": 1672163856043,
         "velocity": 38,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
+        "vibration": 3,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66078,
-            45.41061
+            -75.74634,
+            45.43455
         ]
     },
     {
         "routeDataPointId": "519",
         "segmentId": "1",
-        "time": 1672158527734,
+        "time": 1672163856053,
         "velocity": 39,
         "noise": 61,
         "vibration": 2,
-        "temperature": 23,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66091,
-            45.41059
+            -75.74678,
+            45.43513
         ]
     },
     {
         "routeDataPointId": "520",
         "segmentId": "1",
-        "time": 1672158527744,
+        "time": 1672163856063,
         "velocity": 40,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
+        "vibration": 3,
+        "temperature": 27,
+        "annotation": "foo bar",
         "coordinates": [
-            -75.66108,
-            45.41057
+            -75.74679,
+            45.43514
         ]
     },
     {
         "routeDataPointId": "521",
         "segmentId": "1",
-        "time": 1672158527754,
+        "time": 1672163856073,
         "velocity": 41,
         "noise": 61,
         "vibration": 3,
-        "temperature": 27,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66116,
-            45.41056
+            -75.74694,
+            45.43535
         ]
     },
     {
         "routeDataPointId": "522",
         "segmentId": "1",
-        "time": 1672158527764,
+        "time": 1672163856083,
         "velocity": 42,
         "noise": 60,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.66134,
-            45.41055
+            -75.74744,
+            45.43598
         ]
     },
     {
         "routeDataPointId": "523",
         "segmentId": "1",
-        "time": 1672158527774,
+        "time": 1672163856093,
         "velocity": 43,
         "noise": 61,
         "vibration": 3,
-        "temperature": 25,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66167,
-            45.41052
+            -75.74806,
+            45.43677
         ]
     },
     {
         "routeDataPointId": "524",
         "segmentId": "1",
-        "time": 1672158527784,
+        "time": 1672163856103,
         "velocity": 44,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66208,
-            45.41049
+            -75.7483,
+            45.43708
         ]
     },
     {
         "routeDataPointId": "525",
         "segmentId": "1",
-        "time": 1672158527794,
+        "time": 1672163856113,
         "velocity": 45,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66226,
-            45.41048
+            -75.74853,
+            45.43737
         ]
     },
     {
         "routeDataPointId": "526",
         "segmentId": "1",
-        "time": 1672158527804,
+        "time": 1672163856123,
         "velocity": 46,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66246,
-            45.41046
+            -75.74883,
+            45.43775
         ]
     },
     {
         "routeDataPointId": "527",
         "segmentId": "1",
-        "time": 1672158527814,
+        "time": 1672163856133,
         "velocity": 47,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66269,
-            45.41043
+            -75.74904,
+            45.43802
         ]
     },
     {
         "routeDataPointId": "528",
         "segmentId": "1",
-        "time": 1672158527824,
+        "time": 1672163856143,
         "velocity": 48,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6629,
-            45.41039
+            -75.74927,
+            45.43831
         ]
     },
     {
         "routeDataPointId": "529",
         "segmentId": "1",
-        "time": 1672158527834,
+        "time": 1672163856153,
         "velocity": 49,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 3,
         "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66312,
-            45.41034
+            -75.74947,
+            45.43857
         ]
     },
     {
         "routeDataPointId": "530",
         "segmentId": "1",
-        "time": 1672158527844,
+        "time": 1672163856163,
         "velocity": 50,
         "noise": 60,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66333,
-            45.41028
+            -75.74969,
+            45.43884
         ]
     },
     {
         "routeDataPointId": "531",
         "segmentId": "1",
-        "time": 1672158527854,
+        "time": 1672163856173,
         "velocity": 51,
         "noise": 61,
         "vibration": 3,
-        "temperature": 24,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.6635,
-            45.41022
+            -75.74999,
+            45.43922
         ]
     },
     {
         "routeDataPointId": "532",
         "segmentId": "1",
-        "time": 1672158527864,
+        "time": 1672163856183,
         "velocity": 52,
         "noise": 60,
-        "vibration": 2,
+        "vibration": 1,
         "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66365,
-            45.41017
+            -75.75014,
+            45.43942
         ]
     },
     {
         "routeDataPointId": "533",
         "segmentId": "1",
-        "time": 1672158527874,
+        "time": 1672163856193,
         "velocity": 53,
         "noise": 61,
-        "vibration": 1,
+        "vibration": 2,
         "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66377,
-            45.41012
+            -75.75022,
+            45.43955
         ]
     },
     {
         "routeDataPointId": "534",
         "segmentId": "1",
-        "time": 1672158527884,
+        "time": 1672163856203,
         "velocity": 54,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66391,
-            45.41006
+            -75.75033,
+            45.43973
         ]
     },
     {
         "routeDataPointId": "535",
         "segmentId": "1",
-        "time": 1672158527894,
+        "time": 1672163856213,
         "velocity": 55,
         "noise": 61,
         "vibration": 2,
-        "temperature": 25,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66401,
-            45.41
+            -75.75047,
+            45.44003
         ]
     },
     {
         "routeDataPointId": "536",
         "segmentId": "1",
-        "time": 1672158527904,
+        "time": 1672163856223,
         "velocity": 56,
         "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66412,
-            45.40994
+            -75.75056,
+            45.44029
         ]
     },
     {
         "routeDataPointId": "537",
         "segmentId": "1",
-        "time": 1672158527914,
+        "time": 1672163856233,
         "velocity": 57,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 2,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66419,
-            45.40989
+            -75.75065,
+            45.44059
         ]
     },
     {
         "routeDataPointId": "538",
         "segmentId": "1",
-        "time": 1672158527924,
+        "time": 1672163856243,
         "velocity": 58,
         "noise": 60,
         "vibration": 1,
-        "temperature": 22,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66425,
-            45.40985
+            -75.7507,
+            45.4409
         ]
     },
     {
         "routeDataPointId": "539",
         "segmentId": "1",
-        "time": 1672158527934,
+        "time": 1672163856253,
         "velocity": 59,
         "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66435,
-            45.40977
+            -75.7507,
+            45.4411
         ]
     },
     {
         "routeDataPointId": "540",
         "segmentId": "1",
-        "time": 1672158527944,
+        "time": 1672163856263,
         "velocity": 60,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66453,
-            45.40963
+            -75.7507,
+            45.44115
         ]
     },
     {
         "routeDataPointId": "541",
         "segmentId": "1",
-        "time": 1672158527954,
+        "time": 1672163856273,
         "velocity": 61,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
+        "vibration": 3,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66464,
-            45.40952
+            -75.7507,
+            45.44127
         ]
     },
     {
         "routeDataPointId": "542",
         "segmentId": "1",
-        "time": 1672158527964,
+        "time": 1672163856283,
         "velocity": 62,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
+        "vibration": 1,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.6647,
-            45.40945
+            -75.7507,
+            45.44137
         ]
     },
     {
         "routeDataPointId": "543",
         "segmentId": "1",
-        "time": 1672158527974,
+        "time": 1672163856293,
         "velocity": 63,
         "noise": 61,
         "vibration": 3,
-        "temperature": 25,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66476,
-            45.40939
+            -75.75068,
+            45.44155
         ]
     },
     {
         "routeDataPointId": "544",
         "segmentId": "1",
-        "time": 1672158527984,
+        "time": 1672163856303,
         "velocity": 64,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66482,
-            45.40928
+            -75.75066,
+            45.44181
         ]
     },
     {
         "routeDataPointId": "545",
         "segmentId": "1",
-        "time": 1672158527994,
+        "time": 1672163856313,
         "velocity": 65,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 3,
+        "temperature": 28,
         "annotation": "",
         "coordinates": [
-            -75.66491,
-            45.40919
+            -75.75065,
+            45.44193
         ]
     },
     {
         "routeDataPointId": "546",
         "segmentId": "1",
-        "time": 1672158528004,
+        "time": 1672163856323,
         "velocity": 66,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66495,
-            45.40913
+            -75.75062,
+            45.44218
         ]
     },
     {
         "routeDataPointId": "547",
         "segmentId": "1",
-        "time": 1672158528014,
+        "time": 1672163856333,
         "velocity": 67,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66503,
-            45.40899
+            -75.75059,
+            45.44253
         ]
     },
     {
         "routeDataPointId": "548",
         "segmentId": "1",
-        "time": 1672158528024,
+        "time": 1672163856343,
         "velocity": 68,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66507,
-            45.40898
+            -75.75057,
+            45.4427
         ]
     },
     {
         "routeDataPointId": "549",
         "segmentId": "1",
-        "time": 1672158528034,
+        "time": 1672163856353,
         "velocity": 69,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 21,
         "annotation": "",
         "coordinates": [
-            -75.66511,
-            45.40897
+            -75.75057,
+            45.44276
         ]
     },
     {
         "routeDataPointId": "550",
         "segmentId": "1",
-        "time": 1672158528044,
+        "time": 1672163856363,
         "velocity": 70,
         "noise": 60,
         "vibration": 1,
-        "temperature": 27,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66519,
-            45.40891
+            -75.75057,
+            45.44281
         ]
     },
     {
         "routeDataPointId": "551",
         "segmentId": "1",
-        "time": 1672158528054,
+        "time": 1672163856373,
         "velocity": 71,
         "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66523,
-            45.40887
+            -75.75057,
+            45.44294
         ]
     },
     {
         "routeDataPointId": "552",
         "segmentId": "1",
-        "time": 1672158528064,
+        "time": 1672163856383,
         "velocity": 72,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
+        "vibration": 2,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.66526,
-            45.40885
+            -75.75042,
+            45.44296
         ]
     },
     {
         "routeDataPointId": "553",
         "segmentId": "1",
-        "time": 1672158528074,
+        "time": 1672163856393,
         "velocity": 73,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66531,
-            45.40883
+            -75.7501,
+            45.44299
         ]
     },
     {
         "routeDataPointId": "554",
         "segmentId": "1",
-        "time": 1672158528084,
+        "time": 1672163856403,
         "velocity": 74,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66537,
-            45.4088
+            -75.74991,
+            45.44297
         ]
     },
     {
         "routeDataPointId": "555",
         "segmentId": "1",
-        "time": 1672158528094,
+        "time": 1672163856413,
         "velocity": 75,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66563,
-            45.40881
+            -75.74977,
+            45.44298
         ]
     },
     {
         "routeDataPointId": "556",
         "segmentId": "1",
-        "time": 1672158528104,
+        "time": 1672163856423,
         "velocity": 76,
         "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
+        "vibration": 1,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66573,
-            45.40881
+            -75.74969,
+            45.44298
         ]
     },
     {
         "routeDataPointId": "557",
         "segmentId": "1",
-        "time": 1672158528114,
+        "time": 1672163856433,
         "velocity": 77,
         "noise": 61,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 27,
         "annotation": "",
         "coordinates": [
-            -75.66574,
-            45.40881
+            -75.74887,
+            45.44302
         ]
     },
     {
         "routeDataPointId": "558",
         "segmentId": "1",
-        "time": 1672158528124,
+        "time": 1672163856443,
         "velocity": 78,
         "noise": 60,
-        "vibration": 1,
-        "temperature": 25,
+        "vibration": 2,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66582,
-            45.40881
+            -75.74879,
+            45.44303
         ]
     },
     {
         "routeDataPointId": "559",
         "segmentId": "1",
-        "time": 1672158528134,
+        "time": 1672163856453,
         "velocity": 79,
         "noise": 61,
-        "vibration": 2,
+        "vibration": 3,
         "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66591,
-            45.40881
+            -75.74809,
+            45.44307
         ]
     },
     {
         "routeDataPointId": "560",
         "segmentId": "1",
-        "time": 1672158528144,
+        "time": 1672163856463,
         "velocity": 80,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66603,
-            45.4088
+            -75.74783,
+            45.44308
         ]
     },
     {
         "routeDataPointId": "561",
         "segmentId": "1",
-        "time": 1672158528154,
+        "time": 1672163856473,
         "velocity": 81,
         "noise": 61,
         "vibration": 1,
-        "temperature": 28,
+        "temperature": 23,
         "annotation": "",
         "coordinates": [
-            -75.66616,
-            45.40879
+            -75.74751,
+            45.4431
         ]
     },
     {
         "routeDataPointId": "562",
         "segmentId": "1",
-        "time": 1672158528164,
+        "time": 1672163856483,
         "velocity": 82,
         "noise": 60,
         "vibration": 3,
-        "temperature": 28,
+        "temperature": 24,
         "annotation": "",
         "coordinates": [
-            -75.66625,
-            45.40878
+            -75.74733,
+            45.44311
         ]
     },
     {
         "routeDataPointId": "563",
         "segmentId": "1",
-        "time": 1672158528174,
+        "time": 1672163856493,
         "velocity": 83,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 3,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.66633,
-            45.40877
+            -75.74672,
+            45.44314
         ]
     },
     {
         "routeDataPointId": "564",
         "segmentId": "1",
-        "time": 1672158528184,
+        "time": 1672163856503,
         "velocity": 84,
         "noise": 60,
         "vibration": 2,
-        "temperature": 26,
+        "temperature": 22,
         "annotation": "",
         "coordinates": [
-            -75.66636,
-            45.40877
+            -75.74665,
+            45.44315
         ]
     },
     {
         "routeDataPointId": "565",
         "segmentId": "1",
-        "time": 1672158528194,
+        "time": 1672163856513,
         "velocity": 85,
         "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
+        "vibration": 1,
+        "temperature": 26,
         "annotation": "",
         "coordinates": [
-            -75.66645,
-            45.40875
+            -75.74611,
+            45.44317
         ]
     },
     {
         "routeDataPointId": "566",
         "segmentId": "1",
-        "time": 1672158528204,
-        "velocity": 86,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66656,
-            45.40873
-        ]
-    },
-    {
-        "routeDataPointId": "567",
-        "segmentId": "1",
-        "time": 1672158528214,
-        "velocity": 87,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66668,
-            45.40871
-        ]
-    },
-    {
-        "routeDataPointId": "568",
-        "segmentId": "1",
-        "time": 1672158528224,
-        "velocity": 88,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66674,
-            45.40869
-        ]
-    },
-    {
-        "routeDataPointId": "569",
-        "segmentId": "1",
-        "time": 1672158528234,
-        "velocity": 89,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66683,
-            45.40867
-        ]
-    },
-    {
-        "routeDataPointId": "570",
-        "segmentId": "1",
-        "time": 1672158528244,
-        "velocity": 90,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66684,
-            45.40867
-        ]
-    },
-    {
-        "routeDataPointId": "571",
-        "segmentId": "1",
-        "time": 1672158528254,
-        "velocity": 91,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66693,
-            45.40865
-        ]
-    },
-    {
-        "routeDataPointId": "572",
-        "segmentId": "1",
-        "time": 1672158528264,
-        "velocity": 92,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66698,
-            45.40864
-        ]
-    },
-    {
-        "routeDataPointId": "573",
-        "segmentId": "1",
-        "time": 1672158528274,
-        "velocity": 93,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66703,
-            45.40862
-        ]
-    },
-    {
-        "routeDataPointId": "574",
-        "segmentId": "1",
-        "time": 1672158528284,
-        "velocity": 94,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66708,
-            45.40859
-        ]
-    },
-    {
-        "routeDataPointId": "575",
-        "segmentId": "1",
-        "time": 1672158528294,
-        "velocity": 95,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66711,
-            45.40856
-        ]
-    },
-    {
-        "routeDataPointId": "576",
-        "segmentId": "1",
-        "time": 1672158528304,
-        "velocity": 96,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66714,
-            45.40853
-        ]
-    },
-    {
-        "routeDataPointId": "577",
-        "segmentId": "1",
-        "time": 1672158528314,
-        "velocity": 97,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66715,
-            45.40848
-        ]
-    },
-    {
-        "routeDataPointId": "578",
-        "segmentId": "1",
-        "time": 1672158528324,
-        "velocity": 98,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66715,
-            45.40844
-        ]
-    },
-    {
-        "routeDataPointId": "579",
-        "segmentId": "1",
-        "time": 1672158528334,
-        "velocity": 99,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66714,
-            45.40837
-        ]
-    },
-    {
-        "routeDataPointId": "580",
-        "segmentId": "1",
-        "time": 1672158528344,
-        "velocity": 100,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66713,
-            45.40833
-        ]
-    },
-    {
-        "routeDataPointId": "581",
-        "segmentId": "1",
-        "time": 1672158528354,
-        "velocity": 101,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66711,
-            45.4083
-        ]
-    },
-    {
-        "routeDataPointId": "582",
-        "segmentId": "1",
-        "time": 1672158528364,
-        "velocity": 102,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66708,
-            45.40827
-        ]
-    },
-    {
-        "routeDataPointId": "583",
-        "segmentId": "1",
-        "time": 1672158528374,
-        "velocity": 103,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66706,
-            45.40809
-        ]
-    },
-    {
-        "routeDataPointId": "584",
-        "segmentId": "1",
-        "time": 1672158528384,
-        "velocity": 104,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66703,
-            45.40778
-        ]
-    },
-    {
-        "routeDataPointId": "585",
-        "segmentId": "1",
-        "time": 1672158528394,
-        "velocity": 105,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66703,
-            45.40754
-        ]
-    },
-    {
-        "routeDataPointId": "586",
-        "segmentId": "1",
-        "time": 1672158528404,
-        "velocity": 106,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66703,
-            45.40749
-        ]
-    },
-    {
-        "routeDataPointId": "587",
-        "segmentId": "1",
-        "time": 1672158528414,
-        "velocity": 107,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66702,
-            45.40732
-        ]
-    },
-    {
-        "routeDataPointId": "588",
-        "segmentId": "1",
-        "time": 1672158528424,
-        "velocity": 108,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66702,
-            45.40722
-        ]
-    },
-    {
-        "routeDataPointId": "589",
-        "segmentId": "1",
-        "time": 1672158528434,
-        "velocity": 109,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.667,
-            45.4068
-        ]
-    },
-    {
-        "routeDataPointId": "590",
-        "segmentId": "1",
-        "time": 1672158528444,
-        "velocity": 110,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.667,
-            45.4061
-        ]
-    },
-    {
-        "routeDataPointId": "591",
-        "segmentId": "1",
-        "time": 1672158528454,
-        "velocity": 111,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.667,
-            45.40607
-        ]
-    },
-    {
-        "routeDataPointId": "592",
-        "segmentId": "1",
-        "time": 1672158528464,
-        "velocity": 112,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66699,
-            45.40583
-        ]
-    },
-    {
-        "routeDataPointId": "593",
-        "segmentId": "1",
-        "time": 1672158528474,
-        "velocity": 113,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66698,
-            45.40561
-        ]
-    },
-    {
-        "routeDataPointId": "594",
-        "segmentId": "1",
-        "time": 1672158528484,
-        "velocity": 114,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66697,
-            45.40545
-        ]
-    },
-    {
-        "routeDataPointId": "595",
-        "segmentId": "1",
-        "time": 1672158528494,
-        "velocity": 115,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66696,
-            45.40541
-        ]
-    },
-    {
-        "routeDataPointId": "596",
-        "segmentId": "1",
-        "time": 1672158528504,
-        "velocity": 116,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66692,
-            45.40521
-        ]
-    },
-    {
-        "routeDataPointId": "597",
-        "segmentId": "1",
-        "time": 1672158528514,
-        "velocity": 117,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66692,
-            45.4052
-        ]
-    },
-    {
-        "routeDataPointId": "598",
-        "segmentId": "1",
-        "time": 1672158528524,
-        "velocity": 118,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66691,
-            45.40519
-        ]
-    },
-    {
-        "routeDataPointId": "599",
-        "segmentId": "1",
-        "time": 1672158528534,
-        "velocity": 119,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66689,
-            45.40511
-        ]
-    },
-    {
-        "routeDataPointId": "600",
-        "segmentId": "1",
-        "time": 1672158528544,
-        "velocity": 120,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66686,
-            45.40501
-        ]
-    },
-    {
-        "routeDataPointId": "601",
-        "segmentId": "1",
-        "time": 1672158528554,
-        "velocity": 121,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66685,
-            45.40501
-        ]
-    },
-    {
-        "routeDataPointId": "602",
-        "segmentId": "1",
-        "time": 1672158528564,
-        "velocity": 122,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66679,
-            45.40488
-        ]
-    },
-    {
-        "routeDataPointId": "603",
-        "segmentId": "1",
-        "time": 1672158528574,
-        "velocity": 123,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66669,
-            45.40473
-        ]
-    },
-    {
-        "routeDataPointId": "604",
-        "segmentId": "1",
-        "time": 1672158528584,
-        "velocity": 124,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66655,
-            45.40456
-        ]
-    },
-    {
-        "routeDataPointId": "605",
-        "segmentId": "1",
-        "time": 1672158528594,
-        "velocity": 125,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66646,
-            45.40448
-        ]
-    },
-    {
-        "routeDataPointId": "606",
-        "segmentId": "1",
-        "time": 1672158528604,
-        "velocity": 126,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66637,
-            45.4044
-        ]
-    },
-    {
-        "routeDataPointId": "607",
-        "segmentId": "1",
-        "time": 1672158528614,
-        "velocity": 127,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.6662,
-            45.40427
-        ]
-    },
-    {
-        "routeDataPointId": "608",
-        "segmentId": "1",
-        "time": 1672158528624,
-        "velocity": 128,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.666,
-            45.40415
-        ]
-    },
-    {
-        "routeDataPointId": "609",
-        "segmentId": "1",
-        "time": 1672158528634,
-        "velocity": 129,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66589,
-            45.40408
-        ]
-    },
-    {
-        "routeDataPointId": "610",
-        "segmentId": "1",
-        "time": 1672158528644,
-        "velocity": 130,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66579,
-            45.40404
-        ]
-    },
-    {
-        "routeDataPointId": "611",
-        "segmentId": "1",
-        "time": 1672158528654,
-        "velocity": 131,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66558,
-            45.40395
-        ]
-    },
-    {
-        "routeDataPointId": "612",
-        "segmentId": "1",
-        "time": 1672158528664,
-        "velocity": 132,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66543,
-            45.40389
-        ]
-    },
-    {
-        "routeDataPointId": "613",
-        "segmentId": "1",
-        "time": 1672158528674,
-        "velocity": 133,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66535,
-            45.40387
-        ]
-    },
-    {
-        "routeDataPointId": "614",
-        "segmentId": "1",
-        "time": 1672158528684,
-        "velocity": 134,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66523,
-            45.40383
-        ]
-    },
-    {
-        "routeDataPointId": "615",
-        "segmentId": "1",
-        "time": 1672158528694,
-        "velocity": 135,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66511,
-            45.40381
-        ]
-    },
-    {
-        "routeDataPointId": "616",
-        "segmentId": "1",
-        "time": 1672158528704,
-        "velocity": 136,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.6651,
-            45.40381
-        ]
-    },
-    {
-        "routeDataPointId": "617",
-        "segmentId": "1",
-        "time": 1672158528714,
-        "velocity": 137,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66487,
-            45.40375
-        ]
-    },
-    {
-        "routeDataPointId": "618",
-        "segmentId": "1",
-        "time": 1672158528724,
-        "velocity": 138,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66486,
-            45.40375
-        ]
-    },
-    {
-        "routeDataPointId": "619",
-        "segmentId": "1",
-        "time": 1672158528734,
-        "velocity": 139,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.6647,
-            45.40373
-        ]
-    },
-    {
-        "routeDataPointId": "620",
-        "segmentId": "1",
-        "time": 1672158528744,
-        "velocity": 140,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66444,
-            45.40371
-        ]
-    },
-    {
-        "routeDataPointId": "621",
-        "segmentId": "1",
-        "time": 1672158528754,
-        "velocity": 141,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66436,
-            45.40371
-        ]
-    },
-    {
-        "routeDataPointId": "622",
-        "segmentId": "1",
-        "time": 1672158528764,
-        "velocity": 142,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66421,
-            45.4037
-        ]
-    },
-    {
-        "routeDataPointId": "623",
-        "segmentId": "1",
-        "time": 1672158528774,
-        "velocity": 143,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.6641,
-            45.4037
-        ]
-    },
-    {
-        "routeDataPointId": "624",
-        "segmentId": "1",
-        "time": 1672158528784,
-        "velocity": 144,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66393,
-            45.4037
-        ]
-    },
-    {
-        "routeDataPointId": "625",
-        "segmentId": "1",
-        "time": 1672158528794,
-        "velocity": 145,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.6638,
-            45.40371
-        ]
-    },
-    {
-        "routeDataPointId": "626",
-        "segmentId": "1",
-        "time": 1672158528804,
-        "velocity": 146,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66352,
-            45.40372
-        ]
-    },
-    {
-        "routeDataPointId": "627",
-        "segmentId": "1",
-        "time": 1672158528814,
-        "velocity": 147,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66325,
-            45.40373
-        ]
-    },
-    {
-        "routeDataPointId": "628",
-        "segmentId": "1",
-        "time": 1672158528824,
-        "velocity": 148,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66314,
-            45.40373
-        ]
-    },
-    {
-        "routeDataPointId": "629",
-        "segmentId": "1",
-        "time": 1672158528834,
-        "velocity": 149,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66298,
-            45.40373
-        ]
-    },
-    {
-        "routeDataPointId": "630",
-        "segmentId": "1",
-        "time": 1672158528844,
-        "velocity": 150,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66273,
-            45.40374
-        ]
-    },
-    {
-        "routeDataPointId": "631",
-        "segmentId": "1",
-        "time": 1672158528854,
-        "velocity": 151,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66221,
-            45.40374
-        ]
-    },
-    {
-        "routeDataPointId": "632",
-        "segmentId": "1",
-        "time": 1672158528864,
-        "velocity": 152,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.6621,
-            45.40374
-        ]
-    },
-    {
-        "routeDataPointId": "633",
-        "segmentId": "1",
-        "time": 1672158528874,
-        "velocity": 153,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66206,
-            45.40374
-        ]
-    },
-    {
-        "routeDataPointId": "634",
-        "segmentId": "1",
-        "time": 1672158528884,
-        "velocity": 154,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66201,
-            45.40371
-        ]
-    },
-    {
-        "routeDataPointId": "635",
-        "segmentId": "1",
-        "time": 1672158528894,
-        "velocity": 155,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66198,
-            45.40369
-        ]
-    },
-    {
-        "routeDataPointId": "636",
-        "segmentId": "1",
-        "time": 1672158528904,
-        "velocity": 156,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66197,
-            45.40369
-        ]
-    },
-    {
-        "routeDataPointId": "637",
-        "segmentId": "1",
-        "time": 1672158528914,
-        "velocity": 157,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "foo bar",
-        "coordinates": [
-            -75.66194,
-            45.40369
-        ]
-    },
-    {
-        "routeDataPointId": "638",
-        "segmentId": "1",
-        "time": 1672158528924,
-        "velocity": 158,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66191,
-            45.40366
-        ]
-    },
-    {
-        "routeDataPointId": "639",
-        "segmentId": "1",
-        "time": 1672158528934,
-        "velocity": 159,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66188,
-            45.40366
-        ]
-    },
-    {
-        "routeDataPointId": "640",
-        "segmentId": "1",
-        "time": 1672158528944,
-        "velocity": 0,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66186,
-            45.40365
-        ]
-    },
-    {
-        "routeDataPointId": "641",
-        "segmentId": "1",
-        "time": 1672158528954,
-        "velocity": 1,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66157,
-            45.4036
-        ]
-    },
-    {
-        "routeDataPointId": "642",
-        "segmentId": "1",
-        "time": 1672158528964,
-        "velocity": 2,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66147,
-            45.40357
-        ]
-    },
-    {
-        "routeDataPointId": "643",
-        "segmentId": "1",
-        "time": 1672158528974,
-        "velocity": 3,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66138,
-            45.40352
-        ]
-    },
-    {
-        "routeDataPointId": "644",
-        "segmentId": "1",
-        "time": 1672158528984,
-        "velocity": 4,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66131,
-            45.40348
-        ]
-    },
-    {
-        "routeDataPointId": "645",
-        "segmentId": "1",
-        "time": 1672158528994,
-        "velocity": 5,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66136,
-            45.4034
-        ]
-    },
-    {
-        "routeDataPointId": "646",
-        "segmentId": "1",
-        "time": 1672158529004,
-        "velocity": 6,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66143,
-            45.40328
-        ]
-    },
-    {
-        "routeDataPointId": "647",
-        "segmentId": "1",
-        "time": 1672158529014,
-        "velocity": 7,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66153,
-            45.40311
-        ]
-    },
-    {
-        "routeDataPointId": "648",
-        "segmentId": "1",
-        "time": 1672158529024,
-        "velocity": 8,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66165,
-            45.40292
-        ]
-    },
-    {
-        "routeDataPointId": "649",
-        "segmentId": "1",
-        "time": 1672158529034,
-        "velocity": 9,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66184,
-            45.40261
-        ]
-    },
-    {
-        "routeDataPointId": "650",
-        "segmentId": "1",
-        "time": 1672158529044,
-        "velocity": 10,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.66192,
-            45.40247
-        ]
-    },
-    {
-        "routeDataPointId": "651",
-        "segmentId": "1",
-        "time": 1672158529054,
-        "velocity": 11,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66196,
-            45.40241
-        ]
-    },
-    {
-        "routeDataPointId": "652",
-        "segmentId": "1",
-        "time": 1672158529064,
-        "velocity": 12,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.6621,
-            45.40218
-        ]
-    },
-    {
-        "routeDataPointId": "653",
-        "segmentId": "1",
-        "time": 1672158529074,
-        "velocity": 13,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66217,
-            45.40206
-        ]
-    },
-    {
-        "routeDataPointId": "654",
-        "segmentId": "1",
-        "time": 1672158529084,
-        "velocity": 14,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66221,
-            45.40196
-        ]
-    },
-    {
-        "routeDataPointId": "655",
-        "segmentId": "1",
-        "time": 1672158529094,
-        "velocity": 15,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66224,
-            45.40189
-        ]
-    },
-    {
-        "routeDataPointId": "656",
-        "segmentId": "1",
-        "time": 1672158529104,
-        "velocity": 16,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66227,
-            45.40182
-        ]
-    },
-    {
-        "routeDataPointId": "657",
-        "segmentId": "1",
-        "time": 1672158529114,
-        "velocity": 17,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66229,
-            45.40174
-        ]
-    },
-    {
-        "routeDataPointId": "658",
-        "segmentId": "1",
-        "time": 1672158529124,
-        "velocity": 18,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66231,
-            45.40166
-        ]
-    },
-    {
-        "routeDataPointId": "659",
-        "segmentId": "1",
-        "time": 1672158529134,
-        "velocity": 19,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66231,
-            45.40165
-        ]
-    },
-    {
-        "routeDataPointId": "660",
-        "segmentId": "1",
-        "time": 1672158529144,
-        "velocity": 20,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66232,
-            45.40156
-        ]
-    },
-    {
-        "routeDataPointId": "661",
-        "segmentId": "1",
-        "time": 1672158529154,
-        "velocity": 21,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66233,
-            45.40148
-        ]
-    },
-    {
-        "routeDataPointId": "662",
-        "segmentId": "1",
-        "time": 1672158529164,
-        "velocity": 22,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66233,
-            45.40143
-        ]
-    },
-    {
-        "routeDataPointId": "663",
-        "segmentId": "1",
-        "time": 1672158529174,
-        "velocity": 23,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66232,
-            45.40129
-        ]
-    },
-    {
-        "routeDataPointId": "664",
-        "segmentId": "1",
-        "time": 1672158529184,
-        "velocity": 24,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66231,
-            45.40116
-        ]
-    },
-    {
-        "routeDataPointId": "665",
-        "segmentId": "1",
-        "time": 1672158529194,
-        "velocity": 25,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66229,
-            45.401
-        ]
-    },
-    {
-        "routeDataPointId": "666",
-        "segmentId": "1",
-        "time": 1672158529204,
-        "velocity": 26,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66226,
-            45.40082
-        ]
-    },
-    {
-        "routeDataPointId": "667",
-        "segmentId": "1",
-        "time": 1672158529214,
-        "velocity": 27,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66225,
-            45.40076
-        ]
-    },
-    {
-        "routeDataPointId": "668",
-        "segmentId": "1",
-        "time": 1672158529224,
-        "velocity": 28,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.66218,
-            45.40051
-        ]
-    },
-    {
-        "routeDataPointId": "669",
-        "segmentId": "1",
-        "time": 1672158529234,
-        "velocity": 29,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66213,
-            45.40031
-        ]
-    },
-    {
-        "routeDataPointId": "670",
-        "segmentId": "1",
-        "time": 1672158529244,
-        "velocity": 30,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.66212,
-            45.40028
-        ]
-    },
-    {
-        "routeDataPointId": "671",
-        "segmentId": "1",
-        "time": 1672158529254,
-        "velocity": 31,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.6621,
-            45.40022
-        ]
-    },
-    {
-        "routeDataPointId": "672",
-        "segmentId": "1",
-        "time": 1672158529264,
-        "velocity": 32,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66205,
-            45.40005
-        ]
-    },
-    {
-        "routeDataPointId": "673",
-        "segmentId": "1",
-        "time": 1672158529274,
-        "velocity": 33,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66199,
-            45.39984
-        ]
-    },
-    {
-        "routeDataPointId": "674",
-        "segmentId": "1",
-        "time": 1672158529284,
-        "velocity": 34,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66193,
-            45.39958
-        ]
-    },
-    {
-        "routeDataPointId": "675",
-        "segmentId": "1",
-        "time": 1672158529294,
-        "velocity": 35,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66191,
-            45.39953
-        ]
-    },
-    {
-        "routeDataPointId": "676",
-        "segmentId": "1",
-        "time": 1672158529304,
-        "velocity": 36,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66181,
-            45.39923
-        ]
-    },
-    {
-        "routeDataPointId": "677",
-        "segmentId": "1",
-        "time": 1672158529314,
-        "velocity": 37,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66176,
-            45.39906
-        ]
-    },
-    {
-        "routeDataPointId": "678",
-        "segmentId": "1",
-        "time": 1672158529324,
-        "velocity": 38,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66175,
-            45.39903
-        ]
-    },
-    {
-        "routeDataPointId": "679",
-        "segmentId": "1",
-        "time": 1672158529334,
-        "velocity": 39,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66172,
-            45.39891
-        ]
-    },
-    {
-        "routeDataPointId": "680",
-        "segmentId": "1",
-        "time": 1672158529344,
-        "velocity": 40,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.6617,
-            45.39881
-        ]
-    },
-    {
-        "routeDataPointId": "681",
-        "segmentId": "1",
-        "time": 1672158529354,
-        "velocity": 41,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66169,
-            45.39873
-        ]
-    },
-    {
-        "routeDataPointId": "682",
-        "segmentId": "1",
-        "time": 1672158529364,
-        "velocity": 42,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.66168,
-            45.39866
-        ]
-    },
-    {
-        "routeDataPointId": "683",
-        "segmentId": "1",
-        "time": 1672158529374,
-        "velocity": 43,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66168,
-            45.39859
-        ]
-    },
-    {
-        "routeDataPointId": "684",
-        "segmentId": "1",
-        "time": 1672158529384,
-        "velocity": 44,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66167,
-            45.39852
-        ]
-    },
-    {
-        "routeDataPointId": "685",
-        "segmentId": "1",
-        "time": 1672158529394,
-        "velocity": 45,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.66123,
-            45.39849
-        ]
-    },
-    {
-        "routeDataPointId": "686",
-        "segmentId": "1",
-        "time": 1672158529404,
-        "velocity": 46,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66064,
-            45.39847
-        ]
-    },
-    {
-        "routeDataPointId": "687",
-        "segmentId": "1",
-        "time": 1672158529414,
-        "velocity": 47,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.66051,
-            45.39847
-        ]
-    },
-    {
-        "routeDataPointId": "688",
-        "segmentId": "1",
-        "time": 1672158529424,
-        "velocity": 48,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.66024,
-            45.39849
-        ]
-    },
-    {
-        "routeDataPointId": "689",
-        "segmentId": "1",
-        "time": 1672158529434,
-        "velocity": 49,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.66015,
-            45.3985
-        ]
-    },
-    {
-        "routeDataPointId": "690",
-        "segmentId": "1",
-        "time": 1672158529444,
-        "velocity": 50,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.65995,
-            45.39854
-        ]
-    },
-    {
-        "routeDataPointId": "691",
-        "segmentId": "1",
-        "time": 1672158529454,
-        "velocity": 51,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.65979,
-            45.39855
-        ]
-    },
-    {
-        "routeDataPointId": "692",
-        "segmentId": "1",
-        "time": 1672158529464,
-        "velocity": 52,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.65932,
-            45.39859
-        ]
-    },
-    {
-        "routeDataPointId": "693",
-        "segmentId": "1",
-        "time": 1672158529474,
-        "velocity": 53,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.65916,
-            45.3986
-        ]
-    },
-    {
-        "routeDataPointId": "694",
-        "segmentId": "1",
-        "time": 1672158529484,
-        "velocity": 54,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.65873,
-            45.39863
-        ]
-    },
-    {
-        "routeDataPointId": "695",
-        "segmentId": "1",
-        "time": 1672158529494,
-        "velocity": 55,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.65816,
-            45.39866
-        ]
-    },
-    {
-        "routeDataPointId": "696",
-        "segmentId": "1",
-        "time": 1672158529504,
-        "velocity": 56,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.65804,
-            45.39867
-        ]
-    },
-    {
-        "routeDataPointId": "697",
-        "segmentId": "1",
-        "time": 1672158529514,
-        "velocity": 57,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.65723,
-            45.39872
-        ]
-    },
-    {
-        "routeDataPointId": "698",
-        "segmentId": "1",
-        "time": 1672158529524,
-        "velocity": 58,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.65688,
-            45.39874
-        ]
-    },
-    {
-        "routeDataPointId": "699",
-        "segmentId": "1",
-        "time": 1672158529534,
-        "velocity": 59,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.65648,
-            45.39877
-        ]
-    },
-    {
-        "routeDataPointId": "700",
-        "segmentId": "1",
-        "time": 1672158529544,
-        "velocity": 60,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.65612,
-            45.39879
-        ]
-    },
-    {
-        "routeDataPointId": "701",
-        "segmentId": "1",
-        "time": 1672158529554,
-        "velocity": 61,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.65572,
-            45.39882
-        ]
-    },
-    {
-        "routeDataPointId": "702",
-        "segmentId": "1",
-        "time": 1672158529564,
-        "velocity": 62,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.65558,
-            45.39883
-        ]
-    },
-    {
-        "routeDataPointId": "703",
-        "segmentId": "1",
-        "time": 1672158529574,
-        "velocity": 63,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 25,
-        "annotation": "",
-        "coordinates": [
-            -75.65536,
-            45.39885
-        ]
-    },
-    {
-        "routeDataPointId": "704",
-        "segmentId": "1",
-        "time": 1672158529584,
-        "velocity": 64,
-        "noise": 60,
-        "vibration": 1,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.65531,
-            45.39885
-        ]
-    },
-    {
-        "routeDataPointId": "705",
-        "segmentId": "1",
-        "time": 1672158529594,
-        "velocity": 65,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.65437,
-            45.39892
-        ]
-    },
-    {
-        "routeDataPointId": "706",
-        "segmentId": "1",
-        "time": 1672158529604,
-        "velocity": 66,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.65409,
-            45.39893
-        ]
-    },
-    {
-        "routeDataPointId": "707",
-        "segmentId": "1",
-        "time": 1672158529614,
-        "velocity": 67,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.65362,
-            45.39897
-        ]
-    },
-    {
-        "routeDataPointId": "708",
-        "segmentId": "1",
-        "time": 1672158529624,
-        "velocity": 68,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.65292,
-            45.39902
-        ]
-    },
-    {
-        "routeDataPointId": "709",
-        "segmentId": "1",
-        "time": 1672158529634,
-        "velocity": 69,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.6528,
-            45.39903
-        ]
-    },
-    {
-        "routeDataPointId": "710",
-        "segmentId": "1",
-        "time": 1672158529644,
-        "velocity": 70,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.65115,
-            45.39914
-        ]
-    },
-    {
-        "routeDataPointId": "711",
-        "segmentId": "1",
-        "time": 1672158529654,
-        "velocity": 71,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.64983,
-            45.39924
-        ]
-    },
-    {
-        "routeDataPointId": "712",
-        "segmentId": "1",
-        "time": 1672158529664,
-        "velocity": 72,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.64966,
-            45.39925
-        ]
-    },
-    {
-        "routeDataPointId": "713",
-        "segmentId": "1",
-        "time": 1672158529674,
-        "velocity": 73,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.64862,
-            45.39933
-        ]
-    },
-    {
-        "routeDataPointId": "714",
-        "segmentId": "1",
-        "time": 1672158529684,
-        "velocity": 74,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.64833,
-            45.39935
-        ]
-    },
-    {
-        "routeDataPointId": "715",
-        "segmentId": "1",
-        "time": 1672158529694,
-        "velocity": 75,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.64794,
-            45.39932
-        ]
-    },
-    {
-        "routeDataPointId": "716",
-        "segmentId": "1",
-        "time": 1672158529704,
-        "velocity": 76,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.64771,
-            45.39933
-        ]
-    },
-    {
-        "routeDataPointId": "717",
-        "segmentId": "1",
-        "time": 1672158529714,
-        "velocity": 77,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.64772,
-            45.39943
-        ]
-    },
-    {
-        "routeDataPointId": "718",
-        "segmentId": "1",
-        "time": 1672158529724,
-        "velocity": 78,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 23,
-        "annotation": "",
-        "coordinates": [
-            -75.64779,
-            45.39968
-        ]
-    },
-    {
-        "routeDataPointId": "719",
-        "segmentId": "1",
-        "time": 1672158529734,
-        "velocity": 79,
-        "noise": 61,
-        "vibration": 1,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.64785,
-            45.39991
-        ]
-    },
-    {
-        "routeDataPointId": "720",
-        "segmentId": "1",
-        "time": 1672158529744,
-        "velocity": 80,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 26,
-        "annotation": "",
-        "coordinates": [
-            -75.64787,
-            45.39998
-        ]
-    },
-    {
-        "routeDataPointId": "721",
-        "segmentId": "1",
-        "time": 1672158529754,
-        "velocity": 81,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 22,
-        "annotation": "",
-        "coordinates": [
-            -75.64788,
-            45.4
-        ]
-    },
-    {
-        "routeDataPointId": "722",
-        "segmentId": "1",
-        "time": 1672158529764,
-        "velocity": 82,
-        "noise": 60,
-        "vibration": 2,
-        "temperature": 28,
-        "annotation": "",
-        "coordinates": [
-            -75.64789,
-            45.40002
-        ]
-    },
-    {
-        "routeDataPointId": "723",
-        "segmentId": "1",
-        "time": 1672158529774,
-        "velocity": 83,
-        "noise": 61,
-        "vibration": 3,
-        "temperature": 24,
-        "annotation": "",
-        "coordinates": [
-            -75.64795,
-            45.40006
-        ]
-    },
-    {
-        "routeDataPointId": "724",
-        "segmentId": "1",
-        "time": 1672158529784,
-        "velocity": 84,
-        "noise": 60,
-        "vibration": 3,
-        "temperature": 27,
-        "annotation": "",
-        "coordinates": [
-            -75.64796,
-            45.4002
-        ]
-    },
-    {
-        "routeDataPointId": "725",
-        "segmentId": "1",
-        "time": 1672158529794,
-        "velocity": 85,
-        "noise": 61,
-        "vibration": 2,
-        "temperature": 21,
-        "annotation": "",
-        "coordinates": [
-            -75.64777,
-            45.40032
-        ]
-    },
-    {
-        "routeDataPointId": "726",
-        "segmentId": "1",
-        "time": 1672158529804,
+        "time": 1672163856523,
         "velocity": 86,
         "noise": 60,
         "vibration": 1,
-        "temperature": 21,
+        "temperature": 25,
         "annotation": "",
         "coordinates": [
-            -75.64771,
-            45.40036
+            -75.74583,
+            45.44319
         ]
     }
 ]
