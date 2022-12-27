@@ -18,6 +18,8 @@ function TripsDetails({ data }: TripsDetailsProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeMeasurand, setActiveMeasurand] = useState("");
 
+  console.log(data);
+
   function closeModal() {
     setModalOpen(false);
   }

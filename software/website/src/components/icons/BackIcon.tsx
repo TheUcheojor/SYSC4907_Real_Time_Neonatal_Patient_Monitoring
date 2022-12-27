@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-function BackIcon() {
+interface iconProps {
+  onClick: () => void;
+}
+
+function BackIcon({ onClick }: iconProps) {
   const [backHover, setBackHover] = useState(false);
 
   return (
@@ -14,6 +18,7 @@ function BackIcon() {
       }}
       onMouseEnter={() => setBackHover(true)}
       onMouseLeave={() => setBackHover(false)}
+      onClick={onClick}
     >
       <svg
         version="1.0"

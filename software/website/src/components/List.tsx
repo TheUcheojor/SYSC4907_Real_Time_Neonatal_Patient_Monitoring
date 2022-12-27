@@ -1,30 +1,25 @@
-import React, { ReactNode, useState } from "react";
+import React from "react";
 import Route from "mock/Route";
 import ListElement from "./ListElement";
 
 interface ListProps {
   routes: Route[];
   elemOnClick: (e: any) => void;
+  activeRoutes: Route[];
 }
 
-function List({ routes, elemOnClick }: ListProps) {
-  const [activeId, setActiveId] = useState(undefined);
-
+function List({ routes, elemOnClick, activeRoutes }: ListProps) {
   return (
     <ul style={{ padding: 0, marginTop: 0 }}>
       {routes.map((route) => {
         return (
-          <div
-            onClick={() => {
-              setActiveId(route.routeId);
-            }}
-          >
-            <ListElement
-              route={route}
-              isActive={activeId === route.routeId}
-              onClick={elemOnClick}
-            />
-          </div>
+          <ListElement
+            route={route}
+            isActive={activeRoutes.some(
+              (elem) => elem.routeId === route.routeId
+            )}
+            onClick={elemOnClick}
+          />
         );
       })}
     </ul>
