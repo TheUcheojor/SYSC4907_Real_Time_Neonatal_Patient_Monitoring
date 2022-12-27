@@ -48,6 +48,7 @@ export default () => {
         headerShown: false,
         drawerPosition: "right",
         swipeEnabled: false,
+        drawerType: "front",
       }}
     >
       <Drawer.Screen name="BottomTab" component={BottomTabNavigator} />
