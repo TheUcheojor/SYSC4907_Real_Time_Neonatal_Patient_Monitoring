@@ -30,8 +30,9 @@ export default () => (
       // header: (navigation ) => <MainHeader {...navigation}} />,
       // headerStatusBarHeight: 50,
       headerStyle: {
-        // borderStartWidth: 1,
-        // bo/r,
+        elevation: 0,
+        shadowOpacity: 0,
+        borderBottomWidth: 0,
       },
       headerShown: true,
       tabBarShowLabel: false,
