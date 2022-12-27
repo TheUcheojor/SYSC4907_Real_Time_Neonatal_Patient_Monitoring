@@ -62,6 +62,19 @@ export const route3: Route = {
     avgVelocity: 80
 }
 
+export const route4: Route = {
+    routeId: "4",
+    ownerId: "1",
+    organizationId: "1",
+    startTime: Date.now() - 100000000000/2,
+    endTime: Date.now() - 10000000,
+    totalVibrationExposure: 1000,
+    avgTemperature: 40,
+    avgNoise: 40,
+    avgVibration: 20,
+    avgVelocity: 80
+}
+
 export const routeSegment: RouteSegment = {
     segmentId: "1",
     routeId: "1",
