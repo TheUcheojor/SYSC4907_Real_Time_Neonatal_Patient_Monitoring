@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -10,6 +10,7 @@ import CSS from "csstype";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import { MeasurandThresholdDefaultEnum } from "constants/MeasurandThresholdEnum";
+import { Libraries } from "@react-google-maps/api/src/utils/make-load-script-url";
 
 function getColor(value: any, measurand: DatapointFieldEnum): string {
   if (
@@ -27,22 +28,23 @@ function getColor(value: any, measurand: DatapointFieldEnum): string {
   }
 }
 
+const libraries: Libraries = ["geometry", "drawing"];
+
 interface MapProps {
   data: RouteMeasurementDataPoint[];
   focusLat: number;
   focusLon: number;
-  zoomLevel?: number;
   measurand: DatapointFieldEnum;
   style: CSS.Properties;
 }
 
-function Map({ data, focusLat, focusLon, measurand, style }: MapProps) {
+function Map({ data, focusLon, focusLat, measurand, style }: MapProps) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA",
-    libraries: ["geometry", "drawing"],
+    libraries: libraries,
   });
-  console.log("MAP RENDER", focusLat, focusLon);
+  console.log("MAP RENDER");
 
   return (
     isLoaded &&
@@ -57,7 +59,7 @@ function Map({ data, focusLat, focusLon, measurand, style }: MapProps) {
         options={{
           disableDefaultUI: true,
           clickableIcons: false,
-          zoomControl: true
+          zoomControl: true,
         }}
       >
         <MarkerF
@@ -103,4 +105,4 @@ function Map({ data, focusLat, focusLon, measurand, style }: MapProps) {
   );
 }
 
-export default Map;
+export default memo(Map);

@@ -29,6 +29,7 @@ function Modal({ title, children, modalOpen, closeModal }: ModalProps) {
       style={reactModalStyles}
       contentLabel={title}
       onRequestClose={() => closeModal()}
+      ariaHideApp={false}
     >
       <h2>{title}</h2>
       <span

@@ -21,8 +21,6 @@ function TripsDetails({ data, route }: TripsDetailsProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeMeasurand, setActiveMeasurand] = useState("");
 
-  console.log(data);
-
   function closeModal() {
     setModalOpen(false);
   }

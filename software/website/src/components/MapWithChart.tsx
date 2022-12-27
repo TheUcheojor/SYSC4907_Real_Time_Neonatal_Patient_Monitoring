@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Chart from "components/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
 import { toTitleCase } from "utility/StringUtil";
 import Map from "components/Map";
+
+const mapStyles = {
+  height: "calc(100vh - 430px)",
+  width: "410px",
+  borderRadius: "6px",
+  marginTop: "10px",
+};
 
 interface modalProps {
   data: RouteMeasurementDataPoint[];
@@ -11,6 +18,7 @@ interface modalProps {
 }
 
 function MapWithChart({ data, measurand }: modalProps) {
+  console.log("MWC RENDER")
   const [focusLat, setFocusLat] = useState(data[0].coordinates[1]);
   const [focusLon, setFocusLon] = useState(data[0].coordinates[0]);
 
@@ -43,15 +51,10 @@ function MapWithChart({ data, measurand }: modalProps) {
         focusLat={focusLat}
         focusLon={focusLon}
         measurand={measurand}
-        style={{
-          height: "calc(100vh - 430px)",
-          width: "410px",
-          borderRadius: "6px",
-          marginTop: "10px",
-        }}
+        style={mapStyles}
       />
     </div>
   );
 }
 
-export default MapWithChart;
+export default memo(MapWithChart);

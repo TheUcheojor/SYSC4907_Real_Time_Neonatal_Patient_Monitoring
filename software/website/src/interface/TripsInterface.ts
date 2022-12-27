@@ -1,12 +1,15 @@
-import { coordsCarletonCampus, coordsCivicToGeneral } from "mock/coords";
-import { generateRandomDatapoints } from "mock/mockTrip";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
+import { dpsCarletonCampus, dpsCivicToGeneral, dpsCivicToHull, dpsOttToTo } from "mock/tripCache";
 
 export function queryTripDatapoints(routeId: number):RouteMeasurementDataPoint[]  {
     switch(routeId) {
         case 1:
-            return generateRandomDatapoints(coordsCarletonCampus);
+            return dpsCarletonCampus;
         case 2: 
-            return generateRandomDatapoints(coordsCivicToGeneral);
+            return dpsCivicToGeneral;
+        case 3: 
+            return dpsCivicToHull;
+        case 4:
+            return dpsOttToTo;
     }
 }

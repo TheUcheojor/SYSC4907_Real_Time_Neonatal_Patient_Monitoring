@@ -37,6 +37,7 @@ interface ChartProps {
 }
 
 function Chart({ data, measurand, onClick }: ChartProps) {
+  console.log("CHART RENDER");
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
