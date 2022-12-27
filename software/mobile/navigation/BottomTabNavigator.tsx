@@ -1,19 +1,14 @@
-import { View, StyleSheet, Text, Image } from "react-native";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
 import { MainStackParamList } from "../types";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import SettingsScreen from "../screens/SettingsScreen";
-import TripsScreen from "../screens/trips/TripsScreen";
 import ParamedicScreen from "../screens/ParamedicScreen";
 import DriverScreen from "../screens/DriverScreen";
 
 import MenuItemContainer from "../components/MenuItemContainer";
 import MainHeader from "../components/MainHeader";
-import { RouteProp } from "@react-navigation/native";
 
-import Drawer from "./Drawer";
-import { NavigationContainer } from "@react-navigation/native";
 import TripsTopTabNavigator from "./TripsTopTabNavigator";
 
 const BottomTab = createBottomTabNavigator<MainStackParamList>();

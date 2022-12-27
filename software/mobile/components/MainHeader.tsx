@@ -10,7 +10,6 @@ import { APP_WIDTH } from "../constants/ViewConstants";
 import { MainStackParamList } from "../types";
 import AppIcon from "./AppIcon";
 import { FontAwesome } from "@expo/vector-icons";
-import { DrawerActions } from "@react-navigation/native";
 
 export default ({
   navigation,

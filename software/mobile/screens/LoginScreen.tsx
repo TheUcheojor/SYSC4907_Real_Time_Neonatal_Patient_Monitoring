@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { StyleSheet } from "react-native";
 
 import { TextInputContainer } from "../components/TextInputContainer";

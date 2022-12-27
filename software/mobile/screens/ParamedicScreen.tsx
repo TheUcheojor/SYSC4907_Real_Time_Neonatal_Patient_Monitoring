@@ -3,7 +3,6 @@ import { View, Text, Button, ImageSourcePropType } from "react-native";
 import { MainStackParamList } from "../types";
 import { StyleSheet } from "react-native";
 import MetricLiveView, {
-  MetricLiveViewParameters,
   NUMBER_OF_VISIBLE_METRIC_POINTS,
 } from "../components/MetricLiveView";
 import { Image } from "react-native-svg";

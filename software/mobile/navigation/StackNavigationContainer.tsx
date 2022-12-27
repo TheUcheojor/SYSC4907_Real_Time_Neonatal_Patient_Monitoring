@@ -4,7 +4,6 @@ import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
 import { RootStackParamList } from "../types";
-import BottomTabNavigator from "./BottomTabNavigator";
 import Drawer from "./Drawer";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

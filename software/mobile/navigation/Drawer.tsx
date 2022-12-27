@@ -1,12 +1,11 @@
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
-  DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { DrawerNavigationHelpers } from "@react-navigation/drawer/lib/typescript/src/types";
-import { MainStackParamList, RootStackParamList } from "../types";
+import { MainStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AppIcon from "../components/AppIcon";
 import { Ionicons } from "@expo/vector-icons";
