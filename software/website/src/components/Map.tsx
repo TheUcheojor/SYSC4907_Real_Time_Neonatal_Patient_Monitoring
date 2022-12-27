@@ -8,11 +8,19 @@ import {
 import { ColorEnum } from "constants/ColorEnum";
 import CSS from "csstype";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
+import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
+import { MeasurandThresholdDefaultEnum } from "constants/MeasurandThresholdEnum";
 
-function getColor(velocity: number): string {
-  if (velocity > 26) {
+function getColor(value: any, measurand: DatapointFieldEnum): string {
+  if (
+    MeasurandThresholdDefaultEnum[`${measurand}Alert`] === undefined ||
+    MeasurandThresholdDefaultEnum[`${measurand}Warning`] === undefined
+  )
+    return ColorEnum.Grey;
+
+  if (value >= MeasurandThresholdDefaultEnum[`${measurand}Alert`]) {
     return ColorEnum.Red;
-  } else if (velocity > 24) {
+  } else if (value >= MeasurandThresholdDefaultEnum[`${measurand}Warning`]) {
     return ColorEnum.Yellow;
   } else {
     return ColorEnum.Green;
@@ -24,10 +32,11 @@ interface MapProps {
   focusLat: number;
   focusLon: number;
   zoomLevel?: number;
+  measurand: DatapointFieldEnum;
   style: CSS.Properties;
 }
 
-function Map({ data, focusLat, focusLon, style }: MapProps) {
+function Map({ data, focusLat, focusLon, measurand, style }: MapProps) {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA",
@@ -47,6 +56,8 @@ function Map({ data, focusLat, focusLon, style }: MapProps) {
         zoom={17}
         options={{
           disableDefaultUI: true,
+          clickableIcons: false,
+          zoomControl: true
         }}
       >
         <MarkerF
@@ -79,7 +90,7 @@ function Map({ data, focusLat, focusLon, style }: MapProps) {
                 ]}
                 options={{
                   geodesic: true,
-                  strokeColor: getColor(dp.temperature),
+                  strokeColor: getColor(dp[measurand], measurand),
                   strokeWeight: 8,
                   strokeOpacity: 0.6,
                 }}

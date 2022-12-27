@@ -28,9 +28,9 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" style={{ overflow: "overlay" }}>
       <NavHeader activePage={activePage} setActivePage={setActivePage} />
-      <div className="App-Content">{renderActivePage()}</div>
+      <div className="App-Content" style={{overflow: "auto"}}>{renderActivePage()}</div>
     </div>
   );
 }

@@ -5,11 +5,10 @@ import UserIcon from "components/icons/UserIcon";
 import { PageEnum } from "constants/PageEnum";
 
 const headerStyles: CSS.Properties = {
-  width: "100%",
   height: "70px",
   backgroundColor: "black",
   display: "flex",
-  alignItems: "center",
+  width: "100%",
 };
 
 const headerTabStyles: CSS.Properties = {
@@ -63,22 +62,22 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
   const [myAccIsHover, setMyAccIsHover] = useState(false);
 
   const headerMasterTabDivStylesIcon: CSS.Properties = {
-    backgroundColor: iconIsHover ? "#2b2a2a" : "inherit",
+    backgroundColor: iconIsHover ? "#2a2a2a" : "inherit",
     ...headerMasterTabDivStyles,
   };
 
   const headerMasterTabDivStylesOrganization: CSS.Properties = {
-    backgroundColor: organizationIsHover ? "#2b2a2a" : "inherit",
+    backgroundColor: organizationIsHover ? "#2a2a2a" : "inherit",
     ...headerMasterTabDivStyles,
   };
 
   const headerMasterTabDivStylesTrips: CSS.Properties = {
-    backgroundColor: tripsIsHover ? "#2b2a2a" : "inherit",
+    backgroundColor: tripsIsHover ? "#2a2a2a" : "inherit",
     ...headerMasterTabDivStyles,
   };
 
   const headerMasterTabDivStylesMyAcc: CSS.Properties = {
-    backgroundColor: myAccIsHover ? "#2b2a2a" : "inherit",
+    backgroundColor: myAccIsHover ? "#2a2a2a" : "inherit",
     marginLeft: "auto",
     ...headerMasterTabDivStyles,
   };
@@ -129,7 +128,7 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
         </div>
       </div>
       <div
-        style={{...headerMasterTabDivStylesMyAcc, ...{paddingLeft: 0}}}
+        style={{ ...headerMasterTabDivStylesMyAcc, ...{ paddingLeft: 0 } }}
         onMouseEnter={() => setMyAccIsHover(true)}
         onMouseLeave={() => setMyAccIsHover(false)}
         onClick={() => setActivePage(PageEnum.MyAccount)}

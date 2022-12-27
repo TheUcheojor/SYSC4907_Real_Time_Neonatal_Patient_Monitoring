@@ -4,6 +4,8 @@ import Chart from "components/Chart";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
 import Modal from "components/modal/Modal";
 import MapWithChart from "components/MapWithChart";
+import Route from "mock/Route";
+import { toClockString, toDateString } from "utility/StringUtil";
 
 const chartLabelStyles = {
   color: "black",
@@ -12,9 +14,10 @@ const chartLabelStyles = {
 
 interface TripsDetailsProps {
   data: RouteMeasurementDataPoint[];
+  route: Route;
 }
 
-function TripsDetails({ data }: TripsDetailsProps) {
+function TripsDetails({ data, route }: TripsDetailsProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeMeasurand, setActiveMeasurand] = useState("");
 
@@ -31,7 +34,10 @@ function TripsDetails({ data }: TripsDetailsProps) {
 
   return (
     <div style={{ marginLeft: "10px" }}>
-      <p style={chartLabelStyles}>Date</p>
+      <span style={chartLabelStyles}>{toDateString(route.startTime)}</span>
+      <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
+        {toClockString(route.startTime, route.endTime)}
+      </p>
       <p style={chartLabelStyles}>Vibration</p>
       <Chart
         data={data}

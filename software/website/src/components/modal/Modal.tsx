@@ -23,35 +23,32 @@ interface ModalProps {
 function Modal({ title, children, modalOpen, closeModal }: ModalProps) {
   const [isHover, setIsHover] = useState(false);
 
-  const closeModalButtonStyles: CSS.Properties = {
-    font: "Montserrat",
-    fontSize: "24px",
-    fontWeight: "900",
-    color: isHover ? "#2a2a2a" : "black",
-    cursor: "pointer",
-    position: "absolute",
-    top: "20px",
-    right: "20px",
-  };
-
   return (
     <ReactModal
       isOpen={modalOpen}
       style={reactModalStyles}
       contentLabel={title}
+      onRequestClose={() => closeModal()}
     >
       <h2>{title}</h2>
       <span
-        style={closeModalButtonStyles}
+        style={{
+          font: "Montserrat",
+          fontSize: "24px",
+          fontWeight: "900",
+          color: isHover ? "#2a2a2a" : "black",
+          cursor: "pointer",
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+        }}
         onClick={() => closeModal()}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
         X
       </span>
-      <div style={{minWidth: "300px"}}>
-      {children}
-      </div>
+      <div style={{ minWidth: "300px" }}>{children}</div>
     </ReactModal>
   );
 }

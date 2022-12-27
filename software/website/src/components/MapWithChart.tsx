@@ -3,25 +3,7 @@ import Chart from "components/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
 import { toTitleCase } from "utility/StringUtil";
-import { ColorEnum } from "constants/ColorEnum";
-import { MeasurandThresholdDefaultEnum } from "constants/MeasurandThresholdEnum";
 import Map from "components/Map";
-
-function getColor(value: any, measurand: DatapointFieldEnum): string {
-  if (
-    MeasurandThresholdDefaultEnum[`${measurand}Alert`] === undefined ||
-    MeasurandThresholdDefaultEnum[`${measurand}Warning`] === undefined
-  )
-    return ColorEnum.Grey;
-
-  if (value >= MeasurandThresholdDefaultEnum[`${measurand}Alert`]) {
-    return ColorEnum.Red;
-  } else if (value >= MeasurandThresholdDefaultEnum[`${measurand}Warning`]) {
-    return ColorEnum.Yellow;
-  } else {
-    return ColorEnum.Green;
-  }
-}
 
 interface modalProps {
   data: RouteMeasurementDataPoint[];
@@ -60,6 +42,7 @@ function MapWithChart({ data, measurand }: modalProps) {
         data={data}
         focusLat={focusLat}
         focusLon={focusLon}
+        measurand={measurand}
         style={{
           height: "calc(100vh - 430px)",
           width: "410px",
