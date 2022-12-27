@@ -4,7 +4,7 @@
  * Purpose: This file exports the Guage component
  *
  * Notes: Please note that victory native does have a native gauge component.
- * As a result, a gauge component had to be created, consisting of two pie charts due to coloring limitations.
+ * As a result, a gauge component had to be created, consisting of two pie charts due to coloring/labeling limitations.
  * The bottom layer pie chart displays the increments and the top layer pie chart displays the current value.
  */
 
@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import { VictoryPie, VictoryLabel } from "victory-native";
 
 import {
-  GAUGE_MAX,
+  GAUGE_MAX_DEFAULT,
   GAUGE_HEIGHT,
   GAUGE_WIDTH,
   INNER_RADIUS,
@@ -27,20 +27,43 @@ import {
   updateIcon,
 } from "./util";
 
-export default () => {
-  const [vibrationLevel, setVibrationLevel] = useState<number>(50);
-  const data = [GAUGE_MAX - vibrationLevel, vibrationLevel];
-  const increment_data = generateGaugeIncrements();
+/**
+ * The Guage Componenet parameters
+ */
+export interface GaugeParameters {
+  /**
+   * The current metric reading
+   */
+  currentMetricLevel: number;
+
+  /**
+   * The low to moderate metric threshold
+   */
+  lowModerateThreshold: number;
+
+  /**
+   * The moderate to high metric threshold
+   */
+  moderateHighThreshold: number;
+
+  /**
+   * The max gauge value
+   */
+  gaugeMax: number;
+}
+
+export default ({
+  currentMetricLevel,
+  lowModerateThreshold,
+  moderateHighThreshold,
+  gaugeMax,
+}: GaugeParameters) => {
+  // const [vibrationLevel, setVibrationLevel] = useState<number>(50);
+  const data = [gaugeMax - currentMetricLevel, currentMetricLevel];
+  const increment_data = generateGaugeIncrements(gaugeMax);
 
   return (
     <View style={styles.container}>
-      <Button
-        title="DEMO"
-        onPress={() => {
-          setVibrationLevel(getRandomInt(0, 180));
-        }}
-      />
-
       <VictoryPie
         colorScale={["white"]}
         height={GAUGE_HEIGHT}
@@ -65,7 +88,9 @@ export default () => {
             padding: 30,
           },
 
-          data: {},
+          data: {
+            backgroundColor: "black",
+          },
         }}
       />
 
@@ -74,7 +99,14 @@ export default () => {
         width={GAUGE_WIDTH}
         innerRadius={INNER_RADIUS}
         animate={{ duration: ANIMATION_DURATION_MILLISECONDS }}
-        colorScale={["white", updateGaugeColor(vibrationLevel)]}
+        colorScale={[
+          "white",
+          updateGaugeColor(
+            currentMetricLevel,
+            lowModerateThreshold,
+            moderateHighThreshold
+          ),
+        ]}
         data={data}
         startAngle={GAUGE_START_ANGLE}
         endAngle={-GAUGE_START_ANGLE}
@@ -82,7 +114,10 @@ export default () => {
           labels: {
             opacity: 0,
           },
-          data: {},
+          data: {
+            strokeWidth: 1,
+            stroke: "#969696",
+          },
           parent: {
             position: "absolute",
             top: -GAUGE_HEIGHT,
@@ -90,9 +125,13 @@ export default () => {
         }}
       />
 
-      <Text style={styles.title}>{vibrationLevel}</Text>
+      <Text style={styles.title}>{currentMetricLevel}</Text>
       <Text style={styles.units}>Hz</Text>
-      {updateIcon(vibrationLevel)}
+      {updateIcon(
+        currentMetricLevel,
+        lowModerateThreshold,
+        moderateHighThreshold
+      )}
     </View>
   );
 };

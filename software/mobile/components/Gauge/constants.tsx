@@ -29,12 +29,12 @@ export const HAPPY_GUAGE_COLOR = "#2DB021";
 /**
  * The threshold that seperates low from moderate measurements
  */
-export const LOW_TO_MODERATE_THRESHOLD = 60;
+export const LOW_TO_MODERATE_THRESHOLD_DEFAULT = 60;
 
 /**
  * The threshold that seperates moderate from high measurements
  */
-export const MODERATE_TO_HIGH_THRESHOLD = 130;
+export const MODERATE_TO_HIGH_THRESHOLD_DEFAULT = 130;
 
 /**
  * The guage heigh
@@ -54,19 +54,12 @@ export const INNER_RADIUS = GAUGE_WIDTH / 2 - 100;
 /**
  * The max value of the guage
  */
-export const GAUGE_MAX = 180;
+export const GAUGE_MAX_DEFAULT = 180;
 
 /**
  * The number of increments on the gauge
  */
 export const GAUGE_INCREMENT_COUNT = 7;
-
-/**
- * The increment at which values increase by on the gauge
- */
-export const GAUGE_INCREMENT = Math.floor(
-  GAUGE_MAX / (GAUGE_INCREMENT_COUNT - 1)
-);
 
 /**
  * The gauge animation duration in mulliseconds
