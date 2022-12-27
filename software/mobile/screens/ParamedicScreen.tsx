@@ -88,6 +88,12 @@ export default ({
         liveData={velocityFeed}
       />
 
+      {/**
+       * The elements below are to be removed.
+       *
+       * Just for demo purposes
+       */}
+      <View style={{ width: "100%" }}></View>
       <Button
         title="Demo"
         onPress={() => {
