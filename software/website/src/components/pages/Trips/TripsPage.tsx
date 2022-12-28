@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import {
-  route1,
-  route2,
-  route3,
-  route4
-} from "mock/mockTrip";
+import React, { useState, useEffect } from "react";
+import { route1, route2, route3, route4 } from "mock/mockTrip";
+import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import { queryTripDatapoints } from "interface/TripsInterface";
@@ -32,6 +28,27 @@ function TripsPage() {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
+
+  useEffect(() => {
+    fetch("https://localhost:3000")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            isLoaded: true,
+            result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+          });
+        }
+      );
+  });
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(

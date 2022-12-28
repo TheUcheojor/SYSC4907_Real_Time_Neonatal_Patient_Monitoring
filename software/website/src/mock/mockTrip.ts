@@ -1,6 +1,6 @@
-import RouteMeasurementDataPoint from "./RouteMeasurementDataPoint"
-import RouteSegment from "./RouteSegment"
-import Route from "./Route"
+import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint"
+import RouteSegment from "models/RouteSegment"
+import Route from "models/Route"
 
 export function generateRandomDatapoints(coords: number[][]):RouteMeasurementDataPoint[] {
     const dps = [];
