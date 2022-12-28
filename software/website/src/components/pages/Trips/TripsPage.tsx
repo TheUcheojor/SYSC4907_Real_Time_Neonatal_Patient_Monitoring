@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { route1, route2, route3, route4 } from "mock/mockTrip";
 import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
@@ -11,8 +10,7 @@ import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import TripsDetails from "./TripsDetails";
 import BackIcon from "components/icons/BackIcon";
-
-const routes = [route1, route2, route3, route4];
+import LoadingIcon from "components/icons/LoadingIcon";
 
 const pStyles = {
   fontWeight: 700,
@@ -28,27 +26,25 @@ function TripsPage() {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [routes, setRoutes] = useState([]);
 
   useEffect(() => {
-    fetch("https://localhost:3000")
+    fetch("http://localhost:3001/routes")
       .then((res) => res.json())
       .then(
         (result) => {
-          this.setState({
-            isLoaded: true,
-            result
-          });
+          setRoutes(result);
+          setIsLoading(false);
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          this.setState({
-            isLoaded: true,
-          });
+          setIsLoading(false);
         }
       );
-  });
+  }, []);
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -76,6 +72,20 @@ function TripsPage() {
   }
 
   function getContent() {
+    if (isLoading) {
+      return (
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <LoadingIcon />
+        </div>
+      );
+    }
     if (!isComparing) {
       return (
         <div style={{ marginLeft: "10px", marginTop: "10px", display: "flex" }}>
@@ -124,8 +134,8 @@ function TripsPage() {
               <div style={{ marginTop: "10px" }}>
                 <MapWithChart
                   measurand={DatapointFieldEnum.vibration}
-                  data={queryTripDatapoints(
-                    parseInt(selectedRoutes[selectedRoutes.length - 1].routeId)
+                  routeId={parseInt(
+                    selectedRoutes[selectedRoutes.length - 1].routeId
                   )}
                 />
               </div>

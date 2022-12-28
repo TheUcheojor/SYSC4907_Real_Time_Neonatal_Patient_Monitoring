@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo } from "react";
 import Chart from "components/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
-import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
+import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 import { toTitleCase } from "utility/StringUtil";
 import CSS from "csstype";
 import {
@@ -13,6 +13,7 @@ import {
 import { Libraries } from "@react-google-maps/api/src/utils/make-load-script-url";
 import { ColorEnum } from "constants/ColorEnum";
 import { MeasurandThresholdDefaultEnum } from "constants/MeasurandThresholdEnum";
+import LoadingIcon from "./icons/LoadingIcon";
 
 function getColor(value: any, measurand: DatapointFieldEnum): string {
   if (
@@ -40,13 +41,15 @@ const mapStyles = {
 };
 
 interface modalProps {
-  data: RouteMeasurementDataPoint[];
+  routeId: number;
   measurand: DatapointFieldEnum;
   style?: CSS.Properties;
 }
 
-function MapWithChart({ data, measurand, style }: modalProps) {
+function MapWithChart({ routeId, measurand, style }: modalProps) {
   const [map, setMap] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [datapoints, setDatapoints] = useState([]);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -61,17 +64,33 @@ function MapWithChart({ data, measurand, style }: modalProps) {
   console.log("MWC RENDER");
 
   useEffect(() => {
-    if (map) {
-      const bounds = new google.maps.LatLngBounds({
-        lat: data[0].coordinates[1],
-        lng: data[0].coordinates[0],
-      });
-      data.forEach((dp) => {
-        bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
-      });
-      map.fitBounds(bounds);
-    }
-  }, [data, map]);
+    setIsLoading(true);
+    fetch(`http://localhost:3001/dps/${routeId}`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setDatapoints(result);
+          setIsLoading(false);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          setIsLoading(false);
+        }
+      );
+
+    // if (map) {
+    //   const bounds = new google.maps.LatLngBounds({
+    //     lat: datapoints[0].coordinates[1],
+    //     lng: datapoints[0].coordinates[0],
+    //   });
+    //   datapoints.forEach((dp) => {
+    //     bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
+    //   });
+    //   map.fitBounds(bounds);
+    // }
+  }, [ routeId]);
 
   const chartClickHandler = (data: any) => {
     map.panTo({
@@ -81,77 +100,89 @@ function MapWithChart({ data, measurand, style }: modalProps) {
     map.setZoom(20);
   };
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        ...style,
-      }}
-    >
-      <span
-        style={{ marginBottom: "10px", textAlign: "center", fontWeight: 700 }}
+  function getContent() {
+    if (isLoading) {
+      return <LoadingIcon />;
+    }
+
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          ...style,
+        }}
       >
-        {toTitleCase(measurand)}
-      </span>
-      <Chart data={data} measurand={measurand} onClick={chartClickHandler} />
-      {isLoaded && data !== undefined && (
-        <GoogleMap
-          mapContainerStyle={mapStyles}
-          center={{
-            lat: data[0].coordinates[1],
-            lng: data[0].coordinates[0],
-          }}
-          zoom={17}
-          options={{
-            disableDefaultUI: true,
-            clickableIcons: false,
-            zoomControl: true,
-          }}
-          onLoad={onLoad}
+        <span
+          style={{ marginBottom: "10px", textAlign: "center", fontWeight: 700 }}
         >
-          <MarkerF
-            label="S"
-            position={{
-              lat: data[0].coordinates[1],
-              lng: data[0].coordinates[0],
+          {toTitleCase(measurand)}
+        </span>
+        <Chart
+          data={datapoints}
+          measurand={measurand}
+          onClick={chartClickHandler}
+        />
+        {isLoaded && datapoints !== undefined && (
+          <GoogleMap
+            mapContainerStyle={mapStyles}
+            center={{
+              lat: datapoints[0].coordinates[1],
+              lng: datapoints[0].coordinates[0],
             }}
-          />
-          <MarkerF
-            label="F"
-            position={{
-              lat: data[data.length - 1].coordinates[1],
-              lng: data[data.length - 1].coordinates[0],
+            zoom={17}
+            options={{
+              disableDefaultUI: true,
+              clickableIcons: false,
+              zoomControl: true,
             }}
-          />
-          {data.map((dp, i) => {
-            if (i !== data.length - 1) {
-              return (
-                <PolylineF
-                  path={[
-                    {
-                      lat: dp.coordinates[1],
-                      lng: dp.coordinates[0],
-                    },
-                    {
-                      lat: data[i + 1].coordinates[1],
-                      lng: data[i + 1].coordinates[0],
-                    },
-                  ]}
-                  options={{
-                    geodesic: true,
-                    strokeColor: getColor(dp[measurand], measurand),
-                    strokeWeight: 8,
-                    strokeOpacity: 0.6,
-                  }}
-                />
-              );
-            }
-          })}
-        </GoogleMap>
-      )}
-    </div>
-  );
+            onLoad={onLoad}
+          >
+            <MarkerF
+              label="S"
+              position={{
+                lat: datapoints[0].coordinates[1],
+                lng: datapoints[0].coordinates[0],
+              }}
+            />
+            <MarkerF
+              label="F"
+              position={{
+                lat: datapoints[datapoints.length - 1].coordinates[1],
+                lng: datapoints[datapoints.length - 1].coordinates[0],
+              }}
+            />
+            {datapoints.map((dp, i) => {
+              if (i !== datapoints.length - 1) {
+                return (
+                  <PolylineF
+                    path={[
+                      {
+                        lat: dp.coordinates[1],
+                        lng: dp.coordinates[0],
+                      },
+                      {
+                        lat: datapoints[i + 1].coordinates[1],
+                        lng: datapoints[i + 1].coordinates[0],
+                      },
+                    ]}
+                    options={{
+                      geodesic: true,
+                      strokeColor: getColor(dp[measurand], measurand),
+                      strokeWeight: 8,
+                      strokeOpacity: 0.6,
+                    }}
+                  />
+                );
+              }
+            })}
+          </GoogleMap>
+        )}
+      </div>
+    );
+  }
+
+  return getContent();
 }
 
 export default memo(MapWithChart);

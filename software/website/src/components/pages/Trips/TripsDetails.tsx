@@ -3,7 +3,7 @@ import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import Chart from "components/Chart";
 import Modal from "components/modal/Modal";
 import MapWithChart from "components/MapWithChart";
-import Route from "mock/Route";
+import Route from "models/Route";
 import { toClockString, toDateString } from "utility/StringUtil";
 import { queryTripDatapoints } from "interface/TripsInterface";
 
@@ -31,7 +31,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
 
   return (
     <div style={{ marginLeft: "10px" }}>
-      <ul style={{ display: "flex" }}>
+      {/* <ul style={{ display: "flex" }}>
         {selectedRoutes.map((route) => {
           return (
             <div style={{ marginLeft: "10px" }}>
@@ -68,14 +68,14 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             </div>
           );
         })}
-      </ul>
+      </ul> */}
       <Modal title="Compare" modalOpen={modalOpen} closeModal={closeModal}>
         <ul style={{ display: "flex", padding: 0 }}>
           {selectedRoutes.map((route) => {
             return (
               <MapWithChart
                 measurand={DatapointFieldEnum[activeMeasurand]}
-                data={queryTripDatapoints(parseInt(route.routeId))}
+                routeId={parseInt(route.routeId)}
                 style={{ marginLeft: "5px", marginRight: "5px" }}
               />
             );

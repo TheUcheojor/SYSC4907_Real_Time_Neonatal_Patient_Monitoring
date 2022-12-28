@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { ColorEnum } from "constants/ColorEnum";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
-import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
+import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 
 const RenderDot = ({ cx, cy }: any) => {
   return <Dot cx={cx} cy={cy} fill={ColorEnum.Yellow} r={3} />;

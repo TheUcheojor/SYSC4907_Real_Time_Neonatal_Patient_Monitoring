@@ -1,5 +1,5 @@
 import React from "react";
-import Route from "mock/Route";
+import Route from "models/Route";
 import ListElement from "./ListElement";
 
 interface ListProps {

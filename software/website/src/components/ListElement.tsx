@@ -1,4 +1,4 @@
-import Route from "mock/Route";
+import Route from "models/Route";
 import React, { useState } from "react";
 import { toDateString, toClockString } from "utility/StringUtil";
 

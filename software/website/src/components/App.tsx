@@ -30,7 +30,16 @@ function App() {
   return (
     <div className="App" style={{ overflow: "overlay" }}>
       <NavHeader activePage={activePage} setActivePage={setActivePage} />
-      <div className="App-Content" style={{overflow: "auto"}}>{renderActivePage()}</div>
+      <div
+        className="App-Content"
+        style={{
+          overflow: "auto",
+          minHeight: "calc(100vh - 70px)",
+          height: "1px",
+        }}
+      >
+        {renderActivePage()}
+      </div>
     </div>
   );
 }

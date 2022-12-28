@@ -7,7 +7,7 @@ import {
 } from "@react-google-maps/api";
 import { ColorEnum } from "constants/ColorEnum";
 import CSS from "csstype";
-import RouteMeasurementDataPoint from "mock/RouteMeasurementDataPoint";
+import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import { MeasurandThresholdDefaultEnum } from "constants/MeasurandThresholdEnum";
 import { Libraries } from "@react-google-maps/api/src/utils/make-load-script-url";
@@ -32,13 +32,11 @@ const libraries: Libraries = ["geometry", "drawing"];
 
 interface MapProps {
   data: RouteMeasurementDataPoint[];
-  focusLat: number;
-  focusLon: number;
   measurand: DatapointFieldEnum;
   style: CSS.Properties;
 }
 
-function Map({ data, focusLon, focusLat, measurand, style }: MapProps) {
+function Map({ data, measurand, style }: MapProps) {
   const [map, setMap] = useState(null);
 
   const { isLoaded } = useJsApiLoader({
@@ -53,15 +51,12 @@ function Map({ data, focusLon, focusLat, measurand, style }: MapProps) {
   }, []);
 
   useEffect(() => {
-    const bounds = new google.maps.LatLngBounds({
-      lat: focusLat,
-      lng: focusLon,
-    });
+    const bounds = new google.maps.LatLngBounds();
     data.forEach((dp) => {
       bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
     });
     if (map) map.fitBounds(bounds);
-  });
+  }, [map]);
 
   return (
     isLoaded &&
