@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TripRecorderParams } from "../components/TripRecorder";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
@@ -10,7 +11,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 /**
  * The root navigation containing all screens within the application
  */
-export const StackNavigationContainer = () => {
+export const StackNavigationContainer = ({
+  recordingState,
+  setRecordingState,
+}: TripRecorderParams) => {
+  // recordingState={recordingState}
+  // setRecordingState={setRecordingState}
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -18,7 +25,14 @@ export const StackNavigationContainer = () => {
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
 
-        <Stack.Screen name="Main" component={Drawer} />
+        <Stack.Screen name="Main">
+          {(props) => (
+            <Drawer
+              recordingState={recordingState}
+              setRecordingState={setRecordingState}
+            />
+          )}
+        </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -10,10 +10,16 @@ import { APP_WIDTH } from "../constants/ViewConstants";
 import { MainStackParamList } from "../types";
 import AppIcon from "./AppIcon";
 import { FontAwesome } from "@expo/vector-icons";
+import { RecordingState } from "./TripRecorder";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default ({
+  recordingState,
   navigation,
-}: NativeStackScreenProps<MainStackParamList, any> | any) => {
+}: {
+  navigation: any;
+  recordingState: RecordingState;
+}) => {
   const openDrawer = (): void => {
     navigation.openDrawer();
   };
@@ -26,6 +32,9 @@ export default ({
       >
         <AppIcon size={30} />
         <Text style={style.appNameText}>TCA</Text>
+        {recordingState == RecordingState.RECORDING && (
+          <MaterialCommunityIcons name="record-rec" size={40} color="#22A900" />
+        )}
       </Pressable>
 
       <Pressable style={style.usernameContainer} onPress={openDrawer}>
@@ -48,6 +57,7 @@ const style = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "flex-start",
+    alignItems: "center",
     textAlign: "center",
   },
 
@@ -62,7 +72,7 @@ const style = StyleSheet.create({
     flexDirection: "row-reverse",
     justifyContent: "flex-start",
     alignContent: "center",
-    flex: 2,
+    flex: 1,
   },
 
   usernameText: {
@@ -71,4 +81,10 @@ const style = StyleSheet.create({
 
     fontSize: 15,
   },
+
+  // recordingInProgress: {
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  // },
 });

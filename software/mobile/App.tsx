@@ -16,12 +16,17 @@ import {
 } from "@expo-google-fonts/montserrat";
 
 import { LogBox } from "react-native";
-import React from "react";
+import React, { useState } from "react";
+import { RecordingState } from "./components/TripRecorder";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
+  const [recordingState, setRecordingState] = useState<RecordingState>(
+    RecordingState.NOT_RECORDING
+  );
+
   let [fontsLoaded] = useFonts({
     Montserrat_600SemiBold_Italic,
     Montserrat_600SemiBold,
@@ -34,7 +39,10 @@ export default function App() {
   return fontsLoaded ? (
     // <GestureHandlerRootView style={{ flex: 1 }}>
     <SafeAreaProvider>
-      <StackNavigationContainer />
+      <StackNavigationContainer
+        recordingState={recordingState}
+        setRecordingState={setRecordingState}
+      />
 
       <StatusBar />
     </SafeAreaProvider>

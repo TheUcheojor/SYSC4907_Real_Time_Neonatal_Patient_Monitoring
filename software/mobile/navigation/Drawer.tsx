@@ -9,6 +9,7 @@ import { MainStackParamList } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AppIcon from "../components/AppIcon";
 import { Ionicons } from "@expo/vector-icons";
+import { TripRecorderParams } from "../components/TripRecorder";
 
 const Drawer = createDrawerNavigator<MainStackParamList>();
 
@@ -37,7 +38,7 @@ const CustomDrawerMenu = ({
   );
 };
 
-export default () => {
+export default ({ recordingState, setRecordingState }: TripRecorderParams) => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => (
@@ -50,7 +51,14 @@ export default () => {
         drawerType: "front",
       }}
     >
-      <Drawer.Screen name="BottomTab" component={BottomTabNavigator} />
+      <Drawer.Screen name="BottomTab">
+        {(props) => (
+          <BottomTabNavigator
+            recordingState={recordingState}
+            setRecordingState={setRecordingState}
+          />
+        )}
+      </Drawer.Screen>
     </Drawer.Navigator>
   );
 };
