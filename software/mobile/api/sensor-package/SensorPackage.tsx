@@ -20,7 +20,7 @@ import {
 } from "./models/requests/BaseRequest";
 import { BaseResponse } from "./models/requests/BaseResponse";
 
-export default class SensorPackage {
+export default class SensorPackageController {
   /**
    * The BLE manager that acts as an entry point to discover and communicate with BLE devices
    */
@@ -72,10 +72,21 @@ export default class SensorPackage {
    */
   private isSensorPackageDeviceConnected: boolean = false;
 
+  private static sensorPackageController: SensorPackageController =
+    new SensorPackageController();
+
   /**
    * The SensorPackage constructor
    */
-  constructor() {}
+  private constructor() {}
+
+  /**
+   * Returns the sensor package controller
+   * @returns the sensor package controller
+   */
+  public static getSensorPackageController(): SensorPackageController {
+    return this.sensorPackageController;
+  }
 
   /**
    * Set the sensor package device
@@ -125,7 +136,7 @@ export default class SensorPackage {
    * @param devices the collection of nearby BLE devices
    */
   public static async scanDevices(devices: Array<Device>) {
-    SensorPackage.BLE_MANAGER.startDeviceScan(
+    SensorPackageController.BLE_MANAGER.startDeviceScan(
       null,
       null,
       (error: BleError | null, scannedDevice: Device | null) => {
@@ -148,8 +159,8 @@ export default class SensorPackage {
 
     // stop scanning devices after until timeout threshold is reached
     setTimeout(() => {
-      SensorPackage.BLE_MANAGER.stopDeviceScan();
-    }, SensorPackage.DEVICE_SCAN_TIMEOUT);
+      SensorPackageController.BLE_MANAGER.stopDeviceScan();
+    }, SensorPackageController.DEVICE_SCAN_TIMEOUT);
   }
 
   /**
@@ -170,7 +181,7 @@ export default class SensorPackage {
         this.isSensorPackageDeviceConnected = true;
 
         //Set the disconnection behaviour
-        SensorPackage.BLE_MANAGER.onDeviceDisconnected(
+        SensorPackageController.BLE_MANAGER.onDeviceDisconnected(
           device.id,
           (error, device) => {
             console.log("Device " + device?.name + "has been disconnected");
@@ -197,8 +208,8 @@ export default class SensorPackage {
     // Watch the measurement packet characteristic and update the measurement-feed collection accordingly
     // The characteristic is expected to be notifable to enable monitoring.
     this.sensorPackageDevice.monitorCharacteristicForService(
-      SensorPackage.MEASUREMENT_PACKET_SERVICE_UUID,
-      SensorPackage.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
+      SensorPackageController.MEASUREMENT_PACKET_SERVICE_UUID,
+      SensorPackageController.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
       (error, characteristic) => {
         if (error || !characteristic?.value) return;
 
@@ -231,8 +242,8 @@ export default class SensorPackage {
     //Send the given request
     return this.sensorPackageDevice
       .writeCharacteristicWithResponseForService(
-        SensorPackage.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
-        SensorPackage.APP_REQUEST_CHARACTERISTIC_UUID,
+        SensorPackageController.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
+        SensorPackageController.APP_REQUEST_CHARACTERISTIC_UUID,
         base64.encode(JSON.stringify(request.generateObject())) //The base64 encode message
       )
       .then((characteristic: Characteristic | null) => {
@@ -264,8 +275,8 @@ export default class SensorPackage {
     // Watch the measurement packet characteristic and update the sensorPackageRequestQueue accordingly
     // The characteristic is expected to be notifable to enable monitoring.
     this.sensorPackageDevice.monitorCharacteristicForService(
-      SensorPackage.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
-      SensorPackage.SENSOR_PACKAGE_REQUEST_CHARACTERISTIC_UUID,
+      SensorPackageController.SENSOR_PACKAGE_COMMUNICATION_SERVICE_UUID,
+      SensorPackageController.SENSOR_PACKAGE_REQUEST_CHARACTERISTIC_UUID,
       (error, characteristic) => {
         if (error || !characteristic?.value) return;
 
