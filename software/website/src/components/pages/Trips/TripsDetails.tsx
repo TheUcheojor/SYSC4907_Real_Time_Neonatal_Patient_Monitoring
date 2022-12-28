@@ -6,6 +6,7 @@ import MapWithChart from "components/MapWithChart";
 import Route from "models/Route";
 import { toClockString, toDateString } from "utility/StringUtil";
 import { queryTripDatapoints } from "interface/TripsInterface";
+import MapWithChartNet from "components/MapWithChartNet";
 
 const chartLabelStyles = {
   color: "black",
@@ -73,7 +74,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
         <ul style={{ display: "flex", padding: 0 }}>
           {selectedRoutes.map((route) => {
             return (
-              <MapWithChart
+              <MapWithChartNet
                 measurand={DatapointFieldEnum[activeMeasurand]}
                 routeId={parseInt(route.routeId)}
                 style={{ marginLeft: "5px", marginRight: "5px" }}

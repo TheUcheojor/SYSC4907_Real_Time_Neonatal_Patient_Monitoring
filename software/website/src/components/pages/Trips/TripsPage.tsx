@@ -11,6 +11,7 @@ import { ColorEnum } from "constants/ColorEnum";
 import TripsDetails from "./TripsDetails";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
+import MapWithChartNet from "components/MapWithChartNet";
 
 const pStyles = {
   fontWeight: 700,
@@ -132,7 +133,7 @@ function TripsPage() {
                 </span>
               </div>
               <div style={{ marginTop: "10px" }}>
-                <MapWithChart
+                <MapWithChartNet
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
                     selectedRoutes[selectedRoutes.length - 1].routeId

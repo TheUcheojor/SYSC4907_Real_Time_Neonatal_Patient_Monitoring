@@ -14,6 +14,7 @@ function List({ routes, elemOnClick, activeRoutes }: ListProps) {
       {routes.map((route) => {
         return (
           <ListElement
+            key={route.routeId}
             route={route}
             isActive={activeRoutes.some(
               (elem) => elem.routeId === route.routeId

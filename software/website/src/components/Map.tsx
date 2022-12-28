@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -34,11 +34,11 @@ interface MapProps {
   data: RouteMeasurementDataPoint[];
   measurand: DatapointFieldEnum;
   style: CSS.Properties;
+  setMapRef: (map) => void;
 }
 
-function Map({ data, measurand, style }: MapProps) {
-  const [map, setMap] = useState(null);
-
+function Map({ data, setMapRef, measurand, style }: MapProps) {
+  const map = useRef(undefined);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA",
@@ -46,17 +46,28 @@ function Map({ data, measurand, style }: MapProps) {
   });
   console.log("MAP RENDER");
 
-  const onLoad = React.useCallback((map) => {
-    setMap(map);
-  }, []);
+  function fitMapToBounds() {
+    if (map.current) {
+      const bounds = new google.maps.LatLngBounds();
+      data.forEach((dp) => {
+        bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
+      });
+      map.current.fitBounds(bounds);
+    }
+  }
 
   useEffect(() => {
-    const bounds = new google.maps.LatLngBounds();
-    data.forEach((dp) => {
-      bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
-    });
-    if (map) map.fitBounds(bounds);
-  }, [map]);
+    fitMapToBounds();
+  }, [data]);
+
+  const onLoad = React.useCallback(
+    (_map) => {
+      setMapRef(_map);
+      map.current = _map;
+      fitMapToBounds();
+    },
+    [setMapRef]
+  );
 
   return (
     isLoaded &&
@@ -64,8 +75,8 @@ function Map({ data, measurand, style }: MapProps) {
       <GoogleMap
         mapContainerStyle={style}
         center={{
-          lat: focusLat,
-          lng: focusLon,
+          lat: data[0].coordinates[1],
+          lng: data[0].coordinates[0],
         }}
         zoom={17}
         options={{
