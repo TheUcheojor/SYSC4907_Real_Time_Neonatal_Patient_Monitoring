@@ -88,9 +88,7 @@ export default ({
             padding: 30,
           },
 
-          data: {
-            backgroundColor: "black",
-          },
+          data: {},
         }}
       />
 
@@ -100,7 +98,7 @@ export default ({
         innerRadius={INNER_RADIUS}
         animate={{ duration: ANIMATION_DURATION_MILLISECONDS }}
         colorScale={[
-          "white",
+          "#D9D9D9",
           updateGaugeColor(
             currentMetricLevel,
             lowModerateThreshold,
@@ -114,10 +112,7 @@ export default ({
           labels: {
             opacity: 0,
           },
-          data: {
-            strokeWidth: 1,
-            stroke: "#969696",
-          },
+          data: {},
           parent: {
             position: "absolute",
             top: -GAUGE_HEIGHT,
