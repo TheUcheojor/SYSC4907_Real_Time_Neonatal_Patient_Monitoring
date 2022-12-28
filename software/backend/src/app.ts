@@ -1,10 +1,13 @@
 import express  from 'express';
-import { dpsCarletonCampus, dpsCivicToGeneral, dpsCivicToHull, dpsOttToTo } from './mock/mockTrip';
 
-const app = express()
+import { dpsCarletonCampus, dpsCivicToGeneral, dpsCivicToHull, dpsOttToTo, route1, route2, route3, route4 } from './mock/mockTrip';
+import cors from 'cors';
+
 const port = 3001;
+const app = express()
+app.use(cors())
 
-app.get('/:id', (req, res) => {
+app.get('/dps/:id', (req, res) => {
     let dps;
     console.log(req.params)
     switch(parseInt(req.params.id)) {
@@ -25,6 +28,17 @@ app.get('/:id', (req, res) => {
             break;
     }
     res.send(dps);
+})
+
+app.get('/routes', (req, res) => {
+    res.send(
+        [
+            route1,
+            route2,
+            route3,
+            route4
+        ]
+    );
 })
   
 app.listen(port, () => {
