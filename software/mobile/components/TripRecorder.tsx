@@ -6,9 +6,14 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
-import { getFormatedTimeFromMilliSeconds } from "../utils/TimeUtil";
+import {
+  convertUnixTimestampToUTCTime,
+  getFormatedTimeFromMilliSeconds,
+} from "../utils/TimeUtil";
 import { RecordingState, SharedScreenResources } from "../types";
-
+import { TripController } from "../controllers/trip-contoller/TripController";
+import Route from "../controllers/database/models/Route";
+import { RouteSegmentType } from "../controllers/database/models/RouteSegment";
 /**
  * The rate at which the time is updates
  */
@@ -21,11 +26,6 @@ export default ({
   recordingState,
   setRecordingState,
 }: SharedScreenResources) => {
-  //   RecordingStateStatus.recordingState = recordingState;
-  //   const [recordingState, setRecordingState] = useState<RecordingState>(
-  //     RecordingState.NOT_RECORDING
-  //   );
-
   const [time, setTime] = useState<number>(0);
 
   useEffect(() => {
@@ -50,7 +50,12 @@ export default ({
     };
   }, [recordingState]);
 
-  const startTrip = (): void => {
+  const startTrip = async (): Promise<void> => {
+    const tripController: TripController =
+      await TripController.getTripController();
+
+    await tripController.startRoute("john", RouteSegmentType.GROUND);
+
     setRecordingState(RecordingState.RECORDING);
   };
 

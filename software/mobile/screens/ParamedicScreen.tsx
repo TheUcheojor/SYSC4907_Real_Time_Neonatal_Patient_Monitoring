@@ -17,10 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import SensorPackageController from "../controllers/sensor-package/SensorPackage";
 import MeasurementPacket from "../controllers/sensor-package/models/MeasurementPacket";
 import { circularArrayPush } from "../utils/ArrayUtil";
-import {
-  generateRandomMeasurementPacket,
-  getRandomInt,
-} from "../utils/RandomUtil";
+import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
 
 import { DatabaseController } from "../controllers/database/DatabaseController";
 import { Subscription } from "react-native-ble-plx";
@@ -120,6 +117,15 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
       measurementPacket.velocity
     );
   }, [measurementPacket]);
+
+  /**
+   * Save measurement packets when
+   */
+  useEffect(() => {
+    if (recordingState == RecordingState.RECORDING) {
+      //use the database controller to save the measurment
+    }
+  }, [recordingState, measurementPacket]);
 
   return (
     <View style={styles.screenContainer}>
