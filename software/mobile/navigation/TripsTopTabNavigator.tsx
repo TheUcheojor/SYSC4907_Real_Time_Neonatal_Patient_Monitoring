@@ -13,6 +13,8 @@ const TopTab = createMaterialTopTabNavigator<TripsStackParamList>();
 export default ({
   recordingState,
   setRecordingState,
+  measurementPacket,
+  setMeasurementPacket,
 }: SharedScreenResources) => {
   return (
     <TopTab.Navigator
@@ -37,6 +39,8 @@ export default ({
           <ActiveTripScreen
             recordingState={recordingState}
             setRecordingState={setRecordingState}
+            measurementPacket={measurementPacket}
+            setMeasurementPacket={setMeasurementPacket}
           />
         )}
       </TopTab.Screen>

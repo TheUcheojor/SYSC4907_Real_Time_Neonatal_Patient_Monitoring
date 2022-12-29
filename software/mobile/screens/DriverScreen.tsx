@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import {
   GAUGE_MAX_DEFAULT,
@@ -8,16 +8,14 @@ import {
 } from "../components/Gauge/constants";
 import Gauge from "../components/Gauge/Gauge";
 import { getRandomInt } from "../components/Gauge/util";
-
-import { MainStackParamList } from "../types";
+import { SharedScreenResources } from "../types";
 
 /**
  * The driver screen
  */
-export default ({
-  navigation,
-}: NativeStackScreenProps<MainStackParamList, "Driver">): JSX.Element => {
-  const [metricLevel, setMetricLevel] = useState<number>(0);
+export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
+  const metricLevel: React.MutableRefObject<number> = useRef<number>(0);
+
   const [lowModerateThreshold, setLowModerateThreshold] = useState<number>(
     LOW_TO_MODERATE_THRESHOLD_DEFAULT
   );
@@ -27,22 +25,26 @@ export default ({
 
   const [gaugeMax, setGaugeMax] = useState<number>(GAUGE_MAX_DEFAULT);
 
+  useEffect(() => {
+    metricLevel.current = measurementPacket.vibration;
+  }, [measurementPacket]);
+
   return (
     <View style={styles.driverScreen}>
       <Gauge
-        currentMetricLevel={metricLevel}
+        currentMetricLevel={metricLevel.current}
         lowModerateThreshold={lowModerateThreshold}
         moderateHighThreshold={moderateHighThreshold}
         gaugeMax={gaugeMax}
       />
       <Text style={styles.gaugeTitle}>VIBRATION</Text>
 
-      <Button
+      {/* <Button
         title="DEMO"
         onPress={() => {
           setMetricLevel(getRandomInt(0, 180));
         }}
-      />
+      /> */}
     </View>
   );
 };

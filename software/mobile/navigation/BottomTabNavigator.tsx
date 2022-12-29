@@ -20,6 +20,8 @@ const BottomTab = createBottomTabNavigator<MainStackParamList>();
 export default ({
   recordingState,
   setRecordingState,
+  measurementPacket,
+  setMeasurementPacket,
 }: SharedScreenResources) => (
   <BottomTab.Navigator
     initialRouteName="Paramedic"
@@ -41,13 +43,22 @@ export default ({
   >
     <BottomTab.Screen
       name="Driver"
-      component={DriverScreen}
+      // component={DriverScreen}
       options={{
         tabBarIcon: ({ focused }) => (
           <MenuItemContainer screenName="Driver" focused={focused} />
         ),
       }}
-    />
+    >
+      {(props) => (
+        <DriverScreen
+          recordingState={recordingState}
+          setRecordingState={setRecordingState}
+          measurementPacket={measurementPacket}
+          setMeasurementPacket={setMeasurementPacket}
+        />
+      )}
+    </BottomTab.Screen>
     <BottomTab.Screen
       name="Paramedic"
       // component={ParamedicScreen}
@@ -61,6 +72,8 @@ export default ({
         <ParamedicScreen
           recordingState={recordingState}
           setRecordingState={setRecordingState}
+          measurementPacket={measurementPacket}
+          setMeasurementPacket={setMeasurementPacket}
         />
       )}
     </BottomTab.Screen>
@@ -78,6 +91,8 @@ export default ({
         <TripsTopTabNavigator
           recordingState={recordingState}
           setRecordingState={setRecordingState}
+          measurementPacket={measurementPacket}
+          setMeasurementPacket={setMeasurementPacket}
         />
       )}
     </BottomTab.Screen>

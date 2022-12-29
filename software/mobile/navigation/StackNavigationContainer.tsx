@@ -13,6 +13,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const StackNavigationContainer = ({
   recordingState,
   setRecordingState,
+  measurementPacket,
+  setMeasurementPacket,
 }: SharedScreenResources) => {
   // recordingState={recordingState}
   // setRecordingState={setRecordingState}
@@ -29,6 +31,8 @@ export const StackNavigationContainer = ({
             <Drawer
               recordingState={recordingState}
               setRecordingState={setRecordingState}
+              measurementPacket={measurementPacket}
+              setMeasurementPacket={setMeasurementPacket}
             />
           )}
         </Stack.Screen>

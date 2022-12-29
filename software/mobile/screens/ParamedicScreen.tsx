@@ -49,15 +49,15 @@ const VELOCITY_UNITS: string = "dB";
  *
  * The paramedic screen
  */
-export default ({ recordingState }: SharedScreenResources): JSX.Element => {
+export default ({
+  recordingState,
+  measurementPacket,
+  setMeasurementPacket,
+}: SharedScreenResources): JSX.Element => {
   const databaseController: DatabaseController =
     DatabaseController.getConfiguredDatabaseController();
 
-  const [measurementPacket, setMeasurementPacket] = useState<MeasurementPacket>(
-    generateRandomMeasurementPacket()
-  );
-
-  const vibrationFeed = useRef<Array<number>>(
+  const vibrationFeed: React.MutableRefObject<number[]> = useRef<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
   const noiseFeed = useRef<Array<number>>(

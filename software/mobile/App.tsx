@@ -21,6 +21,8 @@ import { DatabaseController } from "./controllers/database/DatabaseController";
 import AppIcon from "./components/AppIcon";
 import SensorPackageController from "./controllers/sensor-package/SensorPackage";
 import { RecordingState } from "./types";
+import { generateRandomMeasurementPacket } from "./utils/RandomUtil";
+import MeasurementPacket from "./controllers/sensor-package/models/MeasurementPacket";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -32,13 +34,13 @@ export default function App() {
   const [recordingState, setRecordingState] = useState<RecordingState>(
     RecordingState.NOT_RECORDING
   );
+  const [measurementPacket, setMeasurementPacket] = useState<MeasurementPacket>(
+    generateRandomMeasurementPacket()
+  );
 
   //Load dependencies
   const loadDependencies = useCallback(async () => {
-    //Configure the database
     await DatabaseController.getConfiguredDatabaseController();
-
-    // Request for android permissions
     await SensorPackageController.requestForPermissions();
     setDependenciesLoaded(true);
   }, []);
@@ -71,6 +73,8 @@ export default function App() {
       <StackNavigationContainer
         recordingState={recordingState}
         setRecordingState={setRecordingState}
+        measurementPacket={measurementPacket}
+        setMeasurementPacket={setMeasurementPacket}
       />
       <StatusBar />
     </SafeAreaProvider>

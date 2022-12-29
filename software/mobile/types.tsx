@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
+import MeasurementPacket from "./controllers/sensor-package/models/MeasurementPacket";
 
 /**
  * Route mapping for high level screens
@@ -44,4 +45,6 @@ export enum RecordingState {
 export type SharedScreenResources = {
   recordingState: RecordingState;
   setRecordingState: React.Dispatch<React.SetStateAction<RecordingState>>;
+  measurementPacket: MeasurementPacket;
+  setMeasurementPacket: React.Dispatch<React.SetStateAction<MeasurementPacket>>;
 };

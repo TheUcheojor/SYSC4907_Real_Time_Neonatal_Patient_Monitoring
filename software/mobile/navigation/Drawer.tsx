@@ -40,6 +40,8 @@ const CustomDrawerMenu = ({
 export default ({
   recordingState,
   setRecordingState,
+  measurementPacket,
+  setMeasurementPacket,
 }: SharedScreenResources) => {
   return (
     <Drawer.Navigator
@@ -58,6 +60,8 @@ export default ({
           <BottomTabNavigator
             recordingState={recordingState}
             setRecordingState={setRecordingState}
+            measurementPacket={measurementPacket}
+            setMeasurementPacket={setMeasurementPacket}
           />
         )}
       </Drawer.Screen>
