@@ -26,6 +26,9 @@ import {
 import { BaseResponse } from "./models/requests/BaseResponse";
 import { FeedSetterFunctionParams } from "../../screens/ParamedicScreen";
 import { circularArrayPush } from "../../utils/ArrayUtil";
+import { useEffect } from "react";
+import { measure } from "react-native-reanimated";
+import { generateRandomMeasurementPacket } from "../../utils/RandomUtil";
 
 export default class SensorPackageController {
   /**
@@ -259,6 +262,53 @@ export default class SensorPackageController {
         console.log("Received new measurementpacket: ", measurementPacket);
       }
     );
+  }
+
+  /**
+   * Mocks the measurement Packet feed from the sensor package
+   * @param measurementFeed
+   * @param param1
+   */
+  public async mockMeasurementPacketFeed(
+    setMeasurementPacket: React.Dispatch<
+      React.SetStateAction<MeasurementPacket>
+    >
+    // measurementFeed: Array<MeasurementPacket>,
+    // {
+    //   updateNoiseFeed,
+    //   updateTemperatureFeed,
+    //   updateVelocityFeed,
+    //   updateVibrationFeed,
+    // }: FeedSetterFunctionParams
+  ) {
+    const MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS = 1000;
+
+    const generateMeasurementPacketInterval = setInterval(() => {
+      const generatedMeasurementPacket = generateRandomMeasurementPacket();
+
+      // measurementFeed.push(generatedMeasurementPacket);
+
+      // updateNoiseFeed((noiseFeed) =>
+      //   circularArrayPush(noiseFeed, generatedMeasurementPacket.noise)
+      // );
+
+      // updateTemperatureFeed((temperatureFeed) =>
+      //   circularArrayPush(
+      //     temperatureFeed,
+      //     generatedMeasurementPacket.temperature
+      //   )
+      // );
+
+      // updateVelocityFeed((velocityFeed) =>
+      //   circularArrayPush(velocityFeed, generatedMeasurementPacket.velocity)
+      // );
+
+      // updateVibrationFeed((vibrationFeed) =>
+      //   circularArrayPush(vibrationFeed, generatedMeasurementPacket.vibration)
+      // );
+
+      setMeasurementPacket(generatedMeasurementPacket);
+    }, MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS);
   }
 
   /**

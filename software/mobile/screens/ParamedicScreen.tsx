@@ -17,6 +17,11 @@ import { useEffect, useRef, useState } from "react";
 import SensorPackageController from "../controllers/sensor-package/SensorPackage";
 import MeasurementPacket from "../controllers/sensor-package/models/MeasurementPacket";
 import { circularArrayPush } from "../utils/ArrayUtil";
+import {
+  generateRandomMeasurementPacket,
+  getRandomInt,
+} from "../utils/RandomUtil";
+
 import { DatabaseController } from "../controllers/database/DatabaseController";
 
 /**
@@ -43,10 +48,12 @@ const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambu
 const VELOCITY_UNITS: string = "dB";
 
 export interface FeedSetterFunctionParams {
-  updateVibrationFeed: React.Dispatch<React.SetStateAction<number[]>>;
-  updateNoiseFeed: React.Dispatch<React.SetStateAction<number[]>>;
-  updateTemperatureFeed: React.Dispatch<React.SetStateAction<number[]>>;
-  updateVelocityFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  // updateVibrationFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  // updateNoiseFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  // updateTemperatureFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  // updateVelocityFeed: React.Dispatch<React.SetStateAction<number[]>>;
+
+  setMeasurementPacket: React.Dispatch<React.SetStateAction<MeasurementPacket>>;
 }
 
 /**
@@ -57,49 +64,74 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
   const databaseController: DatabaseController =
     DatabaseController.getConfiguredDatabaseController();
 
-  const measurementPackets = useRef<MeasurementPacket[]>([]);
-
-  const [vibrationFeed, updateVibrationFeed] = useState<Array<number>>(
-    new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
-  );
-  const [noiseFeed, updateNoiseFeed] = useState<Array<number>>(
-    new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  const [measurementPacket, setMeasurementPacket] = useState<MeasurementPacket>(
+    generateRandomMeasurementPacket()
   );
 
-  const [temperatureFeed, updateTemperatureFeed] = useState<Array<number>>(
+  const vibrationFeed = useRef<Array<number>>(
+    new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  );
+  const noiseFeed = useRef<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
 
-  const [velocityFeed, updateVelocityFeed] = useState<Array<number>>(
+  const temperatureFeed = useRef<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
+  const velocityFeed = useRef<Array<number>>(
+    new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  );
+
+  // const [vibrationFeed, updateVibrationFeed] = useState<Array<number>>(
+  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  // );
+  // const [noiseFeed, updateNoiseFeed] = useState<Array<number>>(
+  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  // );
+
+  // const [temperatureFeed, updateTemperatureFeed] = useState<Array<number>>(
+  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  // );
+
+  // const [velocityFeed, updateVelocityFeed] = useState<Array<number>>(
+  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
+  // );
 
   const sensorPackageController: SensorPackageController =
     SensorPackageController.getSensorPackageController();
 
   useEffect(() => {
-    sensorPackageController.getMeasurementPacketFeed(
-      measurementPackets.current,
-      {
-        updateVibrationFeed: updateVibrationFeed,
-        updateNoiseFeed: updateNoiseFeed,
-        updateTemperatureFeed: updateTemperatureFeed,
-        updateVelocityFeed: updateVelocityFeed,
-      }
+    console.log("runing mock");
+    sensorPackageController.mockMeasurementPacketFeed(
+      setMeasurementPacket
+      // measurementPackets.current,
+      // {
+      //   updateVibrationFeed: updateVibrationFeed,
+      //   updateNoiseFeed: updateNoiseFeed,
+      //   updateTemperatureFeed: updateTemperatureFeed,
+      //   updateVelocityFeed: updateVelocityFeed,
+      // }
     );
   }, []);
 
   useEffect(() => {
-    if (recordingState == RecordingState.RECORDING) {
-    } else {
-      measurementPackets.current = [];
-    }
-    // updateVibrationFeed([
-    //   ...vibrationFeed.slice(1, vibrationFeed.length),
-    //   measurementPackets.current[0].vibration,
-    // ]);
-    // measurementPackets.current.shift();
-  }, [vibrationFeed, noiseFeed, temperatureFeed, velocityFeed]);
+    vibrationFeed.current = circularArrayPush(
+      vibrationFeed.current,
+      measurementPacket.vibration
+    );
+    noiseFeed.current = circularArrayPush(
+      vibrationFeed.current,
+      measurementPacket.noise
+    );
+    temperatureFeed.current = circularArrayPush(
+      vibrationFeed.current,
+      measurementPacket.temperature
+    );
+    velocityFeed.current = circularArrayPush(
+      vibrationFeed.current,
+      measurementPacket.velocity
+    );
+  }, [measurementPacket]);
 
   return (
     <View style={styles.screenContainer}>
@@ -108,7 +140,7 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
         graphColor={VIBRATION_GRAPH_COLOUR}
         iconImageSource={VIBRATION_ICON_SOURCE}
         unitsLabel={VIBRATION_UNITS}
-        liveData={vibrationFeed}
+        liveData={vibrationFeed.current}
       />
 
       <MetricLiveView
@@ -116,7 +148,7 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
         graphColor={NOISE_GRAPH_COLOUR}
         iconImageSource={NOISE_ICON_SOURCE}
         unitsLabel={NOISE_UNITS}
-        liveData={noiseFeed}
+        liveData={noiseFeed.current}
       />
 
       <MetricLiveView
@@ -124,7 +156,7 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
         graphColor={TEMPERATURE_GRAPH_COLOUR}
         iconImageSource={TEMPERATURE_ICON_SOURCE}
         unitsLabel={TEMPERATURE_UNITS}
-        liveData={temperatureFeed}
+        liveData={temperatureFeed.current}
       />
 
       <MetricLiveView
@@ -132,7 +164,7 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
         graphColor={VELOCITY_GRAPH_COLOUR}
         iconImageSource={VELOCITY_ICON_SOURCE}
         unitsLabel={VELOCITY_UNITS}
-        liveData={velocityFeed}
+        liveData={velocityFeed.current}
       />
 
       {/**
@@ -140,29 +172,18 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
        *
        * Just for demo purposes
        */}
-      <View style={{ width: "100%" }}></View>
+      {/* <View style={{ width: "100%" }}></View>
       <Button
         title="Demo"
         onPress={() => {
           updateVibrationFeed((vibrationFeed) =>
             circularArrayPush(vibrationFeed, getRandomInt(1, 50))
           );
-
-          //   [
-          //   ...vibrationFeed.slice(1, vibrationFeed.length),
-          //   getRandomInt(1, 50),
-          // ]);
-
-          // console.log(vibrationFeed);
         }}
-      />
+      /> */}
     </View>
   );
 };
-
-function getRandomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
 const styles = StyleSheet.create({
   screenContainer: {
