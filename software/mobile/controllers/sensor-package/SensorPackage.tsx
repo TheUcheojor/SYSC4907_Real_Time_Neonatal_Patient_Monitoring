@@ -9,6 +9,7 @@ import {
   BleManager,
   Characteristic,
   Device,
+  Subscription,
 } from "react-native-ble-plx";
 import base64 from "react-native-base64";
 import {
@@ -24,7 +25,6 @@ import {
   BaseRequestInterface,
 } from "./models/requests/BaseRequest";
 import { BaseResponse } from "./models/requests/BaseResponse";
-import { FeedSetterFunctionParams } from "../../screens/ParamedicScreen";
 import { circularArrayPush } from "../../utils/ArrayUtil";
 import { useEffect } from "react";
 import { measure } from "react-native-reanimated";
@@ -209,24 +209,20 @@ export default class SensorPackageController {
    *  @param feedSetterFuctionParams the use-state setter functions to update the feed
 
    */
-  public async getMeasurementPacketFeed(
-    measurementFeed: Array<MeasurementPacket>,
-    {
-      updateNoiseFeed,
-      updateTemperatureFeed,
-      updateVelocityFeed,
-      updateVibrationFeed,
-    }: FeedSetterFunctionParams
-  ) {
+  public getMeasurementPacketFeed(
+    setMeasurementPacket: React.Dispatch<
+      React.SetStateAction<MeasurementPacket>
+    >
+  ): Subscription | null {
     if (
       this.sensorPackageDevice == null ||
       !this.isSensorPackageDeviceConnected
     )
-      return;
+      return null;
 
     // Watch the measurement packet characteristic and update the measurement-feed collection accordingly
     // The characteristic is expected to be notifable to enable monitoring.
-    this.sensorPackageDevice.monitorCharacteristicForService(
+    return this.sensorPackageDevice.monitorCharacteristicForService(
       SensorPackageController.MEASUREMENT_PACKET_SERVICE_UUID,
       SensorPackageController.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
       (error, characteristic) => {
@@ -241,23 +237,7 @@ export default class SensorPackageController {
           measurementPacket.time as number
         );
 
-        measurementFeed.push(measurementPacket);
-
-        updateNoiseFeed((noiseFeed) =>
-          circularArrayPush(noiseFeed, measurementPacket.noise)
-        );
-
-        updateTemperatureFeed((temperatureFeed) =>
-          circularArrayPush(temperatureFeed, measurementPacket.temperature)
-        );
-
-        updateVelocityFeed((velocityFeed) =>
-          circularArrayPush(velocityFeed, measurementPacket.velocity)
-        );
-
-        updateVibrationFeed((vibrationFeed) =>
-          circularArrayPush(vibrationFeed, measurementPacket.vibration)
-        );
+        setMeasurementPacket(measurementPacket);
 
         console.log("Received new measurementpacket: ", measurementPacket);
       }

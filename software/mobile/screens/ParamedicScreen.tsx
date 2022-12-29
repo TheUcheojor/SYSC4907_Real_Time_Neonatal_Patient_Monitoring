@@ -23,6 +23,7 @@ import {
 } from "../utils/RandomUtil";
 
 import { DatabaseController } from "../controllers/database/DatabaseController";
+import { Subscription } from "react-native-ble-plx";
 
 /**
  * View Constants
@@ -46,15 +47,6 @@ const VELOCITY_METRIC_TITLE: string = "Velocity";
 const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
 const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
 const VELOCITY_UNITS: string = "dB";
-
-export interface FeedSetterFunctionParams {
-  // updateVibrationFeed: React.Dispatch<React.SetStateAction<number[]>>;
-  // updateNoiseFeed: React.Dispatch<React.SetStateAction<number[]>>;
-  // updateTemperatureFeed: React.Dispatch<React.SetStateAction<number[]>>;
-  // updateVelocityFeed: React.Dispatch<React.SetStateAction<number[]>>;
-
-  setMeasurementPacket: React.Dispatch<React.SetStateAction<MeasurementPacket>>;
-}
 
 /**
  *
@@ -84,6 +76,18 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
 
   const sensorPackageController: SensorPackageController =
     SensorPackageController.getSensorPackageController();
+
+  /**
+   * Update the feed from the sensor package
+   */
+  useEffect(() => {
+    const packetFeedSubscription: Subscription | null =
+      sensorPackageController.getMeasurementPacketFeed(setMeasurementPacket);
+
+    return () => {
+      if (packetFeedSubscription !== null) packetFeedSubscription.remove();
+    };
+  }, []);
 
   /**
    * Mocking a feed from the sensor package from the send
