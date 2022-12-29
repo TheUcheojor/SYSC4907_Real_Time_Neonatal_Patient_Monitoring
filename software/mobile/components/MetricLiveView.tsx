@@ -71,7 +71,7 @@ export default function MetricLiveView({
       </Text>
 
       <View style={styles.graphContainer}>
-        <VictoryChart width={270} height={160}>
+        <VictoryChart width={260} height={160}>
           <VictoryArea
             interpolation="monotoneX"
             style={{
@@ -149,11 +149,13 @@ const styles = StyleSheet.create({
   graphContainer: {
     position: "relative",
     left: -50,
-    width: 200,
+    width: 170,
     top: -20,
     justifyContent: "flex-start",
     alignItems: "flex-start",
     textAlign: "left",
     padding: 0,
+    marginLeft: 5,
+    marginRight: 5,
   },
 });
