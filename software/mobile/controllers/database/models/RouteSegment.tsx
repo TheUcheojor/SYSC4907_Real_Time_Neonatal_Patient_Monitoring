@@ -23,7 +23,7 @@ export default interface RouteSegment {
   /**
    * The route id
    */
-  routeId: number | undefined;
+  routeId: number;
 
   /**
    * The start time for route
@@ -33,5 +33,5 @@ export default interface RouteSegment {
   /**
    * The end time for route
    */
-  endTime: string | undefined;
+  endTime: string;
 }

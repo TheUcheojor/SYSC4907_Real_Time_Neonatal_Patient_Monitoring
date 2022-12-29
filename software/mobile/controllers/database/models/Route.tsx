@@ -8,19 +8,19 @@ export default interface Route {
   /**
    * The route id
    */
-  routeId: number | undefined;
+  routeId: number;
   /**
    * The patiend id
    */
-  patientId: string | undefined;
+  patientId: string;
 
   /**
    * The start time
    */
-  startTime: string | undefined;
+  startTime: string;
 
   /**
    * The end time
    */
-  endTime: string | undefined;
+  endTime: string;
 }
