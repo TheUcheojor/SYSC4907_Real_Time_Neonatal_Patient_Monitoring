@@ -40,7 +40,6 @@ export default ({
   const [vibrationFeed, updateVibrationFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
-
   const [noiseFeed, updateNoiseFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );

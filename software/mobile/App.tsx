@@ -20,28 +20,32 @@ import React, { useCallback, useEffect, useState } from "react";
 import { RecordingState } from "./components/TripRecorder";
 import { DatabaseController } from "./controllers/database/DatabaseController";
 import AppIcon from "./components/AppIcon";
+import SensorPackageController from "./controllers/sensor-package/SensorPackage";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function App() {
-  const [isDatabaseLoaded, setDatabaseLoaded] = useState<boolean>(false);
+  const [isDependenciesLoaded, setDependenciesLoaded] =
+    useState<boolean>(false);
 
   const [recordingState, setRecordingState] = useState<RecordingState>(
     RecordingState.NOT_RECORDING
   );
 
   //Load the database
-  const loadDatabase = useCallback(async () => {
+  const loadDependencies = useCallback(async () => {
+    //Configure the database
     await DatabaseController.getConfiguredDatabaseController();
-    setDatabaseLoaded(true);
 
-    // console.log("here");
+    // Request for android permissions
+    await SensorPackageController.requestForPermissions();
+    setDependenciesLoaded(true);
   }, []);
 
   useEffect(() => {
-    loadDatabase();
-  }, [loadDatabase]);
+    loadDependencies();
+  }, [loadDependencies]);
 
   // Load the fonts
   let [fontsLoaded]: [boolean, Error | null] = useFonts({
@@ -53,7 +57,7 @@ export default function App() {
     Montserrat_800ExtraBold,
   });
 
-  if (!isDatabaseLoaded || !fontsLoaded) {
+  if (!isDependenciesLoaded || !fontsLoaded) {
     return (
       <View style={styles.loadingPageContainer}>
         <AppIcon size={400} />

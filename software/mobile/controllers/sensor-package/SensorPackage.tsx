@@ -11,9 +11,14 @@ import {
   Device,
 } from "react-native-ble-plx";
 import base64 from "react-native-base64";
-import { PermissionsAndroid } from "react-native";
+import {
+  request,
+  PERMISSIONS,
+  PermissionStatus,
+} from "react-native-permissions";
+
 import MeasurementPacket from "./models/MeasurementPacket";
-import { convertUnixTimestampToUTCTime } from "./util";
+import { convertUnixTimestampToUTCTime } from "../../utils/TimeUtil";
 import {
   BaseRequest,
   BaseRequestInterface,
@@ -97,37 +102,38 @@ export default class SensorPackageController {
   }
 
   /**
-   * This function requests for android bluetooth permissions.
+   * This function requests for bluetooth permissions.
    *
-   * This function is not ideal solution. The ideal solution likely involves a plugin
-   * to modify platform specific files to enable/request bluetooth permissions.
    */
-  public static async requestForAndroidPermissions() {
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN, {
-      title: "Permission BLUETOOTH_SCAN ",
-      message: "Requirement for Bluetooth",
+  public static async requestForPermissions() {
+    await request(PERMISSIONS.ANDROID.BLUETOOTH_SCAN, {
+      title: "Bluetooth Scanning Permission ",
+      message: "Required to scan for the sensor package",
       buttonNeutral: "Later",
       buttonNegative: "Cancel",
       buttonPositive: "OK",
-    }).then((userResponse) => {
-      console.log(
-        "PERMISSIONS.BLUETOOTH_SCAN -> userResponse: " + userResponse
-      );
+    }).then((result: PermissionStatus) => {
+      console.log("PERMISSIONS.BLUETOOTH_SCAN -> userResponse: " + result);
     });
 
-    PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT,
-      {
-        title: "Permission BLUETOOTH_CONNECT ",
-        message: "Requirement for Bluetooth",
-        buttonNeutral: "Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK",
-      }
-    ).then((userResponse) => {
-      console.log(
-        "PERMISSIONS.BLUETOOTH_CONNECT -> userResponse: " + userResponse
-      );
+    await request(PERMISSIONS.ANDROID.BLUETOOTH_CONNECT, {
+      title: "Bluetooth Connection Permission ",
+      message: "Required to connect to the sensor package",
+      buttonNeutral: "Later",
+      buttonNegative: "Cancel",
+      buttonPositive: "OK",
+    }).then((result: PermissionStatus) => {
+      console.log("PERMISSIONS.BLUETOOTH_CONNECT -> result: " + result);
+    });
+
+    await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL, {
+      title: "Bluetooth Peripheral ",
+      message: "Required to connect to the sensor package",
+      buttonNeutral: "Later",
+      buttonNegative: "Cancel",
+      buttonPositive: "OK",
+    }).then((result: PermissionStatus) => {
+      console.log("IOS BLUETOOTH_PERIPHERAL permission: ", result);
     });
   }
 
