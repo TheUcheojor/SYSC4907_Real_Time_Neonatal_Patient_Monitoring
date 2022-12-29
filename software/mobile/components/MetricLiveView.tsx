@@ -58,7 +58,7 @@ export default function MetricLiveView({
   unitsLabel,
   liveData,
 }: MetricLiveViewParameters) {
-  // console.log(liveData);
+  // console.log(liveData, metricTitle);
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>

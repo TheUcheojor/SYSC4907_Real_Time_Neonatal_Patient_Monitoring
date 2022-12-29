@@ -82,53 +82,37 @@ export default ({ recordingState }: SharedScreenResources): JSX.Element => {
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
 
-  // const [vibrationFeed, updateVibrationFeed] = useState<Array<number>>(
-  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
-  // );
-  // const [noiseFeed, updateNoiseFeed] = useState<Array<number>>(
-  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
-  // );
-
-  // const [temperatureFeed, updateTemperatureFeed] = useState<Array<number>>(
-  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
-  // );
-
-  // const [velocityFeed, updateVelocityFeed] = useState<Array<number>>(
-  //   new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
-  // );
-
   const sensorPackageController: SensorPackageController =
     SensorPackageController.getSensorPackageController();
 
+  /**
+   * Mocking a feed from the sensor package from the send
+   */
   useEffect(() => {
-    console.log("runing mock");
-    sensorPackageController.mockMeasurementPacketFeed(
-      setMeasurementPacket
-      // measurementPackets.current,
-      // {
-      //   updateVibrationFeed: updateVibrationFeed,
-      //   updateNoiseFeed: updateNoiseFeed,
-      //   updateTemperatureFeed: updateTemperatureFeed,
-      //   updateVelocityFeed: updateVelocityFeed,
-      // }
-    );
+    const generateMeasurementPacketInterval: NodeJS.Timer =
+      sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+
+    return () => clearInterval(generateMeasurementPacketInterval);
   }, []);
 
+  /**
+   * Update the feeds as when measurement-packet changes
+   */
   useEffect(() => {
     vibrationFeed.current = circularArrayPush(
       vibrationFeed.current,
       measurementPacket.vibration
     );
     noiseFeed.current = circularArrayPush(
-      vibrationFeed.current,
+      noiseFeed.current,
       measurementPacket.noise
     );
     temperatureFeed.current = circularArrayPush(
-      vibrationFeed.current,
+      temperatureFeed.current,
       measurementPacket.temperature
     );
     velocityFeed.current = circularArrayPush(
-      vibrationFeed.current,
+      velocityFeed.current,
       measurementPacket.velocity
     );
   }, [measurementPacket]);
