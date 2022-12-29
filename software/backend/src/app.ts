@@ -1,6 +1,8 @@
 import express  from 'express';
 import { dpsCarletonCampus, dpsCivicToGeneral, dpsCivicToHull, dpsOttToTo, route1, route2, route3, route4 } from './mock/mockTrip';
 import cors from 'cors';
+import { DB_NAME, DB_PW } from './constants/dbConstants';
+import DB from './data/DB';
 
 const port = 3001;
 const app = express()
@@ -30,6 +32,9 @@ app.get('/dps/:id', (req, res) => {
 })
 
 app.get('/routes', (req, res) => {
+    const db = new DB(DB_NAME, DB_PW);
+    db.connect();
+    
     res.send(
         [
             route1,
