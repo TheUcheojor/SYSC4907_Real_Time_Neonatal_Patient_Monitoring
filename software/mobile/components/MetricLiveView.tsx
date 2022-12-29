@@ -11,7 +11,7 @@ import {
   ImageSourcePropType,
 } from "react-native";
 
-import { VictoryLine, VictoryChart, VictoryAxis } from "victory-native";
+import { VictoryChart, VictoryAxis, VictoryArea } from "victory-native";
 
 /**
  * The metric live view parameter
@@ -71,10 +71,16 @@ export default function MetricLiveView({
       </Text>
 
       <View style={styles.graphContainer}>
-        <VictoryChart width={270} height={150}>
-          <VictoryLine
+        <VictoryChart width={270} height={160}>
+          <VictoryArea
+            interpolation="monotoneX"
             style={{
-              data: { stroke: graphColor },
+              data: {
+                stroke: graphColor,
+                fill: graphColor,
+                fillOpacity: 0.2,
+                strokeWidth: 2,
+              },
             }}
             data={liveData}
           />
