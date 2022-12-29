@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   ComposedChart,
   XAxis,
@@ -104,4 +104,4 @@ function Chart({ data, measurand, onClick }: ChartProps) {
   );
 }
 
-export default Chart;
+export default memo(Chart);

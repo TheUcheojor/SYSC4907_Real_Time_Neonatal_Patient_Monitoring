@@ -27,7 +27,6 @@ function TripsPage() {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [netError, setNetError] = useState(true);
   const [routes, setRoutes] = useState(undefined);
   console.log("TRIPS PAGE RENDER");

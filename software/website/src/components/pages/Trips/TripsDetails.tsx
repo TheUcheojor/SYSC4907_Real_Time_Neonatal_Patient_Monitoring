@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import Chart from "components/Chart";
 import Modal from "components/modal/Modal";
@@ -7,6 +7,7 @@ import Route from "models/Route";
 import { toClockString, toDateString } from "utility/StringUtil";
 import { queryTripDatapoints } from "interface/TripsInterface";
 import MapWithChartNet from "components/MapWithChartNet";
+import LoadingIcon from "components/icons/LoadingIcon";
 
 const chartLabelStyles = {
   color: "black",
@@ -20,6 +21,8 @@ interface TripsDetailsProps {
 function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   const [modalOpen, setModalOpen] = useState(false);
   const [activeMeasurand, setActiveMeasurand] = useState("");
+  const [data, setData] = useState([]);
+  const [netError, setNetError] = useState(undefined);
 
   function closeModal() {
     setModalOpen(false);
@@ -30,11 +33,27 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     setModalOpen(true);
   }
 
+  useEffect(() => {
+    selectedRoutes.forEach((route, i) => {
+      fetch(`http://localhost:3001/dps/${route.routeId}`)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            data.push(result);
+            setData([...data]);
+          },
+          (error) => {
+            setNetError(error);
+          }
+        );
+    });
+  }, []);
+
   return (
     <div style={{ marginLeft: "10px" }}>
-      {/* <ul style={{ display: "flex" }}>
-        {selectedRoutes.map((route) => {
-          return (
+      <ul style={{ display: "flex" }}>
+        {selectedRoutes.map((route, i) => {
+          return data[i] !== undefined ? (
             <div style={{ marginLeft: "10px" }}>
               <span style={chartLabelStyles}>
                 {toDateString(route.startTime)}
@@ -44,32 +63,44 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               </p>
               <p style={chartLabelStyles}>Vibration</p>
               <Chart
-                data={queryTripDatapoints(parseInt(route.routeId))}
+                data={data[i]}
                 measurand={DatapointFieldEnum.vibration}
                 onClick={chartClickHandler}
               />
               <p style={chartLabelStyles}>Noise</p>
               <Chart
-                data={queryTripDatapoints(parseInt(route.routeId))}
+                data={data[i]}
                 measurand={DatapointFieldEnum.noise}
                 onClick={chartClickHandler}
               />
               <p style={chartLabelStyles}>Temperature</p>
               <Chart
-                data={queryTripDatapoints(parseInt(route.routeId))}
+                data={data[i]}
                 measurand={DatapointFieldEnum.temperature}
                 onClick={chartClickHandler}
               />
               <p style={chartLabelStyles}>Velocity</p>
               <Chart
-                data={queryTripDatapoints(parseInt(route.routeId))}
+                data={data[i]}
                 measurand={DatapointFieldEnum.velocity}
                 onClick={chartClickHandler}
               />
             </div>
+          ) : (
+            <div
+              style={{
+                width: "410px",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <LoadingIcon />
+            </div>
           );
         })}
-      </ul> */}
+      </ul>
       <Modal title="Compare" modalOpen={modalOpen} closeModal={closeModal}>
         <ul style={{ display: "flex", padding: 0 }}>
           {selectedRoutes.map((route) => {
