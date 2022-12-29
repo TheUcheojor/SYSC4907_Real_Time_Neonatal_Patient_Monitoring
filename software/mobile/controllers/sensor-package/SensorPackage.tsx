@@ -24,6 +24,8 @@ import {
   BaseRequestInterface,
 } from "./models/requests/BaseRequest";
 import { BaseResponse } from "./models/requests/BaseResponse";
+import { FeedSetterFunctionParams } from "../../screens/ParamedicScreen";
+import { circularArrayPush } from "../../utils/ArrayUtil";
 
 export default class SensorPackageController {
   /**
@@ -201,9 +203,17 @@ export default class SensorPackageController {
   /**
    * Update the given measurement-feed with the latest packets
    * @param measurementFeed the measurement-feed
+   *  @param feedSetterFuctionParams the use-state setter functions to update the feed
+
    */
   public async getMeasurementPacketFeed(
-    measurementFeed: Array<MeasurementPacket>
+    measurementFeed: Array<MeasurementPacket>,
+    {
+      updateNoiseFeed,
+      updateTemperatureFeed,
+      updateVelocityFeed,
+      updateVibrationFeed,
+    }: FeedSetterFunctionParams
   ) {
     if (
       this.sensorPackageDevice == null ||
@@ -227,7 +237,24 @@ export default class SensorPackageController {
         measurementPacket.time = convertUnixTimestampToUTCTime(
           measurementPacket.time as number
         );
+
         measurementFeed.push(measurementPacket);
+
+        updateNoiseFeed((noiseFeed) =>
+          circularArrayPush(noiseFeed, measurementPacket.noise)
+        );
+
+        updateTemperatureFeed((temperatureFeed) =>
+          circularArrayPush(temperatureFeed, measurementPacket.temperature)
+        );
+
+        updateVelocityFeed((velocityFeed) =>
+          circularArrayPush(velocityFeed, measurementPacket.velocity)
+        );
+
+        updateVibrationFeed((vibrationFeed) =>
+          circularArrayPush(vibrationFeed, measurementPacket.vibration)
+        );
 
         console.log("Received new measurementpacket: ", measurementPacket);
       }

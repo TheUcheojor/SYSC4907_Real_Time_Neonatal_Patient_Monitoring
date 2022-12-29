@@ -1,12 +1,23 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { View, Text, Button, ImageSourcePropType } from "react-native";
-import { MainStackParamList } from "../types";
+import {
+  MainStackParamList,
+  RecordingState,
+  SharedScreenResources,
+} from "../types";
 import { StyleSheet } from "react-native";
 import MetricLiveView, {
   NUMBER_OF_VISIBLE_METRIC_POINTS,
 } from "../components/MetricLiveView";
 import { Image } from "react-native-svg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import SensorPackageController from "../controllers/sensor-package/SensorPackage";
+import MeasurementPacket from "../controllers/sensor-package/models/MeasurementPacket";
+import { circularArrayPush } from "../utils/ArrayUtil";
+import { DatabaseController } from "../controllers/database/DatabaseController";
 
 /**
  * View Constants
@@ -31,12 +42,23 @@ const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
 const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
 const VELOCITY_UNITS: string = "dB";
 
+export interface FeedSetterFunctionParams {
+  updateVibrationFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  updateNoiseFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  updateTemperatureFeed: React.Dispatch<React.SetStateAction<number[]>>;
+  updateVelocityFeed: React.Dispatch<React.SetStateAction<number[]>>;
+}
+
 /**
+ *
  * The paramedic screen
  */
-export default ({
-  navigation,
-}: NativeStackScreenProps<MainStackParamList, "Paramedic">): JSX.Element => {
+export default ({ recordingState }: SharedScreenResources): JSX.Element => {
+  const databaseController: DatabaseController =
+    DatabaseController.getConfiguredDatabaseController();
+
+  const measurementPackets = useRef<MeasurementPacket[]>([]);
+
   const [vibrationFeed, updateVibrationFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
@@ -51,6 +73,33 @@ export default ({
   const [velocityFeed, updateVelocityFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
+
+  const sensorPackageController: SensorPackageController =
+    SensorPackageController.getSensorPackageController();
+
+  useEffect(() => {
+    sensorPackageController.getMeasurementPacketFeed(
+      measurementPackets.current,
+      {
+        updateVibrationFeed: updateVibrationFeed,
+        updateNoiseFeed: updateNoiseFeed,
+        updateTemperatureFeed: updateTemperatureFeed,
+        updateVelocityFeed: updateVelocityFeed,
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (recordingState == RecordingState.RECORDING) {
+    } else {
+      measurementPackets.current = [];
+    }
+    // updateVibrationFeed([
+    //   ...vibrationFeed.slice(1, vibrationFeed.length),
+    //   measurementPackets.current[0].vibration,
+    // ]);
+    // measurementPackets.current.shift();
+  }, [vibrationFeed, noiseFeed, temperatureFeed, velocityFeed]);
 
   return (
     <View style={styles.screenContainer}>
@@ -95,12 +144,16 @@ export default ({
       <Button
         title="Demo"
         onPress={() => {
-          updateVibrationFeed([
-            ...vibrationFeed.slice(1, vibrationFeed.length),
-            getRandomInt(1, 50),
-          ]);
+          updateVibrationFeed((vibrationFeed) =>
+            circularArrayPush(vibrationFeed, getRandomInt(1, 50))
+          );
 
-          console.log(vibrationFeed);
+          //   [
+          //   ...vibrationFeed.slice(1, vibrationFeed.length),
+          //   getRandomInt(1, 50),
+          // ]);
+
+          // console.log(vibrationFeed);
         }}
       />
     </View>

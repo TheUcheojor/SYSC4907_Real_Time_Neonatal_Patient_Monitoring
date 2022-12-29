@@ -50,13 +50,20 @@ export default ({
     />
     <BottomTab.Screen
       name="Paramedic"
-      component={ParamedicScreen}
+      // component={ParamedicScreen}
       options={{
         tabBarIcon: ({ focused }) => (
           <MenuItemContainer screenName="Paramedic" focused={focused} />
         ),
       }}
-    />
+    >
+      {(props) => (
+        <ParamedicScreen
+          recordingState={recordingState}
+          setRecordingState={setRecordingState}
+        />
+      )}
+    </BottomTab.Screen>
 
     <BottomTab.Screen
       name="Trips"
