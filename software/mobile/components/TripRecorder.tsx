@@ -7,27 +7,20 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
 import { getFormatedTimeFromMilliSeconds } from "../utils/TimeUtil";
-
-export enum RecordingState {
-  NOT_RECORDING,
-  RECORDING,
-  PAUSED,
-}
+import { RecordingState, SharedScreenResources } from "../types";
 
 /**
  * The rate at which the time is updates
  */
 const MILLISECOND_INCREMENT_RATE = 100;
 
-export interface TripRecorderParams {
-  recordingState: RecordingState;
-  setRecordingState: React.Dispatch<React.SetStateAction<RecordingState>>;
-}
-
 /**
  * The Trip Recorder Component
  */
-export default ({ recordingState, setRecordingState }: TripRecorderParams) => {
+export default ({
+  recordingState,
+  setRecordingState,
+}: SharedScreenResources) => {
   //   RecordingStateStatus.recordingState = recordingState;
   //   const [recordingState, setRecordingState] = useState<RecordingState>(
   //     RecordingState.NOT_RECORDING

@@ -7,10 +7,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { APP_WIDTH } from "../constants/ViewConstants";
-import { MainStackParamList } from "../types";
+import { MainStackParamList, RecordingState } from "../types";
 import AppIcon from "./AppIcon";
 import { FontAwesome } from "@expo/vector-icons";
-import { RecordingState } from "./TripRecorder";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default ({

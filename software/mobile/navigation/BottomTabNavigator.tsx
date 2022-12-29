@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { MainStackParamList } from "../types";
+import { MainStackParamList, SharedScreenResources } from "../types";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import SettingsScreen from "../screens/SettingsScreen";
@@ -10,7 +10,6 @@ import MenuItemContainer from "../components/MenuItemContainer";
 import MainHeader from "../components/MainHeader";
 
 import TripsTopTabNavigator from "./TripsTopTabNavigator";
-import { TripRecorderParams } from "../components/TripRecorder";
 
 const BottomTab = createBottomTabNavigator<MainStackParamList>();
 
@@ -18,7 +17,10 @@ const BottomTab = createBottomTabNavigator<MainStackParamList>();
  * The main navigation containing only core screens accessible through
  * authenication
  */
-export default ({ recordingState, setRecordingState }: TripRecorderParams) => (
+export default ({
+  recordingState,
+  setRecordingState,
+}: SharedScreenResources) => (
   <BottomTab.Navigator
     initialRouteName="Paramedic"
     screenOptions={({ navigation }: { navigation: any }) => ({

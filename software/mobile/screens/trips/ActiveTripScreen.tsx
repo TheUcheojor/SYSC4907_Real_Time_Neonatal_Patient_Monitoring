@@ -5,13 +5,12 @@
  */
 
 import { View, Text, StyleSheet } from "react-native";
-import TripRecorder, {
-  TripRecorderParams,
-} from "../../components/TripRecorder";
+import TripRecorder from "../../components/TripRecorder";
+import { SharedScreenResources } from "../../types";
 export default ({
   recordingState,
   setRecordingState,
-}: TripRecorderParams): JSX.Element => {
+}: SharedScreenResources): JSX.Element => {
   return (
     <View style={styles.activeTripScreen}>
       <TripRecorder

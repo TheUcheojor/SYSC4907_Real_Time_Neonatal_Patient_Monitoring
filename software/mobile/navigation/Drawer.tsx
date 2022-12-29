@@ -5,11 +5,10 @@ import {
 } from "@react-navigation/drawer";
 import { StyleSheet, View } from "react-native";
 import { DrawerNavigationHelpers } from "@react-navigation/drawer/lib/typescript/src/types";
-import { MainStackParamList } from "../types";
+import { MainStackParamList, SharedScreenResources } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AppIcon from "../components/AppIcon";
 import { Ionicons } from "@expo/vector-icons";
-import { TripRecorderParams } from "../components/TripRecorder";
 
 const Drawer = createDrawerNavigator<MainStackParamList>();
 
@@ -38,7 +37,10 @@ const CustomDrawerMenu = ({
   );
 };
 
-export default ({ recordingState, setRecordingState }: TripRecorderParams) => {
+export default ({
+  recordingState,
+  setRecordingState,
+}: SharedScreenResources) => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => (

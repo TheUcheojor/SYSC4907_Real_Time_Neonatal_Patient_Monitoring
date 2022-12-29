@@ -4,14 +4,16 @@
  * Purpose: Exports the tab navigator for the trips screen
  */
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { TripRecorderParams } from "../components/TripRecorder";
 import ActiveTripScreen from "../screens/trips/ActiveTripScreen";
 import TripQueryScreen from "../screens/trips/TripQueryScreen";
-import { TripsStackParamList } from "../types";
+import { SharedScreenResources, TripsStackParamList } from "../types";
 
 const TopTab = createMaterialTopTabNavigator<TripsStackParamList>();
 
-export default ({ recordingState, setRecordingState }: TripRecorderParams) => {
+export default ({
+  recordingState,
+  setRecordingState,
+}: SharedScreenResources) => {
   return (
     <TopTab.Navigator
       tabBarPosition="top"

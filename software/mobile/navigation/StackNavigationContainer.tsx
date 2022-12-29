@@ -1,10 +1,9 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TripRecorderParams } from "../components/TripRecorder";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SignupScreen from "../screens/SignupScreen";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, SharedScreenResources } from "../types";
 import Drawer from "./Drawer";
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -14,7 +13,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export const StackNavigationContainer = ({
   recordingState,
   setRecordingState,
-}: TripRecorderParams) => {
+}: SharedScreenResources) => {
   // recordingState={recordingState}
   // setRecordingState={setRecordingState}
 

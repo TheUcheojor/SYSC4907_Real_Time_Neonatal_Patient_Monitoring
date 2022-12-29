@@ -17,10 +17,10 @@ import {
 
 import { LogBox } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { RecordingState } from "./components/TripRecorder";
 import { DatabaseController } from "./controllers/database/DatabaseController";
 import AppIcon from "./components/AppIcon";
 import SensorPackageController from "./controllers/sensor-package/SensorPackage";
+import { RecordingState } from "./types";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications

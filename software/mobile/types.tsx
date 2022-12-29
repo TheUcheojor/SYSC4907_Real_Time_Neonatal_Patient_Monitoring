@@ -28,3 +28,14 @@ export type TripsStackParamList = {
   ActiveTrip: undefined;
   TripQuery: undefined;
 };
+
+export enum RecordingState {
+  NOT_RECORDING,
+  RECORDING,
+  PAUSED,
+}
+
+export type SharedScreenResources = {
+  recordingState: RecordingState;
+  setRecordingState: React.Dispatch<React.SetStateAction<RecordingState>>;
+};
