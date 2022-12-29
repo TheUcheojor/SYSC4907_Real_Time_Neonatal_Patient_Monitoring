@@ -10,12 +10,16 @@ import { SharedScreenResources } from "../../types";
 export default ({
   recordingState,
   setRecordingState,
+  measurementPacket,
+  setMeasurementPacket,
 }: SharedScreenResources): JSX.Element => {
   return (
     <View style={styles.activeTripScreen}>
       <TripRecorder
         recordingState={recordingState}
         setRecordingState={setRecordingState}
+        measurementPacket={measurementPacket}
+        setMeasurementPacket={setMeasurementPacket}
       />
     </View>
   );
