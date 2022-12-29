@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useRef } from "react";
 import {
   GoogleMap,
-  useJsApiLoader,
   MarkerF,
   PolylineF,
+  LoadScript,
 } from "@react-google-maps/api";
 import { ColorEnum } from "constants/ColorEnum";
 import CSS from "csstype";
@@ -33,18 +33,13 @@ const libraries: Libraries = ["geometry", "drawing"];
 interface MapProps {
   data: RouteMeasurementDataPoint[];
   measurand: DatapointFieldEnum;
-  style: CSS.Properties;
+  style?: CSS.Properties;
   setMapRef: (map) => void;
 }
 
 function Map({ data, setMapRef, measurand, style }: MapProps) {
-  const map = useRef(undefined);
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA",
-    libraries: libraries,
-  });
   console.log("MAP RENDER");
+  const map = useRef(undefined);
 
   function fitMapToBounds() {
     if (map.current) {
@@ -60,71 +55,72 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
     fitMapToBounds();
   }, [data]);
 
-  const onLoad = React.useCallback(
-    (_map) => {
-      setMapRef(_map);
-      map.current = _map;
-      fitMapToBounds();
-    },
-    [setMapRef]
-  );
+  const onLoad = React.useCallback((_map) => {
+    setMapRef(_map);
+    map.current = _map;
+    fitMapToBounds();
+  }, []);
 
   return (
-    isLoaded &&
     data !== undefined && (
-      <GoogleMap
-        mapContainerStyle={style}
-        center={{
-          lat: data[0].coordinates[1],
-          lng: data[0].coordinates[0],
-        }}
-        zoom={17}
-        options={{
-          disableDefaultUI: true,
-          clickableIcons: false,
-          zoomControl: true,
-        }}
-        onLoad={onLoad}
+      <LoadScript
+        googleMapsApiKey="AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA"
+        libraries={libraries}
       >
-        <MarkerF
-          label="S"
-          position={{
+        <GoogleMap
+          mapContainerStyle={style}
+          center={{
             lat: data[0].coordinates[1],
             lng: data[0].coordinates[0],
           }}
-        />
-        <MarkerF
-          label="F"
-          position={{
-            lat: data[data.length - 1].coordinates[1],
-            lng: data[data.length - 1].coordinates[0],
+          zoom={17}
+          options={{
+            disableDefaultUI: true,
+            clickableIcons: false,
+            zoomControl: true,
           }}
-        />
-        {data.map((dp, i) => {
-          if (i !== data.length - 1) {
-            return (
-              <PolylineF
-                path={[
-                  {
-                    lat: dp.coordinates[1],
-                    lng: dp.coordinates[0],
-                  },
-                  {
-                    lat: data[i + 1].coordinates[1],
-                    lng: data[i + 1].coordinates[0],
-                  },
-                ]}
-                options={{
-                  geodesic: true,
-                  strokeColor: getColor(dp[measurand], measurand),
-                  strokeWeight: 8,
-                  strokeOpacity: 0.6,
-                }}
-              />
-            );
-          }
-        })}
-      </GoogleMap>
+          onLoad={onLoad}
+        >
+          <MarkerF
+            label="S"
+            position={{
+              lat: data[0].coordinates[1],
+              lng: data[0].coordinates[0],
+            }}
+          />
+          <MarkerF
+            label="F"
+            position={{
+              lat: data[data.length - 1].coordinates[1],
+              lng: data[data.length - 1].coordinates[0],
+            }}
+          />
+          {data.map((dp, i) => {
+            if (i !== data.length - 1) {
+              return (
+                <PolylineF
+                  path={[
+                    {
+                      lat: dp.coordinates[1],
+                      lng: dp.coordinates[0],
+                    },
+                    {
+                      lat: data[i + 1].coordinates[1],
+                      lng: data[i + 1].coordinates[0],
+                    },
+                  ]}
+                  options={{
+                    geodesic: true,
+                    strokeColor: getColor(dp[measurand], measurand),
+                    strokeWeight: 8,
+                    strokeOpacity: 0.6,
+                  }}
+                />
+              );
+            }
+          })}
+        </GoogleMap>
+      </LoadScript>
     )
   );
 }

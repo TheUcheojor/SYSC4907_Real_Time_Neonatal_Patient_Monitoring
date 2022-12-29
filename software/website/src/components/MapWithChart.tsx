@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, memo } from "react";
+import React, { useRef, memo } from "react";
 import Chart from "components/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
 import { toTitleCase } from "utility/StringUtil";
-import LoadingIcon from "./icons/LoadingIcon";
 import Map from "components/Map";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 
@@ -40,10 +39,6 @@ function MapWithChart({ datapoints, measurand, style }: mwcProps) {
   };
 
   function getContent() {
-    if (datapoints === undefined) {
-      return <LoadingIcon />;
-    }
-
     return (
       <div
         style={{

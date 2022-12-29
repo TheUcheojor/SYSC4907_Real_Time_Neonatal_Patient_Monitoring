@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
 import MapWithChart from "./MapWithChart";
+import LoadingIcon from "./icons/LoadingIcon";
 
 interface mwcNetProps {
   routeId: number;
@@ -12,8 +13,10 @@ interface mwcNetProps {
 function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
   const [datapoints, setDatapoints] = useState(undefined);
   const [netError, setNetError] = useState(undefined);
+  console.log("MWCN RENDER", routeId, measurand, style);
 
   useEffect(() => {
+    setDatapoints(undefined);
     fetch(`http://localhost:3001/dps/${routeId}`)
       .then((res) => res.json())
       .then(
@@ -26,9 +29,32 @@ function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
       );
   }, [routeId]);
 
-  return (
-    <MapWithChart datapoints={datapoints} measurand={measurand} style={style} />
-  );
+  function getContent() {
+    if (datapoints === undefined) {
+      return (
+        <div
+          style={{
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <LoadingIcon />
+        </div>
+      );
+    }
+
+    return (
+      <MapWithChart
+        datapoints={datapoints}
+        measurand={measurand}
+        style={style}
+      />
+    );
+  }
+
+  return getContent();
 }
 
 export default MapWithChartNet;

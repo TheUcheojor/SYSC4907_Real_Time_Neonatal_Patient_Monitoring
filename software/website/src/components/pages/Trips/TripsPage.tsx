@@ -28,7 +28,9 @@ function TripsPage() {
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [routes, setRoutes] = useState([]);
+  const [netError, setNetError] = useState(true);
+  const [routes, setRoutes] = useState(undefined);
+  console.log("TRIPS PAGE RENDER");
 
   useEffect(() => {
     fetch("http://localhost:3001/routes")
@@ -36,13 +38,9 @@ function TripsPage() {
       .then(
         (result) => {
           setRoutes(result);
-          setIsLoading(false);
         },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
         (error) => {
-          setIsLoading(false);
+          setNetError(error);
         }
       );
   }, []);
@@ -73,7 +71,7 @@ function TripsPage() {
   }
 
   function getContent() {
-    if (isLoading) {
+    if (routes === undefined) {
       return (
         <div
           style={{
