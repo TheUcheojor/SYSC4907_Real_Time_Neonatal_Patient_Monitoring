@@ -15,6 +15,10 @@ target 'mobile' do
 
   use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
 
+  # required custom import of permission handler
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-BluetoothPeripheral', :path => "#{permissions_path}/BluetoothPeripheral"
+  
   # Flags change depending on the env values.
   flags = get_default_flags()
 
