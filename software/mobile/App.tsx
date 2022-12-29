@@ -33,7 +33,7 @@ export default function App() {
     RecordingState.NOT_RECORDING
   );
 
-  //Load the database
+  //Load dependencies
   const loadDependencies = useCallback(async () => {
     //Configure the database
     await DatabaseController.getConfiguredDatabaseController();

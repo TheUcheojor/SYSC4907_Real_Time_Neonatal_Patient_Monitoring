@@ -29,12 +29,18 @@ export type TripsStackParamList = {
   TripQuery: undefined;
 };
 
+/**
+ * The route recording state
+ */
 export enum RecordingState {
   NOT_RECORDING,
   RECORDING,
   PAUSED,
 }
 
+/**
+ * Resources that can be shared across screens
+ */
 export type SharedScreenResources = {
   recordingState: RecordingState;
   setRecordingState: React.Dispatch<React.SetStateAction<RecordingState>>;
