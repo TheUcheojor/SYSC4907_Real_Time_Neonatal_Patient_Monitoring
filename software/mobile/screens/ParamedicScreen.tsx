@@ -118,20 +118,25 @@ export default ({
   /**
    * Save the measurement packets if trips are being recorded
    */
-  const saveMeasurementPackets = async (
+  const saveMeasurementPackets = (
     measurementPacketAnnotation: string
-  ) => {
+  ): Promise<void> => {
     if (recordingState == RecordingState.RECORDING) {
-      const tripController: TripController =
-        await TripController.getTripController();
+      return TripController.getTripController().then(
+        (tripController: TripController) => {
+          console.log("annotationInput: ", measurementPacketAnnotation);
 
-      console.log("annotationInput: ", measurementPacketAnnotation);
-      //use trip controller to save the measurment
-      tripController.saveMeasurementPacket(
-        measurementPacket,
-        measurementPacketAnnotation
+          return tripController.saveMeasurementPacket(
+            measurementPacket,
+            measurementPacketAnnotation
+          );
+        }
       );
     }
+
+    return new Promise(() => {
+      return;
+    });
   };
 
   /**
@@ -144,9 +149,10 @@ export default ({
   /**
    * Save the current measurement packet along with the given annotation
    */
-  const addAnnotation = async () => {
-    await saveMeasurementPackets(annotationInput);
-    setAnnotationInput("");
+  const addAnnotation = () => {
+    saveMeasurementPackets(annotationInput).then(() => {
+      setAnnotationInput("");
+    });
   };
 
   return (
