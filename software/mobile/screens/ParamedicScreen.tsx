@@ -1,26 +1,22 @@
 import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from "@react-navigation/native-stack";
-import { View, Text, Button, ImageSourcePropType } from "react-native";
-import {
-  MainStackParamList,
-  RecordingState,
-  SharedScreenResources,
-} from "../types";
+  View,
+  ImageSourcePropType,
+  TextInput,
+  Pressable,
+  Text,
+} from "react-native";
+import { RecordingState, SharedScreenResources } from "../types";
 import { StyleSheet } from "react-native";
 import MetricLiveView, {
   NUMBER_OF_VISIBLE_METRIC_POINTS,
 } from "../components/MetricLiveView";
-import { Image } from "react-native-svg";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SensorPackageController from "../controllers/sensor-package/SensorPackage";
-import MeasurementPacket from "../controllers/sensor-package/models/MeasurementPacket";
 import { circularArrayPush } from "../utils/ArrayUtil";
-import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
 
 import { DatabaseController } from "../controllers/database/DatabaseController";
 import { Subscription } from "react-native-ble-plx";
+import { TripController } from "../controllers/trip-contoller/TripController";
 
 /**
  * View Constants
@@ -45,6 +41,8 @@ const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
 const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
 const VELOCITY_UNITS: string = "dB";
 
+const ANNOATION_TEXT_INPUT_PLACEHOLDER: string = "Enter your comments";
+
 /**
  *
  * The paramedic screen
@@ -54,9 +52,6 @@ export default ({
   measurementPacket,
   setMeasurementPacket,
 }: SharedScreenResources): JSX.Element => {
-  const databaseController: DatabaseController =
-    DatabaseController.getConfiguredDatabaseController();
-
   const vibrationFeed: React.MutableRefObject<number[]> = useRef<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
@@ -118,14 +113,41 @@ export default ({
     );
   }, [measurementPacket]);
 
+  const [annotationInput, setAnnotationInput] = useState<string>("");
+
   /**
-   * Save measurement packets when
+   * Save the measurement packets if trips are being recorded
+   */
+  const saveMeasurementPackets = async (
+    measurementPacketAnnotation: string
+  ) => {
+    if (recordingState == RecordingState.RECORDING) {
+      const tripController: TripController =
+        await TripController.getTripController();
+
+      console.log("annotationInput: ", measurementPacketAnnotation);
+      //use trip controller to save the measurment
+      tripController.saveMeasurementPacket(
+        measurementPacket,
+        measurementPacketAnnotation
+      );
+    }
+  };
+
+  /**
+   * Save measurement packets if trips are being recorded
    */
   useEffect(() => {
-    if (recordingState == RecordingState.RECORDING) {
-      //use the database controller to save the measurment
-    }
+    saveMeasurementPackets("");
   }, [recordingState, measurementPacket]);
+
+  /**
+   * Save the current measurement packet along with the given annotation
+   */
+  const addAnnotation = async () => {
+    await saveMeasurementPackets(annotationInput);
+    setAnnotationInput("");
+  };
 
   return (
     <View style={styles.screenContainer}>
@@ -161,20 +183,28 @@ export default ({
         liveData={velocityFeed.current}
       />
 
-      {/**
-       * The elements below are to be removed.
-       *
-       * Just for demo purposes
-       */}
-      {/* <View style={{ width: "100%" }}></View>
-      <Button
-        title="Demo"
-        onPress={() => {
-          updateVibrationFeed((vibrationFeed) =>
-            circularArrayPush(vibrationFeed, getRandomInt(1, 50))
-          );
-        }}
-      /> */}
+      <View style={styles.annotationContainer}>
+        <TextInput
+          style={styles.annotationTextInput}
+          onChangeText={setAnnotationInput}
+          value={annotationInput}
+          placeholder={ANNOATION_TEXT_INPUT_PLACEHOLDER}
+        />
+
+        <Pressable
+          onPress={addAnnotation}
+          style={({ pressed }: { pressed: boolean }) => {
+            if (!pressed) return styles.addAnnotationButton;
+
+            return {
+              ...styles.addAnnotationButton,
+              backgroundColor: "black",
+            };
+          }}
+        >
+          <Text style={styles.addAnnotationButtonText}>Add Annotation</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -194,5 +224,38 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     tintColor: "white",
+  },
+
+  annotationContainer: {
+    marginTop: 15,
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    // backgroundColor: "red",
+  },
+
+  annotationTextInput: {
+    flex: 2,
+    backgroundColor: "#D9D9D9",
+    padding: 15,
+    borderRadius: 10,
+  },
+
+  addAnnotationButton: {
+    flex: 1,
+    margin: 5,
+    padding: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    backgroundColor: "#2F2F2F",
+    borderRadius: 10,
+  },
+  addAnnotationButtonText: {
+    fontFamily: "Montserrat_600SemiBold",
+    textTransform: "capitalize",
+    fontSize: 12,
+    color: "white",
+    textAlign: "center",
   },
 });
