@@ -143,9 +143,12 @@ export class TripController {
       routeId: this.currentRoute.routeId,
       annotation: annotation,
     };
-    await TripController.databaseController?.saveRouteMeasurementDataPoint(
-      routeMeasurementDataPoint
-    );
+    const results: [ResultSet] | undefined =
+      await TripController.databaseController?.saveRouteMeasurementDataPoint(
+        routeMeasurementDataPoint
+      );
+
+    console.log("saveMeasurementPacket: ", results);
   }
 
   /**

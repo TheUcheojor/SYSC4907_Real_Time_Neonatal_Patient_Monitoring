@@ -78,6 +78,17 @@ export class DatabaseController {
       location: "default",
     });
 
+    // For clearing the database
+    // await this.database.executeSql(
+    //   `DROP TABLE IF EXISTS ${DatabaseController.ROUTES_TABLE};`
+    // );
+    // await this.database.executeSql(
+    //   `DROP TABLE IF EXISTS ${DatabaseController.ROUTE_SEGMENTS_TABLE};`
+    // );
+    // await this.database.executeSql(
+    //   `DROP TABLE IF EXISTS ${DatabaseController.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
+    // );
+
     // Prepare and execute table-creation queries
     const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseController.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text );`;
     const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseController.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text );`;
@@ -147,7 +158,7 @@ export class DatabaseController {
    * @returns the query response
    */
   public async updateRouteSegment(routeSegement: RouteSegment) {
-    const updateRouteSegmentQuery: string = `UPDATE ${DatabaseController.ROUTE_SEGMENTS_TABLE} SET , 
+    const updateRouteSegmentQuery: string = `UPDATE ${DatabaseController.ROUTE_SEGMENTS_TABLE} SET 
     segmentType='${routeSegement.segmentType}', 
     startTime='${routeSegement.startTime}', 
     endTime='${routeSegement.endTime}' ,
@@ -169,10 +180,10 @@ export class DatabaseController {
       DatabaseController.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
     } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location) VALUES 
     ('${routeMeasurementDataPoint.routeSegmentId}',
-    '${routeMeasurementDataPoint.routeId}','
-    ${routeMeasurementDataPoint.time}','
-    ${routeMeasurementDataPoint.velocity}','
-    ${routeMeasurementDataPoint.noise}',
+    '${routeMeasurementDataPoint.routeId}',
+    '${routeMeasurementDataPoint.time}','
+    ${routeMeasurementDataPoint.velocity}',
+    '${routeMeasurementDataPoint.noise}',
     '${routeMeasurementDataPoint.vibration}',
     '${routeMeasurementDataPoint.temperature}',
     '${routeMeasurementDataPoint.airPressure}',

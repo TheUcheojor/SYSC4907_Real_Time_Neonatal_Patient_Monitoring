@@ -5,9 +5,9 @@
  */
 
 export enum RouteSegmentType {
-  GROUND = "GROUND",
-  AERIAL = "AERIAL",
-  WATER = "WATER",
+  GROUND = "Ground",
+  AERIAL = "Aerial",
+  WATER = "Water",
 }
 export default interface RouteSegment {
   /**

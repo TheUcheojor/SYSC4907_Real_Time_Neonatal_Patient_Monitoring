@@ -3,9 +3,16 @@
  * File: Trip Recorder
  * Purpose: Exports the trip recorder component
  */
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  TouchableHighlight,
+} from "react-native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   convertUnixTimestampToUTCTime,
   getFormatedTimeFromMilliSeconds,
@@ -14,11 +21,14 @@ import { RecordingState, SharedScreenResources } from "../types";
 import { TripController } from "../controllers/trip-contoller/TripController";
 import Route from "../controllers/database/models/Route";
 import { RouteSegmentType } from "../controllers/database/models/RouteSegment";
+import DropDownPicker from "react-native-dropdown-picker";
+
 /**
  * The rate at which the time is updates
  */
 const MILLISECOND_INCREMENT_RATE = 100;
 
+const PATIENT_ID_PLACEHOLDER = "Patient ID";
 /**
  * The Trip Recorder Component
  */
@@ -54,7 +64,8 @@ export default ({
     const tripController: TripController =
       await TripController.getTripController();
 
-    await tripController.startRoute("john", RouteSegmentType.GROUND);
+    console.log(patientId.current, segmentType);
+    await tripController.startRoute(patientId.current, segmentType);
 
     setRecordingState(RecordingState.RECORDING);
   };
@@ -71,28 +82,77 @@ export default ({
     );
   };
 
-  const recorderBackgroundColor =
-    recordingState == RecordingState.NOT_RECORDING ? "#22A900" : "black";
+  const addNewRouteSegment = async () => {
+    const tripController: TripController =
+      await TripController.getTripController();
+
+    console.log(" addNewRouteSegment: ", segmentType);
+    tripController.startNewRouteSegment(segmentType);
+  };
+
+  // Segement
+  const [open, setOpen] = useState<boolean>(false);
+  const [segmentType, setSegmentType] = useState<RouteSegmentType>(
+    RouteSegmentType.GROUND
+  );
+
+  const [routeSegmentTypeOptions, setRouteSegmentTypeOptions] = useState<
+    Array<{
+      label: string;
+      value: RouteSegmentType;
+    }>
+  >([
+    { label: "Ground Transport", value: RouteSegmentType.GROUND },
+    { label: "Water Transport", value: RouteSegmentType.WATER },
+    { label: "Aerial Transport", value: RouteSegmentType.AERIAL },
+  ]);
+
+  const patientId: React.MutableRefObject<string> = useRef<string>("");
+
+  const updatePatientId = (currentPatientId: string) => {
+    patientId.current = currentPatientId;
+  };
 
   return (
-    <Pressable
+    <View
       style={{
         ...styles.tripRecorderContainer,
-        backgroundColor: recorderBackgroundColor,
+        backgroundColor:
+          recordingState == RecordingState.NOT_RECORDING ? "#22A900" : "black",
       }}
-      onPress={startTrip}
     >
       {
         // The recorder component appearance in the NOT-RECORDING state
         recordingState == RecordingState.NOT_RECORDING && (
           <>
-            <FontAwesome
-              name="play-circle"
-              size={40}
-              color="white"
-              style={{ marginRight: 10 }}
+            <DropDownPicker
+              style={styles.dropdownNotRecording}
+              labelStyle={styles.dropdownText}
+              open={open}
+              value={segmentType}
+              items={routeSegmentTypeOptions}
+              setOpen={setOpen}
+              setValue={setSegmentType}
+              setItems={setRouteSegmentTypeOptions}
             />
-            <Text style={styles.mainText}>Start Trip</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder={PATIENT_ID_PLACEHOLDER}
+              onChangeText={updatePatientId}
+            />
+            <Pressable
+              onPress={startTrip}
+              style={({ pressed }: { pressed: boolean }) => {
+                if (!pressed) return styles.startTripContainer;
+
+                return {
+                  ...styles.startTripContainer,
+                  backgroundColor: "black",
+                };
+              }}
+            >
+              <Text style={styles.mainTextGreen}>Start Trip</Text>
+            </Pressable>
           </>
         )
       }
@@ -100,60 +160,111 @@ export default ({
         // The recorder component appearance when it is NOT in the RECORDING state
         recordingState !== RecordingState.NOT_RECORDING && (
           <>
-            <View style={styles.currentTripStatusContainer}>
-              <Text style={styles.mainText}>Current Trip</Text>
-              {recordingState == RecordingState.RECORDING && (
-                <Text style={{ ...styles.minorText, color: "#22A900" }}>
-                  Recording
-                </Text>
-              )}
-              {recordingState == RecordingState.PAUSED && (
-                <Text style={{ ...styles.minorText, color: "#D9D9D9" }}>
-                  Paused
-                </Text>
-              )}
-            </View>
-            <View style={styles.timerControlContainer}>
-              <Text style={styles.mainText}>
-                {getFormatedTimeFromMilliSeconds(time)}
-              </Text>
-
-              <Pressable onPress={togglePauseResumeTrip}>
+            <View style={styles.recordingContainer}>
+              <View style={styles.currentTripStatusContainer}>
+                <Text style={styles.mainText}>Current Trip</Text>
                 {recordingState == RecordingState.RECORDING && (
-                  <FontAwesome name="pause" size={24} color="white" />
+                  <Text style={{ ...styles.minorText, color: "#22A900" }}>
+                    Recording
+                  </Text>
                 )}
                 {recordingState == RecordingState.PAUSED && (
-                  <FontAwesome5 name="play" size={24} color="white" />
+                  <Text style={{ ...styles.minorText, color: "#D9D9D9" }}>
+                    Paused
+                  </Text>
                 )}
-              </Pressable>
+              </View>
+              <View style={styles.timerControlContainer}>
+                <Text style={styles.mainText}>
+                  {getFormatedTimeFromMilliSeconds(time)}
+                </Text>
 
-              <Pressable onPress={stopTrip}>
-                <FontAwesome name="stop-circle-o" size={35} color="red" />
+                <Pressable onPress={togglePauseResumeTrip}>
+                  {recordingState == RecordingState.RECORDING && (
+                    <FontAwesome name="pause" size={24} color="white" />
+                  )}
+                  {recordingState == RecordingState.PAUSED && (
+                    <FontAwesome5 name="play" size={24} color="white" />
+                  )}
+                </Pressable>
+
+                <Pressable onPress={stopTrip}>
+                  <FontAwesome name="stop-circle-o" size={35} color="red" />
+                </Pressable>
+              </View>
+            </View>
+
+            <View style={styles.addSegmentContainer}>
+              <DropDownPicker
+                containerStyle={styles.dropdownRecording}
+                labelStyle={styles.dropdownText}
+                open={open}
+                value={segmentType}
+                items={routeSegmentTypeOptions}
+                setOpen={setOpen}
+                setValue={setSegmentType}
+                setItems={setRouteSegmentTypeOptions}
+              />
+
+              <Pressable
+                style={({ pressed }: { pressed: boolean }) => {
+                  if (!pressed) return styles.addNewSegmentButton;
+
+                  return {
+                    ...styles.addNewSegmentButton,
+                    backgroundColor: "black",
+                  };
+                }}
+                onPress={addNewRouteSegment}
+              >
+                <Text style={styles.mainTextGreen}>ADD NEW TRIP SEGMENT</Text>
               </Pressable>
             </View>
           </>
         )
       }
-    </Pressable>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   tripRecorderContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     width: "95%",
-    height: 60,
     justifyContent: "flex-start",
     alignItems: "center",
     margin: 20,
     borderRadius: 20,
-    padding: 10,
+    flexWrap: "wrap",
   },
 
   mainText: {
     fontFamily: "Montserrat_600SemiBold",
     fontSize: 16,
     color: "white",
+    alignSelf: "center",
+  },
+
+  mainTextGreen: {
+    fontFamily: "Montserrat_600SemiBold",
+    fontSize: 14,
+    alignSelf: "center",
+    color: "#22A900",
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
+
+  startTripContainer: {
+    backgroundColor: "#2F2F2F",
+    width: "100%",
+    padding: 15,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderTopWidth: 15,
+    borderBottomColor: "black",
   },
 
   minorText: {
@@ -173,5 +284,60 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
+  },
+
+  dropdownNotRecording: {
+    padding: 20,
+    borderWidth: 0,
+    alignSelf: "center",
+    width: "90%",
+    marginTop: 15,
+  },
+
+  dropdownText: {
+    fontSize: 12,
+    fontFamily: "Montserrat_700Bold",
+  },
+
+  textInput: {
+    margin: 10,
+    padding: 10,
+    width: "90%",
+    fontFamily: "Montserrat_700Bold",
+    backgroundColor: "white",
+    fontSize: 12,
+    borderRadius: 10,
+  },
+
+  recordingContainer: {
+    flexDirection: "row",
+    width: "100%",
+    paddingVertical: 15,
+  },
+
+  addSegmentContainer: {
+    flexDirection: "row",
+    width: "100%",
+    padding: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  dropdownRecording: {
+    padding: 10,
+    borderWidth: 0,
+    flexDirection: "row",
+    alignSelf: "center",
+    justifyContent: "center",
+    flex: 1,
+  },
+
+  addNewSegmentButton: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 5,
+    borderRadius: 10,
+    flex: 1,
+    backgroundColor: "#2F2F2F",
   },
 });
