@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { getFormatedTimeFromMilliSeconds } from "../../../utils/TimeUtil";
-import { RouteRecordingState, SharedScreenResources } from "../../../types";
+import { RouteRecordingState } from "../../../types";
 import DropDownPicker from "react-native-dropdown-picker";
 import { TripRecorderSubcomponentParams } from "../models/NonRecordingTripRecorderParams";
 

@@ -3,25 +3,11 @@
  * File: Trip Recorder
  * Purpose: Exports the trip recorder component
  */
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  TextInput,
-  TouchableHighlight,
-} from "react-native";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  convertUnixTimestampToUTCTime,
-  getFormatedTimeFromMilliSeconds,
-} from "../../utils/TimeUtil";
+import { View, StyleSheet } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
 import { RouteRecordingState, SharedScreenResources } from "../../types";
 import { TripController } from "../../controllers/trip-contoller/TripController";
-import Route from "../../controllers/database/models/Route";
 import { RouteSegmentType } from "../../controllers/database/models/RouteSegment";
-import DropDownPicker from "react-native-dropdown-picker";
 import NonRecordingTripRecorder from "./subcomponents/NonRecordingTripRecorder";
 import { RouteSegmentDropdownOption } from "./models/RouteSegmentOption";
 import RecordingTripRecorder from "./subcomponents/RecordingTripRecorder";
