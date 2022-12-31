@@ -5,7 +5,7 @@ import {
   Pressable,
   Text,
 } from "react-native";
-import { RecordingState, SharedScreenResources } from "../types";
+import { RouteRecordingState, SharedScreenResources } from "../types";
 import { StyleSheet } from "react-native";
 import MetricLiveView, {
   NUMBER_OF_VISIBLE_METRIC_POINTS,
@@ -121,7 +121,7 @@ export default ({
   const saveMeasurementPackets = (
     measurementPacketAnnotation: string
   ): Promise<void> => {
-    if (recordingState == RecordingState.RECORDING) {
+    if (recordingState == RouteRecordingState.RECORDING) {
       return TripController.getTripController().then(
         (tripController: TripController) => {
           console.log("annotationInput: ", measurementPacketAnnotation);

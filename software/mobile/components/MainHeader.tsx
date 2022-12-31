@@ -7,7 +7,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, Text, StyleSheet, Dimensions, Pressable } from "react-native";
 import { APP_WIDTH } from "../constants/ViewConstants";
-import { MainStackParamList, RecordingState } from "../types";
+import { MainStackParamList, RouteRecordingState } from "../types";
 import AppIcon from "./AppIcon";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -17,7 +17,7 @@ export default ({
   navigation,
 }: {
   navigation: any;
-  recordingState: RecordingState;
+  recordingState: RouteRecordingState;
 }) => {
   const openDrawer = (): void => {
     navigation.openDrawer();
@@ -31,7 +31,7 @@ export default ({
       >
         <AppIcon size={30} />
         <Text style={style.appNameText}>TCA</Text>
-        {recordingState == RecordingState.RECORDING && (
+        {recordingState == RouteRecordingState.RECORDING && (
           <MaterialCommunityIcons name="record-rec" size={40} color="#22A900" />
         )}
       </Pressable>

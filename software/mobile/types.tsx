@@ -33,7 +33,7 @@ export type TripsStackParamList = {
 /**
  * The route recording state
  */
-export enum RecordingState {
+export enum RouteRecordingState {
   NOT_RECORDING,
   RECORDING,
   PAUSED,
@@ -43,8 +43,8 @@ export enum RecordingState {
  * Resources that can be shared across screens
  */
 export type SharedScreenResources = {
-  recordingState: RecordingState;
-  setRecordingState: React.Dispatch<React.SetStateAction<RecordingState>>;
+  recordingState: RouteRecordingState;
+  setRecordingState: React.Dispatch<React.SetStateAction<RouteRecordingState>>;
   measurementPacket: MeasurementPacket;
   setMeasurementPacket: React.Dispatch<React.SetStateAction<MeasurementPacket>>;
 };

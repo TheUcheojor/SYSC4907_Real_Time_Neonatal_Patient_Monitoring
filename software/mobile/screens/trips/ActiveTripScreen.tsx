@@ -5,7 +5,7 @@
  */
 
 import { View, Text, StyleSheet } from "react-native";
-import TripRecorder from "../../components/TripRecorder";
+import TripRecorder from "../../components/trip-recorder/TripRecorder";
 import { SharedScreenResources } from "../../types";
 export default ({
   recordingState,

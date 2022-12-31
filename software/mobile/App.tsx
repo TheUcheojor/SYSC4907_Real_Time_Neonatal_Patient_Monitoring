@@ -20,7 +20,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { DatabaseController } from "./controllers/database/DatabaseController";
 import AppIcon from "./components/AppIcon";
 import SensorPackageController from "./controllers/sensor-package/SensorPackage";
-import { RecordingState } from "./types";
+import { RouteRecordingState } from "./types";
 import { generateRandomMeasurementPacket } from "./utils/RandomUtil";
 import MeasurementPacket from "./controllers/sensor-package/models/MeasurementPacket";
 
@@ -31,8 +31,8 @@ export default function App() {
   const [isDependenciesLoaded, setDependenciesLoaded] =
     useState<boolean>(false);
 
-  const [recordingState, setRecordingState] = useState<RecordingState>(
-    RecordingState.NOT_RECORDING
+  const [recordingState, setRecordingState] = useState<RouteRecordingState>(
+    RouteRecordingState.NOT_RECORDING
   );
   const [measurementPacket, setMeasurementPacket] = useState<MeasurementPacket>(
     generateRandomMeasurementPacket()
