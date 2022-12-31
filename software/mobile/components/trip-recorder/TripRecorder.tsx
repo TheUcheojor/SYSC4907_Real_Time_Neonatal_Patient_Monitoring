@@ -114,10 +114,17 @@ export default ({
     );
   };
 
+  /**
+   * Update the currentPatientId reference with the most recent value
+   * @param currentPatientId
+   */
   const updatePatientId = (currentPatientId: string) => {
     patientId.current = currentPatientId;
   };
 
+  /**
+   * Start a trip, recording incoming measurement packets
+   */
   const startTrip = (): void => {
     TripController.getTripController().then(
       (tripController: TripController) => {
