@@ -60,11 +60,19 @@ con.connect(function(err) {
 //     if (err) throw err;
 //     console.log("Result: " + result);
 //   });
-  con.query("CREATE TABLE Routes (route_id VARCHAR(16), owner_id VARCHAR(16), organization_id VARCHAR(16), total_vibration_exposure MEDIUMINT, avg_temperature TINYINT, avg_noise TINYINT, avg_vibration TINYINT, avg_velocity SMALLINT, avg_pressure MEDIUMINT)", function (err, result) {
+  con.query("DROP TABLE IF EXISTS Routes", function (err, result) {
     if (err) throw err;
     console.log("Result: " + result);
   });
-  con.query("CREATE TABLE RouteMeasurementDataPoints (route_data_point_id VARCHAR(16), segment_id VARCHAR(16), time TIMESTAMP, velocity_kmps MEDIUMINT, noise_db TINYINT, vibration FLOAT(5,4), temperature_celsius TINYINT, pressure_pascals MEDIUMINT, annotation TEXT, latitude FLOAT(9,5), longitude FLOAT(9,5))", function (err, result) {
+  con.query("DROP TABLE IF EXISTS RouteMeasurementDataPoints", function (err, result) {
+    if (err) throw err;
+    console.log("Result: " + result);
+  });
+  con.query("CREATE TABLE Routes (route_id INT AUTO_INCREMENT PRIMARY KEY, owner_id VARCHAR(16), organization_id VARCHAR(16), total_vibration_exposure MEDIUMINT, avg_temperature TINYINT, avg_noise TINYINT, avg_vibration TINYINT, avg_velocity SMALLINT, avg_pressure MEDIUMINT)", function (err, result) {
+    if (err) throw err;
+    console.log("Result: " + result);
+  });
+  con.query("CREATE TABLE RouteMeasurementDataPoints (route_data_point_id INT AUTO_INCREMENT PRIMARY KEY, segment_id VARCHAR(16), time TIMESTAMP, velocity_kmps MEDIUMINT, noise_db TINYINT, vibration FLOAT(5,4), temperature_celsius TINYINT, pressure_pascals MEDIUMINT, annotation TEXT, latitude FLOAT(9,5), longitude FLOAT(9,5))", function (err, result) {
     if (err) throw err;
     console.log("Result: " + result);
   });
