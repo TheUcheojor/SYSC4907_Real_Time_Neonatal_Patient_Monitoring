@@ -5,9 +5,9 @@ import {
   GAUGE_MAX_DEFAULT,
   LOW_TO_MODERATE_THRESHOLD_DEFAULT,
   MODERATE_TO_HIGH_THRESHOLD_DEFAULT,
-} from "../components/Gauge/constants";
-import Gauge from "../components/Gauge/Gauge";
-import { getRandomInt } from "../components/Gauge/util";
+} from "../components/gauge/constants";
+import Gauge from "../components/gauge/Gauge";
+import { getRandomInt } from "../components/gauge/util";
 import { SharedScreenResources } from "../types";
 
 /**
@@ -16,13 +16,16 @@ import { SharedScreenResources } from "../types";
 export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
   const metricLevel: React.MutableRefObject<number> = useRef<number>(0);
 
+  /**
+   *  The following constants may be used now but down the line, we can provide users functionality
+   *  that allows for the modification of gauge settings
+   * */
   const [lowModerateThreshold, setLowModerateThreshold] = useState<number>(
     LOW_TO_MODERATE_THRESHOLD_DEFAULT
   );
   const [moderateHighThreshold, setModerateHighThreshold] = useState<number>(
     MODERATE_TO_HIGH_THRESHOLD_DEFAULT
   );
-
   const [gaugeMax, setGaugeMax] = useState<number>(GAUGE_MAX_DEFAULT);
 
   useEffect(() => {
@@ -38,13 +41,6 @@ export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
         gaugeMax={gaugeMax}
       />
       <Text style={styles.gaugeTitle}>VIBRATION</Text>
-
-      {/* <Button
-        title="DEMO"
-        onPress={() => {
-          setMetricLevel(getRandomInt(0, 180));
-        }}
-      /> */}
     </View>
   );
 };
