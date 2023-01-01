@@ -6,7 +6,7 @@
 import { View, StyleSheet } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { RouteRecordingState, SharedScreenResources } from "../../types";
-import { TripService } from "../../services/trips/TripService";
+import { TripRecordingService } from "../../services/trips/TripRecordingService";
 import { RouteSegmentType } from "../../services/database/models/RouteSegment";
 import NonRecordingTripRecorder from "./subcomponents/NonRecordingTripRecorder";
 import { RouteSegmentDropdownOption } from "./models/RouteSegmentOption";
@@ -68,11 +68,13 @@ export default ({
    * Stop the current trip
    */
   const stopTrip = (): void => {
-    TripService.getTripController().then((tripController: TripService) => {
-      tripController.endRoute().then(() => {
-        setRecordingState(RouteRecordingState.NOT_RECORDING);
-      });
-    });
+    TripRecordingService.getTripController().then(
+      (tripController: TripRecordingService) => {
+        tripController.endRoute().then(() => {
+          setRecordingState(RouteRecordingState.NOT_RECORDING);
+        });
+      }
+    );
   };
 
   /**
@@ -90,10 +92,12 @@ export default ({
    * Add a new route segment to the current
    */
   const addNewRouteSegment = (): void => {
-    TripService.getTripController().then((tripController: TripService) => {
-      tripController.startNewRouteSegment(segmentType);
-      console.log(" addNewRouteSegment: ", segmentType);
-    });
+    TripRecordingService.getTripController().then(
+      (tripController: TripRecordingService) => {
+        tripController.startNewRouteSegment(segmentType);
+        console.log(" addNewRouteSegment: ", segmentType);
+      }
+    );
   };
 
   /**
@@ -108,10 +112,12 @@ export default ({
    * Start a trip, recording incoming measurement packets
    */
   const startTrip = (): void => {
-    TripService.getTripController().then((tripController: TripService) => {
-      tripController.startRoute(patientId.current, segmentType);
-      setRecordingState(RouteRecordingState.RECORDING);
-    });
+    TripRecordingService.getTripController().then(
+      (tripController: TripRecordingService) => {
+        tripController.startRoute(patientId.current, segmentType);
+        setRecordingState(RouteRecordingState.RECORDING);
+      }
+    );
   };
 
   return (

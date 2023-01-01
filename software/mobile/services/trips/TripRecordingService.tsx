@@ -1,10 +1,10 @@
 /**
  * Author: Paul Okenne
- * File: TripController
+ * File: TripRecordingService
  * Purpose: Exports the TripController class which manages the trips
  */
 
-import { DatabaseService } from "../database/DatabaseService.tsx";
+import { DatabaseService } from "../database/DatabaseService";
 import TripRoute from "../database/models/Route";
 import { ResultSet } from "react-native-sqlite-storage";
 import RouteSegment, {
@@ -14,7 +14,7 @@ import { convertUnixTimestampToUTCTime } from "../../utils/TimeUtil";
 import MeasurementPacket from "../sensor-package/models/MeasurementPacket";
 import RouteMeasurementDataPoint from "../database/models/RouteMeasurementDataPoint";
 
-export class TripService {
+export class TripRecordingService {
   /**
    * The singleton database controller
    */
@@ -23,7 +23,7 @@ export class TripService {
   /**
    * The singleton trip service
    */
-  private static tripService: TripService | undefined;
+  private static tripRecordingService: TripRecordingService | undefined;
 
   /**
    * The current route
@@ -56,15 +56,15 @@ export class TripService {
    * Return the trip controller
    * @returns the trip controller
    */
-  public static async getTripController(): Promise<TripService> {
-    if (TripService.tripService == undefined) {
-      TripService.databaseService =
+  public static async getTripController(): Promise<TripRecordingService> {
+    if (TripRecordingService.tripRecordingService == undefined) {
+      TripRecordingService.databaseService =
         await DatabaseService.getConfiguredDatabaseController();
 
-      TripService.tripService = new TripService();
+      TripRecordingService.tripRecordingService = new TripRecordingService();
     }
 
-    return TripService.tripService;
+    return TripRecordingService.tripRecordingService;
   }
 
   /**
@@ -82,7 +82,7 @@ export class TripService {
     this.currentRoute.startTime = convertUnixTimestampToUTCTime(Date.now());
 
     const startRouteResults: [ResultSet] | undefined =
-      await TripService.databaseService?.saveTrip(this.currentRoute);
+      await TripRecordingService.databaseService?.saveTrip(this.currentRoute);
 
     if (startRouteResults == undefined) return;
 
@@ -122,7 +122,9 @@ export class TripService {
     // Close the current route
     this.currentRoute.endTime = endTime;
     const updateRouteResults: [ResultSet] | undefined =
-      await TripService.databaseService?.updateRoute(this.currentRoute);
+      await TripRecordingService.databaseService?.updateRoute(
+        this.currentRoute
+      );
   }
 
   /**
@@ -142,7 +144,7 @@ export class TripService {
       annotation: annotation,
     };
     const results: [ResultSet] | undefined =
-      await TripService.databaseService?.saveRouteMeasurementDataPoint(
+      await TripRecordingService.databaseService?.saveRouteMeasurementDataPoint(
         routeMeasurementDataPoint
       );
 
@@ -157,7 +159,7 @@ export class TripService {
     this.currentRouteSegment.endTime = endTime;
 
     const updateRouteSegmentResults: [ResultSet] | undefined =
-      await TripService.databaseService?.updateRouteSegment(
+      await TripRecordingService.databaseService?.updateRouteSegment(
         this.currentRouteSegment
       );
   }
@@ -178,7 +180,7 @@ export class TripService {
     this.currentRouteSegment.startTime = this.currentRoute.startTime;
 
     const saveRouteSegmentResults: [ResultSet] | undefined =
-      await TripService.databaseService?.saveRouteSegment(
+      await TripRecordingService.databaseService?.saveRouteSegment(
         this.currentRoute,
         this.currentRouteSegment
       );

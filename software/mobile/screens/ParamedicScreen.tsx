@@ -16,7 +16,7 @@ import { circularArrayPush } from "../utils/ArrayUtil";
 
 import { DatabaseService } from "../services/database/DatabaseService.tsx";
 import { Subscription } from "react-native-ble-plx";
-import { TripService } from "../services/trips/TripService";
+import { TripRecordingService } from "../services/trips/TripRecordingService";
 
 /**
  * View Constants
@@ -122,8 +122,8 @@ export default ({
     measurementPacketAnnotation: string
   ): Promise<void> => {
     if (recordingState == RouteRecordingState.RECORDING) {
-      return TripService.getTripController().then(
-        (tripController: TripService) => {
+      return TripRecordingService.getTripController().then(
+        (tripController: TripRecordingService) => {
           console.log("annotationInput: ", measurementPacketAnnotation);
 
           return tripController.saveMeasurementPacket(
