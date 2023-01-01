@@ -1,5 +1,4 @@
 {
-<<<<<<< Updated upstream
   "name": "backend",
   "version": "1.0.0",
   "description": "",
@@ -11,10 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.18.2"
-=======
-  "dependencies": {
+    "express": "^4.18.2",
     "mysql": "^2.18.1"
->>>>>>> Stashed changes
   }
 }
