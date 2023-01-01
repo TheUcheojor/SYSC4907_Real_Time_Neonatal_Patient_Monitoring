@@ -1,13 +1,12 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import {
   GAUGE_MAX_DEFAULT,
   LOW_TO_MODERATE_THRESHOLD_DEFAULT,
   MODERATE_TO_HIGH_THRESHOLD_DEFAULT,
 } from "../components/gauge/constants";
 import Gauge from "../components/gauge/Gauge";
-import { getRandomInt } from "../components/gauge/util";
 import { SharedScreenResources } from "../types";
 
 /**
