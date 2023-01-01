@@ -10,23 +10,23 @@ import {
   SQLiteDatabase,
   ResultSet,
 } from "react-native-sqlite-storage";
-import Route from "./models/Route";
+import TripRoute from "./models/Route";
 import RouteSegment from "./models/RouteSegment";
 import RouteMeasurementDataPoint from "./models/RouteMeasurementDataPoint";
 
 //Enable promises for the sqlite databases
 enablePromise(true);
 
-export class DatabaseController {
+export class DatabaseService {
   /**
    * The database
    */
   private database!: SQLiteDatabase;
 
   /**
-   * The dataBaseController instance, following a singleton model
+   * The dataBaseSevice instance, following a singleton model
    */
-  private static dataBaseController: DatabaseController;
+  private static dataBaseService: DatabaseService;
 
   /**
    * The database name
@@ -58,14 +58,14 @@ export class DatabaseController {
    * Returns a configurated database controller
    * @returns a configurated database controller
    */
-  public static async getConfiguredDatabaseController(): Promise<DatabaseController> {
-    if (DatabaseController.dataBaseController == undefined) {
-      DatabaseController.dataBaseController = new DatabaseController();
+  public static async getConfiguredDatabaseController(): Promise<DatabaseService> {
+    if (DatabaseService.dataBaseService == undefined) {
+      DatabaseService.dataBaseService = new DatabaseService();
 
-      await DatabaseController.dataBaseController.setUpDatabase();
+      await DatabaseService.dataBaseService.setUpDatabase();
     }
 
-    return DatabaseController.dataBaseController;
+    return DatabaseService.dataBaseService;
   }
 
   /**
@@ -74,25 +74,25 @@ export class DatabaseController {
   private async setUpDatabase() {
     // Create the database
     this.database = await openDatabase({
-      name: DatabaseController.DATABASE_NAME,
+      name: DatabaseService.DATABASE_NAME,
       location: "default",
     });
 
     // For clearing the database
-    // await this.database.executeSql(
-    //   `DROP TABLE IF EXISTS ${DatabaseController.ROUTES_TABLE};`
-    // );
-    // await this.database.executeSql(
-    //   `DROP TABLE IF EXISTS ${DatabaseController.ROUTE_SEGMENTS_TABLE};`
-    // );
-    // await this.database.executeSql(
-    //   `DROP TABLE IF EXISTS ${DatabaseController.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
-    // );
+    await this.database.executeSql(
+      `DROP TABLE IF EXISTS ${DatabaseService.ROUTES_TABLE};`
+    );
+    await this.database.executeSql(
+      `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE};`
+    );
+    await this.database.executeSql(
+      `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
+    );
 
     // Prepare and execute table-creation queries
-    const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseController.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text );`;
-    const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseController.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text );`;
-    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseController.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentid integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
+    const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseService.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text );`;
+    const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text );`;
+    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentid integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
 
     console.log(createRoutesTableQuery);
     await this.database.executeSql(createRoutesTableQuery);
@@ -105,8 +105,8 @@ export class DatabaseController {
    * @param trip the trip to be saved
    * @returns  the results
    */
-  public async saveTrip(trip: Route): Promise<[ResultSet]> {
-    const saveTripQuery = `INSERT INTO ${DatabaseController.ROUTES_TABLE} (patientId, startTime, endTime) VALUES ('${trip.patientId}', '${trip.startTime}',  '${trip.endTime}' ) `;
+  public async saveTrip(trip: TripRoute): Promise<[ResultSet]> {
+    const saveTripQuery = `INSERT INTO ${DatabaseService.ROUTES_TABLE} (patientId, startTime, endTime) VALUES ('${trip.patientId}', '${trip.startTime}',  '${trip.endTime}' ) `;
 
     // const saveTripQuery = "SELECT * FROM routes";
 
@@ -120,11 +120,11 @@ export class DatabaseController {
    * @param trip the trip to be updated
    * @returns  the results
    */
-  public async updateRoute(trip: Route): Promise<[ResultSet]> {
+  public async updateRoute(trip: TripRoute): Promise<[ResultSet]> {
     // if (trip.routeId == undefined)
     //   return { message: "Routeid is not defined!" } as DatabaseError;
 
-    const updateTripQuery: string = `UPDATE ${DatabaseController.ROUTES_TABLE} SET 
+    const updateTripQuery: string = `UPDATE ${DatabaseService.ROUTES_TABLE} SET 
     patientid='${trip.patientId}', 
     startTime='${trip.startTime}', 
     endTime='${trip.endTime}' 
@@ -137,28 +137,40 @@ export class DatabaseController {
    * Save the given route segement to the database
    * @param trip  the associated route
    * @param routeSegement the route segment
-   * @returns the route id
+   * @returns query
    */
   public async saveRouteSegment(
-    trip: Route,
+    trip: TripRoute,
     routeSegement: RouteSegment
   ): Promise<[ResultSet]> {
-    // if (trip.routeId == undefined)
-    //   return { message: "Routeid is not defined!" } as DatabaseError;
-
-    const saveRouteSegmentQuery: string = `INSERT INTO ${DatabaseController.ROUTE_SEGMENTS_TABLE} (routeId, segmentType, startTime, endTime) VALUES
+    const saveRouteSegmentQuery: string = `INSERT INTO ${DatabaseService.ROUTE_SEGMENTS_TABLE} (routeId, segmentType, startTime, endTime) VALUES
      ('${trip.routeId}', '${routeSegement.segmentType}', '${routeSegement.startTime}',  '${routeSegement.endTime}' ) `;
 
     return await this.database.executeSql(saveRouteSegmentQuery);
   }
 
   /**
+   * Save the given route segement to the database
+   * @param maxNumberOfFetchedRoutes  the max number of routes that can be fetched at a time
+   * @param fetchOffset  the offset from which the next trip routes will be fetched
+   * @returns the query result
+   */
+  public async getRoutes(
+    maxNumberOfFetchedRoutes: number,
+    fetchOffset: number
+  ): Promise<[ResultSet]> {
+    const getRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${maxNumberOfFetchedRoutes} OFFSET ${fetchOffset}`;
+
+    return await this.database.executeSql(getRoutesQuery);
+  }
+
+  /**
    * Update the given route segment
    * @param routeSegement the given route segment
-   * @returns the query response
+   * @returns the query result
    */
   public async updateRouteSegment(routeSegement: RouteSegment) {
-    const updateRouteSegmentQuery: string = `UPDATE ${DatabaseController.ROUTE_SEGMENTS_TABLE} SET 
+    const updateRouteSegmentQuery: string = `UPDATE ${DatabaseService.ROUTE_SEGMENTS_TABLE} SET 
     segmentType='${routeSegement.segmentType}', 
     startTime='${routeSegement.startTime}', 
     endTime='${routeSegement.endTime}' ,
@@ -177,7 +189,7 @@ export class DatabaseController {
     routeMeasurementDataPoint: RouteMeasurementDataPoint
   ) {
     const saveRouteMeasurementDataPointQuery = `INSERT INTO ${
-      DatabaseController.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
+      DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
     } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location) VALUES 
     ('${routeMeasurementDataPoint.routeSegmentId}',
     '${routeMeasurementDataPoint.routeId}',
@@ -201,7 +213,7 @@ export class DatabaseController {
   public async getRouteMeasurementDataPointsByRouteId(
     routeId: string
   ): Promise<RouteMeasurementDataPoint[]> {
-    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseController.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId='${routeId}' ) `;
+    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId='${routeId}' ) `;
 
     return await this.database
       .executeSql(getRouteMeasurementDataPointsByIdQuery)

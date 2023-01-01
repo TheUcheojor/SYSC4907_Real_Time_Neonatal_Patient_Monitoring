@@ -4,7 +4,7 @@
  * Purpose: Export random-generating helper functions
  */
 
-import MeasurementPacket from "../controllers/sensor-package/models/MeasurementPacket";
+import MeasurementPacket from "../services/sensor-package/models/MeasurementPacket";
 
 export function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;

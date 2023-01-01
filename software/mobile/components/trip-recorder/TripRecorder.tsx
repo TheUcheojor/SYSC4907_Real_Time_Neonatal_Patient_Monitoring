@@ -6,8 +6,8 @@
 import { View, StyleSheet } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { RouteRecordingState, SharedScreenResources } from "../../types";
-import { TripController } from "../../controllers/trip-contoller/TripController";
-import { RouteSegmentType } from "../../controllers/database/models/RouteSegment";
+import { TripService } from "../../services/trips/TripService";
+import { RouteSegmentType } from "../../services/database/models/RouteSegment";
 import NonRecordingTripRecorder from "./subcomponents/NonRecordingTripRecorder";
 import { RouteSegmentDropdownOption } from "./models/RouteSegmentOption";
 import RecordingTripRecorder from "./subcomponents/RecordingTripRecorder";
@@ -68,13 +68,11 @@ export default ({
    * Stop the current trip
    */
   const stopTrip = (): void => {
-    TripController.getTripController().then(
-      (tripController: TripController) => {
-        tripController.endRoute().then(() => {
-          setRecordingState(RouteRecordingState.NOT_RECORDING);
-        });
-      }
-    );
+    TripService.getTripController().then((tripController: TripService) => {
+      tripController.endRoute().then(() => {
+        setRecordingState(RouteRecordingState.NOT_RECORDING);
+      });
+    });
   };
 
   /**
@@ -92,12 +90,10 @@ export default ({
    * Add a new route segment to the current
    */
   const addNewRouteSegment = (): void => {
-    TripController.getTripController().then(
-      (tripController: TripController) => {
-        tripController.startNewRouteSegment(segmentType);
-        console.log(" addNewRouteSegment: ", segmentType);
-      }
-    );
+    TripService.getTripController().then((tripController: TripService) => {
+      tripController.startNewRouteSegment(segmentType);
+      console.log(" addNewRouteSegment: ", segmentType);
+    });
   };
 
   /**
@@ -112,12 +108,10 @@ export default ({
    * Start a trip, recording incoming measurement packets
    */
   const startTrip = (): void => {
-    TripController.getTripController().then(
-      (tripController: TripController) => {
-        tripController.startRoute(patientId.current, segmentType);
-        setRecordingState(RouteRecordingState.RECORDING);
-      }
-    );
+    TripService.getTripController().then((tripController: TripService) => {
+      tripController.startRoute(patientId.current, segmentType);
+      setRecordingState(RouteRecordingState.RECORDING);
+    });
   };
 
   return (

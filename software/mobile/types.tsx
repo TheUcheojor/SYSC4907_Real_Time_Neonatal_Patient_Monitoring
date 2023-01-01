@@ -1,5 +1,5 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
-import MeasurementPacket from "./controllers/sensor-package/models/MeasurementPacket";
+import MeasurementPacket from "./services/sensor-package/models/MeasurementPacket";
 
 /**
  * Route mapping for high level screens

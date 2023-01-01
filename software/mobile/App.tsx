@@ -17,12 +17,12 @@ import {
 
 import { LogBox } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { DatabaseController } from "./controllers/database/DatabaseController";
+import { DatabaseService } from "./services/database/DatabaseService.tsx";
 import AppIcon from "./components/AppIcon";
-import SensorPackageController from "./controllers/sensor-package/SensorPackage";
+import SensorPackageController from "./services/sensor-package/SensorPackageController";
 import { RouteRecordingState } from "./types";
 import { generateRandomMeasurementPacket } from "./utils/RandomUtil";
-import MeasurementPacket from "./controllers/sensor-package/models/MeasurementPacket";
+import MeasurementPacket from "./services/sensor-package/models/MeasurementPacket";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -40,7 +40,7 @@ export default function App() {
 
   //Load dependencies
   const loadDependencies = useCallback(async () => {
-    await DatabaseController.getConfiguredDatabaseController();
+    await DatabaseService.getConfiguredDatabaseController();
     await SensorPackageController.requestForPermissions();
     setDependenciesLoaded(true);
   }, []);

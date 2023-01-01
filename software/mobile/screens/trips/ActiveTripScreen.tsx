@@ -5,6 +5,7 @@
  */
 
 import { View, Text, StyleSheet } from "react-native";
+import LocalTrips from "../../components/LocalTrips";
 import TripRecorder from "../../components/trip-recorder/TripRecorder";
 import { SharedScreenResources } from "../../types";
 export default ({
@@ -21,6 +22,8 @@ export default ({
         measurementPacket={measurementPacket}
         setMeasurementPacket={setMeasurementPacket}
       />
+
+      <LocalTrips />
     </View>
   );
 };

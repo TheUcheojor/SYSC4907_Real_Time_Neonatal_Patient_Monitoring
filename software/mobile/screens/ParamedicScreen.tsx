@@ -11,12 +11,12 @@ import MetricLiveView, {
   NUMBER_OF_VISIBLE_METRIC_POINTS,
 } from "../components/MetricLiveView";
 import { useCallback, useEffect, useRef, useState } from "react";
-import SensorPackageController from "../controllers/sensor-package/SensorPackage";
+import SensorPackageController from "../services/sensor-package/SensorPackageController";
 import { circularArrayPush } from "../utils/ArrayUtil";
 
-import { DatabaseController } from "../controllers/database/DatabaseController";
+import { DatabaseService } from "../services/database/DatabaseService.tsx";
 import { Subscription } from "react-native-ble-plx";
-import { TripController } from "../controllers/trip-contoller/TripController";
+import { TripService } from "../services/trips/TripService";
 
 /**
  * View Constants
@@ -122,8 +122,8 @@ export default ({
     measurementPacketAnnotation: string
   ): Promise<void> => {
     if (recordingState == RouteRecordingState.RECORDING) {
-      return TripController.getTripController().then(
-        (tripController: TripController) => {
+      return TripService.getTripController().then(
+        (tripController: TripService) => {
           console.log("annotationInput: ", measurementPacketAnnotation);
 
           return tripController.saveMeasurementPacket(

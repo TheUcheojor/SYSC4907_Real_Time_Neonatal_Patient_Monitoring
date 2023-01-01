@@ -1,10 +1,10 @@
 /**
  * Author: Paul Okenne
- * File: Route
+ * File: TripRoute
  * Purpose: Exports the route database schema model
  */
 
-export default interface Route {
+export default interface TripRoute {
   /**
    * The route id
    */
