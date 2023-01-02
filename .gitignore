@@ -2,5 +2,5 @@
 /software/test-2
 
 .vscode/settings.json
-
+.idea
 *.lock
