@@ -106,6 +106,7 @@ export default ({
    */
   const updatePatientId = (currentPatientId: string) => {
     patientId.current = currentPatientId;
+    console.log("updatePatientId: ", patientId.current);
   };
 
   /**
@@ -114,6 +115,7 @@ export default ({
   const startTrip = (): void => {
     TripRecordingService.getTripController().then(
       (tripController: TripRecordingService) => {
+        console.log("startTrip: ", patientId.current);
         tripController.startRoute(patientId.current, segmentType);
         setRecordingState(RouteRecordingState.RECORDING);
       }
@@ -183,5 +185,6 @@ const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 20,
     flexWrap: "wrap",
+    zIndex: 2,
   },
 });

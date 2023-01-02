@@ -106,11 +106,10 @@ export class DatabaseService {
    * @returns  the results
    */
   public async saveTrip(trip: TripRoute): Promise<[ResultSet]> {
+    console.log("saveTrip: ", trip);
     const saveTripQuery = `INSERT INTO ${DatabaseService.ROUTES_TABLE} (patientId, startTime, endTime) VALUES ('${trip.patientId}', '${trip.startTime}',  '${trip.endTime}' ) `;
 
-    // const saveTripQuery = "SELECT * FROM routes";
-
-    // console.log(saveTripQuery);
+    console.log("saveTripQuery: ", saveTripQuery);
 
     return await this.database.executeSql(saveTripQuery);
   }
@@ -121,14 +120,13 @@ export class DatabaseService {
    * @returns  the results
    */
   public async updateRoute(trip: TripRoute): Promise<[ResultSet]> {
-    // if (trip.routeId == undefined)
-    //   return { message: "Routeid is not defined!" } as DatabaseError;
-
     const updateTripQuery: string = `UPDATE ${DatabaseService.ROUTES_TABLE} SET 
     patientid='${trip.patientId}', 
     startTime='${trip.startTime}', 
     endTime='${trip.endTime}' 
     WHERE routeid = ${trip.routeId}`;
+
+    console.log("updateTripQuery: ", updateTripQuery);
 
     return await this.database.executeSql(updateTripQuery);
   }
@@ -146,22 +144,35 @@ export class DatabaseService {
     const saveRouteSegmentQuery: string = `INSERT INTO ${DatabaseService.ROUTE_SEGMENTS_TABLE} (routeId, segmentType, startTime, endTime) VALUES
      ('${trip.routeId}', '${routeSegement.segmentType}', '${routeSegement.startTime}',  '${routeSegement.endTime}' ) `;
 
+    console.log("saveRouteSegmentQuery: ", saveRouteSegmentQuery);
+
     return await this.database.executeSql(saveRouteSegmentQuery);
   }
 
   /**
-   * Save the given route segement to the database
+   * Returns the query results for fetching routes with restrictions
    * @param maxNumberOfFetchedRoutes  the max number of routes that can be fetched at a time
    * @param fetchOffset  the offset from which the next trip routes will be fetched
    * @returns the query result
    */
-  public async getRoutes(
+  public async getRoutesWithRestrictions(
     maxNumberOfFetchedRoutes: number,
     fetchOffset: number
   ): Promise<[ResultSet]> {
-    const getRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${maxNumberOfFetchedRoutes} OFFSET ${fetchOffset}`;
+    const getRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${maxNumberOfFetchedRoutes} OFFSET ${fetchOffset};`;
 
+    console.log("getRoutesQuery: ", getRoutesQuery);
     return await this.database.executeSql(getRoutesQuery);
+  }
+
+  /**
+   * Returns the query results for fetching all routes
+   * @returns the query results
+   */
+  public async getAllRoutes(): Promise<[ResultSet]> {
+    const getAllRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC;`;
+
+    return await this.database.executeSql(getAllRoutesQuery);
   }
 
   /**

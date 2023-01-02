@@ -59,7 +59,6 @@ export default ({
 
       <View style={styles.addSegmentContainer}>
         <DropDownPicker
-          zIndex={3000}
           containerStyle={styles.dropdownRecording}
           labelStyle={styles.dropdownText}
           open={dropDownOpen}

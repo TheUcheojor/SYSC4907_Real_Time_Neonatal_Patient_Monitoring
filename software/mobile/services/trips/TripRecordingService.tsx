@@ -87,11 +87,13 @@ export class TripRecordingService {
     if (startRouteResults == undefined) return;
 
     startRouteResults.forEach((result) => {
-      console.log("startRoute insertRoute: ", result);
+      // console.log("startRoute insertRoute: ", result);
 
       //Update the current route id
       this.currentRoute.routeId = result.insertId;
     });
+
+    // console.log("startRoute: ", this.currentRoute);
 
     //configure the associated route segment
     await this.configurureNewRouteSegment(segmentType);
@@ -119,6 +121,7 @@ export class TripRecordingService {
     // Close the current route segment
     await this.closeRouteSegment(convertUnixTimestampToUTCTime(Date.now()));
 
+    // console.log("endRoute: ", this.currentRoute);
     // Close the current route
     this.currentRoute.endTime = endTime;
     const updateRouteResults: [ResultSet] | undefined =
@@ -148,7 +151,7 @@ export class TripRecordingService {
         routeMeasurementDataPoint
       );
 
-    console.log("saveMeasurementPacket: ", results);
+    // console.log("saveMeasurementPacket: ", results);
   }
 
   /**
@@ -186,7 +189,7 @@ export class TripRecordingService {
       );
 
     saveRouteSegmentResults?.forEach((result) => {
-      console.log("configurureNewRouteSegment insertSegment: ", result);
+      // console.log("configurureNewRouteSegment insertSegment: ", result);
 
       this.currentRouteSegment.segmentId = result.insertId;
     });
