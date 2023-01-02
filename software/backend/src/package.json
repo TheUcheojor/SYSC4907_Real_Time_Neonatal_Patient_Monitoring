@@ -2,14 +2,15 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "app.ts",
+  "main": "App.ts",
   "scripts": {
-    "serve": "nodemon app.ts",
+    "serve": "nodemon App.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "express": "^4.18.2"
   },

@@ -1,11 +1,11 @@
 export default interface RouteMeasurementDataPoint {
-    routeDataPointId: string,
-    segmentId: string,
-    time: number,
-    velocity: number,
-    noise: number,
+    time_s: number,
+    velocity_kmps: number,
+    noise_db: number,
     vibration: number,
-    temperature: number,
+    temperature_celsius: number,
+    pressure_pascals: number,
     annotation: string,
-    coordinates: Array<number>
+    latitude: number,
+    longitude: number
 }
