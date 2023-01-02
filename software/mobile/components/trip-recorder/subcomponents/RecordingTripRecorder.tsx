@@ -18,6 +18,8 @@ export default ({
   stopTrip,
   addNewRouteSegment,
 }: TripRecorderSubcomponentParams) => {
+  const onPressedButtonBackgroundColour: string = "black";
+
   return (
     <>
       <View style={styles.recordingContainer}>
@@ -56,6 +58,7 @@ export default ({
 
       <View style={styles.addSegmentContainer}>
         <DropDownPicker
+          zIndex={3000}
           containerStyle={styles.dropdownRecording}
           labelStyle={styles.dropdownText}
           open={dropDownOpen}
@@ -67,14 +70,13 @@ export default ({
         />
 
         <Pressable
-          style={({ pressed }: { pressed: boolean }) => {
-            if (!pressed) return styles.addNewSegmentButton;
-
-            return {
-              ...styles.addNewSegmentButton,
-              backgroundColor: "black",
-            };
-          }}
+          style={({ pressed }: { pressed: boolean }) =>
+            getPressedHighlightBehaviourStyle(
+              pressed,
+              styles.addNewSegmentButton,
+              onPressedButtonBackgroundColour
+            )
+          }
           onPress={addNewRouteSegment}
         >
           <Text style={styles.mainTextGreen}>ADD NEW TRIP SEGMENT</Text>

@@ -7,6 +7,7 @@
 import { Text, StyleSheet, Pressable, TextInput } from "react-native";
 
 import DropDownPicker from "react-native-dropdown-picker";
+import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
 import { TripRecorderSubcomponentParams } from "../models/NonRecordingTripRecorderParams";
 
 const PATIENT_ID_PLACEHOLDER = "Patient ID";
@@ -21,6 +22,7 @@ export default ({
   startTrip,
   updatePatientId,
 }: TripRecorderSubcomponentParams): JSX.Element => {
+  const onPressedButtonBackgroundColour: string = "black";
   return (
     <>
       <DropDownPicker
@@ -40,14 +42,13 @@ export default ({
       />
       <Pressable
         onPress={startTrip}
-        style={({ pressed }: { pressed: boolean }) => {
-          if (!pressed) return styles.startTripContainer;
-
-          return {
-            ...styles.startTripContainer,
-            backgroundColor: "black",
-          };
-        }}
+        style={({ pressed }: { pressed: boolean }) =>
+          getPressedHighlightBehaviourStyle(
+            pressed,
+            styles.startTripContainer,
+            onPressedButtonBackgroundColour
+          )
+        }
       >
         <Text style={styles.mainTextGreen}>Start Trip</Text>
       </Pressable>
