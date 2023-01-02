@@ -141,12 +141,12 @@ app.get('/routes', (req, res) => {
   })
 })
 
-app.get('/dps/:id', (req, res) => {
+app.get('/routeMeasurementDataPoints/:route_id', (req, res) => {
     let db = new DB();
     db.connect();
     let con = db.con;
 
-    con.query("SELECT * FROM route_measurement_data_points WHERE route_id=?", [req.params.id], function (error, results, fields) {
+    con.query("SELECT * FROM route_measurement_data_points WHERE route_id=?", [req.params.route_id], function (error, results, fields) {
       if (error) {
         return con.rollback(function() {
           throw error;
