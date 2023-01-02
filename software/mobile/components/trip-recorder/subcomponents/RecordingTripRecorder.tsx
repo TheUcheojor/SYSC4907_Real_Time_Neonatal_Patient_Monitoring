@@ -4,6 +4,7 @@ import { getFormatedTimeFromMilliSeconds } from "../../../utils/TimeUtil";
 import { RouteRecordingState } from "../../../types";
 import DropDownPicker from "react-native-dropdown-picker";
 import { TripRecorderSubcomponentParams } from "../models/NonRecordingTripRecorderParams";
+import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
 
 export default ({
   segmentType,
