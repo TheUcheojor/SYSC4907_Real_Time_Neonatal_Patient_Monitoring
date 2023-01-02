@@ -19,13 +19,13 @@ const RenderDot = ({ cx, cy }: any) => {
 
 function getChartColor(measurand: DatapointFieldEnum): ColorEnum {
   switch (measurand) {
-    case DatapointFieldEnum.velocity:
+    case DatapointFieldEnum.velocity_kmps:
       return ColorEnum.Purple;
-    case DatapointFieldEnum.temperature:
+    case DatapointFieldEnum.temperature_celsius:
       return ColorEnum.Zomp;
     case DatapointFieldEnum.vibration:
       return ColorEnum.Blue;
-    case DatapointFieldEnum.noise:
+    case DatapointFieldEnum.noise_db:
       return ColorEnum.Ice;
   }
 }
@@ -37,14 +37,16 @@ interface ChartProps {
 }
 
 function Chart({ data, measurand, onClick }: ChartProps) {
-  console.log("CHART RENDER");
+  console.log("CHART RENDER", data);
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
         <div>
           <p>{`reading : ${payload[0].payload[measurand]}`}</p>
-          {payload[0].payload.annotation !== "" ? (
-            <p>{`annotation : ${payload[0].payload.annotation}`}</p>
+          {payload[0].payload[DatapointFieldEnum.annotation] !== "" ? (
+            <p>{`annotation : ${
+              payload[0].payload[DatapointFieldEnum.annotation]
+            }`}</p>
           ) : (
             ""
           )}
@@ -84,7 +86,7 @@ function Chart({ data, measurand, onClick }: ChartProps) {
       >
         <title>{measurand}</title>
         <XAxis
-          dataKey={DatapointFieldEnum.time}
+          dataKey={DatapointFieldEnum.time_s}
           tick={{ fill: "white" }}
           tickLine={{ stroke: "white" }}
         />

@@ -1,3 +1,4 @@
+import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 import Route from "models/Route";
 import React, { useState } from "react";
 import { toDateString, toClockString } from "utility/StringUtil";
@@ -18,7 +19,7 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
 
   return (
     <div
-      id={route.routeId}
+      id={route[RouteFieldEnum.route_id]}
       style={{
         display: "flex",
         alignItems: "center",
@@ -41,7 +42,7 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
             color: "white",
           }}
         >
-          {toDateString(route.startTime)}
+          {toDateString(route[RouteFieldEnum.start_time_s])}
         </div>
         <div>
           <span
@@ -51,14 +52,19 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
               fontSize: "12px",
             }}
           >
-            {toClockString(route.startTime, route.endTime)}
+            {toClockString(
+              route[RouteFieldEnum.start_time_s],
+              route[RouteFieldEnum.end_time_s]
+            )}
           </span>
         </div>
       </div>
       <div style={{ marginLeft: "auto", marginRight: "5px" }}>
-        <p style={statsLabelsStyles}>Avg vibration: {route.avgVibration}</p>
         <p style={statsLabelsStyles}>
-          Total exposure: {route.totalVibrationExposure}
+          Avg vibration: {route[RouteFieldEnum.avg_vibration]}
+        </p>
+        <p style={statsLabelsStyles}>
+          Total exposure: {route[RouteFieldEnum.total_vibration_exposure]}
         </p>
       </div>
     </div>

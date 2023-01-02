@@ -48,12 +48,15 @@ app.post('/routes', (req: PostRouteRequest, res: Response) => {
   let avg_velocity = 0;
   let avg_pressure = 0;
   let num_dps = 0;
+  let min_time_s, max_time_s;
 
   for(let i = 0; i < segs.length; i++) {
     let segDps = segs[i].routeMeasurementDataPoints;
     num_dps += segDps.length
 
     for(let j = 0; j < segDps.length; j++) {
+      if(min_time_s === undefined || min_time_s > segDps[j].time_s) min_time_s = segDps[j].time_s;
+      if(max_time_s === undefined || max_time_s < segDps[j].time_s) max_time_s = segDps[j].time_s;
       total_vibration_exposure += segDps[j].vibration;
       avg_temperature += segDps[j].temperature_celsius;
       avg_noise += segDps[j].noise_db;
@@ -72,7 +75,7 @@ app.post('/routes', (req: PostRouteRequest, res: Response) => {
   //insert route into table
   con.beginTransaction(function(err) {
     if (err) { throw err; }
-    con.query("INSERT INTO routes (owner_id, organization_id, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [req.ownerId, 0, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure],function (error, routeResult, fields) {
+    con.query("INSERT INTO routes (owner_id, organization_id, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, start_time_s, end_time_s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.ownerId, 0, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, min_time_s, max_time_s],function (error, routeResult, fields) {
       if (error) {
         return con.rollback(function() {
           console.log("Route insertion failed!")
@@ -101,7 +104,7 @@ app.post('/routes', (req: PostRouteRequest, res: Response) => {
         }
       }
 
-      con.query('INSERT INTO route_measurement_data_points (route_id, segment_id, time, velocity_kmps, noise_db, vibration, temperature_celsius, pressure_pascals, annotation, latitude, longitude) VALUES ?', [values], function (error, results, fields) {
+      con.query('INSERT INTO route_measurement_data_points (route_id, segment_id, time_s, velocity_kmps, noise_db, vibration, temperature_celsius, pressure_pascals, annotation, latitude, longitude) VALUES ?', [values], function (error, results, fields) {
         if (error) {
           return con.rollback(function() {
             console.log("DP insertion failed!")
@@ -143,7 +146,7 @@ app.get('/dps/:id', (req, res) => {
     db.connect();
     let con = db.con;
 
-    con.query("SELECT * FROM route_measurement_data_points WHERE routeId=?", [req.params.id], function (error, results, fields) {
+    con.query("SELECT * FROM route_measurement_data_points WHERE route_id=?", [req.params.id], function (error, results, fields) {
       if (error) {
         return con.rollback(function() {
           throw error;

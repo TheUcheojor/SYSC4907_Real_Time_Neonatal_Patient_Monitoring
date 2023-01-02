@@ -45,7 +45,10 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
     if (map.current) {
       const bounds = new google.maps.LatLngBounds();
       data.forEach((dp) => {
-        bounds.extend({ lat: dp.coordinates[1], lng: dp.coordinates[0] });
+        bounds.extend({
+          lat: dp[DatapointFieldEnum.latitude],
+          lng: dp[DatapointFieldEnum.longitude],
+        });
       });
       map.current.fitBounds(bounds);
     }
@@ -70,8 +73,8 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
         <GoogleMap
           mapContainerStyle={style}
           center={{
-            lat: data[0].coordinates[1],
-            lng: data[0].coordinates[0],
+            lat: data[0][DatapointFieldEnum.latitude],
+            lng: data[0][DatapointFieldEnum.longitude],
           }}
           zoom={17}
           options={{
@@ -84,15 +87,15 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
           <MarkerF
             label="S"
             position={{
-              lat: data[0].coordinates[1],
-              lng: data[0].coordinates[0],
+              lat: data[0][DatapointFieldEnum.latitude],
+              lng: data[0][DatapointFieldEnum.longitude],
             }}
           />
           <MarkerF
             label="F"
             position={{
-              lat: data[data.length - 1].coordinates[1],
-              lng: data[data.length - 1].coordinates[0],
+              lat: data[data.length - 1][DatapointFieldEnum.latitude],
+              lng: data[data.length - 1][DatapointFieldEnum.longitude],
             }}
           />
           {data.map((dp, i) => {
@@ -101,12 +104,12 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
                 <PolylineF
                   path={[
                     {
-                      lat: dp.coordinates[1],
-                      lng: dp.coordinates[0],
+                      lat: dp[DatapointFieldEnum.latitude],
+                      lng: dp[DatapointFieldEnum.longitude],
                     },
                     {
-                      lat: data[i + 1].coordinates[1],
-                      lng: data[i + 1].coordinates[0],
+                      lat: data[i + 1][DatapointFieldEnum.latitude],
+                      lng: data[i + 1][DatapointFieldEnum.longitude],
                     },
                   ]}
                   options={{

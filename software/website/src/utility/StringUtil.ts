@@ -4,20 +4,20 @@ export function toTitleCase(str: string): string {
     }
 }
 
-export function toDateString(utcMS: number): string {
-    const date = new Date(utcMS);
-    return numberToCalendarMonth(date.getMonth()) + " " + date.getDay() + ", " + date.getFullYear();
+export function toDateString(utcS: number): string {
+    const date = new Date(utcS * 1000);
+    return numberToCalendarMonth(date.getMonth() + 1) + " " + date.getDay() + ", " + date.getFullYear();
 }
 
-export function toClockString(utcMSstart: number, utcMSend: number): string {
-    const start = new Date(utcMSstart)
-    const end = new Date(utcMSend)
+export function toClockString(utcStartS: number, utcEndS: number): string {
+    const start = new Date(utcStartS * 1000)
+    const end = new Date(utcEndS * 1000)
 
     return start.getHours() + ":" + start.getMinutes() + ":" + start.getSeconds() + " - " + end.getHours() + ":" + end.getMinutes() + ":" + end.getSeconds();
 }
 
-export function elapsedDurationInHoursAndMinutes(utcMSstart: number, utcMSend: number): string {
-    return Math.floor((utcMSend - utcMSstart) / 3600000).toString() +"h " + Math.ceil((utcMSend - utcMSstart) % 3600000 / 60000) + "m";
+export function elapsedDurationInHoursAndMinutes(utcStartS: number, utcEndS: number): string {
+    return Math.floor((utcEndS - utcStartS) / 3600).toString() +"h " + Math.ceil((utcEndS - utcStartS) % 3600000 / 60) + "m";
 }
 
 function numberToCalendarMonth(month: number): string {

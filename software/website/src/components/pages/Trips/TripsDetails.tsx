@@ -70,19 +70,19 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               <p style={chartLabelStyles}>Noise</p>
               <Chart
                 data={data[i]}
-                measurand={DatapointFieldEnum.noise}
+                measurand={DatapointFieldEnum.noise_db}
                 onClick={chartClickHandler}
               />
               <p style={chartLabelStyles}>Temperature</p>
               <Chart
                 data={data[i]}
-                measurand={DatapointFieldEnum.temperature}
+                measurand={DatapointFieldEnum.temperature_celsius}
                 onClick={chartClickHandler}
               />
               <p style={chartLabelStyles}>Velocity</p>
               <Chart
                 data={data[i]}
-                measurand={DatapointFieldEnum.velocity}
+                measurand={DatapointFieldEnum.velocity_kmps}
                 onClick={chartClickHandler}
               />
             </div>

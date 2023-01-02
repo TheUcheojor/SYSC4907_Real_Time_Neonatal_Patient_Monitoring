@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
-import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
+import {
+  DatapointFieldEnum,
+  RouteFieldEnum,
+} from "constants/DatapointFieldEnum";
 import { queryTripDatapoints } from "interface/TripsInterface";
 import List from "components/List";
 import MapWithChart from "components/MapWithChart";
@@ -36,6 +39,7 @@ function TripsPage() {
       .then((res) => res.json())
       .then(
         (result) => {
+          console.log(result);
           setRoutes(result);
         },
         (error) => {
@@ -46,19 +50,29 @@ function TripsPage() {
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
-      (route) => route.routeId === e.currentTarget.id
+      (route) => route[RouteFieldEnum.route_id] === parseInt(e.currentTarget.id)
     );
 
+    if (targetedRoute === undefined) {
+      console.log("No route data matches the clicked list elements id");
+      return;
+    }
     if (isSelecting) {
       if (
-        !selectedRoutes.some((elem) => elem.routeId === targetedRoute.routeId)
+        !selectedRoutes.some(
+          (elem) =>
+            elem[RouteFieldEnum.route_id] ===
+            targetedRoute[RouteFieldEnum.route_id]
+        )
       ) {
         selectedRoutes.push(targetedRoute);
         setSelectedRoutes([...selectedRoutes]);
       } else {
         setSelectedRoutes([
           ...selectedRoutes.filter(
-            (elem) => elem.routeId !== targetedRoute.routeId
+            (elem) =>
+              elem[RouteFieldEnum.route_id] !==
+              targetedRoute[RouteFieldEnum.route_id]
           ),
         ]);
       }
@@ -112,20 +126,26 @@ function TripsPage() {
                 }}
               >
                 <span style={pStyles}>
-                  Owner: {selectedRoutes[selectedRoutes.length - 1].ownerId}
+                  Owner:{" "}
+                  {
+                    selectedRoutes[selectedRoutes.length - 1][
+                      RouteFieldEnum.owner_id
+                    ]
+                  }
                 </span>
                 <span style={pStyles}>
                   Duration:{" "}
                   {elapsedDurationInHoursAndMinutes(
-                    selectedRoutes[selectedRoutes.length - 1].startTime,
-                    selectedRoutes[selectedRoutes.length - 1].endTime
+                    selectedRoutes[selectedRoutes.length - 1][RouteFieldEnum.start_time_s],
+                    selectedRoutes[selectedRoutes.length - 1][RouteFieldEnum.end_time_s]
                   )}
                 </span>
                 <span style={pStyles}>
                   Total exposure:{" "}
                   {
-                    selectedRoutes[selectedRoutes.length - 1]
-                      .totalVibrationExposure
+                    selectedRoutes[selectedRoutes.length - 1][
+                      RouteFieldEnum.total_vibration_exposure
+                    ]
                   }
                 </span>
               </div>
@@ -133,7 +153,9 @@ function TripsPage() {
                 <MapWithChartNet
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
-                    selectedRoutes[selectedRoutes.length - 1].routeId
+                    selectedRoutes[selectedRoutes.length - 1][
+                      DatapointFieldEnum.route_id
+                    ]
                   )}
                 />
               </div>

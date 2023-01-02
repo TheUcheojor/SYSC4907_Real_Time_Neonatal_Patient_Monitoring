@@ -3,7 +3,7 @@ export function generateRandomDatapoints(coords: number[][]):any[] {
 
 	for(let i = 0; i < coords.length; i++) {
 		const dp = {
-			time_s: Math.floor(Date.now() / 1000),
+			time_s: Math.floor(Date.now() / 1000) + 3*i,
 			velocity_kmps: i % 160,
 			noise_db: i % 2 + 60,
 			vibration: 1 + Math.floor(Math.random() * 3),

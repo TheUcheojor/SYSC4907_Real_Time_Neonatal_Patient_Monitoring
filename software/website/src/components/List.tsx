@@ -1,6 +1,7 @@
 import React from "react";
 import Route from "models/Route";
 import ListElement from "./ListElement";
+import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 
 interface ListProps {
   routes: Route[];
@@ -14,10 +15,10 @@ function List({ routes, elemOnClick, activeRoutes }: ListProps) {
       {routes.map((route) => {
         return (
           <ListElement
-            key={route.routeId}
+            key={route[RouteFieldEnum.route_id]}
             route={route}
             isActive={activeRoutes.some(
-              (elem) => elem.routeId === route.routeId
+              (elem) => elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
             )}
             onClick={elemOnClick}
           />
