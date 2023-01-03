@@ -1,3 +1,8 @@
+const MINS_IN_HOUR = 60;
+const SECS_IN_MIN = 60;
+const MS_IN_SEC = 1000;
+const MONTH_OFFSET = 1;
+
 export function toTitleCase(str: string): string {
     if(str !== undefined && str.length > 0){
         return str.charAt(0).toUpperCase() + str.substring(1, str.length);
@@ -5,19 +10,20 @@ export function toTitleCase(str: string): string {
 }
 
 export function toDateString(utcS: number): string {
-    const date = new Date(utcS * 1000);
-    return numberToCalendarMonth(date.getMonth() + 1) + " " + date.getDay() + ", " + date.getFullYear();
+    const date = new Date(utcS * MS_IN_SEC);
+    return numberToCalendarMonth(date.getMonth() + MONTH_OFFSET) + " " + date.getDay() + ", " + date.getFullYear();
 }
 
 export function toClockString(utcStartS: number, utcEndS: number): string {
-    const start = new Date(utcStartS * 1000)
-    const end = new Date(utcEndS * 1000)
+    const start = new Date(utcStartS * MS_IN_SEC)
+    const end = new Date(utcEndS * MS_IN_SEC)
 
     return start.getHours() + ":" + start.getMinutes() + ":" + start.getSeconds() + " - " + end.getHours() + ":" + end.getMinutes() + ":" + end.getSeconds();
 }
 
 export function elapsedDurationInHoursAndMinutes(utcStartS: number, utcEndS: number): string {
-    return Math.floor((utcEndS - utcStartS) / 3600).toString() +"h " + Math.ceil((utcEndS - utcStartS) % 3600000 / 60) + "m";
+
+    return Math.floor((utcEndS - utcStartS) / (MINS_IN_HOUR* SECS_IN_MIN)).toString() +"h " + Math.ceil((utcEndS - utcStartS) % (MINS_IN_HOUR* SECS_IN_MIN) / SECS_IN_MIN) + "m";
 }
 
 function numberToCalendarMonth(month: number): string {

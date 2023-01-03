@@ -5,28 +5,11 @@ import {
   PolylineF,
   LoadScript,
 } from "@react-google-maps/api";
-import { ColorEnum } from "constants/ColorEnum";
 import CSS from "csstype";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
-import { MeasurandThresholdDefaultEnum } from "constants/MeasurandThresholdEnum";
 import { Libraries } from "@react-google-maps/api/src/utils/make-load-script-url";
-
-function getColor(value: any, measurand: DatapointFieldEnum): string {
-  if (
-    MeasurandThresholdDefaultEnum[`${measurand}Alert`] === undefined ||
-    MeasurandThresholdDefaultEnum[`${measurand}Warning`] === undefined
-  )
-    return ColorEnum.Grey;
-
-  if (value >= MeasurandThresholdDefaultEnum[`${measurand}Alert`]) {
-    return ColorEnum.Red;
-  } else if (value >= MeasurandThresholdDefaultEnum[`${measurand}Warning`]) {
-    return ColorEnum.Yellow;
-  } else {
-    return ColorEnum.Green;
-  }
-}
+import { getMapColor } from "utility/ColorUtil";
 
 const libraries: Libraries = ["geometry", "drawing"];
 
@@ -34,7 +17,7 @@ interface MapProps {
   data: RouteMeasurementDataPoint[];
   measurand: DatapointFieldEnum;
   style?: CSS.Properties;
-  setMapRef: (map) => void;
+  setMapRef?: (map) => void;
 }
 
 function Map({ data, setMapRef, measurand, style }: MapProps) {
@@ -114,7 +97,7 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
                   ]}
                   options={{
                     geodesic: true,
-                    strokeColor: getColor(dp[measurand], measurand),
+                    strokeColor: getMapColor(dp[measurand], measurand),
                     strokeWeight: 8,
                     strokeOpacity: 0.6,
                   }}

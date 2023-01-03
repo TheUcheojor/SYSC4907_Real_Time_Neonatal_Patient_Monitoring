@@ -4,7 +4,7 @@ import cors from 'cors';
 import mysql, {sql} from 'mysql';
 import DB from './data/DB';
 import { generateRandomDatapoints } from './mock/mock';
-import { coordsCarletonCampus } from './mock/coords';
+import { coordsCarletonCampus, coordsCivicToGeneral, coordsCivicToHull, coordsOttToTo } from './mock/coords';
 import bodyParser from 'body-parser';
 import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USER } from './constants/dbConstants';
 import { PostRouteRequest } from './models/requests/PostRouteRequest';
@@ -14,11 +14,11 @@ const port = 3001;
 const app = express()
 
 app.use(cors())
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json({limit: '10mb'}));
+app.use(express.urlencoded({limit: '10mb'}));
 
 app.get('/mock', (req, res) => {
-  res.send(generateRandomDatapoints(coordsCarletonCampus));
+  res.send({"coordsCarletonCampus": generateRandomDatapoints(coordsCarletonCampus), "coordsCivicToGeneral": generateRandomDatapoints(coordsCivicToGeneral), "coordsCivicToHull": generateRandomDatapoints(coordsCivicToHull), "coordsOttToTo": generateRandomDatapoints(coordsOttToTo)});
 })
 
 app.get('/initDb', (req, res) => {
