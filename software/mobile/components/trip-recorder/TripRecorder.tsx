@@ -89,7 +89,7 @@ export default ({
   };
 
   /**
-   * Add a new route segment to the current
+   * Add a new route segment to the current trip
    */
   const addNewRouteSegment = (): void => {
     TripRecordingService.getTripController().then(
@@ -116,8 +116,10 @@ export default ({
     TripRecordingService.getTripController().then(
       (tripController: TripRecordingService) => {
         console.log("startTrip: ", patientId.current);
-        tripController.startRoute(patientId.current, segmentType);
-        setRecordingState(RouteRecordingState.RECORDING);
+        tripController.startRoute(patientId.current, segmentType).then(() => {
+          patientId.current = "";
+          setRecordingState(RouteRecordingState.RECORDING);
+        });
       }
     );
   };
