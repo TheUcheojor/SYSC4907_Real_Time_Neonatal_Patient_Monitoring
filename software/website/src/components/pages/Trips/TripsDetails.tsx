@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
+import { DatapointFieldEnum, RouteFieldEnum } from "constants/DatapointFieldEnum";
 import Chart from "components/Chart";
 import Modal from "components/modal/Modal";
 import MapWithChart from "components/MapWithChart";
@@ -35,7 +35,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
 
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
-      fetch(`http://localhost:3001/dps/${route.routeId}`)
+      fetch(`http://localhost:3001/routeMeasurementDataPoints/${route[RouteFieldEnum.route_id]}`)
         .then((res) => res.json())
         .then(
           (result) => {
@@ -56,10 +56,10 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
           return data[i] !== undefined ? (
             <div style={{ marginLeft: "10px" }}>
               <span style={chartLabelStyles}>
-                {toDateString(route.startTime)}
+                {toDateString(route[RouteFieldEnum.start_time_s])}
               </span>
               <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
-                {toClockString(route.startTime, route.endTime)}
+                {toClockString(route[RouteFieldEnum.start_time_s], route[RouteFieldEnum.end_time_s])}
               </p>
               <p style={chartLabelStyles}>Vibration</p>
               <Chart
@@ -107,7 +107,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             return (
               <MapWithChartNet
                 measurand={DatapointFieldEnum[activeMeasurand]}
-                routeId={parseInt(route.routeId)}
+                routeId={parseInt(route[RouteFieldEnum.route_id])}
                 style={{ marginLeft: "5px", marginRight: "5px" }}
               />
             );
