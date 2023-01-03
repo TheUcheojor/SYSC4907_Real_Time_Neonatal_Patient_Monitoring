@@ -13,7 +13,7 @@ interface mwcNetProps {
 function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
   const [datapoints, setDatapoints] = useState(undefined);
   const [netError, setNetError] = useState(undefined);
-  console.log("MWCN RENDER", routeId, measurand, style);
+  console.log("MWCN RENDER");
 
   useEffect(() => {
     setDatapoints(undefined);
