@@ -20,6 +20,6 @@ export const getPressedHighlightBehaviourStyle = (
 
   return {
     ...defaultStyle,
-    backgroundColor: "black",
+    backgroundColor: onPressBackgroundColor,
   };
 };
