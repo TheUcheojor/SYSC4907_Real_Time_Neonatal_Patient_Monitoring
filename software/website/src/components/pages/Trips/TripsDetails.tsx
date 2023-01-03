@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { DatapointFieldEnum, RouteFieldEnum } from "constants/DatapointFieldEnum";
+import React, { memo, useEffect, useState, useCallback } from "react";
+import {
+  DatapointFieldEnum,
+  RouteFieldEnum,
+} from "constants/DatapointFieldEnum";
 import Chart from "components/Chart";
 import Modal from "components/modal/Modal";
 import MapWithChart from "components/MapWithChart";
@@ -7,6 +10,7 @@ import Route from "models/Route";
 import { toClockString, toDateString } from "utility/StringUtil";
 import { queryTripDatapoints } from "interface/TripsInterface";
 import MapWithChartNet from "components/MapWithChartNet";
+import Map from "components/Map";
 import LoadingIcon from "components/icons/LoadingIcon";
 
 const chartLabelStyles = {
@@ -28,14 +32,17 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     setModalOpen(false);
   }
 
-  function chartClickHandler(e: any) {
+  const chartClickHandler = useCallback((e: any) => {
     setActiveMeasurand(e.activePayload[0].dataKey);
-    setModalOpen(true);
-  }
+  }, [])
 
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
-      fetch(`http://localhost:3001/routeMeasurementDataPoints/${route[RouteFieldEnum.route_id]}`)
+      fetch(
+        `http://localhost:3001/routeMeasurementDataPoints/${
+          route[RouteFieldEnum.route_id]
+        }`
+      )
         .then((res) => res.json())
         .then(
           (result) => {
@@ -59,7 +66,10 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 {toDateString(route[RouteFieldEnum.start_time_s])}
               </span>
               <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
-                {toClockString(route[RouteFieldEnum.start_time_s], route[RouteFieldEnum.end_time_s])}
+                {toClockString(
+                  route[RouteFieldEnum.start_time_s],
+                  route[RouteFieldEnum.end_time_s]
+                )}
               </p>
               <p style={chartLabelStyles}>Vibration</p>
               <Chart
@@ -67,24 +77,56 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 measurand={DatapointFieldEnum.vibration}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.vibration && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.vibration}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
               <p style={chartLabelStyles}>Noise</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.noise_db}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.noise_db && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.noise_db}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
               <p style={chartLabelStyles}>Temperature</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.temperature_celsius}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.temperature_celsius && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.temperature_celsius}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
               <p style={chartLabelStyles}>Velocity</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.velocity_kmps}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.velocity_kmps && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.velocity_kmps}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
             </div>
           ) : (
             <div
@@ -118,4 +160,4 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   );
 }
 
-export default TripsDetails;
+export default memo(TripsDetails);
