@@ -26,8 +26,8 @@ function MapWithChart({ datapoints, measurand, style }: mwcProps) {
   const chartClickHandler = (data: any) => {
     if (map.current) {
       map.current.panTo({
-        lat: data.activePayload[0].payload.coordinates[1],
-        lng: data.activePayload[0].payload.coordinates[0],
+        lat: data.activePayload[0].payload[DatapointFieldEnum.latitude],
+        lng: data.activePayload[0].payload[DatapointFieldEnum.longitude],
       });
       map.current.setZoom(20);
     }
