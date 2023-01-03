@@ -21,7 +21,6 @@ interface mwcProps {
 
 function MapWithChart({ datapoints, measurand, style }: mwcProps) {
   const map = useRef(undefined);
-
   console.log("MWC RENDER");
 
   const chartClickHandler = (data: any) => {
