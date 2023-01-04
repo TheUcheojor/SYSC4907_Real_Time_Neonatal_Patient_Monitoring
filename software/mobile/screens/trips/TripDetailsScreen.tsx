@@ -3,18 +3,22 @@
  * File: TripDetailPage
  * Purpose: Exports the trip-detail page which contains a breakdown of a given trip
  */
+import React from "react";
+
 import { NavigationProp } from "@react-navigation/native";
 import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
 import { ResultSet } from "react-native-sqlite-storage";
 import { DatabaseService } from "../../services/database/DatabaseService";
 import TripRoute from "../../services/database/models/Route";
 import RouteMeasurementDataPoint from "../../services/database/models/RouteMeasurementDataPoint";
 import { MainStackParamList, TripsStackParamList } from "../../types";
+import { FlashList } from "@shopify/flash-list";
+
 import {
   getFullTimeString,
   getSimplifiedTimeString,
@@ -24,8 +28,23 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import MetricDetailedLineChart, {
   GraphData,
+  MetricDetailedLineChartParams,
 } from "../../components/MetricDetailedLineChart";
-import { VIBRATION_GRAPH_COLOUR } from "../ParamedicScreen";
+import { FlatList } from "react-native-gesture-handler";
+import {
+  NOISE_GRAPH_COLOUR,
+  NOISE_METRIC_TITLE,
+  NOISE_UNITS,
+  TEMPERATURE_GRAPH_COLOUR,
+  TEMPERATURE_METRIC_TITLE,
+  TEMPERATURE_UNITS,
+  VELOCITY_GRAPH_COLOUR,
+  VELOCITY_METRIC_TITLE,
+  VELOCITY_UNITS,
+  VIBRATION_GRAPH_COLOUR,
+  VIBRATION_METRIC_TITLE,
+  VIBRATION_UNITS,
+} from "../../constants/metric-contants";
 
 interface TripDetailsScreenParams extends Readonly<any> {
   routeId: string;
@@ -41,37 +60,59 @@ export default ({
     RouteMeasurementDataPoint[]
   >([]);
 
-  const vibrationDataSet: Array<GraphData> = routeMeasurementDataPoints.map(
-    (routeMeasurementDataPoint: RouteMeasurementDataPoint, index: number) => {
-      return {
-        x: index + 1,
-        y: routeMeasurementDataPoint.vibration,
-        // x: getFullTimeString(routeMeasurementDataPoint.time as string),
-        // label: routeMeasurementDataPoint.annotation,
-        label: routeMeasurementDataPoint.annotation
-          ? getSimplifiedTimeString(routeMeasurementDataPoint.time as string) +
-            ": " +
-            routeMeasurementDataPoint.annotation
-          : getSimplifiedTimeString(routeMeasurementDataPoint.time as string),
-        annotationLabel: routeMeasurementDataPoint.annotation,
-      };
-    }
-  );
+  const mapToMetricDatase = <
+    RouteMeasurementDataPointKey extends keyof RouteMeasurementDataPoint
+  >(
+    metricKey: RouteMeasurementDataPointKey
+  ): Array<GraphData> => {
+    return routeMeasurementDataPoints.map(
+      (routeMeasurementDataPoint: RouteMeasurementDataPoint, index: number) => {
+        return {
+          x: index + 1,
+          y: routeMeasurementDataPoint[metricKey] as number,
+          label: routeMeasurementDataPoint.annotation
+            ? getSimplifiedTimeString(
+                routeMeasurementDataPoint.time as string
+              ) +
+              ": " +
+              routeMeasurementDataPoint.annotation
+            : getSimplifiedTimeString(routeMeasurementDataPoint.time as string),
+          annotationLabel: routeMeasurementDataPoint.annotation,
+        };
+      }
+    );
+  };
 
-  const temperatureDataSet: Array<number> = routeMeasurementDataPoints.map(
-    (routeMeasurementDataPoint: RouteMeasurementDataPoint) =>
-      routeMeasurementDataPoint.temperature
-  );
-
-  const velocityDataSet: Array<number> = routeMeasurementDataPoints.map(
-    (routeMeasurementDataPoint: RouteMeasurementDataPoint) =>
-      routeMeasurementDataPoint.temperature
-  );
-
-  const noiseDataSet: Array<number> = routeMeasurementDataPoints.map(
-    (routeMeasurementDataPoint: RouteMeasurementDataPoint) =>
-      routeMeasurementDataPoint.noise
-  );
+  const vibrationDataSet: Array<GraphData> = mapToMetricDatase("vibration");
+  const temperatureDataSet: Array<GraphData> = mapToMetricDatase("temperature");
+  const velocityDataSet: Array<GraphData> = mapToMetricDatase("velocity");
+  const noiseDataSet: Array<GraphData> = mapToMetricDatase("noise");
+  const datasets: MetricDetailedLineChartParams[] = [
+    {
+      title: VIBRATION_METRIC_TITLE,
+      dataset: mapToMetricDatase("vibration"),
+      graphColor: VIBRATION_GRAPH_COLOUR,
+      units: VIBRATION_UNITS,
+    },
+    {
+      title: NOISE_METRIC_TITLE,
+      dataset: mapToMetricDatase("noise"),
+      graphColor: NOISE_GRAPH_COLOUR,
+      units: NOISE_UNITS,
+    },
+    {
+      title: TEMPERATURE_METRIC_TITLE,
+      dataset: mapToMetricDatase("temperature"),
+      graphColor: TEMPERATURE_GRAPH_COLOUR,
+      units: TEMPERATURE_UNITS,
+    },
+    {
+      title: VELOCITY_METRIC_TITLE,
+      dataset: mapToMetricDatase("velocity"),
+      graphColor: VELOCITY_GRAPH_COLOUR,
+      units: VELOCITY_UNITS,
+    },
+  ];
 
   useEffect(() => {
     if (isLocalTrip) {
@@ -121,20 +162,66 @@ export default ({
       </Pressable>
 
       <View style={styles.chartsContainer}>
-        <MetricDetailedLineChart
-          title="Vibration"
-          dataset={vibrationDataSet}
-          graphColor={VIBRATION_GRAPH_COLOUR}
-          units="Hz"
+        <FlashList
+          // contentContainerStyle={styles.chartsContainer}
+          data={datasets}
+          renderItem={getMetricDetailChart}
+          estimatedItemSize={4}
+          showsVerticalScrollIndicator={false}
         />
       </View>
+      {/* <ScrollView
+      // style={{ width: "100%" }}
+      // contentContainerStyle={styles.chartsContainer}
+      >
+        <MetricDetailedLineChart
+          title={VIBRATION_METRIC_TITLE}
+          dataset={vibrationDataSet}
+          graphColor={VIBRATION_GRAPH_COLOUR}
+          units={VIBRATION_UNITS}
+        />
+        <MetricDetailedLineChart
+          title={NOISE_METRIC_TITLE}
+          dataset={noiseDataSet}
+          graphColor={NOISE_GRAPH_COLOUR}
+          units={NOISE_UNITS}
+        />
+        <MetricDetailedLineChart
+          title={TEMPERATURE_METRIC_TITLE}
+          dataset={temperatureDataSet}
+          graphColor={TEMPERATURE_GRAPH_COLOUR}
+          units={TEMPERATURE_UNITS}
+        />
+
+        <MetricDetailedLineChart
+          title={VELOCITY_METRIC_TITLE}
+          dataset={velocityDataSet}
+          graphColor={VELOCITY_GRAPH_COLOUR}
+          units={VELOCITY_UNITS}
+        />
+      </ScrollView> */}
     </View>
   );
 };
 
+const getMetricDetailChart = ({
+  item,
+}: {
+  item: MetricDetailedLineChartParams;
+}) => (
+  <MetricDetailedLineChart
+    title={item.title}
+    dataset={item.dataset}
+    graphColor={item.graphColor}
+    units={item.units}
+  />
+);
+
 const styles = StyleSheet.create({
   tripDetailsScreen: {
     flex: 1,
+    // width: "100%",
+    // height: "100%",
     backgroundColor: "white",
     // padding: 20,
     flexDirection: "column",
@@ -192,10 +279,7 @@ const styles = StyleSheet.create({
 
   chartsContainer: {
     width: "100%",
-    flexDirection: "column",
-    justifyContent: "flex-start",
+    flex: 1,
     padding: 20,
-    // margin: 20,
-    // backgroundColor: "red",
   },
 });

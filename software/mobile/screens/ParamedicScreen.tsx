@@ -17,29 +17,28 @@ import { circularArrayPush } from "../utils/ArrayUtil";
 import { DatabaseService } from "../services/database/DatabaseService.tsx";
 import { Subscription } from "react-native-ble-plx";
 import { TripRecordingService } from "../services/trips/TripRecordingService";
+import {
+  VIBRATION_METRIC_TITLE,
+  VIBRATION_GRAPH_COLOUR,
+  VIBRATION_ICON_SOURCE,
+  NOISE_METRIC_TITLE,
+  NOISE_GRAPH_COLOUR,
+  NOISE_ICON_SOURCE,
+  NOISE_UNITS,
+  TEMPERATURE_METRIC_TITLE,
+  TEMPERATURE_GRAPH_COLOUR,
+  TEMPERATURE_ICON_SOURCE,
+  TEMPERATURE_UNITS,
+  VELOCITY_METRIC_TITLE,
+  VELOCITY_GRAPH_COLOUR,
+  VELOCITY_ICON_SOURCE,
+  VELOCITY_UNITS,
+  VIBRATION_UNITS,
+} from "../constants/metric-contants";
 
 /**
  * View Constants
  */
-const VIBRATION_METRIC_TITLE: string = "Vibration";
-export const VIBRATION_GRAPH_COLOUR: string = "#0E9CFF";
-const VIBRATION_ICON_SOURCE: ImageSourcePropType = require("../assets/images/shake.png");
-const VIBRATION_UNITS: string = "Hz";
-
-const NOISE_METRIC_TITLE: string = "Noise";
-export const NOISE_GRAPH_COLOUR: string = "#59D9F5";
-const NOISE_ICON_SOURCE: ImageSourcePropType = require("../assets/images/noise.png");
-const NOISE_UNITS: string = "dB";
-
-const TEMPERATURE_METRIC_TITLE: string = "Temperature";
-export const TEMPERATURE_GRAPH_COLOUR: string = "#9B9E0A";
-const TEMPERATURE_ICON_SOURCE: ImageSourcePropType = require("../assets/images/temperature.png");
-const TEMPERATURE_UNITS: string = "C";
-
-const VELOCITY_METRIC_TITLE: string = "Velocity";
-export const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
-const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
-const VELOCITY_UNITS: string = "dB";
 
 const ANNOATION_TEXT_INPUT_PLACEHOLDER: string = "Enter your comments";
 

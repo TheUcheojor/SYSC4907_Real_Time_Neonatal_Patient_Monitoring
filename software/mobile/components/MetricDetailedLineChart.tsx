@@ -24,7 +24,7 @@ export interface GraphData {
   annotationLabel: string | undefined;
 }
 
-interface MetricDetailedLineChartParams {
+export interface MetricDetailedLineChartParams {
   dataset: Array<GraphData>;
   title: string;
   graphColor: string;
@@ -64,7 +64,7 @@ export default ({
           theme={VictoryTheme.material}
           //   scale={{ x: "time" }}
           //   domain={{ y: [0, 100] }}
-          domainPadding={{ x: [100, 50], y: [10, 60] }}
+          domainPadding={{ x: [100, 25], y: [10, 60] }}
           containerComponent={
             <VictoryZoomContainer
               //   responsive={false}
@@ -159,6 +159,9 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "column",
     justifyContent: "flex-start",
+    overflow: "hidden",
+    // backgroundColor: "red",
+    marginVertical: 10,
   },
   chartTitle: {
     fontFamily: "Montserrat_700Bold",
@@ -171,8 +174,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     height: 200,
-
-    // margin: 20,
+    overflow: "hidden",
   },
 
   graph: {

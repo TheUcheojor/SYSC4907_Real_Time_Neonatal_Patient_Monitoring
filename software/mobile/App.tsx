@@ -17,7 +17,7 @@ import {
 
 import { LogBox } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { DatabaseService } from "./services/database/DatabaseService.tsx";
+import { DatabaseService } from "./services/database/DatabaseService";
 import AppIcon from "./components/AppIcon";
 import SensorPackageController from "./services/sensor-package/SensorPackageController";
 import { RouteRecordingState } from "./types";
