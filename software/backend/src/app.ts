@@ -1,21 +1,30 @@
 import express, { Response }  from 'express';
 
 import cors from 'cors';
-import mysql, {sql} from 'mysql';
 import DB from './data/DB';
 import { generateRandomDatapoints } from './mock/mock';
 import { coordsCarletonCampus, coordsCivicToGeneral, coordsCivicToHull, coordsOttToTo } from './mock/coords';
-import bodyParser from 'body-parser';
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USER } from './constants/dbConstants';
 import { PostRouteRequest } from './models/requests/PostRouteRequest';
-
+import { LoginRequest, SignUpRequest } from './models/requests/AuthRequests';
+import fs from 'fs';
+import https from 'https';
 
 const port = 3001;
-const app = express()
 
+const privateKey  = fs.readFileSync('./secret/server_DEVONLY.key', 'utf8');
+const certificate = fs.readFileSync('./secret/server_DEVONLY.crt', 'utf8');
+const credentials = {key: privateKey, cert: certificate};
+
+const app = express();
 app.use(cors())
 app.use(express.json({limit: '10mb'}));
 app.use(express.urlencoded({limit: '10mb'}));
+
+const httpsServer = https.createServer(credentials, app);
+
+httpsServer.listen(port, () => {
+  console.log(`Https server listening on port ${port}`)
+})
 
 app.get('/mock', (req, res) => {
   res.send({"coordsCarletonCampus": generateRandomDatapoints(coordsCarletonCampus), "coordsCivicToGeneral": generateRandomDatapoints(coordsCivicToGeneral), "coordsCivicToHull": generateRandomDatapoints(coordsCivicToHull), "coordsOttToTo": generateRandomDatapoints(coordsOttToTo)});
@@ -30,9 +39,9 @@ app.get('/initDb', (req, res) => {
 
 app.post('/routes', (req: PostRouteRequest, res: Response) => {
   req = req.body;
-  let segs = req.routeSegments;
+  let segs = req.route_segments;
 
-  if(req.ownerId === undefined || segs === undefined || segs.length === 0) {
+  if(req.owner_id === undefined || segs === undefined || segs.length === 0) {
     res.status(400).send("improper requests")
     return;
   }
@@ -51,7 +60,7 @@ app.post('/routes', (req: PostRouteRequest, res: Response) => {
   let min_time_s, max_time_s;
 
   for(let i = 0; i < segs.length; i++) {
-    let segDps = segs[i].routeMeasurementDataPoints;
+    let segDps = segs[i].route_measurement_datapoints;
     num_dps += segDps.length
 
     for(let j = 0; j < segDps.length; j++) {
@@ -75,7 +84,7 @@ app.post('/routes', (req: PostRouteRequest, res: Response) => {
   //insert route into table
   con.beginTransaction(function(err) {
     if (err) { throw err; }
-    con.query("INSERT INTO routes (owner_id, organization_id, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, start_time_s, end_time_s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.ownerId, 0, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, min_time_s, max_time_s],function (error, routeResult, fields) {
+    con.query("INSERT INTO routes (owner_id, organization_id, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, start_time_s, end_time_s) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.owner_id, 0, total_vibration_exposure, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, min_time_s, max_time_s],function (error, routeResult, fields) {
       if (error) {
         return con.rollback(function() {
           console.log("Route insertion failed!")
@@ -85,7 +94,7 @@ app.post('/routes', (req: PostRouteRequest, res: Response) => {
 
       let values: any[][] = [];
       for(let i = 0; i < segs.length; i++) {
-        let segDps = segs[i].routeMeasurementDataPoints;
+        let segDps = segs[i].route_measurement_datapoints;
     
         for(let j = 0; j < segDps.length; j++) {
           values.push([
@@ -155,7 +164,47 @@ app.get('/routeMeasurementDataPoints/:route_id', (req, res) => {
       res.send(results);
     })
 })
-  
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+
+app.post('/login', (req: LoginRequest, res: Response) => {
+  req = req.body;
+  if(req.email === undefined || req.hashed_password === undefined) {
+    res.status(400).send("improper request body");
+    return;
+  }
+
+  let db = new DB();
+  db.connect();
+  let con = db.con;
+
+  con.query("SELECT * FROM users WHERE email=? AND hashed_password=?", [req.email, req.hashed_password], function (error, results, fields) {
+    if (error) {
+      return con.rollback(function() {
+        throw error;
+      });
+    }
+    if(results.length === 1) {res.send("sucess logged in");}
+    else res.send("failure, try logging in again");
+  })
+})
+
+app.post('/signUp', (req: SignUpRequest, res: Response) => {
+  req = req.body;
+  if(req.full_name === undefined || req.email === undefined || req.hashed_password === undefined) {
+    res.status(400).send("improper request body");
+    return;
+  }
+
+  let db = new DB();
+  db.connect();
+  let con = db.con;
+  console.log(req.full_name, req.hashed_password, req.email);
+
+  con.query("INSERT INTO users (full_name, email, hashed_password, organization_id, organization_permission) VALUES (?, ?, ?, null, null)", [req.full_name, req.email, req.hashed_password], function (error, results, fields) {
+    if (error) {
+      return con.rollback(function() {
+        throw error;
+      });
+    }
+    res.send("success");
+  })  
 })
