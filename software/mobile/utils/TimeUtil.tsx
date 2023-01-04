@@ -12,7 +12,9 @@ import moment from "moment";
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 export const HOUR_IN_MILLISECONDS = MINUTE_IN_MILLISECONDS * 60;
-export const TIME_FORMAT = "YYYY-DD-MM T hh:mm:SSZ";
+export const DATABASE_FULL_DATE_FORMAT = "YYYY-DD-MM T hh:mm:SSZ";
+export const FULL_DISPLAY_TIME_FORMAT = "hh:mm:SS A";
+export const SIMPLIFIED_DISPLAY_TIME_FORMAT = "hh:mm A";
 
 export const MONTH_INDEX_TO_TEXT: Map<number, string> = new Map<number, string>(
   [
@@ -70,11 +72,11 @@ const formatTimeComponent = (timeComponent: number): string => {
  */
 export const convertUnixTimestampToUTCTime = (unixTimestamp: number) => {
   var unformattedDate = new Date(unixTimestamp);
-  return moment(unformattedDate).format(TIME_FORMAT);
+  return moment(unformattedDate).format(DATABASE_FULL_DATE_FORMAT);
 };
 
 export const getDateFromTimestamp = (timeStamp: string): string => {
-  const date = moment(timeStamp, TIME_FORMAT);
+  const date = moment(timeStamp, DATABASE_FULL_DATE_FORMAT);
 
   return (
     MONTH_INDEX_TO_TEXT.get(date.month()) +
@@ -106,8 +108,8 @@ export const getTripDate = (startTime: string, endTime: string): string => {
  * @returns a flag that indicates whether two dates are on the same day
  */
 export const isDayEqual = (startTime: string, endTime: string): boolean => {
-  const startTimeDate = moment(startTime, TIME_FORMAT);
-  const endTimeDate = moment(endTime, TIME_FORMAT);
+  const startTimeDate = moment(startTime, DATABASE_FULL_DATE_FORMAT);
+  const endTimeDate = moment(endTime, DATABASE_FULL_DATE_FORMAT);
 
   return (
     startTimeDate.day == endTimeDate.day &&
@@ -126,23 +128,31 @@ export const getTripTimeString = (
   startTime: string,
   endTime: string
 ): string => {
-  return getTimeString(startTime) + " - " + getTimeString(endTime);
+  return (
+    getSimplifiedTimeString(startTime) +
+    " - " +
+    getSimplifiedTimeString(endTime)
+  );
 };
 
 /**
- * Returns a string containing the hour and minutes for a time string
+ * Returns a simiplified string containing the hour and minutes for a time string
  * @param timeString the time string
  * @returns a string containing the hour and minutes for a time string
  */
-export const getTimeString = (timeString: string): string => {
-  const time = moment(timeString, TIME_FORMAT).toDate();
-  const meridiem = time.getHours() < 12 ? "AM" : "PM";
+export const getSimplifiedTimeString = (timeString: string): string => {
+  return moment(timeString, DATABASE_FULL_DATE_FORMAT).format(
+    SIMPLIFIED_DISPLAY_TIME_FORMAT
+  );
+};
 
-  return (
-    formatTimeComponent(time.getHours()) +
-    ":" +
-    formatTimeComponent(time.getMinutes()) +
-    " " +
-    meridiem
+/**
+ * Returns a string containing the hour, minutes, and seconds for a time string
+ * @param timeString the time string
+ * @returns a string containing the hour and minutes for a time string
+ */
+export const getFullTimeString = (timeString: string): string => {
+  return moment(timeString, DATABASE_FULL_DATE_FORMAT).format(
+    FULL_DISPLAY_TIME_FORMAT
   );
 };

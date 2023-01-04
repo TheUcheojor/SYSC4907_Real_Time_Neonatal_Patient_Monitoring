@@ -5,6 +5,7 @@
  */
 
 import MeasurementPacket from "../services/sensor-package/models/MeasurementPacket";
+import { convertUnixTimestampToUTCTime } from "./TimeUtil";
 
 export function getRandomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -18,7 +19,7 @@ export const generateRandomMeasurementPacket = (): MeasurementPacket => {
     airPressure: getRandomInt(1, 50),
     velocity: getRandomInt(1, 50),
     battery: getRandomInt(1, 50),
-    time: Date.now(),
+    time: convertUnixTimestampToUTCTime(Date.now()),
     location: {
       longitude: getRandomInt(1, 1000),
       latitude: getRandomInt(1, 1000),

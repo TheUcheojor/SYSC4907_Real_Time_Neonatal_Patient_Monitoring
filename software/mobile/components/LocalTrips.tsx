@@ -16,17 +16,22 @@ import {
 import { ResultSet } from "react-native-sqlite-storage";
 import { DatabaseService } from "../services/database/DatabaseService";
 import TripRoute from "../services/database/models/Route";
-import { RouteRecordingState } from "../types";
+import { MainStackParamList, RouteRecordingState } from "../types";
 import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 interface LocalTripsParams {
   recordingState: RouteRecordingState;
 }
 
 const ICON_DEFAULT_COLOUR: string = "black";
+const TRIP_ITEM_PRESS_COLOUR: string = "#2F2F2F";
 
 export default ({ recordingState }: LocalTripsParams) => {
+  const navigation: NavigationProp<MainStackParamList> = useNavigation();
+
   const [localTrips, setLocalTrips] = useState<Array<TripRoute>>([]);
 
   /**
@@ -41,14 +46,13 @@ export default ({ recordingState }: LocalTripsParams) => {
     DatabaseService.getConfiguredDatabaseController().then(
       (databaseService: DatabaseService) => {
         databaseService.getAllRoutes().then((results: [ResultSet]) => {
-          results.forEach((result: ResultSet) => {
-            const newLocalTrips: Array<TripRoute> = [];
+          const result: ResultSet = results[0];
+          const newLocalTrips: Array<TripRoute> = [];
 
-            for (let index = 0; index < result.rows.length; index++) {
-              newLocalTrips.push(result.rows.item(index));
-            }
-            setLocalTrips(newLocalTrips);
-          });
+          for (let index = 0; index < result.rows.length; index++) {
+            newLocalTrips.push(result.rows.item(index));
+          }
+          setLocalTrips(newLocalTrips);
         });
       }
     );
@@ -97,7 +101,22 @@ export default ({ recordingState }: LocalTripsParams) => {
       >
         {localTrips.map((tripRoute: TripRoute, index: number) => {
           return (
-            <View key={index} style={styles.tripItemContainer}>
+            <Pressable
+              key={index}
+              style={({ pressed }: { pressed: boolean }) =>
+                getPressedHighlightBehaviourStyle(
+                  pressed,
+                  styles.tripItemContainer,
+                  TRIP_ITEM_PRESS_COLOUR
+                )
+              }
+              onPress={() =>
+                navigation.navigate("TripDetails", {
+                  routeId: tripRoute.routeId,
+                  isLocalTrip: true,
+                })
+              }
+            >
               <View style={styles.tripItemDateContainer}>
                 <Text style={styles.tripItemMainText}>
                   {getTripDate(tripRoute.startTime, tripRoute.endTime)}
@@ -115,7 +134,7 @@ export default ({ recordingState }: LocalTripsParams) => {
                   {tripRoute.patientId}
                 </Text>
               </View>
-            </View>
+            </Pressable>
           );
         })}
       </ScrollView>

@@ -13,6 +13,7 @@ import {
 import TripRoute from "./models/Route";
 import RouteSegment from "./models/RouteSegment";
 import RouteMeasurementDataPoint from "./models/RouteMeasurementDataPoint";
+import { DatabaseError } from "./models/DatabaseError";
 
 //Enable promises for the sqlite databases
 enablePromise(true);
@@ -78,16 +79,16 @@ export class DatabaseService {
       location: "default",
     });
 
-    // For clearing the database
-    await this.database.executeSql(
-      `DROP TABLE IF EXISTS ${DatabaseService.ROUTES_TABLE};`
-    );
-    await this.database.executeSql(
-      `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE};`
-    );
-    await this.database.executeSql(
-      `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
-    );
+    // // For clearing the database
+    // await this.database.executeSql(
+    //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTES_TABLE};`
+    // );
+    // await this.database.executeSql(
+    //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE};`
+    // );
+    // await this.database.executeSql(
+    //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
+    // );
 
     // Prepare and execute table-creation queries
     const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseService.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text );`;
@@ -105,7 +106,7 @@ export class DatabaseService {
    * @param trip the trip to be saved
    * @returns  the results
    */
-  public async saveTrip(trip: TripRoute): Promise<[ResultSet]> {
+  public async saveTripRoute(trip: TripRoute): Promise<[ResultSet]> {
     console.log("saveTrip: ", trip);
     const saveTripQuery = `INSERT INTO ${DatabaseService.ROUTES_TABLE} (patientId, startTime, endTime) VALUES ('${trip.patientId}', '${trip.startTime}',  '${trip.endTime}' ) `;
 
@@ -119,7 +120,7 @@ export class DatabaseService {
    * @param trip the trip to be updated
    * @returns  the results
    */
-  public async updateRoute(trip: TripRoute): Promise<[ResultSet]> {
+  public async updateTripRoute(trip: TripRoute): Promise<[ResultSet]> {
     const updateTripQuery: string = `UPDATE ${DatabaseService.ROUTES_TABLE} SET 
     patientid='${trip.patientId}', 
     startTime='${trip.startTime}', 
@@ -163,6 +164,24 @@ export class DatabaseService {
 
     console.log("getRoutesQuery: ", getRoutesQuery);
     return await this.database.executeSql(getRoutesQuery);
+  }
+
+  /**
+   * Returns the trip route associated to the trip id
+   * @param tripRouteId  the trip route id
+   * @returns the query result
+   */
+  public async getTripRouteById(
+    tripRouteId: number
+  ): Promise<TripRoute | null> {
+    const getRouteByIdQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} WHERE routeId = ${tripRouteId} ;`;
+
+    console.log("getRouteByIdQuery: ", getRouteByIdQuery);
+    return await this.database
+      .executeSql(getRouteByIdQuery)
+      .then((results: [ResultSet]) => {
+        return results[0].rows.length > 0 ? results[0].rows.item(0) : null;
+      });
   }
 
   /**
@@ -222,9 +241,9 @@ export class DatabaseService {
    * @returns the query result
    */
   public async getRouteMeasurementDataPointsByRouteId(
-    routeId: string
+    routeId: number
   ): Promise<RouteMeasurementDataPoint[]> {
-    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId='${routeId}' ) `;
+    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId=${routeId}; `;
 
     return await this.database
       .executeSql(getRouteMeasurementDataPointsByIdQuery)

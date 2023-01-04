@@ -20,6 +20,10 @@ export type MainStackParamList = {
   Settings: undefined;
   Trips: undefined;
   BottomTab: undefined;
+  TripDetails: {
+    routeId: number;
+    isLocalTrip: boolean;
+  };
 };
 
 /**

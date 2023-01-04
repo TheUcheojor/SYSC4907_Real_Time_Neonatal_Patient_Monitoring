@@ -9,6 +9,7 @@ import { MainStackParamList, SharedScreenResources } from "../types";
 import BottomTabNavigator from "./BottomTabNavigator";
 import AppIcon from "../components/AppIcon";
 import { Ionicons } from "@expo/vector-icons";
+import TripDetailsScreen from "../screens/trips/TripDetailsScreen";
 
 const Drawer = createDrawerNavigator<MainStackParamList>();
 
@@ -65,6 +66,10 @@ export default ({
           />
         )}
       </Drawer.Screen>
+      <Drawer.Screen
+        name="TripDetails"
+        component={TripDetailsScreen}
+      ></Drawer.Screen>
     </Drawer.Navigator>
   );
 };

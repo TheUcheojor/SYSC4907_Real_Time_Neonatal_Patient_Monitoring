@@ -82,7 +82,9 @@ export class TripRecordingService {
     this.currentRoute.startTime = convertUnixTimestampToUTCTime(Date.now());
 
     const startRouteResults: [ResultSet] | undefined =
-      await TripRecordingService.databaseService?.saveTrip(this.currentRoute);
+      await TripRecordingService.databaseService?.saveTripRoute(
+        this.currentRoute
+      );
 
     if (startRouteResults == undefined) return;
 
@@ -125,7 +127,7 @@ export class TripRecordingService {
     // Close the current route
     this.currentRoute.endTime = endTime;
     const updateRouteResults: [ResultSet] | undefined =
-      await TripRecordingService.databaseService?.updateRoute(
+      await TripRecordingService.databaseService?.updateTripRoute(
         this.currentRoute
       );
   }

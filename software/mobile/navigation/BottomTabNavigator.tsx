@@ -10,6 +10,7 @@ import MenuItemContainer from "../components/MenuItemContainer";
 import MainHeader from "../components/MainHeader";
 
 import TripsTopTabNavigator from "./TripsTopTabNavigator";
+import TripDetailsScreen from "../screens/trips/TripDetailsScreen";
 
 const BottomTab = createBottomTabNavigator<MainStackParamList>();
 
