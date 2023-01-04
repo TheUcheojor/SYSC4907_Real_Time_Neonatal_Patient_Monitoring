@@ -9,10 +9,7 @@ import {
   VictoryChart,
   VictoryAxis,
   VictoryArea,
-  VictoryLine,
   VictoryZoomContainer,
-  VictoryLabel,
-  VictoryTooltip,
   VictoryScatter,
   VictoryTheme,
 } from "victory-native";
@@ -41,8 +38,6 @@ export default ({
   graphColor,
   units,
 }: MetricDetailedLineChartParams) => {
-  //   console.log(dataset);
-
   return (
     <View style={styles.componentContainer}>
       <Text style={styles.chartTitle}>{title}</Text>
@@ -58,17 +53,10 @@ export default ({
             },
           }}
           height={250}
-          //   width={370}
-          //   scale={"time"}
-          //   style={}
           theme={VictoryTheme.material}
-          //   scale={{ x: "time" }}
-          //   domain={{ y: [0, 100] }}
           domainPadding={{ x: [100, 25], y: [10, 60] }}
           containerComponent={
             <VictoryZoomContainer
-              //   responsive={false}
-
               zoomDimension="x"
               downsample={NUMBER_OF_VISIBLE_POINTS}
             />
@@ -116,21 +104,6 @@ export default ({
             padding={{ right: 20 }}
           />
 
-          {/* <VictoryAxis
-            label={"Time"}
-            style={{
-              axis: { stroke: "transparent" },
-              ticks: { stroke: "transparent" },
-              tickLabels: { stroke: "transparent", fontSize: 0, opacity: 0 },
-              grid: { stroke: "grey" },
-              axisLabel: {
-                // dy: 25,
-                fontFamily: "Montserrat_700Bold",
-                fontSize: 12,
-              },
-            }}
-          /> */}
-
           <VictoryAxis
             dependentAxis
             crossAxis={false}
@@ -160,7 +133,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     overflow: "hidden",
-    // backgroundColor: "red",
     marginVertical: 10,
   },
   chartTitle: {
@@ -168,7 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   graphContainer: {
-    // backgroundColor: "black",
     borderRadius: 10,
     flexDirection: "row",
     justifyContent: "flex-start",

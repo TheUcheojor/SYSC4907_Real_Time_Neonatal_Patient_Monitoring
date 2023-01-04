@@ -5,22 +5,16 @@
  */
 import React from "react";
 
-import { NavigationProp } from "@react-navigation/native";
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from "@react-navigation/native-stack";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable, ScrollView } from "react-native";
-import { ResultSet } from "react-native-sqlite-storage";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { DatabaseService } from "../../services/database/DatabaseService";
 import TripRoute from "../../services/database/models/Route";
 import RouteMeasurementDataPoint from "../../services/database/models/RouteMeasurementDataPoint";
-import { MainStackParamList, TripsStackParamList } from "../../types";
+import { MainStackParamList } from "../../types";
 import { FlashList } from "@shopify/flash-list";
 
 import {
-  getFullTimeString,
   getSimplifiedTimeString,
   getTripDate,
   getTripTimeString,
@@ -30,7 +24,6 @@ import MetricDetailedLineChart, {
   GraphData,
   MetricDetailedLineChartParams,
 } from "../../components/MetricDetailedLineChart";
-import { FlatList } from "react-native-gesture-handler";
 import {
   NOISE_GRAPH_COLOUR,
   NOISE_METRIC_TITLE,
@@ -52,10 +45,6 @@ import MeasurementPacket, {
   VIBRATION_KEY_MEASUREMENT_PACKET,
 } from "../../services/sensor-package/models/MeasurementPacket";
 
-interface TripDetailsScreenParams extends Readonly<any> {
-  routeId: string;
-}
-
 export default ({
   route,
   navigation,
@@ -66,7 +55,7 @@ export default ({
     RouteMeasurementDataPoint[]
   >([]);
 
-  const mapToMetricDatase = (
+  const mapToMetricDataset = (
     metricKey: keyof MeasurementPacket
   ): Array<GraphData> => {
     return routeMeasurementDataPoints.map(
@@ -90,25 +79,25 @@ export default ({
   const datasets: MetricDetailedLineChartParams[] = [
     {
       title: VIBRATION_METRIC_TITLE,
-      dataset: mapToMetricDatase(VIBRATION_KEY_MEASUREMENT_PACKET),
+      dataset: mapToMetricDataset(VIBRATION_KEY_MEASUREMENT_PACKET),
       graphColor: VIBRATION_GRAPH_COLOUR,
       units: VIBRATION_UNITS,
     },
     {
       title: NOISE_METRIC_TITLE,
-      dataset: mapToMetricDatase(NOISE_KEY_MEASUREMENT_PACKET),
+      dataset: mapToMetricDataset(NOISE_KEY_MEASUREMENT_PACKET),
       graphColor: NOISE_GRAPH_COLOUR,
       units: NOISE_UNITS,
     },
     {
       title: TEMPERATURE_METRIC_TITLE,
-      dataset: mapToMetricDatase(TEMPERATURE_KEY_MEASUREMENT_PACKET),
+      dataset: mapToMetricDataset(TEMPERATURE_KEY_MEASUREMENT_PACKET),
       graphColor: TEMPERATURE_GRAPH_COLOUR,
       units: TEMPERATURE_UNITS,
     },
     {
       title: VELOCITY_METRIC_TITLE,
-      dataset: mapToMetricDatase(VELOCITY_KEY_MEASUREMENT_PACKET),
+      dataset: mapToMetricDataset(VELOCITY_KEY_MEASUREMENT_PACKET),
       graphColor: VELOCITY_GRAPH_COLOUR,
       units: VELOCITY_UNITS,
     },
@@ -126,6 +115,7 @@ export default ({
 
               if (fetchedTripRoute == null) return;
 
+              // Fetch the associated route measurement points
               databaseService
                 .getRouteMeasurementDataPointsByRouteId(routeId)
                 .then(
