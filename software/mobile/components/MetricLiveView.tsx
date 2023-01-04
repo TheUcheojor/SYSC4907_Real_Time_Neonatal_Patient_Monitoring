@@ -11,7 +11,12 @@ import {
   ImageSourcePropType,
 } from "react-native";
 
-import { VictoryChart, VictoryAxis, VictoryArea } from "victory-native";
+import {
+  VictoryChart,
+  VictoryAxis,
+  VictoryArea,
+  VictoryGroup,
+} from "victory-native";
 
 /**
  * The metric live view parameter
@@ -71,7 +76,7 @@ export default function MetricLiveView({
       </Text>
 
       <View style={styles.graphContainer}>
-        <VictoryChart width={260} height={160}>
+        <VictoryGroup width={260} height={160}>
           <VictoryArea
             interpolation="monotoneX"
             style={{
@@ -85,15 +90,15 @@ export default function MetricLiveView({
             data={liveData}
           />
 
-          <VictoryAxis
+          {/* <VictoryAxis
             style={{
               axis: { stroke: "transparent" },
               ticks: { stroke: "transparent" },
               tickLabels: { fill: "transparent" },
               grid: { stroke: "transparent" },
             }}
-          />
-        </VictoryChart>
+          /> */}
+        </VictoryGroup>
       </View>
     </View>
   );
@@ -111,11 +116,11 @@ const styles = StyleSheet.create({
 
   title: {
     fontFamily: "Montserrat_700Bold",
-    fontSize: 16,
+    fontSize: 14,
     color: "white",
     marginTop: 40,
     marginLeft: 20,
-    letterSpacing: 3,
+    letterSpacing: 2,
   },
 
   text: {
