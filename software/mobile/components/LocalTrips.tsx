@@ -3,7 +3,7 @@
  * File: LocalTrips
  * Purpose: Exports the local trips components which reveals trips stored in the database
  */
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,7 @@ import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { FlashList } from "@shopify/flash-list";
 
 interface LocalTripsParams {
   recordingState: RouteRecordingState;
@@ -38,7 +39,7 @@ export default ({ recordingState }: LocalTripsParams) => {
    * Fetches local trips from the database
    *
    * Right now, the system is fetching all the the local routes at a time which scales poorly.
-   * I created a getRoutesWithRestrictions function for controlled fetching but there was weird
+   * I created a getRoutesWithRestrictions function for controlled paginated fetching but there was weird
    * behaviours. Since the optimization is not a major concern at the initial stages, the system will use
    * the fetch-all behaviour for now and optimizations can be made if time permits
    */
@@ -58,6 +59,9 @@ export default ({ recordingState }: LocalTripsParams) => {
     );
   };
 
+  /**
+   * Fetch the trips on page transition
+   */
   useEffect(() => {
     if (recordingState == RouteRecordingState.NOT_RECORDING) getLocalTrips();
 
@@ -67,6 +71,48 @@ export default ({ recordingState }: LocalTripsParams) => {
   const clearTrips = () => {
     setLocalTrips([]);
   };
+
+  /**
+   * Given an trip item, return the trip item component
+   */
+  const getLocalTripItem = useCallback(
+    ({ item }: { item: TripRoute }): JSX.Element => {
+      return (
+        <Pressable
+          style={({ pressed }: { pressed: boolean }) =>
+            getPressedHighlightBehaviourStyle(
+              pressed,
+              styles.tripItemContainer,
+              TRIP_ITEM_PRESS_COLOUR
+            )
+          }
+          onPress={() =>
+            navigation.navigate("TripDetails", {
+              routeId: item.routeId,
+              isLocalTrip: true,
+            })
+          }
+        >
+          <View style={styles.tripItemDateContainer}>
+            <Text style={styles.tripItemMainText}>
+              {getTripDate(item.startTime, item.endTime)}
+            </Text>
+            <Text style={styles.tripItemMinorText}>
+              {getTripTimeString(item.startTime, item.endTime)}
+            </Text>
+          </View>
+
+          <View style={styles.tripItemPatientDetailsContainer}>
+            {item.patientId && (
+              <Text style={styles.tripItemPatientText}>Patient </Text>
+            )}
+            <Text style={styles.tripItemPatientIdText}>{item.patientId}</Text>
+          </View>
+        </Pressable>
+      );
+    },
+    []
+  );
 
   return (
     <View style={styles.localTripsComponentContainer}>
@@ -95,49 +141,13 @@ export default ({ recordingState }: LocalTripsParams) => {
           />
         </View>
       </View>
-      <ScrollView
-        contentContainerStyle={styles.tripsContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        {localTrips.map((tripRoute: TripRoute, index: number) => {
-          return (
-            <Pressable
-              key={index}
-              style={({ pressed }: { pressed: boolean }) =>
-                getPressedHighlightBehaviourStyle(
-                  pressed,
-                  styles.tripItemContainer,
-                  TRIP_ITEM_PRESS_COLOUR
-                )
-              }
-              onPress={() =>
-                navigation.navigate("TripDetails", {
-                  routeId: tripRoute.routeId,
-                  isLocalTrip: true,
-                })
-              }
-            >
-              <View style={styles.tripItemDateContainer}>
-                <Text style={styles.tripItemMainText}>
-                  {getTripDate(tripRoute.startTime, tripRoute.endTime)}
-                </Text>
-                <Text style={styles.tripItemMinorText}>
-                  {getTripTimeString(tripRoute.startTime, tripRoute.endTime)}
-                </Text>
-              </View>
 
-              <View style={styles.tripItemPatientDetailsContainer}>
-                {tripRoute.patientId && (
-                  <Text style={styles.tripItemPatientText}>Patient </Text>
-                )}
-                <Text style={styles.tripItemPatientIdText}>
-                  {tripRoute.patientId}
-                </Text>
-              </View>
-            </Pressable>
-          );
-        })}
-      </ScrollView>
+      <FlashList
+        data={localTrips}
+        renderItem={getLocalTripItem}
+        estimatedItemSize={100}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
