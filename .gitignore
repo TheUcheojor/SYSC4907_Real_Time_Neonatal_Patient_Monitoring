@@ -4,3 +4,4 @@
 .vscode/settings.json
 .idea
 *.lock
+.DS_Store
