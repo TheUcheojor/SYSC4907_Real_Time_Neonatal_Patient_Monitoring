@@ -45,6 +45,12 @@ import {
   VIBRATION_METRIC_TITLE,
   VIBRATION_UNITS,
 } from "../../constants/metric-contants";
+import MeasurementPacket, {
+  NOISE_KEY_MEASUREMENT_PACKET,
+  TEMPERATURE_KEY_MEASUREMENT_PACKET,
+  VELOCITY_KEY_MEASUREMENT_PACKET,
+  VIBRATION_KEY_MEASUREMENT_PACKET,
+} from "../../services/sensor-package/models/MeasurementPacket";
 
 interface TripDetailsScreenParams extends Readonly<any> {
   routeId: string;
@@ -60,10 +66,8 @@ export default ({
     RouteMeasurementDataPoint[]
   >([]);
 
-  const mapToMetricDatase = <
-    RouteMeasurementDataPointKey extends keyof RouteMeasurementDataPoint
-  >(
-    metricKey: RouteMeasurementDataPointKey
+  const mapToMetricDatase = (
+    metricKey: keyof MeasurementPacket
   ): Array<GraphData> => {
     return routeMeasurementDataPoints.map(
       (routeMeasurementDataPoint: RouteMeasurementDataPoint, index: number) => {
@@ -83,32 +87,28 @@ export default ({
     );
   };
 
-  const vibrationDataSet: Array<GraphData> = mapToMetricDatase("vibration");
-  const temperatureDataSet: Array<GraphData> = mapToMetricDatase("temperature");
-  const velocityDataSet: Array<GraphData> = mapToMetricDatase("velocity");
-  const noiseDataSet: Array<GraphData> = mapToMetricDatase("noise");
   const datasets: MetricDetailedLineChartParams[] = [
     {
       title: VIBRATION_METRIC_TITLE,
-      dataset: mapToMetricDatase("vibration"),
+      dataset: mapToMetricDatase(VIBRATION_KEY_MEASUREMENT_PACKET),
       graphColor: VIBRATION_GRAPH_COLOUR,
       units: VIBRATION_UNITS,
     },
     {
       title: NOISE_METRIC_TITLE,
-      dataset: mapToMetricDatase("noise"),
+      dataset: mapToMetricDatase(NOISE_KEY_MEASUREMENT_PACKET),
       graphColor: NOISE_GRAPH_COLOUR,
       units: NOISE_UNITS,
     },
     {
       title: TEMPERATURE_METRIC_TITLE,
-      dataset: mapToMetricDatase("temperature"),
+      dataset: mapToMetricDatase(TEMPERATURE_KEY_MEASUREMENT_PACKET),
       graphColor: TEMPERATURE_GRAPH_COLOUR,
       units: TEMPERATURE_UNITS,
     },
     {
       title: VELOCITY_METRIC_TITLE,
-      dataset: mapToMetricDatase("velocity"),
+      dataset: mapToMetricDatase(VELOCITY_KEY_MEASUREMENT_PACKET),
       graphColor: VELOCITY_GRAPH_COLOUR,
       units: VELOCITY_UNITS,
     },
@@ -170,40 +170,15 @@ export default ({
           showsVerticalScrollIndicator={false}
         />
       </View>
-      {/* <ScrollView
-      // style={{ width: "100%" }}
-      // contentContainerStyle={styles.chartsContainer}
-      >
-        <MetricDetailedLineChart
-          title={VIBRATION_METRIC_TITLE}
-          dataset={vibrationDataSet}
-          graphColor={VIBRATION_GRAPH_COLOUR}
-          units={VIBRATION_UNITS}
-        />
-        <MetricDetailedLineChart
-          title={NOISE_METRIC_TITLE}
-          dataset={noiseDataSet}
-          graphColor={NOISE_GRAPH_COLOUR}
-          units={NOISE_UNITS}
-        />
-        <MetricDetailedLineChart
-          title={TEMPERATURE_METRIC_TITLE}
-          dataset={temperatureDataSet}
-          graphColor={TEMPERATURE_GRAPH_COLOUR}
-          units={TEMPERATURE_UNITS}
-        />
-
-        <MetricDetailedLineChart
-          title={VELOCITY_METRIC_TITLE}
-          dataset={velocityDataSet}
-          graphColor={VELOCITY_GRAPH_COLOUR}
-          units={VELOCITY_UNITS}
-        />
-      </ScrollView> */}
     </View>
   );
 };
 
+/**
+ * Return a MetricDetailedLineChart component for the given item
+ * @param item the item
+ * @returns a MetricDetailedLineChart component
+ */
 const getMetricDetailChart = ({
   item,
 }: {

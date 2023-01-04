@@ -46,3 +46,10 @@ export default interface MeasurementPacket {
    */
   readonly location: { readonly longitude: number; readonly latitude: number };
 }
+
+export const VIBRATION_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket =
+  "vibration";
+export const NOISE_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket = "noise";
+export const TEMPERATURE_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket =
+  "temperature";
+export const VELOCITY_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket = "noise";
