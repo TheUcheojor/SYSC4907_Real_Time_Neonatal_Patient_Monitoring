@@ -10,13 +10,14 @@ export function generateSessionToken(user_id: number): string {
 
 export function authenticateSessionToken(req, res, next) {
   const authHeader = req.headers["authorization"];
+  console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) return res.sendStatus(401);
   dotenv.config();
 
   jsonwebtoken.verify(
-    token,
+    token as string,
     process.env.TOKEN_SECRET as string,
     (err: any, decodedToken: any) => {
       if (err) {

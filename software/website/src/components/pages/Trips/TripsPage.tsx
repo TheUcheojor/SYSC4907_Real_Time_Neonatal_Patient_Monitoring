@@ -15,6 +15,7 @@ import TripsDetails from "./TripsDetails";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/MapWithChartNet";
+import { getFetchHeaderWithAuth } from "utility/AuthUtil";
 
 const pStyles = {
   fontWeight: 700,
@@ -35,7 +36,7 @@ function TripsPage() {
   const [routes, setRoutes] = useState(undefined);
 
   useEffect(() => {
-    fetch("https://localhost:3001/routes")
+    fetch("https://localhost:3001/routes", getFetchHeaderWithAuth())
       .then((res) => res.json())
       .then(
         (result) => {

@@ -10,6 +10,7 @@ import { toClockString, toDateString } from "utility/StringUtil";
 import MapWithChartNet from "components/MapWithChartNet";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChart from "components/MapWithChart";
+import { getFetchHeaderWithAuth } from "utility/AuthUtil";
 
 const chartLabelStyles = {
   color: "black",
@@ -40,7 +41,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
       fetch(
         `https://localhost:3001/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
-        }`
+        }`, getFetchHeaderWithAuth()
       )
         .then((res) => res.json())
         .then(

@@ -3,6 +3,7 @@ import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
 import MapWithChart from "./MapWithChart";
 import LoadingIcon from "./icons/LoadingIcon";
+import { getFetchHeaderWithAuth } from "utility/AuthUtil";
 
 interface mwcNetProps {
   routeId: number;
@@ -17,7 +18,10 @@ function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
 
   useEffect(() => {
     setDatapoints(undefined);
-    fetch(`https://localhost:3001/routeMeasurementDataPoints/${routeId}`)
+    fetch(
+      `https://localhost:3001/routeMeasurementDataPoints/${routeId}`,
+      getFetchHeaderWithAuth()
+    )
       .then((res) => res.json())
       .then(
         (result) => {

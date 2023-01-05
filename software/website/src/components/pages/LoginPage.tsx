@@ -54,11 +54,14 @@ function LoginPage({ setToken }: LoginPageProps) {
         password: password.current,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        console.log(res, res.headers.get("Authorization"));
+        setToken(res.headers.get("Authorization").split(" ")[1]);
+        return res.json();
+      })
       .then(
         (res) => {
           setFetching(false);
-          setToken(res.headers.get());
           sessionStorage.setItem("fullName", JSON.stringify(res.full_name));
         },
         (error) => {

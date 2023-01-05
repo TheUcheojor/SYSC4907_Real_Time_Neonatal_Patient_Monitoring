@@ -8,11 +8,8 @@ import {
   coordsCivicToHull,
   coordsOttToTo,
 } from "./mock/coords";
-import {
-  AuthenticatedRequest,
-  PostRouteRequest,
-} from "./models/requests/PostRouteRequest";
-import { LoginRequest, SignUpRequest } from "./models/requests/AuthRequests";
+import { PostRouteRequest } from "./models/requests/PostRouteRequest";
+import { AuthenticatedRequest, LoginRequest, SignUpRequest } from "./models/requests/AuthRequests";
 import fs from "fs";
 import https from "https";
 import { Logger } from "./Logger";
@@ -27,8 +24,12 @@ const privateKey = fs.readFileSync("./secret/server_DEVONLY.key", "utf8");
 const certificate = fs.readFileSync("./secret/server_DEVONLY.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
+const corsOptions = {
+  exposedHeaders: ["Authorization"],
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ limit: "10mb" }));
 
