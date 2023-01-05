@@ -99,13 +99,22 @@ export default ({
     </BottomTab.Screen>
     <BottomTab.Screen
       name="Settings"
-      component={SettingsScreen}
+      // component={SettingsScreen}
       options={{
         tabBarIcon: ({ focused }) => (
           <MenuItemContainer screenName="Settings" focused={focused} />
         ),
       }}
-    />
+    >
+      {(props) => (
+        <SettingsScreen
+          recordingState={recordingState}
+          setRecordingState={setRecordingState}
+          measurementPacket={measurementPacket}
+          setMeasurementPacket={setMeasurementPacket}
+        />
+      )}
+    </BottomTab.Screen>
   </BottomTab.Navigator>
 );
 

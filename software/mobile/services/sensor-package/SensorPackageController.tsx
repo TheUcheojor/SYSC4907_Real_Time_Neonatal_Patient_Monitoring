@@ -32,6 +32,11 @@ import { generateRandomMeasurementPacket } from "../../utils/RandomUtil";
 
 export default class SensorPackageController {
   /**
+   * The sensor package name prefix.
+   *
+   */
+  private static readonly SENSOR_PACKAGE_NAME_PREFIX = "Sensor-Package";
+  /**
    * The BLE manager that acts as an entry point to discover and communicate with BLE devices
    */
 
@@ -40,7 +45,7 @@ export default class SensorPackageController {
   /**
    * The amount of time to spend scanning for devices
    */
-  private static readonly DEVICE_SCAN_TIMEOUT = 5000;
+  private static readonly DEVICE_SCAN_TIMEOUT = 1000;
 
   /**
    * The measurement packet service UUID
@@ -131,6 +136,16 @@ export default class SensorPackageController {
       console.log("PERMISSIONS.BLUETOOTH_CONNECT -> result: " + result);
     });
 
+    await request(PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION, {
+      title: "Scanning Permissions",
+      message: "Required to connect to the sensor package",
+      buttonNeutral: "Later",
+      buttonNegative: "Cancel",
+      buttonPositive: "OK",
+    }).then((result: PermissionStatus) => {
+      console.log("PERMISSIONS.ACCESS_COARSE_LOCATION -> result: " + result);
+    });
+
     await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL, {
       title: "Bluetooth Peripheral ",
       message: "Required to connect to the sensor package",
@@ -144,9 +159,12 @@ export default class SensorPackageController {
 
   /**
    * Populate a collection with nearby BLE devices.
-   * @param devices the collection of nearby BLE devices
+   * @param setDevices the collection of nearby BLE devices
    */
-  public static async scanDevices(devices: Array<Device>) {
+  public static scanDevices(
+    setDevices: React.Dispatch<React.SetStateAction<Device[]>>
+  ) {
+    const fetchedDevices: Device[] = [];
     SensorPackageController.BLE_MANAGER.startDeviceScan(
       null,
       null,
@@ -156,14 +174,21 @@ export default class SensorPackageController {
           console.warn(error);
         }
 
-        if (scannedDevice) {
+        if (
+          scannedDevice &&
+          scannedDevice.localName?.includes(
+            SensorPackageController.SENSOR_PACKAGE_NAME_PREFIX
+          ) &&
+          fetchedDevices.every(
+            (device: Device) => device.localName !== scannedDevice.localName
+          )
+        ) {
           console.log(
             "Adding device '" +
               scannedDevice.name +
               "' to the scanned device collection"
           );
-
-          devices.push(scannedDevice);
+          fetchedDevices.push(scannedDevice);
         }
       }
     );
@@ -171,6 +196,7 @@ export default class SensorPackageController {
     // stop scanning devices after until timeout threshold is reached
     setTimeout(() => {
       SensorPackageController.BLE_MANAGER.stopDeviceScan();
+      setDevices(fetchedDevices);
     }, SensorPackageController.DEVICE_SCAN_TIMEOUT);
   }
 
@@ -178,10 +204,17 @@ export default class SensorPackageController {
    * This function connects to the given device
    * @param device
    */
-  public async connectDevice(device: Device) {
+  public async connectDevice(
+    device: Device | null,
+    setSelectedSensorPackage: React.Dispatch<
+      React.SetStateAction<Device | null>
+    >
+  ): Promise<void> {
+    if (!device || device.id == this.sensorPackageDevice?.id) return;
+
     console.log("connecting to Device:", device.name);
 
-    device
+    return device
       .connect()
       .then((device) => {
         console.log("connected to " + device.name + "!");
@@ -189,17 +222,38 @@ export default class SensorPackageController {
       })
       .then((device) => {
         this.setSensorPackageDevice(device);
-        this.isSensorPackageDeviceConnected = true;
+        this.isSensorPackageDeviceConnected = true; //Should be removed
 
         //Set the disconnection behaviour
         SensorPackageController.BLE_MANAGER.onDeviceDisconnected(
           device.id,
           (error, device) => {
-            console.log("Device " + device?.name + "has been disconnected");
-            this.isSensorPackageDeviceConnected = false;
+            console.log(
+              "Device " + device?.localName + "has been disconnected"
+            );
+            this.isSensorPackageDeviceConnected = false; //Should be removed
             this.sensorPackageDevice = null;
+            setSelectedSensorPackage(null);
           }
         );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  /**
+   * Disconnected the current device
+   * @returns
+   */
+  public async disconnectDevice(): Promise<void> {
+    if (!this.sensorPackageDevice) return;
+
+    return this.sensorPackageDevice
+      .cancelConnection()
+      .then((device: Device) => {
+        this.sensorPackageDevice = null;
+        this.isSensorPackageDeviceConnected = false;
       });
   }
 
@@ -217,29 +271,38 @@ export default class SensorPackageController {
     if (
       this.sensorPackageDevice == null ||
       !this.isSensorPackageDeviceConnected
-    )
+    ) {
+      console.log("NULL EXIT");
       return null;
+    }
 
+    console.log("attempting to subscribe to measurement feed: ");
     // Watch the measurement packet characteristic and update the measurement-feed collection accordingly
     // The characteristic is expected to be notifable to enable monitoring.
     return this.sensorPackageDevice.monitorCharacteristicForService(
       SensorPackageController.MEASUREMENT_PACKET_SERVICE_UUID,
       SensorPackageController.MEASUREMENT_PACKET_CHARACTERISTIC_UUID,
       (error, characteristic) => {
-        if (error || !characteristic?.value) return;
+        if (!characteristic || error || !characteristic.value) return;
 
-        let measurementPacket: MeasurementPacket = JSON.parse(
-          characteristic.value
-        );
+        characteristic.read().then((characteristic: Characteristic) => {
+          if (!characteristic || error || !characteristic.value) return;
 
-        //Covert the unix time stamp
-        measurementPacket.time = convertUnixTimestampToUTCTime(
-          measurementPacket.time as number
-        );
+          console.log(base64.decode(characteristic.value as string));
 
-        setMeasurementPacket(measurementPacket);
+          let measurementPacket: MeasurementPacket = JSON.parse(
+            base64.decode(characteristic.value as string)
+          );
 
-        console.log("Received new measurementpacket: ", measurementPacket);
+          // //Covert the unix time stamp
+          measurementPacket.time = convertUnixTimestampToUTCTime(
+            parseInt(measurementPacket.time as string)
+          );
+
+          setMeasurementPacket(measurementPacket);
+
+          console.log("Received new measurementpacket: ", measurementPacket);
+        });
       }
     );
   }

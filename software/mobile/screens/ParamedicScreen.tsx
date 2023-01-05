@@ -68,27 +68,27 @@ export default ({
   const sensorPackageController: SensorPackageController =
     SensorPackageController.getSensorPackageController();
 
-  /**
-   * Update the feed from the sensor package
-   */
-  useEffect(() => {
-    const packetFeedSubscription: Subscription | null =
-      sensorPackageController.getMeasurementPacketFeed(setMeasurementPacket);
+  // /**
+  //  * Update the feed from the sensor package
+  //  */
+  // useEffect(() => {
+  //   const packetFeedSubscription: Subscription | null =
+  //     sensorPackageController.getMeasurementPacketFeed(setMeasurementPacket);
 
-    return () => {
-      if (packetFeedSubscription !== null) packetFeedSubscription.remove();
-    };
-  }, []);
+  //   return () => {
+  //     if (packetFeedSubscription !== null) packetFeedSubscription.remove();
+  //   };
+  // }, []);
 
-  /**
-   * Mocking a feed from the sensor package from the send
-   */
-  useEffect(() => {
-    const generateMeasurementPacketInterval: NodeJS.Timer =
-      sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+  // /**
+  //  * Mocking a feed from the sensor package from the send
+  //  */
+  // useEffect(() => {
+  //   const generateMeasurementPacketInterval: NodeJS.Timer =
+  //     sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
 
-    return () => clearInterval(generateMeasurementPacketInterval);
-  }, []);
+  //   return () => clearInterval(generateMeasurementPacketInterval);
+  // }, []);
 
   /**
    * Update the feeds as when measurement-packet changes
