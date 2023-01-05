@@ -58,11 +58,8 @@ function LoginPage({ setToken }: LoginPageProps) {
       .then(
         (res) => {
           setFetching(false);
-          setLoginError(res.msg);
-          if (res.is_success) {
-            setToken("ABC123");
-            sessionStorage.setItem("fullName", JSON.stringify(res.full_name));
-          }
+          setToken(res.headers.get());
+          sessionStorage.setItem("fullName", JSON.stringify(res.full_name));
         },
         (error) => {
           setFetching(false);
