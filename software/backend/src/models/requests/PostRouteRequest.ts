@@ -1,8 +1,11 @@
 import { Request } from "express";
 import RouteMeasurementDataPoint from "../RouteMeasurementDataPoint";
 
-export interface PostRouteRequest extends Request {
-    owner_id?: string;
+export interface AuthenticatedRequest extends Request {
+    user_id?: string
+}
+
+export interface PostRouteRequest extends AuthenticatedRequest {
     route_segments?: RouteSegment[];
 }
 

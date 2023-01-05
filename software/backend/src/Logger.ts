@@ -20,4 +20,9 @@ export class Logger {
     const date = new Date();
     console.log(`[WARN] ${date.toJSON()}: ${msg}`);
   }
+
+  error(msg: string) {
+    const date = new Date();
+    console.log(`[ERROR] ${date.toJSON()}: ${msg}`);
+  }
 }
