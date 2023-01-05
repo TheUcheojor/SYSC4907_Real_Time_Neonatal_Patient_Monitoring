@@ -17,7 +17,7 @@ function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
 
   useEffect(() => {
     setDatapoints(undefined);
-    fetch(`http://localhost:3001/routeMeasurementDataPoints/${routeId}`)
+    fetch(`https://localhost:3001/routeMeasurementDataPoints/${routeId}`)
       .then((res) => res.json())
       .then(
         (result) => {

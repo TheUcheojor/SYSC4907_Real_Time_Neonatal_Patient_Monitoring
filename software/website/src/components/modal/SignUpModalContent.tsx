@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import CSS from "csstype";
 import "css/App.css";
+import LoadingIcon from "components/icons/LoadingIcon";
+import { ColorEnum } from "constants/ColorEnum";
 
 function SignUpModalContent() {
+  console.log("SUMC RENDER");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
+  const [signUpResult, setSignUpResult] = useState("");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [netError, setNetError] = useState(undefined);
+  const [isFetching, setFetching] = useState(false);
   const [isEnabled, setEnabled] = useState(false);
 
   const validEmailRegex =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g;
-
-  const buttonStyles: CSS.Properties = {
-    fontSize: "16px",
-    marginTop: "10px",
-  };
 
   const modalDivStyles: CSS.Properties = {
     display: "flex",
@@ -26,27 +29,76 @@ function SignUpModalContent() {
     fontSize: "15px",
   };
 
-  function signUp() {
-    console.log(email + "\n" + password + "\n" + passwordVerify);
+  function handleSignUp() {
+    setFetching(true);
+    fetch(`https://localhost:3001/signUp`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        full_name: fullName,
+      }),
+    })
+      .then((res) => res.json())
+      .then(
+        (res) => {
+          setIsSuccess(res.is_success);
+          setSignUpResult(res.msg);
+          setFetching(false);
+        },
+        (error) => {
+          setNetError(error);
+          setFetching(false);
+        }
+      );
   }
 
   function handleKeyUp() {
     let regexMatches = email.trim().match(validEmailRegex);
     let regexMatch =
       regexMatches != null && regexMatches.length > 0 ? regexMatches[0] : null;
+
+    let fullNameValid = fullName.length > 1 && fullName.length < 255;
     let emailValid =
       regexMatch != null && regexMatch.length === email.trim().length;
     let passwordValid = password.length >= 8 && password.length <= 16;
     let passwordVerifyValid =
       passwordVerify.length >= 8 && passwordVerify.length <= 16;
     let passwordsMatch = password === passwordVerify;
-    if (emailValid && passwordValid && passwordVerifyValid && passwordsMatch)
+
+    if (
+      fullNameValid &&
+      emailValid &&
+      passwordValid &&
+      passwordVerifyValid &&
+      passwordsMatch
+    )
       setEnabled(true);
     else setEnabled(false);
   }
 
   return (
     <div style={modalDivStyles}>
+      {signUpResult !== "" && (
+        <span
+          style={{
+            color: isSuccess ? ColorEnum.Green : ColorEnum.Red,
+            marginBottom: "5px",
+            maxWidth: "305px",
+            wordBreak: "break-all",
+          }}
+        >
+          {signUpResult}
+        </span>
+      )}
+      <input
+        className="text-input"
+        placeholder="Full Name"
+        value={fullName}
+        onKeyUp={handleKeyUp}
+        onChange={(event) => setFullName(event.target.value)}
+      />
       <input
         className="text-input"
         placeholder="Email"
@@ -73,9 +125,21 @@ function SignUpModalContent() {
         onKeyUp={handleKeyUp}
         onChange={(event) => setPasswordVerify(event.target.value)}
       />
-      <button style={buttonStyles} disabled={!isEnabled} onClick={signUp}>
-        Sign Up
-      </button>
+      {!isFetching ? (
+        <button
+          style={{
+            fontSize: "16px",
+            marginTop: "10px",
+            cursor: !isEnabled || isSuccess ? "auto" : "pointer",
+          }}
+          disabled={!isEnabled || isSuccess}
+          onClick={handleSignUp}
+        >
+          Sign Up
+        </button>
+      ) : (
+        <LoadingIcon />
+      )}
     </div>
   );
 }

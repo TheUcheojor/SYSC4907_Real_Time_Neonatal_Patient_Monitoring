@@ -1,5 +1,5 @@
 export function queryTripDatapoints(routeId: number):Promise<Response>  {
-    return fetch(`http://localhost:3001/dps/${routeId}`)
+    return fetch(`https://localhost:3001/dps/${routeId}`)
       .then((res) => res.json())
       .then(
         (result) => {

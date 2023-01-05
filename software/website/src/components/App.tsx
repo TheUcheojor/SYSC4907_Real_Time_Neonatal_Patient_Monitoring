@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import LoginPage from "components/pages/LoginPage";
 import OrganizationsPage from "components/pages/OrganizationsPage";
 import TripsPage from "components/pages/Trips/TripsPage";
 import MyAccountPage from "components/pages/MyAccountPage";
@@ -8,8 +7,8 @@ import { PageEnum } from "constants/PageEnum";
 
 function App() {
   const [activePage, setActivePage] = useState(PageEnum.Organization);
-  const [token, setToken] = useState(false);
 
+  console.log("APP RENDER");
   function renderActivePage() {
     switch (activePage) {
       case PageEnum.Organization:
@@ -19,12 +18,8 @@ function App() {
       case PageEnum.MyAccount:
         return <MyAccountPage />;
       default:
-        return <LoginPage setToken={setToken} />;
+        return <OrganizationsPage />;
     }
-  }
-
-  if (!token) {
-    return <LoginPage setToken={setToken} />;
   }
 
   return (

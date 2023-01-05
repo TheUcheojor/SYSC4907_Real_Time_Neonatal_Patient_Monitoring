@@ -27,19 +27,18 @@ const pStyles = {
 };
 
 function TripsPage() {
+  console.log("TRIPS PAGE RENDER");
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
   const [netError, setNetError] = useState(true);
   const [routes, setRoutes] = useState(undefined);
-  console.log("TRIPS PAGE RENDER");
 
   useEffect(() => {
-    fetch("http://localhost:3001/routes")
+    fetch("https://localhost:3001/routes")
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
           setRoutes(result);
         },
         (error) => {
@@ -136,8 +135,12 @@ function TripsPage() {
                 <span style={pStyles}>
                   Duration:{" "}
                   {elapsedDurationInHoursAndMinutes(
-                    selectedRoutes[selectedRoutes.length - 1][RouteFieldEnum.start_time_s],
-                    selectedRoutes[selectedRoutes.length - 1][RouteFieldEnum.end_time_s]
+                    selectedRoutes[selectedRoutes.length - 1][
+                      RouteFieldEnum.start_time_s
+                    ],
+                    selectedRoutes[selectedRoutes.length - 1][
+                      RouteFieldEnum.end_time_s
+                    ]
                   )}
                 </span>
                 <span style={pStyles}>

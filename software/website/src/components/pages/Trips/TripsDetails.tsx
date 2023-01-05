@@ -38,7 +38,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
       fetch(
-        `http://localhost:3001/routeMeasurementDataPoints/${
+        `https://localhost:3001/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
         }`
       )
