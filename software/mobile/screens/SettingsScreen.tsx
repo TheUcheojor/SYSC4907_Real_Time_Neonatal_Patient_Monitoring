@@ -42,8 +42,15 @@ export default ({
     };
   }, [selectedSensorPackage]);
 
-  // const sensorPackageController: SensorPackageController =
-  //   SensorPackageController.getSensorPackageController();
+  // /**
+  //  * Mocking a feed from the sensor package from the send
+  //  */
+  // useEffect(() => {
+  //   const generateMeasurementPacketInterval: NodeJS.Timer =
+  //     sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+
+  //   return () => clearInterval(generateMeasurementPacketInterval);
+  // }, []);
 
   return (
     <View style={styles.settingsScreen}>

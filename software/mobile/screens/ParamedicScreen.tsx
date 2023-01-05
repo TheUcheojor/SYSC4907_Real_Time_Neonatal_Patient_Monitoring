@@ -1,21 +1,13 @@
-import {
-  View,
-  ImageSourcePropType,
-  TextInput,
-  Pressable,
-  Text,
-} from "react-native";
+import { View, TextInput, Pressable, Text } from "react-native";
 import { RouteRecordingState, SharedScreenResources } from "../types";
 import { StyleSheet } from "react-native";
 import MetricLiveView, {
   NUMBER_OF_VISIBLE_METRIC_POINTS,
 } from "../components/MetricLiveView";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SensorPackageController from "../services/sensor-package/SensorPackageController";
 import { circularArrayPush } from "../utils/ArrayUtil";
 
-import { DatabaseService } from "../services/database/DatabaseService.tsx";
-import { Subscription } from "react-native-ble-plx";
 import { TripRecordingService } from "../services/trips/TripRecordingService";
 import {
   VIBRATION_METRIC_TITLE,
@@ -67,28 +59,6 @@ export default ({
 
   const sensorPackageController: SensorPackageController =
     SensorPackageController.getSensorPackageController();
-
-  // /**
-  //  * Update the feed from the sensor package
-  //  */
-  // useEffect(() => {
-  //   const packetFeedSubscription: Subscription | null =
-  //     sensorPackageController.getMeasurementPacketFeed(setMeasurementPacket);
-
-  //   return () => {
-  //     if (packetFeedSubscription !== null) packetFeedSubscription.remove();
-  //   };
-  // }, []);
-
-  // /**
-  //  * Mocking a feed from the sensor package from the send
-  //  */
-  // useEffect(() => {
-  //   const generateMeasurementPacketInterval: NodeJS.Timer =
-  //     sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
-
-  //   return () => clearInterval(generateMeasurementPacketInterval);
-  // }, []);
 
   /**
    * Update the feeds as when measurement-packet changes
