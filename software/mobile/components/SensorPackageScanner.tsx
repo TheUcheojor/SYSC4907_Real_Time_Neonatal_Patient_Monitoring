@@ -16,7 +16,7 @@ interface SensorPackageScannerParams {
 }
 
 const ICON_PRESSED_COLOUR: string = "#282828";
-const SENSOR_PACKAGE_ITEM_PRESSED_COLOUR: string = "black";
+const SENSOR_PACKAGE_ITEM_PRESSED_COLOUR: string = "#1E1E1E";
 
 export default ({ setSelectedSensorPackage }: SensorPackageScannerParams) => {
   const [devices, setDevices] = useState<Array<Device>>([]);
@@ -74,27 +74,26 @@ export default ({ setSelectedSensorPackage }: SensorPackageScannerParams) => {
 
 const styles = StyleSheet.create({
   sensorPackageScanner: {
-    flex: 3,
+    flex: 1,
     width: "90%",
     flexDirection: "column",
-    backgroundColor: "black",
-    // height: 300,
     marginVertical: 10,
     borderRadius: 15,
+    flexWrap: "wrap",
   },
 
   header: {
+    width: "100%",
     // height: 30,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    // backgroundColor: "red",
-    padding: 20,
+    padding: 10,
   },
 
   title: {
     fontFamily: "Montserrat_700Bold",
-    color: "white",
+    color: "black",
     fontSize: 16,
   },
 
@@ -106,19 +105,15 @@ const styles = StyleSheet.create({
   },
 
   sensorPackagesContainer: {
-    flex: 1,
-    backgroundColor: "#282828",
-    margin: 20,
-    marginTop: 0,
-    // paddingVertical: 10,
-    // paddingTop: 10,
-    borderRadius: 10,
+    width: "100%",
+    flexDirection: "column",
   },
 
   sensorPackageItem: {
     flexDirection: "row",
     paddingVertical: 20,
-    // backgroundColor: "blue",
+    backgroundColor: "black",
+    borderRadius: 10,
     justifyContent: "space-around",
     alignContent: "center",
   },
@@ -130,18 +125,3 @@ const styles = StyleSheet.create({
     color: "white",
   },
 });
-// {
-
-//     temp: 21.
-//     noise: 20.11
-//     location: {
-//         latitude: 20,
-//         longitude: 20
-//     }
-// }
-/***
- *
- *
- * Serial.println(X)
- *
- */

@@ -100,8 +100,9 @@ export default ({
 
 const styles = StyleSheet.create({
   sensorPackageConnectionStatus: {
-    flex: 1,
+    // flex: 1,
     margin: 10,
+    height: 200,
     width: "90%",
     padding: 10,
     backgroundColor: "black",

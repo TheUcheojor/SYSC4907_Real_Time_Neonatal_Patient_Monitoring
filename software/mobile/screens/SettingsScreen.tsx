@@ -47,18 +47,13 @@ export default ({
 
   return (
     <View style={styles.settingsScreen}>
-      <SensorPackageScanner
-        setSelectedSensorPackage={setSelectedSensorPackage}
-      />
-
       <SensorPackageConnectionStatus
         selectedSensorPackage={selectedSensorPackage}
         setSelectedSensorPackage={setSelectedSensorPackage}
       />
-
-      {/* {devices.map((device: Device) => {
-        return <Text>{device.localName}</Text>;
-      })} */}
+      <SensorPackageScanner
+        setSelectedSensorPackage={setSelectedSensorPackage}
+      />
     </View>
   );
 };
