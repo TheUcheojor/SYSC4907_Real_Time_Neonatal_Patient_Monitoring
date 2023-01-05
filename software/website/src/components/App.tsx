@@ -4,11 +4,22 @@ import TripsPage from "components/pages/Trips/TripsPage";
 import MyAccountPage from "components/pages/MyAccountPage";
 import NavHeader from "components/NavHeader";
 import { PageEnum } from "constants/PageEnum";
+import useToken from "auth/useToken";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
-  const [activePage, setActivePage] = useState(PageEnum.Organization);
+  const [activePage, setActivePage] = useState(PageEnum.DefaultLandingPage);
+  const { token, setToken } = useToken();
 
-  console.log("APP RENDER");
+  if (token === null) {
+    return <LoginPage setToken={setToken} />;
+  }
+
+  function onLogout() {
+    setToken(null);
+    setActivePage(PageEnum.DefaultLandingPage)
+  }
+
   function renderActivePage() {
     switch (activePage) {
       case PageEnum.Organization:
@@ -16,8 +27,8 @@ function App() {
       case PageEnum.Trips:
         return <TripsPage />;
       case PageEnum.MyAccount:
-        return <MyAccountPage />;
-      default:
+        return <MyAccountPage onLogout={onLogout} />;
+      case PageEnum.DefaultLandingPage:
         return <OrganizationsPage />;
     }
   }

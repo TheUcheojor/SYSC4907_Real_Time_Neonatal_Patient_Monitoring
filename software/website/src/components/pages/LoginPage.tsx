@@ -61,6 +61,7 @@ function LoginPage({ setToken }: LoginPageProps) {
           setLoginError(res.msg);
           if (res.is_success) {
             setToken("ABC123");
+            sessionStorage.setItem("fullName", JSON.stringify(res.full_name));
           }
         },
         (error) => {
@@ -87,46 +88,49 @@ function LoginPage({ setToken }: LoginPageProps) {
         }}
       >
         <h1>Transport Comfort Analysis</h1>
-        <div style={{ width: "300px" }}>
-          {loginError !== "" && (
-            <span
-              style={{
-                color: ColorEnum.Red,
-                marginBottom: "5px",
-                wordBreak: "break-all",
-                fontSize: "14px",
-              }}
-            >
-              {loginError}
-            </span>
-          )}
-          <input
-            type="text"
-            placeholder="Email"
-            onChange={(event) => (password.current = event.target.value)}
-          />
-        </div>
-        <div style={{ width: "300px" }}>
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(event) => (email.current = event.target.value)}
-          />
-        </div>
-        <div>
-          {!isFetching ? (
-            <button
-              style={{ fontSize: "32px" }}
-              onClick={() => {
-                handleLogin();
-              }}
-            >
-              Login
-            </button>
-          ) : (
-            <LoadingIcon />
-          )}
-        </div>
+        <form>
+          <div style={{ width: "300px" }}>
+            {loginError !== "" && (
+              <span
+                style={{
+                  color: ColorEnum.Red,
+                  marginBottom: "5px",
+                  wordBreak: "break-all",
+                  fontSize: "14px",
+                }}
+              >
+                {loginError}
+              </span>
+            )}
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(event) => (password.current = event.target.value)}
+            />
+          </div>
+          <div style={{ width: "300px" }}>
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(event) => (email.current = event.target.value)}
+            />
+          </div>
+          <div>
+            {!isFetching ? (
+              <input
+                className="input-button"
+                type="submit"
+                style={{ fontSize: "32px" }}
+                onClick={() => {
+                  handleLogin();
+                }}
+                value="Login"
+              />
+            ) : (
+              <LoadingIcon />
+            )}
+          </div>
+        </form>
         <div>
           {" "}
           <span

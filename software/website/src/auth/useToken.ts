@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default function useToken() {
-  console.log("INVOKED useTOKEN", JSON.parse(sessionStorage.getItem("token")));
   const getToken = () => {
     return JSON.parse(sessionStorage.getItem("token"));
   };

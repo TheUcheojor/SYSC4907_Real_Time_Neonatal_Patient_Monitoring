@@ -143,7 +143,7 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
                   activePage === PageEnum.MyAccount ? "visible" : "hidden",
               }}
             ></div>
-            <span style={{ color: "white" }}>My Account</span>
+            <span style={{ color: "white" }}>{JSON.parse(sessionStorage.getItem("fullName"))}</span>
           </div>
         </div>
       </div>

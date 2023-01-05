@@ -15,7 +15,7 @@ const accountOptionsDivStyles: CSS.Properties = {
   paddingBottom: "10px",
 };
 
-const changePasswordButtonStyles: CSS.Properties = {
+const buttonStyles: CSS.Properties = {
   fontSize: "20px",
 };
 
@@ -23,7 +23,11 @@ const inputStyles: CSS.Properties = {
   width: "100%",
 };
 
-function MyAccountPage() {
+interface myAccountsPageProps {
+  onLogout: () => void;
+}
+
+function MyAccountPage({ onLogout }: myAccountsPageProps) {
   const [isChangingPassword, setIsChangingPassword] = useState(false);
 
   return (
@@ -31,12 +35,23 @@ function MyAccountPage() {
       <div style={accountOptionsDivStyles}>
         <h3>Account Options</h3>
         {!isChangingPassword && (
-          <button
-            onClick={() => setIsChangingPassword(true)}
-            style={changePasswordButtonStyles}
-          >
-            Change password
-          </button>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <button
+              onClick={() => setIsChangingPassword(true)}
+              style={buttonStyles}
+            >
+              Change password
+            </button>
+            <button
+              onClick={() => {
+                sessionStorage.clear();
+                onLogout();
+              }}
+              style={{ ...buttonStyles, marginTop: "5px" }}
+            >
+              Logout
+            </button>
+          </div>
         )}
         {isChangingPassword && (
           <div>
