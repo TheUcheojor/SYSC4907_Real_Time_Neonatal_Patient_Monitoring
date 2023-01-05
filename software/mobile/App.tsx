@@ -1,10 +1,15 @@
 // import { GestureHandlerRootView } from "react-native-gesture-handler";
 // import "react-native-gesture-handler";
 
-import { StatusBar } from "expo-status-bar";
+import { StatusBar, StatusBarStyle } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StackNavigationContainer } from "./navigation/StackNavigationContainer";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  // StatusBar,
+} from "react-native";
 import {
   useFonts,
   Montserrat_600SemiBold_Italic,
@@ -26,6 +31,8 @@ import MeasurementPacket from "./services/sensor-package/models/MeasurementPacke
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
+
+const STATUS_BAR_STYLE: StatusBarStyle = "dark";
 
 export default function App() {
   const [isDependenciesLoaded, setDependenciesLoaded] =
@@ -76,7 +83,7 @@ export default function App() {
         measurementPacket={measurementPacket}
         setMeasurementPacket={setMeasurementPacket}
       />
-      <StatusBar />
+      <StatusBar hidden={false} style={STATUS_BAR_STYLE} />
     </SafeAreaProvider>
   );
 }
