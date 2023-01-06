@@ -1,15 +1,15 @@
 /**
  * Author: Paul Okenne
- * File: ServerRoute
+ * File: ServerTripRoute
  * Purpose: Exports the schema for a server route object
  */
 
 import TripRoute from "../trips/Route";
 
-export default interface ServerRoute extends TripRoute {
+export default interface ServerTripRoute extends TripRoute {
   ownerId: string;
   organizationId: string;
-  totalVibrationExposed: number;
+  totalVibrationExposure: number;
   avgTemperature: number;
   avgNoise: number;
   avgPressure: number;

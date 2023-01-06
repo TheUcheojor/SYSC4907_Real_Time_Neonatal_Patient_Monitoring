@@ -66,7 +66,7 @@ export default ({}: LocalTripsParams) => {
    */
   const getLocalTripItem = useCallback(
     ({ item }: { item: TripRoute }): JSX.Element => (
-      <TripItem item={item} isLocalTrip={true} />
+      <TripItem tripRoute={item} isLocalTrip={true} />
     ),
     []
   );
@@ -154,55 +154,5 @@ const styles = StyleSheet.create({
 
   icon: {
     marginHorizontal: 5,
-  },
-
-  tripsContainer: {
-    flexDirection: "column",
-    justifyContent: "flex-start",
-    // backgroundColor: "green",
-  },
-
-  tripItemContainer: {
-    flexDirection: "row",
-    backgroundColor: "black",
-    marginVertical: 5,
-    borderRadius: 10,
-    padding: 10,
-  },
-
-  tripItemDateContainer: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-  },
-
-  tripItemPatientDetailsContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  tripItemMainText: {
-    color: "white",
-    fontSize: 14,
-    fontFamily: "Montserrat_600SemiBold",
-  },
-  tripItemMinorText: {
-    color: "white",
-    fontSize: 10,
-    fontFamily: "Montserrat_600SemiBold",
-  },
-
-  tripItemPatientText: {
-    fontFamily: "Montserrat_600SemiBold",
-    fontSize: 11,
-    color: "white",
-  },
-
-  tripItemPatientIdText: {
-    fontFamily: "Montserrat_700Bold",
-    fontSize: 11,
-    color: "white",
   },
 });

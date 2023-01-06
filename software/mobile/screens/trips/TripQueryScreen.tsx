@@ -4,11 +4,14 @@
  * Purpose: Exports the trip query screen
  */
 
-import { useEffect, useRef, useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
+import { FlashList } from "@shopify/flash-list";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaskInput, { Masks, Mask } from "react-native-mask-input";
 import LocalTrips from "../../components/LocalTrips";
+import TripItem from "../../components/TripItem";
 import {
   EQUAL_KEY,
   EQUAL_LABEL,
@@ -28,9 +31,16 @@ import {
   VELOCITY_METRIC_TITLE,
   VIBRATION_METRIC_TITLE,
 } from "../../constants/metric-constants";
+import ServerTripRoute from "../../services/models/server-communication/ServerTripRoute";
 import { getPressedHighlightBehaviourStyle } from "../../utils/ComponentsUtil";
+import { generateRandomServerTripRoute } from "../../utils/RandomUtil";
 
 export default (): JSX.Element => {
+  const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([
+    generateRandomServerTripRoute(),
+    generateRandomServerTripRoute(),
+  ]);
+
   /**
    * Trip-property dropdown related states
    */
@@ -97,11 +107,28 @@ export default (): JSX.Element => {
     setTextInputValue("");
   }, [selectedTripProperty]);
 
+  /**
+   * Query the server for the results and update the trips
+   */
+  const search = () => {
+    //setFetchedTrips(RESULTS)
+  };
+
+  /**
+   * Given an trip item, return the trip item component
+   */
+  const getFetchedTripItem = useCallback(
+    ({ item }: { item: ServerTripRoute }): JSX.Element => (
+      <TripItem tripRoute={item} isLocalTrip={false} />
+    ),
+    []
+  );
+
   return (
     <View style={styles.tripQueryScreen}>
       <View style={styles.filterContainer}>
         <DropDownPicker
-          style={{ ...styles.dropdownPicker, zIndex: 3 }}
+          style={styles.dropdownPicker}
           labelStyle={styles.dropdownPickerLabel}
           open={propertyDropDownOpen}
           setOpen={setPropertyDropDownOpen}
@@ -110,10 +137,11 @@ export default (): JSX.Element => {
           items={tripPropertyItems}
           setItems={setTripPropertyItems}
           categorySelectable={false}
+          zIndex={3}
         />
 
         <DropDownPicker
-          style={{ ...styles.dropdownPicker, zIndex: 2 }}
+          style={styles.dropdownPicker}
           labelStyle={styles.dropdownPickerLabel}
           open={comparisonDropDownOpen}
           setOpen={setComparisonDropDownOpen}
@@ -121,6 +149,7 @@ export default (): JSX.Element => {
           setValue={setSelectedComparisonOperator}
           items={comparisonOperators}
           setItems={setComparisonOperators}
+          zIndex={2}
         />
 
         <View style={styles.textInputContainer}>
@@ -142,10 +171,32 @@ export default (): JSX.Element => {
             )
           }
         >
-          <Text style={styles.buttonText}>SEARCH</Text>
+          <Text onPress={search} style={styles.buttonText}>
+            SEARCH
+          </Text>
         </Pressable>
       </View>
-      <LocalTrips />
+
+      <View style={styles.tripsContainer}>
+        <View style={styles.header}>
+          <Text style={styles.primaryText}>Fetched Trips</Text>
+
+          <MaterialIcons
+            style={styles.icon}
+            name="clear"
+            size={30}
+            color="black"
+            onPress={() => setFetchedTrips([])}
+          />
+        </View>
+
+        <FlashList
+          data={fetchedTrips}
+          renderItem={getFetchedTripItem}
+          estimatedItemSize={100}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </View>
   );
 };
@@ -206,6 +257,30 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_700Bold",
     color: "white",
     fontSize: 12,
+  },
+
+  tripsContainer: {
+    flex: 1,
+    flexDirection: "column",
+    width: "90%",
+    alignItems: "center",
+    marginVertical: 10,
+    // backgroundColor: "blue",
+  },
+
+  header: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+  },
+
+  icon: {
+    marginHorizontal: 5,
+  },
+  primaryText: {
+    fontSize: 20,
+    fontFamily: "Montserrat_700Bold",
   },
 });
 

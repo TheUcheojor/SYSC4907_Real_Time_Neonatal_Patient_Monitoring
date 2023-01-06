@@ -10,13 +10,14 @@ import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainStackParamList } from "../types";
+import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
 
 interface TripItemParams {
-  item: TripRoute;
+  tripRoute: TripRoute | ServerTripRoute;
   isLocalTrip: boolean;
 }
 
-export default ({ item, isLocalTrip }: TripItemParams): JSX.Element => {
+export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
   const navigation: NavigationProp<MainStackParamList> = useNavigation();
 
   return (
@@ -30,25 +31,36 @@ export default ({ item, isLocalTrip }: TripItemParams): JSX.Element => {
       }
       onPress={() =>
         navigation.navigate("TripDetails", {
-          routeId: item.routeId,
+          routeId: tripRoute.routeId,
           isLocalTrip: isLocalTrip,
         })
       }
     >
       <View style={styles.tripItemDateContainer}>
-        <Text style={styles.tripItemMainText}>
-          {getTripDate(item.startTime, item.endTime)}
+        <Text style={styles.primaryText}>
+          {getTripDate(tripRoute.startTime, tripRoute.endTime)}
         </Text>
-        <Text style={styles.tripItemMinorText}>
-          {getTripTimeString(item.startTime, item.endTime)}
+        <Text style={styles.tertiaryText}>
+          {getTripTimeString(tripRoute.startTime, tripRoute.endTime)}
         </Text>
       </View>
 
       <View style={styles.tripItemPatientDetailsContainer}>
-        {item.patientId && (
-          <Text style={styles.tripItemPatientText}>Patient </Text>
+        {tripRoute.patientId && (
+          <Text style={styles.primaryText}>
+            Patient{" "}
+            <Text style={styles.primaryText}>{tripRoute.patientId}</Text>
+          </Text>
         )}
-        <Text style={styles.tripItemPatientIdText}>{item.patientId}</Text>
+
+        {!isLocalTrip && (
+          <View style={styles.statsContainer}>
+            <Text style={styles.tertiaryText}>Total Vibration: </Text>
+            <Text style={styles.tertiaryText}>
+              {(tripRoute as ServerTripRoute).totalVibrationExposure} Hz
+            </Text>
+          </View>
+        )}
       </View>
     </Pressable>
   );
@@ -66,41 +78,47 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 10,
     padding: 10,
+    alignContent: "center",
   },
 
   tripItemDateContainer: {
     flex: 1,
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center",
   },
 
   tripItemPatientDetailsContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
 
-  tripItemMainText: {
+  primaryText: {
     color: "white",
     fontSize: 14,
     fontFamily: "Montserrat_600SemiBold",
-  },
-  tripItemMinorText: {
-    color: "white",
-    fontSize: 10,
-    fontFamily: "Montserrat_600SemiBold",
+    textTransform: "capitalize",
+    textAlign: "center",
   },
 
-  tripItemPatientText: {
+  secondaryText: {
     fontFamily: "Montserrat_600SemiBold",
-    fontSize: 11,
+    fontSize: 13,
     color: "white",
+    textAlign: "center",
+  },
+  tertiaryText: {
+    color: "white",
+    fontSize: 11,
+    fontFamily: "Montserrat_600SemiBold",
+    textAlign: "center",
   },
 
-  tripItemPatientIdText: {
-    fontFamily: "Montserrat_700Bold",
-    fontSize: 11,
-    color: "white",
+  statsContainer: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
