@@ -4,6 +4,8 @@
  * Purpose: This file returns the measurement packet model, the expected feed from the sensor package
  */
 
+import RouteLocation from "../common/Location";
+
 export default interface MeasurementPacket {
   /**
    * The noise in Decibels
@@ -44,7 +46,7 @@ export default interface MeasurementPacket {
   /**
    * The location, a latitude-longitude pair in degrees.
    */
-  readonly location: { readonly longitude: number; readonly latitude: number };
+  readonly location: RouteLocation;
 }
 
 export const VIBRATION_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket =
