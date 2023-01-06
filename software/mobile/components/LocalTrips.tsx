@@ -20,11 +20,10 @@ import { MainStackParamList, RouteRecordingState } from "../types";
 import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
+import TripItem from "./TripItem";
 
 export default ({}: LocalTripsParams) => {
-  const navigation: NavigationProp<MainStackParamList> = useNavigation();
   const [localTrips, setLocalTrips] = useState<Array<TripRoute>>([]);
 
   /**
@@ -66,41 +65,9 @@ export default ({}: LocalTripsParams) => {
    * Given an trip item, return the trip item component
    */
   const getLocalTripItem = useCallback(
-    ({ item }: { item: TripRoute }): JSX.Element => {
-      return (
-        <Pressable
-          style={({ pressed }: { pressed: boolean }) =>
-            getPressedHighlightBehaviourStyle(
-              pressed,
-              styles.tripItemContainer,
-              TRIP_ITEM_PRESS_COLOUR
-            )
-          }
-          onPress={() =>
-            navigation.navigate("TripDetails", {
-              routeId: item.routeId,
-              isLocalTrip: true,
-            })
-          }
-        >
-          <View style={styles.tripItemDateContainer}>
-            <Text style={styles.tripItemMainText}>
-              {getTripDate(item.startTime, item.endTime)}
-            </Text>
-            <Text style={styles.tripItemMinorText}>
-              {getTripTimeString(item.startTime, item.endTime)}
-            </Text>
-          </View>
-
-          <View style={styles.tripItemPatientDetailsContainer}>
-            {item.patientId && (
-              <Text style={styles.tripItemPatientText}>Patient </Text>
-            )}
-            <Text style={styles.tripItemPatientIdText}>{item.patientId}</Text>
-          </View>
-        </Pressable>
-      );
-    },
+    ({ item }: { item: TripRoute }): JSX.Element => (
+      <TripItem item={item} isLocalTrip={true} />
+    ),
     []
   );
 
@@ -150,7 +117,6 @@ interface LocalTripsParams {
 }
 
 const ICON_DEFAULT_COLOUR: string = "black";
-const TRIP_ITEM_PRESS_COLOUR: string = "#2F2F2F";
 
 const styles = StyleSheet.create({
   localTripsComponentContainer: {
