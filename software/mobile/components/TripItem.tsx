@@ -5,7 +5,7 @@
  */
 
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import TripRoute from "../services/database/models/Route";
+import TripRoute from "../services/models/trips/Route";
 import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import { NavigationProp, useNavigation } from "@react-navigation/native";

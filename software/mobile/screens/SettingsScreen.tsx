@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Device, Subscription } from "react-native-ble-plx";
 import SensorPackageConnectionStatus from "../components/SensorPackageConnectionStatus";
 import SensorPackageScanner from "../components/SensorPackageScanner";
-import SensorPackageController from "../services/sensor-package/SensorPackageController";
+import SensorPackageController from "../services/SensorPackageController";
 import { MainStackParamList, SharedScreenResources } from "../types";
 
 /**

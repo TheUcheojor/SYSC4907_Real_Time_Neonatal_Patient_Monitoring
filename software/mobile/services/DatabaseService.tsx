@@ -10,10 +10,10 @@ import {
   SQLiteDatabase,
   ResultSet,
 } from "react-native-sqlite-storage";
-import TripRoute from "./models/Route";
-import RouteSegment from "./models/RouteSegment";
-import RouteMeasurementDataPoint from "./models/RouteMeasurementDataPoint";
-import { DatabaseError } from "./models/DatabaseError";
+import TripRoute from "./models/trips/Route";
+import RouteSegment from "./models/trips/RouteSegment";
+import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
+import { DatabaseError } from "./models/error-handling/DatabaseError";
 
 //Enable promises for the sqlite databases
 enablePromise(true);

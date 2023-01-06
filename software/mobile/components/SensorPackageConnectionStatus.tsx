@@ -7,7 +7,7 @@ import { View, StyleSheet, Text, Pressable } from "react-native";
 import { FontAwesome, Feather, EvilIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import { Device } from "react-native-ble-plx";
-import SensorPackageController from "../services/sensor-package/SensorPackageController";
+import SensorPackageController from "../services/SensorPackageController";
 
 const DISCONNECTION_INDICATION_COLOUR: string = "#C2372E";
 const CONNECTION_INDICATION_COLOUR: string = "#2DB021";

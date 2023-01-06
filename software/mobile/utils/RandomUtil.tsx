@@ -4,7 +4,7 @@
  * Purpose: Export random-generating helper functions
  */
 
-import MeasurementPacket from "../services/sensor-package/models/MeasurementPacket";
+import MeasurementPacket from "../services/models/sensor-package-communication/MeasurementPacket";
 import { convertUnixTimestampToUTCTime } from "./TimeUtil";
 
 export function getRandomInt(min: number, max: number) {

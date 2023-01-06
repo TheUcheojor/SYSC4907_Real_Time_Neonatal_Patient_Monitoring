@@ -14,8 +14,8 @@ import {
   ScrollView,
 } from "react-native";
 import { ResultSet } from "react-native-sqlite-storage";
-import { DatabaseService } from "../services/database/DatabaseService";
-import TripRoute from "../services/database/models/Route";
+import { DatabaseService } from "../services/DatabaseService";
+import TripRoute from "../services/models/trips/Route";
 import { MainStackParamList, RouteRecordingState } from "../types";
 import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";

@@ -8,9 +8,9 @@ import React from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import { DatabaseService } from "../../services/database/DatabaseService";
-import TripRoute from "../../services/database/models/Route";
-import RouteMeasurementDataPoint from "../../services/database/models/RouteMeasurementDataPoint";
+import { DatabaseService } from "../../services/DatabaseService";
+import TripRoute from "../../services/models/Route";
+import RouteMeasurementDataPoint from "../../services/models/RouteMeasurementDataPoint";
 import { MainStackParamList } from "../../types";
 import { FlashList } from "@shopify/flash-list";
 
@@ -43,8 +43,8 @@ import MeasurementPacket, {
   TEMPERATURE_KEY_MEASUREMENT_PACKET,
   VELOCITY_KEY_MEASUREMENT_PACKET,
   VIBRATION_KEY_MEASUREMENT_PACKET,
-} from "../../services/sensor-package/models/MeasurementPacket";
-import RouteSegment from "../../services/database/models/RouteSegment";
+} from "../../services/models/sensor-package-communication/MeasurementPacket";
+import RouteSegment from "../../services/models/trips/RouteSegment";
 
 export default ({
   route,

@@ -6,8 +6,8 @@
 import { View, StyleSheet } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import { RouteRecordingState, SharedScreenResources } from "../../types";
-import { TripRecordingService } from "../../services/trips/TripRecordingService";
-import { RouteSegmentType } from "../../services/database/models/RouteSegment";
+import { TripRecordingService } from "../../services/TripRecordingService";
+import { RouteSegmentType } from "../../services/models/trips/RouteSegment";
 import NonRecordingTripRecorder from "./subcomponents/NonRecordingTripRecorder";
 import { RouteSegmentDropdownOption } from "./models/RouteSegmentOption";
 import RecordingTripRecorder from "./subcomponents/RecordingTripRecorder";

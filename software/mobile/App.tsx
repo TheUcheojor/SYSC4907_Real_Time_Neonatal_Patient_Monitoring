@@ -22,12 +22,12 @@ import {
 
 import { LogBox } from "react-native";
 import React, { useCallback, useEffect, useState } from "react";
-import { DatabaseService } from "./services/database/DatabaseService";
+import { DatabaseService } from "./services/DatabaseService";
 import AppIcon from "./components/AppIcon";
-import SensorPackageController from "./services/sensor-package/SensorPackageController";
+import SensorPackageController from "./services/SensorPackageController";
 import { RouteRecordingState } from "./types";
 import { generateRandomMeasurementPacket } from "./utils/RandomUtil";
-import MeasurementPacket from "./services/sensor-package/models/MeasurementPacket";
+import MeasurementPacket from "./services/models/sensor-package-communication/MeasurementPacket";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications

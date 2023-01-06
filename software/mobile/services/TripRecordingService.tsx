@@ -4,15 +4,13 @@
  * Purpose: Exports the TripController class which manages the trips
  */
 
-import { DatabaseService } from "../database/DatabaseService";
-import TripRoute from "../database/models/Route";
+import { DatabaseService } from "./DatabaseService";
+import TripRoute from "../models/Route";
 import { ResultSet } from "react-native-sqlite-storage";
-import RouteSegment, {
-  RouteSegmentType,
-} from "../database/models/RouteSegment";
-import { convertUnixTimestampToUTCTime } from "../../utils/TimeUtil";
-import MeasurementPacket from "../sensor-package/models/MeasurementPacket";
-import RouteMeasurementDataPoint from "../database/models/RouteMeasurementDataPoint";
+import RouteSegment, { RouteSegmentType } from "./models/trips/RouteSegment";
+import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
+import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
+import RouteMeasurementDataPoint from "../models/RouteMeasurementDataPoint";
 
 export class TripRecordingService {
   /**

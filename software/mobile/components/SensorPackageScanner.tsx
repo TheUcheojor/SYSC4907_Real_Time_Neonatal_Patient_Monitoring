@@ -7,7 +7,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Device } from "react-native-ble-plx";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { useState, useEffect } from "react";
-import SensorPackageController from "../services/sensor-package/SensorPackageController";
+import SensorPackageController from "../services/SensorPackageController";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import { ScrollView } from "react-native-gesture-handler";
 

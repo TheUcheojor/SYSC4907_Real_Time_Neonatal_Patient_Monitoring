@@ -4,7 +4,7 @@
  * Purpose: Exports the check-for-offline-trips request and response
  */
 
-import MeasurementPacket from "../MeasurementPacket";
+import MeasurementPacket from "./MeasurementPacket";
 import { BaseRequest } from "./BaseRequest";
 import { BaseResponse } from "./BaseResponse";
 import { RequestType } from "./RequestType";

@@ -4,7 +4,7 @@
  * Purpose: Exports the interface for drop down items
  */
 
-import { RouteSegmentType } from "../../../services/database/models/RouteSegment";
+import { RouteSegmentType } from "../../../services/models/trips/RouteSegment";
 
 export interface RouteSegmentDropdownOption {
   label: string;

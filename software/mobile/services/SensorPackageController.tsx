@@ -18,17 +18,17 @@ import {
   PermissionStatus,
 } from "react-native-permissions";
 
-import MeasurementPacket from "./models/MeasurementPacket";
-import { convertUnixTimestampToUTCTime } from "../../utils/TimeUtil";
+import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
+import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
 import {
   BaseRequest,
   BaseRequestInterface,
-} from "./models/requests/BaseRequest";
-import { BaseResponse } from "./models/requests/BaseResponse";
-import { circularArrayPush } from "../../utils/ArrayUtil";
+} from "./models/sensor-package-communication/BaseRequest";
+import { BaseResponse } from "./models/sensor-package-communication/BaseResponse";
+import { circularArrayPush } from "../utils/ArrayUtil";
 import { useEffect } from "react";
 import { measure } from "react-native-reanimated";
-import { generateRandomMeasurementPacket } from "../../utils/RandomUtil";
+import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
 
 export default class SensorPackageController {
   /**

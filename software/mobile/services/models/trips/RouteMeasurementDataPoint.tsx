@@ -4,7 +4,7 @@
  * Purpose: Exports the route-measurement-data-point schema model
  */
 
-import MeasurementPacket from "../../sensor-package/models/MeasurementPacket";
+import MeasurementPacket from "../sensor-package-communication/MeasurementPacket";
 
 export default interface RouteMeasurementDataPoint extends MeasurementPacket {
   /**

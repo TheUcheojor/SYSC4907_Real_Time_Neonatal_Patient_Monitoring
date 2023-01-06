@@ -5,10 +5,10 @@ import MetricLiveView, {
   NUMBER_OF_VISIBLE_METRIC_POINTS,
 } from "../components/MetricLiveView";
 import { useEffect, useRef, useState } from "react";
-import SensorPackageController from "../services/sensor-package/SensorPackageController";
+import SensorPackageController from "../services/SensorPackageController";
 import { circularArrayPush } from "../utils/ArrayUtil";
 
-import { TripRecordingService } from "../services/trips/TripRecordingService";
+import { TripRecordingService } from "../services/TripRecordingService";
 import {
   VIBRATION_METRIC_TITLE,
   VIBRATION_GRAPH_COLOUR,

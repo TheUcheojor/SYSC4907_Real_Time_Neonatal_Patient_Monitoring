@@ -3,7 +3,7 @@
  * File : TripRecorderSubcomponentParams
  * Purpose: Exports the format for trip recorder subscomponent parameters
  */
-import { RouteSegmentType } from "../../../services/database/models/RouteSegment";
+import { RouteSegmentType } from "../../../services/models/trips/RouteSegment";
 import { RouteRecordingState } from "../../../types";
 import { RouteSegmentDropdownOption } from "./RouteSegmentOption";
 
