@@ -237,8 +237,8 @@ export class DatabaseService {
 
   /**
    * Get route measurement data points by route id
-   * @param routeId the route
-   * @returns the query result
+   * @param routeId the route id
+   * @returns the collection of route measurement data points
    */
   public async getRouteMeasurementDataPointsByRouteId(
     routeId: number
@@ -257,6 +257,31 @@ export class DatabaseService {
         });
 
         return routeMeasurementDataPoints;
+      });
+  }
+
+  /**
+   * Get route segments by route id
+   * @param routeId the route id
+   * @returns the route segments
+   */
+  public async getRouteSegmentsByRouteId(
+    routeId: number
+  ): Promise<RouteSegment[]> {
+    const getRouteSegmentsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_SEGMENTS_TABLE} WHERE routeId=${routeId}; `;
+
+    return await this.database
+      .executeSql(getRouteSegmentsByIdQuery)
+      .then((resultSet: [ResultSet]) => {
+        const routeSegments: Array<RouteSegment> = [];
+
+        resultSet.forEach((result) => {
+          for (let index = 0; index < result.rows.length; index++) {
+            routeSegments.push(result.rows.item(index));
+          }
+        });
+
+        return routeSegments;
       });
   }
 }

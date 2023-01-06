@@ -44,6 +44,7 @@ import MeasurementPacket, {
   VELOCITY_KEY_MEASUREMENT_PACKET,
   VIBRATION_KEY_MEASUREMENT_PACKET,
 } from "../../services/sensor-package/models/MeasurementPacket";
+import RouteSegment from "../../services/database/models/RouteSegment";
 
 export default ({
   route,
@@ -54,6 +55,7 @@ export default ({
   const [routeMeasurementDataPoints, setRouteMeasurementDataPoints] = useState<
     RouteMeasurementDataPoint[]
   >([]);
+  const [routeSegements, setRouteSegments] = useState<RouteSegment[]>([]);
 
   const mapToMetricDataset = (
     metricKey: keyof MeasurementPacket
@@ -123,6 +125,13 @@ export default ({
                     setRouteMeasurementDataPoints(routeMeasurementDataPoints);
                   }
                 );
+
+              // Fetch the associated route segments
+              databaseService
+                .getRouteSegmentsByRouteId(routeId)
+                .then((routeSegements: RouteSegment[]) => {
+                  setRouteSegments(routeSegements);
+                });
             });
         }
       );
@@ -154,6 +163,17 @@ export default ({
       </Pressable>
 
       <View style={styles.chartsContainer}>
+        <View style={styles.routeSegmentContainer}>
+          <Text style={styles.primaryText}>Route Segments</Text>
+          {routeSegements.map((routeSegment: RouteSegment) => (
+            <Text style={styles.routeSegmentText}>
+              {getTripTimeString(routeSegment.startTime, routeSegment.endTime) +
+                ": " +
+                routeSegment.segmentType}
+            </Text>
+          ))}
+        </View>
+
         <FlashList
           // contentContainerStyle={styles.chartsContainer}
           data={datasets}
@@ -248,5 +268,16 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1,
     padding: 20,
+  },
+
+  routeSegmentContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginBottom: 10,
+  },
+
+  routeSegmentText: {
+    fontFamily: "Montserrat_600SemiBold",
+    fontSize: 12,
   },
 });
