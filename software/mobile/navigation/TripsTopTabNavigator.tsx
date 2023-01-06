@@ -4,6 +4,7 @@
  * Purpose: Exports the tab navigator for the trips screen
  */
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { View } from "react-native";
 import ActiveTripScreen from "../screens/trips/ActiveTripScreen";
 import TripQueryScreen from "../screens/trips/TripQueryScreen";
 import { SharedScreenResources, TripsStackParamList } from "../types";
@@ -46,12 +47,14 @@ export default ({
       </TopTab.Screen>
       <TopTab.Screen
         name="TripQuery"
-        component={TripQueryScreen}
+        // component={TripQueryScreen}
         options={{
           tabBarLabel: "Search",
           ...tabScreenStyle,
         }}
-      ></TopTab.Screen>
+      >
+        {(props) => <TripQueryScreen />}
+      </TopTab.Screen>
     </TopTab.Navigator>
   );
 };

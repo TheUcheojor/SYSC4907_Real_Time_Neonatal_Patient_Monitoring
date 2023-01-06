@@ -23,7 +23,7 @@ export default ({
         setMeasurementPacket={setMeasurementPacket}
       />
 
-      <LocalTrips recordingState={recordingState} />
+      <LocalTrips />
     </View>
   );
 };

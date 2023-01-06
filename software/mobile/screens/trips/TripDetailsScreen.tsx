@@ -37,7 +37,7 @@ import {
   VIBRATION_GRAPH_COLOUR,
   VIBRATION_METRIC_TITLE,
   VIBRATION_UNITS,
-} from "../../constants/metric-contants";
+} from "../../constants/metric-constants";
 import MeasurementPacket, {
   NOISE_KEY_MEASUREMENT_PACKET,
   TEMPERATURE_KEY_MEASUREMENT_PACKET,
@@ -127,6 +127,8 @@ export default ({
         }
       );
     }
+
+    //Fetch from the server
   }, [routeId]);
 
   return (

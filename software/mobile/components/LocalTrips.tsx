@@ -23,16 +23,8 @@ import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { FlashList } from "@shopify/flash-list";
 
-interface LocalTripsParams {
-  recordingState: RouteRecordingState;
-}
-
-const ICON_DEFAULT_COLOUR: string = "black";
-const TRIP_ITEM_PRESS_COLOUR: string = "#2F2F2F";
-
-export default ({ recordingState }: LocalTripsParams) => {
+export default ({}: LocalTripsParams) => {
   const navigation: NavigationProp<MainStackParamList> = useNavigation();
-
   const [localTrips, setLocalTrips] = useState<Array<TripRoute>>([]);
 
   /**
@@ -40,7 +32,7 @@ export default ({ recordingState }: LocalTripsParams) => {
    *
    * Right now, the system is fetching all the the local routes at a time which scales poorly.
    * I created a getRoutesWithRestrictions function for controlled paginated fetching but there was weird
-   * behaviours. Since the optimization is not a major concern at the initial stages, the system will use
+   * behaviours. Since optimization is not a major concern at initial development  stages, the system will use
    * the fetch-all behaviour for now and optimizations can be made if time permits
    */
   const getLocalTrips = () => {
@@ -60,12 +52,10 @@ export default ({ recordingState }: LocalTripsParams) => {
   };
 
   /**
-   * Fetch the trips on page transition
+   * Fetch local trips on page transition
    */
   useEffect(() => {
-    if (recordingState == RouteRecordingState.NOT_RECORDING) getLocalTrips();
-
-    return () => clearTrips();
+    getLocalTrips();
   }, []);
 
   const clearTrips = () => {
@@ -151,6 +141,16 @@ export default ({ recordingState }: LocalTripsParams) => {
     </View>
   );
 };
+
+/**
+ * View Constants
+ */
+interface LocalTripsParams {
+  // recordingState: RouteRecordingState;
+}
+
+const ICON_DEFAULT_COLOUR: string = "black";
+const TRIP_ITEM_PRESS_COLOUR: string = "#2F2F2F";
 
 const styles = StyleSheet.create({
   localTripsComponentContainer: {

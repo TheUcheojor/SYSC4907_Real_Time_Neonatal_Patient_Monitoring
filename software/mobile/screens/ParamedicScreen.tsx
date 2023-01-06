@@ -26,7 +26,7 @@ import {
   VELOCITY_ICON_SOURCE,
   VELOCITY_UNITS,
   VIBRATION_UNITS,
-} from "../constants/metric-contants";
+} from "../constants/metric-constants";
 
 /**
  * View Constants
