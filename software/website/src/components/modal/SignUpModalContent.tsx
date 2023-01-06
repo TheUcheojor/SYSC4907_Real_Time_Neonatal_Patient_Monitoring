@@ -40,10 +40,12 @@ function SignUpModalContent() {
         full_name: fullName,
       }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if(res.status === 200) setIsSuccess(true)
+        return res.json();
+      })
       .then(
         (res) => {
-          setIsSuccess(res.is_success);
           setSignUpResult(res.msg);
           setFetching(false);
         },

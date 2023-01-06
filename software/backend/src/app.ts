@@ -197,10 +197,6 @@ app.get(
             logger.error(error);
           });
         }
-        if (results.length === 0) {
-          res.status(404).send();
-          return;
-        }
         res.send(results);
       }
     );
