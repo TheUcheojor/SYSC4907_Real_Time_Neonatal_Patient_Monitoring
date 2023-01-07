@@ -36,7 +36,9 @@ function TripsPage() {
   const [routes, setRoutes] = useState(undefined);
 
   useEffect(() => {
-    fetch("https://localhost:3001/routes", getFetchHeaderWithAuth())
+    fetch("https://localhost:3001/routes", {
+      headers: getFetchHeaderWithAuth(),
+    })
       .then((res) => res.json())
       .then(
         (result) => {

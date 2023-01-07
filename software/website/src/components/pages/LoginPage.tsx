@@ -31,22 +31,24 @@ interface LoginPageProps {
 }
 
 function LoginPage({ setToken }: LoginPageProps) {
+  console.log("LOGIN render");
   const [forgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [loginError, setLoginError] = useState("");
   const [isFetching, setFetching] = useState(false);
   const email = useRef("");
   const password = useRef("");
-  let _loginError = "";
 
   function closeModal() {
     setSignUpModalOpen(false);
     setForgotPasswordModalOpen(false);
   }
+  console.log("LOGIN render");
 
   function handleLogin() {
     setFetching(true);
-    _loginError = "";
+    let _token;
+    console.log(email.current, password.current);
     fetch(`https://localhost:3001/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -57,21 +59,21 @@ function LoginPage({ setToken }: LoginPageProps) {
     })
       .then((res) => {
         if (res.status === 200) {
-          setToken(res.headers.get("Authorization").split(" ")[1]);
+          _token = res.headers.get("Authorization").split(" ")[1];
           return res.json();
         } else {
-          setLoginError("Unable to authenticate");
-          setFetching(false);
+          throw new Error();
         }
       })
       .then(
         (res) => {
           sessionStorage.setItem("fullName", JSON.stringify(res.full_name));
+          setToken(_token);
           setFetching(false);
         },
         (error) => {
           setFetching(false);
-          setLoginError(error);
+          setLoginError("Unable to authenticate");
         }
       );
   }
@@ -110,14 +112,14 @@ function LoginPage({ setToken }: LoginPageProps) {
             <input
               type="email"
               placeholder="Email"
-              onChange={(event) => (password.current = event.target.value)}
+              onChange={(event) => (email.current = event.target.value)}
             />
           </div>
           <div style={{ width: "300px" }}>
             <input
               type="password"
               placeholder="Password"
-              onChange={(event) => (email.current = event.target.value)}
+              onChange={(event) => (password.current = event.target.value)}
             />
           </div>
           <div
@@ -128,7 +130,6 @@ function LoginPage({ setToken }: LoginPageProps) {
           >
             {!isFetching ? (
               <input
-                className="input-button"
                 type="submit"
                 style={{ fontSize: "32px" }}
                 onClick={() => {
@@ -137,7 +138,7 @@ function LoginPage({ setToken }: LoginPageProps) {
                 value="Login"
               />
             ) : (
-              <LoadingIcon diameter = {"30px"} parentDiameter = {"50px"} />
+              <LoadingIcon diameter={"30px"} parentDiameter={"50px"} />
             )}
           </div>
         </form>

@@ -41,7 +41,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
       fetch(
         `https://localhost:3001/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
-        }`, getFetchHeaderWithAuth()
+        }`,{headers: getFetchHeaderWithAuth()}
       )
         .then((res) => res.json())
         .then(

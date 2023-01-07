@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import CSS from "csstype";
 import "css/App.css";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
+import { PASSWORD_LENGTH_MIN } from "constants/Auth";
 
 function SignUpModalContent() {
-  console.log("SUMC RENDER");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,22 +14,12 @@ function SignUpModalContent() {
   const [isFetching, setFetching] = useState(false);
   const [isEnabled, setEnabled] = useState(false);
 
-  const validEmailRegex =
+  const VALID_EMAIL_REGEX =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g;
-
-  const modalDivStyles: CSS.Properties = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
-
-  const passwordGuideStyles: CSS.Properties = {
-    fontSize: "15px",
-  };
 
   function handleSignUp() {
     setFetching(true);
-    fetch(`https://localhost:3001/signUp`, {
+    fetch(`https://localhost:3001/user`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -54,7 +43,7 @@ function SignUpModalContent() {
   }
 
   function handleKeyUp() {
-    let regexMatches = email.trim().match(validEmailRegex);
+    let regexMatches = email.trim().match(VALID_EMAIL_REGEX);
     let regexMatch =
       regexMatches != null && regexMatches.length > 0 ? regexMatches[0] : null;
 
@@ -78,7 +67,13 @@ function SignUpModalContent() {
   }
 
   return (
-    <div style={modalDivStyles}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {signUpResult !== "" && (
         <span
           style={{
@@ -105,8 +100,12 @@ function SignUpModalContent() {
         onKeyUp={handleKeyUp}
         onChange={(event) => setEmail(event.target.value)}
       />
-      <span style={passwordGuideStyles}>
-        Password must be within 8-16 characters
+      <span
+        style={{
+          fontSize: "15px",
+        }}
+      >
+        Password must be atleast {PASSWORD_LENGTH_MIN} characters
       </span>
       <input
         className="text-input"

@@ -9,7 +9,12 @@ import {
   coordsOttToTo,
 } from "./mock/coords";
 import { PostRouteRequest } from "./models/requests/PostRouteRequest";
-import { AuthenticatedRequest, LoginRequest, SignUpRequest } from "./models/requests/AuthRequests";
+import {
+  AuthenticatedRequest,
+  ChangePasswordRequest,
+  LoginRequest,
+  SignUpRequest,
+} from "./models/requests/AuthRequests";
 import fs from "fs";
 import https from "https";
 import { Logger } from "./Logger";
@@ -297,7 +302,7 @@ app.post("/login", (req: LoginRequest, res: Response) => {
   );
 });
 
-app.post("/signUp", (req: SignUpRequest, res: Response) => {
+app.post("/user", (req: SignUpRequest, res: Response) => {
   req = req.body;
   if (
     req.full_name === undefined ||
@@ -344,3 +349,50 @@ app.post("/signUp", (req: SignUpRequest, res: Response) => {
     }
   );
 });
+
+app.put(
+  "/user",
+  authenticateSessionToken,
+  (req: ChangePasswordRequest, res: Response) => {
+    console.log("HMM");
+    let body = req.body;
+    if (body.oldPassword === undefined || body.newPassword === undefined) {
+      res.status(400).send();
+      return;
+    }
+
+    let db = new DB();
+    db.connect();
+    let con = db.con;
+
+    con.query(
+      "SELECT * FROM users WHERE user_id = ? AND password=?",
+      [req.user_id, body.oldPassword],
+      function (error, results, fields) {
+        if (error) {
+          return con.rollback(function () {
+            logger.error(error);
+          });
+        }
+        if (results.length === 0) {
+          res.status(409).send();
+          return;
+        }
+
+        con.query(
+          "UPDATE users SET password=? WHERE user_id=?",
+          [body.newPassword, req.user_id],
+          function (error, results, fields) {
+            if (error) {
+              return con.rollback(function () {
+                logger.error(error);
+              });
+            }
+            logger.info("change password request success");
+            res.status(200).send();
+          }
+        );
+      }
+    );
+  }
+);

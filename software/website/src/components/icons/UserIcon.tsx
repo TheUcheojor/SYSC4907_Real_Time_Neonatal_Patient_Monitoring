@@ -16,7 +16,6 @@ function UserIcon({ fill, styles }: iconProps) {
       width="752px"
       height="752px"
       viewBox="0 0 752 752"
-      enable-background="new 0 0 752 752"
       fill={fill}
       style={styles}
     >

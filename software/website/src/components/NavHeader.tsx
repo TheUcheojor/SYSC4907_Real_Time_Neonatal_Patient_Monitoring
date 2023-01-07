@@ -4,13 +4,6 @@ import BabyIcon from "components/icons/BabyIcon";
 import UserIcon from "components/icons/UserIcon";
 import { PageEnum } from "constants/PageEnum";
 
-const headerStyles: CSS.Properties = {
-  height: "70px",
-  backgroundColor: "black",
-  display: "flex",
-  width: "100%",
-};
-
 const headerTabStyles: CSS.Properties = {
   color: "white",
   cursor: "pointer",
@@ -39,17 +32,6 @@ const tabSelectorStyles: CSS.Properties = {
   bottom: "2px",
 };
 
-const babyIconStyles: CSS.Properties = {
-  height: "40px",
-  ...headerTabStyles,
-};
-
-const myAccIconStyles: CSS.Properties = {
-  height: "40px",
-  width: "50px",
-  ...headerTabStyles,
-};
-
 interface NavHeaderProps {
   activePage: PageEnum;
   setActivePage: (param: PageEnum) => void;
@@ -61,41 +43,39 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
   const [tripsIsHover, setTripsIsHover] = useState(false);
   const [myAccIsHover, setMyAccIsHover] = useState(false);
 
-  const headerMasterTabDivStylesIcon: CSS.Properties = {
-    backgroundColor: iconIsHover ? "#2a2a2a" : "inherit",
-    ...headerMasterTabDivStyles,
-  };
-
-  const headerMasterTabDivStylesOrganization: CSS.Properties = {
-    backgroundColor: organizationIsHover ? "#2a2a2a" : "inherit",
-    ...headerMasterTabDivStyles,
-  };
-
-  const headerMasterTabDivStylesTrips: CSS.Properties = {
-    backgroundColor: tripsIsHover ? "#2a2a2a" : "inherit",
-    ...headerMasterTabDivStyles,
-  };
-
-  const headerMasterTabDivStylesMyAcc: CSS.Properties = {
-    backgroundColor: myAccIsHover ? "#2a2a2a" : "inherit",
-    marginLeft: "auto",
-    ...headerMasterTabDivStyles,
-  };
-
   return (
-    <div style={headerStyles}>
+    <div
+      style={{
+        height: "70px",
+        backgroundColor: "black",
+        display: "flex",
+        width: "100%",
+      }}
+    >
       <div
-        style={headerMasterTabDivStylesIcon}
+        style={{
+          backgroundColor: iconIsHover ? "#2a2a2a" : "inherit",
+          ...headerMasterTabDivStyles,
+        }}
         onMouseEnter={() => setIconIsHover(true)}
         onMouseLeave={() => setIconIsHover(false)}
         onClick={() => setActivePage(PageEnum.Organization)}
       >
         <div style={headerTabDivStyles}>
-          <BabyIcon fill="white" styles={babyIconStyles} />
+          <BabyIcon
+            fill="white"
+            styles={{
+              height: "40px",
+              ...headerTabStyles,
+            }}
+          />
         </div>
       </div>
       <div
-        style={headerMasterTabDivStylesOrganization}
+        style={{
+          backgroundColor: organizationIsHover ? "#2a2a2a" : "inherit",
+          ...headerMasterTabDivStyles,
+        }}
         onMouseEnter={() => setOrganizationIsHover(true)}
         onMouseLeave={() => setOrganizationIsHover(false)}
         onClick={() => setActivePage(PageEnum.Organization)}
@@ -112,7 +92,10 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
         </div>
       </div>
       <div
-        style={headerMasterTabDivStylesTrips}
+        style={{
+          backgroundColor: tripsIsHover ? "#2a2a2a" : "inherit",
+          ...headerMasterTabDivStyles,
+        }}
         onMouseEnter={() => setTripsIsHover(true)}
         onMouseLeave={() => setTripsIsHover(false)}
         onClick={() => setActivePage(PageEnum.Trips)}
@@ -128,13 +111,25 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
         </div>
       </div>
       <div
-        style={{ ...headerMasterTabDivStylesMyAcc, ...{ paddingLeft: 0 } }}
+        style={{
+          backgroundColor: myAccIsHover ? "#2a2a2a" : "inherit",
+          marginLeft: "auto",
+          paddingLeft: 0,
+          ...headerMasterTabDivStyles,
+        }}
         onMouseEnter={() => setMyAccIsHover(true)}
         onMouseLeave={() => setMyAccIsHover(false)}
         onClick={() => setActivePage(PageEnum.MyAccount)}
       >
         <div style={headerTabDivStyles}>
-          <UserIcon fill="white" styles={myAccIconStyles} />
+          <UserIcon
+            fill="white"
+            styles={{
+              height: "40px",
+              width: "40px",
+              ...headerTabStyles,
+            }}
+          />
           <div style={headerTabDivStyles}>
             <div
               style={{
@@ -143,7 +138,9 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
                   activePage === PageEnum.MyAccount ? "visible" : "hidden",
               }}
             ></div>
-            <span style={{ color: "white" }}>{JSON.parse(sessionStorage.getItem("fullName"))}</span>
+            <span style={{ color: "white" }}>
+              {JSON.parse(sessionStorage.getItem("fullName"))}
+            </span>
           </div>
         </div>
       </div>
