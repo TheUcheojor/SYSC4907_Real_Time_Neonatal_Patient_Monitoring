@@ -12,7 +12,6 @@ function SignUpModalContent() {
   const [passwordVerify, setPasswordVerify] = useState("");
   const [signUpResult, setSignUpResult] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [netError, setNetError] = useState(undefined);
   const [isFetching, setFetching] = useState(false);
   const [isEnabled, setEnabled] = useState(false);
 
@@ -39,21 +38,19 @@ function SignUpModalContent() {
         password: password,
         full_name: fullName,
       }),
-    })
-      .then((res) => {
-        if(res.status === 200) setIsSuccess(true)
-        return res.json();
-      })
-      .then(
-        (res) => {
-          setSignUpResult(res.msg);
-          setFetching(false);
-        },
-        (error) => {
-          setNetError(error);
-          setFetching(false);
-        }
-      );
+    }).then((res) => {
+      if (res.status === 200) {
+        setSignUpResult("Sign up success!");
+        setIsSuccess(true);
+      } else if (res.status === 409) {
+        setSignUpResult(
+          "Sign up failed, account using this email already exists"
+        );
+      } else {
+        setSignUpResult(`${res.status}: Sign up failed...`);
+      }
+      setFetching(false);
+    });
   }
 
   function handleKeyUp() {
@@ -131,7 +128,6 @@ function SignUpModalContent() {
         <button
           style={{
             fontSize: "16px",
-            marginTop: "10px",
             cursor: !isEnabled || isSuccess ? "auto" : "pointer",
           }}
           disabled={!isEnabled || isSuccess}
@@ -140,7 +136,7 @@ function SignUpModalContent() {
           Sign Up
         </button>
       ) : (
-        <LoadingIcon />
+        <LoadingIcon diameter={"30px"} parentDiameter={"50px"} />
       )}
     </div>
   );

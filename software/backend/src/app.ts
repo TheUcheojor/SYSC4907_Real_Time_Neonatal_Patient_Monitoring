@@ -304,7 +304,7 @@ app.post("/signUp", (req: SignUpRequest, res: Response) => {
     req.email === undefined ||
     req.password === undefined
   ) {
-    res.status(400).send({ is_success: false, msg: "improper request body" });
+    res.status(400).send();
     return;
   }
 
@@ -322,9 +322,7 @@ app.post("/signUp", (req: SignUpRequest, res: Response) => {
         });
       }
       if (results.length > 0) {
-        res.status(400).send({
-          msg: `An account using the email ${req.email} already exists`,
-        });
+        res.status(409).send();
         return;
       }
 
@@ -339,7 +337,6 @@ app.post("/signUp", (req: SignUpRequest, res: Response) => {
           }
           logger.info("signup request success");
           res.send({
-            is_success: true,
             msg: `User ${req.full_name} succesfully registered`,
           });
         }

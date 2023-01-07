@@ -20,7 +20,7 @@ const loginDivStyles: CSS.Properties = {
 };
 
 const loginModalLinkSpanStyles: CSS.Properties = {
-  color: "#1877f2",
+  color: ColorEnum.Link,
   fontSize: "14px",
   cursor: "pointer",
   width: "100%",
@@ -34,10 +34,10 @@ function LoginPage({ setToken }: LoginPageProps) {
   const [forgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
   const [loginError, setLoginError] = useState("");
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isFetching, setFetching] = useState(false);
   const email = useRef("");
   const password = useRef("");
+  let _loginError = "";
 
   function closeModal() {
     setSignUpModalOpen(false);
@@ -46,6 +46,7 @@ function LoginPage({ setToken }: LoginPageProps) {
 
   function handleLogin() {
     setFetching(true);
+    _loginError = "";
     fetch(`https://localhost:3001/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -55,14 +56,18 @@ function LoginPage({ setToken }: LoginPageProps) {
       }),
     })
       .then((res) => {
-        console.log(res, res.headers.get("Authorization"));
-        setToken(res.headers.get("Authorization").split(" ")[1]);
-        return res.json();
+        if (res.status === 200) {
+          setToken(res.headers.get("Authorization").split(" ")[1]);
+          return res.json();
+        } else {
+          setLoginError("Unable to authenticate");
+          setFetching(false);
+        }
       })
       .then(
         (res) => {
-          setFetching(false);
           sessionStorage.setItem("fullName", JSON.stringify(res.full_name));
+          setFetching(false);
         },
         (error) => {
           setFetching(false);
@@ -115,7 +120,12 @@ function LoginPage({ setToken }: LoginPageProps) {
               onChange={(event) => (email.current = event.target.value)}
             />
           </div>
-          <div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             {!isFetching ? (
               <input
                 className="input-button"
@@ -127,7 +137,7 @@ function LoginPage({ setToken }: LoginPageProps) {
                 value="Login"
               />
             ) : (
-              <LoadingIcon />
+              <LoadingIcon diameter = {"30px"} parentDiameter = {"50px"} />
             )}
           </div>
         </form>
@@ -160,7 +170,7 @@ function LoginPage({ setToken }: LoginPageProps) {
           modalOpen={signUpModalOpen}
           closeModal={closeModal}
         >
-          <SignUpModalContent></SignUpModalContent>
+          <SignUpModalContent />
         </Modal>
       </div>
     </div>
