@@ -191,6 +191,7 @@ export default (): JSX.Element => {
         </View>
 
         <FlashList
+          // style={styles.flashlist}
           data={fetchedTrips}
           renderItem={getFetchedTripItem}
           estimatedItemSize={100}
@@ -263,9 +264,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     width: "90%",
-    alignItems: "center",
     marginVertical: 10,
-    // backgroundColor: "blue",
   },
 
   header: {
@@ -281,6 +280,10 @@ const styles = StyleSheet.create({
   primaryText: {
     fontSize: 20,
     fontFamily: "Montserrat_700Bold",
+  },
+  flashlist: {
+    width: "100%",
+    height: 100,
   },
 });
 
