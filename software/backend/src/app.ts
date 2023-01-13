@@ -185,24 +185,43 @@ app.post(
   }
 );
 
+const COUNT_KEY = "COUNT(*)";
+
 app.get(
   "/routes",
   authenticateSessionToken,
   (req: AuthenticatedRequest, res: Response) => {
+    let page = parseInt(req.query.page as undefined as string) || 1;
+    let limit = parseInt(req.query.limit as undefined as string) || 3;
+
     let db = new DB();
     db.connect();
     let con = db.con;
 
     con.query(
-      "SELECT * FROM routes WHERE owner_id=?",
-      [req.user_id],
+      "SELECT * FROM routes WHERE owner_id=? LIMIT ?,?",
+      [req.user_id, (page - 1) * limit, limit],
       function (error, results, fields) {
         if (error) {
           return con.rollback(function () {
             logger.error(error);
           });
         }
-        res.send(results);
+        con.query(
+          "SELECT COUNT(*) FROM routes WHERE owner_id=?",
+          [req.user_id],
+          function (error, countResult, fields) {
+            if (error) {
+              return con.rollback(function () {
+                logger.error(error);
+              });
+            }
+            res.send({
+              routes: results,
+              totalRoutes: countResult[0][COUNT_KEY],
+            });
+          }
+        );
       }
     );
   }

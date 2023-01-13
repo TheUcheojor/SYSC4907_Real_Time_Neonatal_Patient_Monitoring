@@ -5,9 +5,7 @@ import {
   DatapointFieldEnum,
   RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import { queryTripDatapoints } from "interface/TripsInterface";
 import List from "components/List";
-import MapWithChart from "components/MapWithChart";
 import { elapsedDurationInHoursAndMinutes } from "utility/StringUtil";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
@@ -16,6 +14,7 @@ import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "utility/AuthUtil";
+import Pagination from "components/Pagination";
 
 const pStyles = {
   fontWeight: 700,
@@ -27,28 +26,36 @@ const pStyles = {
   paddingBottom: "5px",
 };
 
+const PAGE_SIZE = 12;
+
 function TripsPage() {
-  console.log("TRIPS PAGE RENDER");
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
   const [netError, setNetError] = useState(true);
   const [routes, setRoutes] = useState(undefined);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalRoutes, setTotalRoutes] = useState(0);
+  console.log("TRIPS PAGE RENDER", totalRoutes);
 
   useEffect(() => {
-    fetch("https://localhost:3001/routes", {
-      headers: getFetchHeaderWithAuth(),
-    })
+    fetch(
+      `https://localhost:3001/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
+      {
+        headers: getFetchHeaderWithAuth(),
+      }
+    )
       .then((res) => res.json())
       .then(
         (result) => {
-          setRoutes(result);
+          setRoutes(result.routes);
+          setTotalRoutes(result.totalRoutes);
         },
         (error) => {
           setNetError(error);
         }
       );
-  }, []);
+  }, [currentPage]);
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -86,20 +93,6 @@ function TripsPage() {
   }
 
   function getContent() {
-    if (routes === undefined) {
-      return (
-        <div
-          style={{
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <LoadingIcon />
-        </div>
-      );
-    }
     if (!isComparing) {
       return (
         <div style={{ marginLeft: "10px", marginTop: "10px", display: "flex" }}>
@@ -110,11 +103,34 @@ function TripsPage() {
               alignItems: "center",
             }}
           >
-            <p style={{ color: "#000", fontWeight: 700 }}>Trips</p>
-            <List
-              routes={routes}
-              elemOnClick={onListElemClick}
-              activeRoutes={selectedRoutes}
+            <p
+              style={{
+                color: "#000",
+                fontWeight: 700,
+                width: "334px",
+                textAlign: "center",
+              }}
+            >
+              Trips
+            </p>
+            {routes === undefined ? (
+              <LoadingIcon />
+            ) : (
+              <List
+                routes={routes}
+                elemOnClick={onListElemClick}
+                activeRoutes={selectedRoutes}
+              />
+            )}
+            <Pagination
+              currentPage={currentPage}
+              totalSize={totalRoutes}
+              pageSize={PAGE_SIZE}
+              siblingIndexSize={1}
+              onPageChange={(page) => {
+                setCurrentPage(page);
+                setRoutes(undefined);
+              }}
             />
           </div>
           {selectedRoutes.length > 0 && (
