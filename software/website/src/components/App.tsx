@@ -10,14 +10,23 @@ import LoginPage from "./pages/LoginPage";
 function App() {
   const [activePage, setActivePage] = useState(PageEnum.DefaultLandingPage);
   const { token, setToken } = useToken();
+  const [logoutError, setLogoutError] = useState("");
 
   if (token === null) {
-    return <LoginPage setToken={setToken} />;
+    return (
+      <LoginPage
+        setToken={(string) => {
+          setToken(string);
+          setLogoutError("");
+        }}
+        logoutError={logoutError}
+      />
+    );
   }
 
   function onLogout() {
     setToken(null);
-    setActivePage(PageEnum.DefaultLandingPage)
+    setActivePage(PageEnum.DefaultLandingPage);
   }
 
   function renderActivePage() {
@@ -25,7 +34,14 @@ function App() {
       case PageEnum.Organization:
         return <OrganizationsPage />;
       case PageEnum.Trips:
-        return <TripsPage />;
+        return (
+          <TripsPage
+            onLogout={() => {
+              onLogout();
+              setLogoutError("Session expired");
+            }}
+          />
+        );
       case PageEnum.MyAccount:
         return <MyAccountPage onLogout={onLogout} />;
       case PageEnum.DefaultLandingPage:

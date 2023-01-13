@@ -1,5 +1,8 @@
-import jsonwebtoken from "jsonwebtoken";
+import jsonwebtoken, { TokenExpiredError } from "jsonwebtoken";
 import dotenv from "dotenv";
+import { Logger } from "./../Logger";
+
+const logger = Logger.getInstance();
 
 export function generateSessionToken(user_id: number): string {
   dotenv.config();
@@ -10,7 +13,6 @@ export function generateSessionToken(user_id: number): string {
 
 export function authenticateSessionToken(req, res, next) {
   const authHeader = req.headers["authorization"];
-  console.log(authHeader);
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) return res.sendStatus(401);
@@ -21,8 +23,12 @@ export function authenticateSessionToken(req, res, next) {
     process.env.TOKEN_SECRET as string,
     (err: any, decodedToken: any) => {
       if (err) {
-        console.log(err);
-        return res.sendStatus(403);
+        if (err instanceof TokenExpiredError) {
+          return res.sendStatus(401);
+        }
+
+        logger.error(err);
+        return res.sendStatus(401);
       }
 
       req.user_id = decodedToken.user_id;

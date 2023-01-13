@@ -28,9 +28,10 @@ const loginModalLinkSpanStyles: CSS.Properties = {
 
 interface LoginPageProps {
   setToken: (param: string) => void;
+  logoutError?: string;
 }
 
-function LoginPage({ setToken }: LoginPageProps) {
+function LoginPage({logoutError = "", setToken }: LoginPageProps) {
   console.log("LOGIN render");
   const [forgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false);
   const [signUpModalOpen, setSignUpModalOpen] = useState(false);
@@ -97,7 +98,7 @@ function LoginPage({ setToken }: LoginPageProps) {
         <h1>Transport Comfort Analysis</h1>
         <form>
           <div style={{ width: "300px" }}>
-            {loginError !== "" && (
+            {(loginError !== "" || logoutError !== "") && (
               <span
                 style={{
                   color: ColorEnum.Red,
@@ -106,7 +107,7 @@ function LoginPage({ setToken }: LoginPageProps) {
                   fontSize: "14px",
                 }}
               >
-                {loginError}
+                {loginError ? loginError : logoutError}
               </span>
             )}
             <input

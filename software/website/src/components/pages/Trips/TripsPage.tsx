@@ -28,7 +28,11 @@ const pStyles = {
 
 const PAGE_SIZE = 12;
 
-function TripsPage() {
+interface TripsProps {
+  onLogout: () => void;
+}
+
+function TripsPage({ onLogout }: TripsProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
@@ -45,17 +49,20 @@ function TripsPage() {
         headers: getFetchHeaderWithAuth(),
       }
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401) {
+          onLogout();
+        } else {
+          return res.json();
+        }
+      })
       .then(
         (result) => {
           setRoutes(result.routes);
           setTotalRoutes(result.totalRoutes);
-        },
-        (error) => {
-          setNetError(error);
         }
       );
-  }, [currentPage]);
+  }, [currentPage, onLogout]);
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -173,6 +180,7 @@ function TripsPage() {
               </div>
               <div style={{ marginTop: "10px" }}>
                 <MapWithChartNet
+                onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
                     selectedRoutes[selectedRoutes.length - 1][

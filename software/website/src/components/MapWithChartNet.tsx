@@ -9,9 +9,10 @@ interface mwcNetProps {
   routeId: number;
   measurand: DatapointFieldEnum;
   style?: CSS.Properties;
+  onLogout: () => void;
 }
 
-function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
+function MapWithChartNet({ onLogout, routeId, measurand, style }: mwcNetProps) {
   const [datapoints, setDatapoints] = useState(undefined);
   const [netError, setNetError] = useState(undefined);
   console.log("MWCN RENDER");
@@ -21,7 +22,13 @@ function MapWithChartNet({ routeId, measurand, style }: mwcNetProps) {
     fetch(`https://localhost:3001/routeMeasurementDataPoints/${routeId}`, {
       headers: getFetchHeaderWithAuth(),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401) {
+          onLogout();
+        } else {
+          return res.json();
+        }
+      })
       .then(
         (result) => {
           setDatapoints(result);
