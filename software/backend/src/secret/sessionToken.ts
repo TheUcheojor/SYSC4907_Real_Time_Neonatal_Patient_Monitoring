@@ -1,6 +1,6 @@
 import jsonwebtoken, { TokenExpiredError } from "jsonwebtoken";
 import dotenv from "dotenv";
-import { Logger } from "./../Logger";
+import Logger from "./../Logger";
 
 const logger = Logger.getInstance();
 

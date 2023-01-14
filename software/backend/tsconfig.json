@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "lib": ["es2019"]
   },
-  "include": ["src", "test"]
+  "include": ["src", "src/tests"]
 }
