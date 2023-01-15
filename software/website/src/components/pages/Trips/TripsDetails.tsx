@@ -7,14 +7,24 @@ import Chart from "components/visualization/Chart";
 import Modal from "components/modal/Modal";
 import Route from "models/Route";
 import { toClockString, toDateString } from "util/StringUtil";
-import MapWithChartNet from "components/visualization/MapWithChartNet";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChart from "components/visualization/MapWithChart";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import { ColorEnum } from "constants/ColorEnum";
+import LabeledText from "./LabeledText";
+import { MeasurandUnitEnum } from "constants/MeasurandUnitEnum";
 
 const chartLabelStyles = {
   color: "black",
   fontWeight: 700,
+  fontSize: "16px",
+  marginBottom: "2px",
+  marginTop: "15px",
+};
+
+const statLabelStyles = {
+  marginTop: "3px",
+  marginBottom: "3px",
 };
 
 interface TripsDetailsProps {
@@ -66,12 +76,64 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               <span style={chartLabelStyles}>
                 {toDateString(route[RouteFieldEnum.start_time_s])}
               </span>
-              <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
+              <p style={{ color: "#000", fontSize: "12px", margin: 0, fontWeight: 500 }}>
                 {toClockString(
                   route[RouteFieldEnum.start_time_s],
                   route[RouteFieldEnum.end_time_s]
                 )}
               </p>
+              <p style={chartLabelStyles}>Stats</p>
+              <div
+                style={{
+                  backgroundColor: ColorEnum.Black,
+                  padding: "10px",
+                  borderRadius: "6px",
+                  display: "grid",
+                  gridAutoFlow: "column",
+                  columnGap: "10px",
+                }}
+              >
+                <div>
+                  <LabeledText
+                    label={"Total Exposure"}
+                    text={`${route.total_vibration_exposure}`}
+                    unit={MeasurandUnitEnum.vibration}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average vibration"}
+                    text={`${route.avg_vibration}`}
+                    unit={MeasurandUnitEnum.vibration}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average noise"}
+                    text={`${route.avg_noise}`}
+                    unit={MeasurandUnitEnum.noise_db}
+                    style={statLabelStyles}
+                  />
+                </div>
+                <div>
+                  <LabeledText
+                    label={"Average temperature"}
+                    text={`${route.avg_temperature}`}
+                    unit={MeasurandUnitEnum.temperature_celsius}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average velocity"}
+                    text={`${route.avg_temperature}`}
+                    unit={MeasurandUnitEnum.velocity_kmps}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average pressure"}
+                    text={`${route.avg_pressure}`}
+                    unit={MeasurandUnitEnum.pressure_pascals}
+                    style={statLabelStyles}
+                  />
+                </div>
+              </div>
               <p style={chartLabelStyles}>Vibration</p>
               <Chart
                 data={data[i]}
@@ -94,6 +156,12 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.velocity_kmps}
+                onClick={chartClickHandler}
+              />
+              <p style={chartLabelStyles}>Pressure</p>
+              <Chart
+                data={data[i]}
+                measurand={DatapointFieldEnum.pressure_pascals}
                 onClick={chartClickHandler}
               />
             </div>

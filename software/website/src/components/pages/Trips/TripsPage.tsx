@@ -17,7 +17,7 @@ import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import Pagination from "components/pages/Pagination";
 
 const pStyles = {
-  fontWeight: 700,
+  fontWeight: 400,
   marginLeft: "10px",
   color: "#FFF",
   width: "100%",
@@ -148,14 +148,6 @@ function TripsPage({ onLogout }: TripsProps) {
                   borderRadius: "6px",
                 }}
               >
-                <span style={pStyles}>
-                  Owner:{" "}
-                  {
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.owner_id
-                    ]
-                  }
-                </span>
                 <span style={pStyles}>
                   Duration:{" "}
                   {elapsedDurationInHoursAndMinutes(
