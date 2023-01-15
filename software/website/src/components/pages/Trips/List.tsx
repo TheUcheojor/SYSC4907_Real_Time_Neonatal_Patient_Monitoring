@@ -18,7 +18,8 @@ function List({ routes, elemOnClick, activeRoutes }: ListProps) {
             key={route[RouteFieldEnum.route_id]}
             route={route}
             isActive={activeRoutes.some(
-              (elem) => elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
+              (elem) =>
+                elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
             )}
             onClick={elemOnClick}
           />

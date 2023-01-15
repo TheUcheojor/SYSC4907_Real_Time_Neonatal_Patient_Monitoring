@@ -15,6 +15,14 @@ export interface SignUpRequest extends Request {
   password?: string;
 }
 
+export interface ForgotPasswordRequest extends Request {
+  email?: string;
+}
+
+export interface ResetPasswordRequest extends AuthenticatedRequest {
+  newPassword?: string;
+}
+
 export interface ChangePasswordRequest extends AuthenticatedRequest {
   oldPassword?: string;
   newPassword?: string;

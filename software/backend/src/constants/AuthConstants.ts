@@ -1,0 +1,2 @@
+export const DEFAULT_FORGOT_PASSWORD_TOKEN_TIME = "1h";
+export const DEFAULT_SESSION_TOKEN_TIME = "1h";

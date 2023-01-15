@@ -9,7 +9,7 @@ import CSS from "csstype";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import { Libraries } from "@react-google-maps/api/src/utils/make-load-script-url";
-import { getMapColor } from "utility/ColorUtil";
+import { getMapColor } from "util/ColorUtil";
 
 const libraries: Libraries = ["geometry", "drawing"];
 

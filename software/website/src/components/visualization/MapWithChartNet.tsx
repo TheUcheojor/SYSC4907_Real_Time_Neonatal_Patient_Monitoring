@@ -2,8 +2,8 @@ import React, { useState, useEffect, memo } from "react";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
 import MapWithChart from "./MapWithChart";
-import LoadingIcon from "./icons/LoadingIcon";
-import { getFetchHeaderWithAuth } from "utility/AuthUtil";
+import LoadingIcon from "../icons/LoadingIcon";
+import { getFetchHeaderWithAuth } from "util/AuthUtil";
 
 interface mwcNetProps {
   routeId: number;

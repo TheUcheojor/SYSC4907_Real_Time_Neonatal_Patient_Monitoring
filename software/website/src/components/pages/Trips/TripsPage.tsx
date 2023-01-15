@@ -5,16 +5,16 @@ import {
   DatapointFieldEnum,
   RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import List from "components/List";
-import { elapsedDurationInHoursAndMinutes } from "utility/StringUtil";
+import List from "components/pages/Trips/List";
+import { elapsedDurationInHoursAndMinutes } from "util/StringUtil";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import TripsDetails from "./TripsDetails";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
-import MapWithChartNet from "components/MapWithChartNet";
-import { getFetchHeaderWithAuth } from "utility/AuthUtil";
-import Pagination from "components/Pagination";
+import MapWithChartNet from "components/visualization/MapWithChartNet";
+import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import Pagination from "components/pages/Pagination";
 
 const pStyles = {
   fontWeight: 700,
@@ -56,12 +56,10 @@ function TripsPage({ onLogout }: TripsProps) {
           return res.json();
         }
       })
-      .then(
-        (result) => {
-          setRoutes(result.routes);
-          setTotalRoutes(result.totalRoutes);
-        }
-      );
+      .then((result) => {
+        setRoutes(result.routes);
+        setTotalRoutes(result.totalRoutes);
+      });
   }, [currentPage, onLogout]);
 
   function onListElemClick(e) {
@@ -180,7 +178,7 @@ function TripsPage({ onLogout }: TripsProps) {
               </div>
               <div style={{ marginTop: "10px" }}>
                 <MapWithChartNet
-                onLogout={onLogout}
+                  onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
                     selectedRoutes[selectedRoutes.length - 1][

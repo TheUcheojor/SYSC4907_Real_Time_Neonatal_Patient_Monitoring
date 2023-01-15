@@ -1,4 +1,4 @@
-import DB from "data/db";
+import DB from "./../data/db";
 import Router from "express";
 import { AuthenticatedRequest } from "models/requests/AuthRequests";
 import Logger from "Logger";

@@ -23,6 +23,7 @@ input[type="submit"]:hover {
 button:disabled,
 input[type="submit"]:disabled {
   background-color: #969696;
+  cursor: auto;
 }
 
 h2,
@@ -35,6 +36,7 @@ h3 {
 
 h1,
 span,
+p,
 label {
   color: black;
 }

@@ -1,7 +1,7 @@
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 import Route from "models/Route";
 import React, { useState } from "react";
-import { toDateString, toClockString } from "utility/StringUtil";
+import { toDateString, toClockString } from "util/StringUtil";
 
 const statsLabelsStyles = {
   fontSize: "10px",

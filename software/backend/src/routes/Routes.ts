@@ -1,4 +1,4 @@
-import DB from "data/db";
+import DB from "./../data/db";
 import Router, { Response } from "express";
 import Logger from "Logger";
 import {

@@ -3,14 +3,14 @@ import {
   DatapointFieldEnum,
   RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import Chart from "components/Chart";
+import Chart from "components/visualization/Chart";
 import Modal from "components/modal/Modal";
 import Route from "models/Route";
-import { toClockString, toDateString } from "utility/StringUtil";
-import MapWithChartNet from "components/MapWithChartNet";
+import { toClockString, toDateString } from "util/StringUtil";
+import MapWithChartNet from "components/visualization/MapWithChartNet";
 import LoadingIcon from "components/icons/LoadingIcon";
-import MapWithChart from "components/MapWithChart";
-import { getFetchHeaderWithAuth } from "utility/AuthUtil";
+import MapWithChart from "components/visualization/MapWithChart";
+import { getFetchHeaderWithAuth } from "util/AuthUtil";
 
 const chartLabelStyles = {
   color: "black",
@@ -41,7 +41,8 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
       fetch(
         `https://localhost:3001/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
-        }`,{headers: getFetchHeaderWithAuth()}
+        }`,
+        { headers: getFetchHeaderWithAuth() }
       )
         .then((res) => res.json())
         .then(

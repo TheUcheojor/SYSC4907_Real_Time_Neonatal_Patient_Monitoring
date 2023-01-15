@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { PASSWORD_LENGTH_MIN } from "constants/Auth";
-import { LoadScript } from "@react-google-maps/api";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import { getFetchHeaderWithAuth } from "utility/AuthUtil";
+import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import NewPassword from "components/pages/Trips/NewPassword";
 
 interface changePasswordProps {
   setIsChangingPassword: (bool: boolean) => void;
 }
 
 function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newPasswordVerify, setNewPasswordVerify] = useState("");
+  const oldPassword = useRef("");
+  const newPassword = useRef("");
+  const newPasswordVerify = useRef("");
   const [isChangePWEnabled, setIsChangePWEnabled] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [changePasswordResult, setChangePasswordResult] = useState("");
   const [isFetching, setIsFetching] = useState(false);
+  const [changePasswordResult, setChangePasswordResult] = useState("");
 
   function handleKeyUp() {
-    let oldPwValid = oldPassword.length >= PASSWORD_LENGTH_MIN;
-    let newPasswordValid = newPassword.length >= PASSWORD_LENGTH_MIN;
+    let oldPwValid = oldPassword.current.length >= PASSWORD_LENGTH_MIN;
+    let newPasswordValid = newPassword.current.length >= PASSWORD_LENGTH_MIN;
     let newPasswordVerifyValid =
-      newPasswordVerify.length >= PASSWORD_LENGTH_MIN;
+      newPasswordVerify.current.length >= PASSWORD_LENGTH_MIN;
 
-    let newPasswordMatches = newPassword === newPasswordVerify;
+    let newPasswordMatches = newPassword.current === newPasswordVerify.current;
 
     setIsChangePWEnabled(
       oldPwValid &&
@@ -38,10 +38,13 @@ function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
     setIsFetching(true);
     fetch(`https://localhost:3001/user`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json", ...getFetchHeaderWithAuth() },
+      headers: {
+        "Content-Type": "application/json",
+        ...getFetchHeaderWithAuth(),
+      },
       body: JSON.stringify({
-        newPassword: newPassword,
-        oldPassword: oldPassword,
+        newPassword: newPassword.current,
+        oldPassword: oldPassword.current,
       }),
     }).then((res) => {
       if (res.status === 200) {
@@ -57,58 +60,44 @@ function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
   }
 
   return (
-    <form>
+    <form
+      style={{
+        maxWidth: "410px",
+      }}
+    >
       {changePasswordResult !== "" && (
-        <span
+        <p
           style={{
             color: isSuccess ? ColorEnum.Green : ColorEnum.Red,
             marginBottom: "5px",
-            maxWidth: "305px",
             wordBreak: "break-all",
+            marginTop: 0,
           }}
         >
           {changePasswordResult}
-        </span>
+        </p>
       )}
-      <div>
-        <label htmlFor="oldPassword">Old Password</label>
-        <input
-          type="password"
-          id="oldPassword"
-          value={oldPassword}
-          onKeyUp={handleKeyUp}
-          onChange={(e) => setOldPassword(e.target.value)}
-        />
-      </div>
-      <span
-        style={{
-          fontSize: "15px",
+      <label htmlFor="oldPassword">Old Password</label>
+      <input
+        type="password"
+        id="oldPassword"
+        onKeyUp={handleKeyUp}
+        onChange={(e) => (oldPassword.current = e.target.value)}
+      />
+      <NewPassword
+        handleKeyUp={handleKeyUp}
+        onChangePW={(e) => {
+          newPassword.current = e.target.value;
         }}
-      >
-        Password must be atleast {PASSWORD_LENGTH_MIN} characters
-      </span>
-      <div>
-        <label htmlFor="newPassword">New Password</label>
-        <input
-          type="password"
-          id="newPassword"
-          value={newPassword}
-          onKeyUp={handleKeyUp}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="newPassword">New Password again</label>
-        <input
-          type="password"
-          id="newPasswordVerify"
-          value={newPasswordVerify}
-          onKeyUp={handleKeyUp}
-          onChange={(e) => setNewPasswordVerify(e.target.value)}
-        />
-      </div>
+        onChangePWVerify={(e) => {
+          newPasswordVerify.current = e.target.value;
+        }}
+      />
       {!isFetching ? (
         <input
+          style={{
+            cursor: !isChangePWEnabled || isSuccess ? "auto" : "pointer",
+          }}
           type="submit"
           value={"Change Password"}
           disabled={!isChangePWEnabled || isSuccess}
