@@ -1,6 +1,6 @@
 import React from "react";
 import Route from "models/Route";
-import ListElement from "./ListElement";
+import ListElement from "components/pages/Trips/ListElement";
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 
 interface ListProps {

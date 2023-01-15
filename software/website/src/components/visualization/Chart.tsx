@@ -82,7 +82,7 @@ function Chart({ data, measurand, onClick }: ChartProps) {
   return (
     <div
       style={{
-        backgroundColor: "#000",
+        backgroundColor: ColorEnum.Black,
         borderRadius: "6px",
         width: "fit-content",
         paddingRight: "10px",
@@ -103,7 +103,7 @@ function Chart({ data, measurand, onClick }: ChartProps) {
           tickLine={{ stroke: "white" }}
         />
         <YAxis tick={{ fill: "white", transform: 'translate(-3,0)' }} tickLine={{ stroke: "white" }} />
-        <CartesianGrid stroke="#fff" strokeDasharray="1 4" />
+        <CartesianGrid stroke="white" strokeDasharray="1 4" />
         <Area
           type="monotone"
           dataKey={measurand}

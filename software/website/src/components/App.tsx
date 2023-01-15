@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import NavHeader from "components/NavHeader";
+import LoginPage from "components/pages/LoginPage";
 import OrganizationsPage from "components/pages/OrganizationsPage";
 import TripsPage from "components/pages/Trips/TripsPage";
 import MyAccountPage from "components/pages/MyAccount/MyAccountPage";
-import NavHeader from "components/NavHeader";
-import { PageEnum } from "constants/PageEnum";
-import useToken from "auth/useToken";
-import LoginPage from "components/pages/LoginPage";
 import ResetPasswordPage from "components/pages/ResetPasswordPage";
+import useToken from "auth/useToken";
+import { PageEnum } from "constants/PageEnum";
 import { ColorEnum } from "constants/ColorEnum";
 
 function App() {

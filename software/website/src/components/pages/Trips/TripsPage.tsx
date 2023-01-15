@@ -9,7 +9,7 @@ import List from "components/pages/Trips/List";
 import { elapsedDurationInHoursAndMinutes } from "util/StringUtil";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import TripsDetails from "./TripsDetails";
+import TripsDetails from "components/pages/Trips/TripsDetails";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
@@ -36,7 +36,6 @@ function TripsPage({ onLogout }: TripsProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
-  const [netError, setNetError] = useState(true);
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
@@ -110,7 +109,7 @@ function TripsPage({ onLogout }: TripsProps) {
           >
             <p
               style={{
-                color: "#000",
+                color: ColorEnum.Black,
                 fontWeight: 700,
                 width: "334px",
                 textAlign: "center",
@@ -144,7 +143,7 @@ function TripsPage({ onLogout }: TripsProps) {
                 style={{
                   width: "410px",
                   height: "fit-content",
-                  backgroundColor: "#000",
+                  backgroundColor: ColorEnum.Black,
                   borderRadius: "6px",
                 }}
               >
@@ -182,7 +181,7 @@ function TripsPage({ onLogout }: TripsProps) {
             </div>
           )}
           {isSelecting && (
-            <span style={{ color: "#000", marginLeft: "5px" }}>
+            <span style={{ color: ColorEnum.Black, marginLeft: "5px" }}>
               Select 1-4 routes to compare
             </span>
           )}
@@ -215,16 +214,16 @@ function TripsPage({ onLogout }: TripsProps) {
                       ])
                     : setSelectedRoutes([]);
                 }}
-                bgColor="#000"
-                bgColorHover="#2a2a2a"
+                bgColor={ColorEnum.Black}
+                bgColorHover={ColorEnum.Grey}
               />
             )}
             {!isSelecting && (
               <CompareIcon
                 style={{ marginRight: "5px" }}
                 onClick={() => setIsSelecting(true)}
-                bgColor="#000"
-                bgColorHover="#2a2a2a"
+                bgColor={ColorEnum.Black}
+                bgColorHover={ColorEnum.Grey}
               />
             )}
           </div>
