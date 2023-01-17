@@ -11,6 +11,7 @@ import {
   generateForgotPasswordToken,
 } from "secret/forgotPasswordToken";
 import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "constants/AuthConstants";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const forgotPasswordRouter = Router();
@@ -20,7 +21,7 @@ forgotPasswordRouter.post(
   (req: ForgotPasswordRequest, res: Response) => {
     req = req.body;
     if (req.email === undefined) {
-      res.status(400).send();
+      res.status(HttpStatusEnum.BAD_REQUEST).send();
       return;
     }
 
@@ -82,7 +83,7 @@ forgotPasswordRouter.put(
   (req: ResetPasswordRequest, res: Response) => {
     const body = req.body;
     if (body.newPassword === undefined) {
-      res.status(400).send();
+      res.status(HttpStatusEnum.BAD_REQUEST).send();
       return;
     }
 
@@ -101,12 +102,12 @@ forgotPasswordRouter.put(
         }
         if (results.affectedRows === 1) {
           logger.info("reset password request success");
-          res.status(200).send();
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         } else if (results.affectedRows === 0) {
-          res.status(500).send();
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         } else {
           // multiple rows affected, rollback changes
-          res.status(409).send();
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           return con.rollback(function () {
             logger.error(error);
           });

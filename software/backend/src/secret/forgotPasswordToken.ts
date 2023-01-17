@@ -20,7 +20,7 @@ export function authenticateForgotPasswordToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
-  if (token == null) return res.sendStatus(401);
+  if (token == null) return res.sendStatus(HttpStatusEnum.UNAUTHORIZED);
   dotenv.config();
 
   jsonwebtoken.verify(
@@ -29,11 +29,11 @@ export function authenticateForgotPasswordToken(req, res, next) {
     (err: any, decodedToken: any) => {
       if (err) {
         if (err instanceof TokenExpiredError) {
-          return res.sendStatus(401);
+          return res.sendStatus(HttpStatusEnum.UNAUTHORIZED);
         }
 
         logger.error(err);
-        return res.sendStatus(401);
+        return res.sendStatus(HttpStatusEnum.UNAUTHORIZED);
       }
 
       req.user_id = decodedToken.user_id;

@@ -9,10 +9,18 @@ import routeMeasurementDataPointsRouter from "routes/RouteMeasurementDataPoints"
 import devRouter from "routes/dev/Dev";
 import forgotPasswordRouter from "routes/ForgotPassword";
 
-const port = 3001;
+const PORT = 3001;
+const PAYLOAD_LIMIT = "10mb";
+const FILE_CHARACTER_ENCODING = "utf8";
 
-const privateKey = fs.readFileSync("./secret/server_DEVONLY.key", "utf8");
-const certificate = fs.readFileSync("./secret/server_DEVONLY.crt", "utf8");
+const privateKey = fs.readFileSync(
+  "secret/server_DEVONLY.key",
+  FILE_CHARACTER_ENCODING
+);
+const certificate = fs.readFileSync(
+  "secret/server_DEVONLY.crt",
+  FILE_CHARACTER_ENCODING
+);
 const credentials = { key: privateKey, cert: certificate };
 
 const corsOptions = {
@@ -22,8 +30,8 @@ const corsOptions = {
 const app = express();
 
 app.use(cors(corsOptions));
-app.use(express.json({ limit: "10mb" }));
-app.use(express.urlencoded({ limit: "10mb" }));
+app.use(express.json({ limit: PAYLOAD_LIMIT }));
+app.use(express.urlencoded({ limit: PAYLOAD_LIMIT }));
 
 app.use(loginRouter);
 app.use(routesRouter);
@@ -34,6 +42,6 @@ app.use(forgotPasswordRouter);
 
 const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(port, () => {
-  console.log(`Https server listening on port ${port}`);
+httpsServer.listen(PORT, () => {
+  console.log(`Https server listening on port ${PORT}`);
 });

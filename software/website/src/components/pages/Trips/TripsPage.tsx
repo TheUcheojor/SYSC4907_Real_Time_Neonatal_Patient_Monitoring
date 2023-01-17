@@ -19,7 +19,7 @@ import Pagination from "components/pages/Pagination";
 const pStyles = {
   fontWeight: 400,
   marginLeft: "10px",
-  color: "#FFF",
+  color: ColorEnum.White,
   width: "100%",
   display: "block",
   paddingTop: "5px",
