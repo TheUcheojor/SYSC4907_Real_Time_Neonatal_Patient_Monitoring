@@ -1,5 +1,13 @@
 import { StyleSheet, View, Text, TextInput } from "react-native";
 
+interface TextInputContainerParams {
+  title: string;
+  placeholder: string;
+  width?: number;
+  isError?: boolean;
+  inputRef: React.MutableRefObject<String>;
+}
+
 /**
  * Create a text input container given a title and place holder
  * @param title the title
@@ -10,17 +18,22 @@ export const TextInputContainer = ({
   title,
   placeholder,
   width,
-}: {
-  title: string;
-  placeholder: string;
-  width?: number;
-}) => {
+  isError,
+  inputRef,
+}: TextInputContainerParams) => {
   // Assign the width accordingly (the default width is 300 px)
   width = width ? width : 300;
+  isError = isError ? isError : false;
+  const borderColor: string = isError ? "#C2372E" : "black";
+
   return (
     <View style={{ ...styles.inputContainer, width: width }}>
       <Text style={styles.textInputHeader}> {title} </Text>
-      <TextInput style={styles.textInput} placeholder={placeholder} />
+      <TextInput
+        style={{ ...styles.textInput, borderColor: borderColor }}
+        placeholder={placeholder}
+        onChangeText={(updatedText) => (inputRef.current = updatedText)}
+      />
     </View>
   );
 };
@@ -38,8 +51,6 @@ const styles = StyleSheet.create({
   textInput: {
     padding: 10,
     fontFamily: "Montserrat_700Bold",
-
-    borderColor: "black",
     borderWidth: 2,
     fontSize: 15,
     borderRadius: 10,

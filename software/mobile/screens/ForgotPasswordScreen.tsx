@@ -31,14 +31,6 @@ export default ({
 
       <Text style={styles.title}>{APP_NAME}</Text>
 
-      {hasSentTemporaryPassword ? (
-        <></>
-      ) : (
-        <Text style={styles.message}>
-          Your temporary password has been sent
-        </Text>
-      )}
-
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}>{FORGOT_PASSWORD_HEADER}</Text>
       </View>
@@ -48,6 +40,10 @@ export default ({
         title={EMAIL_TITLE}
         placeholder={EMAIL_PLACEHOLDER}
       />
+
+      <Text style={styles.message}>
+        {hasSentTemporaryPassword && "Your temporary password has been sent"}
+      </Text>
 
       <Pressable
         style={styles.buttonContainer}
