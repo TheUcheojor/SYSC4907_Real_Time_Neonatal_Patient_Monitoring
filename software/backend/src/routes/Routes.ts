@@ -1,15 +1,13 @@
-import DB from "data/db";
+import DB from "../data/db";
 import Router, { Response } from "express";
-import Logger from "Logger";
-import {
-  authenticateSessionToken,
-} from "secret/sessionToken";
-import { PostRouteRequest } from "models/requests/PostRouteRequest";
-import { AuthenticatedRequest } from "models/requests/AuthRequests";
+import Logger from "../Logger";
+import { authenticateSessionToken } from "../secret/sessionToken";
+import { PostRouteRequest } from "../models/requests/PostRouteRequest";
+import { AuthenticatedRequest } from "../models/requests/AuthRequests";
 import {
   getDatapointInsertionValues,
   getRouteStats,
-} from "RouteInsertionLogic";
+} from "../RouteInsertionLogic";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
