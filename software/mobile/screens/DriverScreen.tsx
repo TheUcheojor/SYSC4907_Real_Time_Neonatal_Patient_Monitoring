@@ -16,7 +16,7 @@ export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
   const metricLevel: React.MutableRefObject<number> = useRef<number>(0);
 
   /**
-   *  The following constants may be used now but down the line, we can provide users functionality
+   *  The following constants are not used now but down the line, they provide users functionality
    *  that allows for the modification of gauge settings
    * */
   const [lowModerateThreshold, setLowModerateThreshold] = useState<number>(
