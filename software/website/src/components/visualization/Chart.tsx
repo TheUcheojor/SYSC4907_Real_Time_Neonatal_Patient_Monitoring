@@ -8,11 +8,12 @@ import {
   Scatter,
   Tooltip,
   Dot,
+  ResponsiveContainer,
 } from "recharts";
 import { ColorEnum } from "constants/ColorEnum";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
-import { MeasurandUnitEnum } from "constants/MeasurandUnitEnum";
+import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
 
 const RenderDot = ({ cx, cy }: any) => {
   return <Dot cx={cx} cy={cy} fill={ColorEnum.Yellow} r={3} />;
@@ -41,6 +42,7 @@ interface ChartProps {
 
 function Chart({ data, measurand, onClick }: ChartProps) {
   console.log("CHART RENDER");
+
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
@@ -52,9 +54,9 @@ function Chart({ data, measurand, onClick }: ChartProps) {
             backgroundColor: "rgba(255, 255, 255, 0.2)",
           }}
         >
-          <p
-            style={{ color: ColorEnum.White, margin: 0 }}
-          >{`Reading : ${payload[0].payload[measurand]} ${MeasurandUnitEnum[measurand]}`}</p>
+          <p style={{ color: ColorEnum.White, margin: 0 }}>{`Reading : ${
+            payload[0].payload[measurand]
+          } ${MeasurandUnitMap.get(measurand)}`}</p>
           {payload[0].payload[DatapointFieldEnum.annotation] !== "" ? (
             <p style={{ color: ColorEnum.White, margin: 0 }}>{`${
               payload[0].payload[DatapointFieldEnum.annotation]
@@ -70,6 +72,7 @@ function Chart({ data, measurand, onClick }: ChartProps) {
   };
 
   const _data = [];
+  let maxLenData;
 
   data.forEach((dp) => {
     _data.push({
@@ -77,8 +80,12 @@ function Chart({ data, measurand, onClick }: ChartProps) {
         dp[DatapointFieldEnum.annotation] !== "" ? dp[measurand] : undefined,
       ...dp,
     });
+    if (
+      maxLenData === undefined ||
+      dp[measurand].toString().length > maxLenData
+    )
+      maxLenData = dp[measurand].toString().length;
   });
-
   return (
     <div
       style={{
@@ -92,7 +99,13 @@ function Chart({ data, measurand, onClick }: ChartProps) {
         width={400}
         height={200}
         data={_data}
-        margin={{ right: 20, top: 20 }}
+        margin={{
+          right: 20,
+          top: 20,
+          // left:
+          //   Math.pow(maxLenData + MeasurandUnitMap.get(measurand).length, 2) /
+          //   2,
+        }}
         onClick={onClick}
         style={{ cursor: onClick ? "pointer" : "auto" }}
       >
@@ -102,7 +115,12 @@ function Chart({ data, measurand, onClick }: ChartProps) {
           tick={{ fill: "white", transform: "translate(0,3)" }}
           tickLine={{ stroke: "white" }}
         />
-        <YAxis tick={{ fill: "white", transform: 'translate(-3,0)' }} tickLine={{ stroke: "white" }} />
+        <YAxis
+          tick={{ fill: "white", transform: "translate(-3,0)" }}
+          tickLine={{ stroke: "white" }}
+          unit={MeasurandUnitMap.get(measurand)}
+          allowDecimals={false}
+        />
         <CartesianGrid stroke="white" strokeDasharray="1 4" />
         <Area
           type="monotone"
