@@ -2,6 +2,7 @@ import jsonwebtoken, { TokenExpiredError } from "jsonwebtoken";
 import dotenv from "dotenv";
 import Logger from "Logger";
 import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "constants/AuthConstants";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 
