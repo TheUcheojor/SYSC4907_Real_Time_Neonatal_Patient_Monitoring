@@ -1,20 +1,32 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { memo, useEffect, useState, useCallback } from "react";
 import {
   DatapointFieldEnum,
   RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import Chart from "components/Chart";
-import Modal from "components/modal/Modal";
+import Chart from "components/visualization/Chart";
 import Route from "models/Route";
-import { toClockString, toDateString } from "utility/StringUtil";
-import MapWithChartNet from "components/MapWithChartNet";
+import { toClockString, toDateString } from "util/StringUtil";
+import Map from "components/visualization/Map";
 import LoadingIcon from "components/icons/LoadingIcon";
-import MapWithChart from "components/MapWithChart";
-import { getFetchHeaderWithAuth } from "utility/AuthUtil";
+import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import { ColorEnum } from "constants/ColorEnum";
+import LabeledText from "./LabeledText";
+import {
+  MeasurandUnitEnum,
+  MeasurandUnitMap,
+} from "constants/MeasurandUnitEnum";
 
 const chartLabelStyles = {
   color: "black",
   fontWeight: 700,
+  fontSize: "16px",
+  marginBottom: "2px",
+  marginTop: "15px",
+};
+
+const statLabelStyles = {
+  marginTop: "3px",
+  marginBottom: "3px",
 };
 
 interface TripsDetailsProps {
@@ -22,18 +34,12 @@ interface TripsDetailsProps {
 }
 
 function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
-  const [modalOpen, setModalOpen] = useState(false);
   const [activeMeasurand, setActiveMeasurand] = useState("");
   const [data, setData] = useState([]);
   const [netError, setNetError] = useState(undefined);
 
-  function closeModal() {
-    setModalOpen(false);
-  }
-
   const chartClickHandler = useCallback((e: any) => {
     setActiveMeasurand(e.activePayload[0].dataKey);
-    setModalOpen(true);
   }, []);
 
   useEffect(() => {
@@ -41,7 +47,10 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
       fetch(
         `https://localhost:3001/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
-        }`,{headers: getFetchHeaderWithAuth()}
+        }`,
+        {
+          headers: getFetchHeaderWithAuth(),
+        }
       )
         .then((res) => res.json())
         .then(
@@ -55,6 +64,14 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
         );
     });
   }, []);
+
+  data.forEach((elem) => {
+    elem.forEach((dp) => {
+      let date = new Date(parseInt(dp.time_s) * 1000);
+      dp.time_s = date.getHours() + ":" + date.getMinutes();
+      dp.pressure_pascals = (dp.pressure_pascals / 1000).toFixed(2);
+    });
+  });
 
   return (
     <div style={{ marginLeft: "10px" }}>
@@ -71,30 +88,134 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                   route[RouteFieldEnum.end_time_s]
                 )}
               </p>
+              <p style={chartLabelStyles}>Stats</p>
+              <div
+                style={{
+                  backgroundColor: ColorEnum.Black,
+                  padding: "10px",
+                  borderRadius: "6px",
+                  display: "grid",
+                  gridAutoFlow: "column",
+                  columnGap: "10px",
+                }}
+              >
+                <div>
+                  <LabeledText
+                    label={"Total Exposure"}
+                    text={`${route.total_vibration_exposure}`}
+                    unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average vibration"}
+                    text={`${route.avg_vibration}`}
+                    unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average noise"}
+                    text={`${route.avg_noise}`}
+                    unit={MeasurandUnitMap.get(DatapointFieldEnum.noise_db)}
+                    style={statLabelStyles}
+                  />
+                </div>
+                <div>
+                  <LabeledText
+                    label={"Average temperature"}
+                    text={`${route.avg_temperature}`}
+                    unit={MeasurandUnitMap.get(
+                      DatapointFieldEnum.temperature_celsius
+                    )}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average velocity"}
+                    text={`${route.avg_temperature}`}
+                    unit={MeasurandUnitMap.get(
+                      DatapointFieldEnum.velocity_kmps
+                    )}
+                    style={statLabelStyles}
+                  />
+                  <LabeledText
+                    label={"Average pressure"}
+                    text={`${route.avg_pressure}`}
+                    unit={MeasurandUnitMap.get(
+                      DatapointFieldEnum.pressure_pascals
+                    )}
+                    style={statLabelStyles}
+                  />
+                </div>
+              </div>
               <p style={chartLabelStyles}>Vibration</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.vibration}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.vibration && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.vibration}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
               <p style={chartLabelStyles}>Noise</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.noise_db}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.noise_db && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.noise_db}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
               <p style={chartLabelStyles}>Temperature</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.temperature_celsius}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.temperature_celsius && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.temperature_celsius}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
               <p style={chartLabelStyles}>Velocity</p>
               <Chart
                 data={data[i]}
                 measurand={DatapointFieldEnum.velocity_kmps}
                 onClick={chartClickHandler}
               />
+              {activeMeasurand === DatapointFieldEnum.velocity_kmps && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.velocity_kmps}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
+              <p style={chartLabelStyles}>Pressure</p>
+              <Chart
+                data={data[i]}
+                measurand={DatapointFieldEnum.pressure_pascals}
+                onClick={chartClickHandler}
+              />
+              {activeMeasurand === DatapointFieldEnum.pressure_pascals && (
+                <Map
+                  data={data[i]}
+                  measurand={DatapointFieldEnum.pressure_pascals}
+                  setMapRef={() => {}}
+                  style={{ height: "200px", width: "410px" }}
+                />
+              )}
             </div>
           ) : (
             <div
@@ -111,25 +232,8 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
           );
         })}
       </ul>
-      {modalOpen && (
-        <Modal title="Compare" modalOpen={modalOpen} closeModal={closeModal}>
-          <ul style={{ display: "flex", padding: 0 }}>
-            {selectedRoutes.map((route, i) => {
-              return data[i] !== undefined ? (
-                <MapWithChart
-                  measurand={DatapointFieldEnum[activeMeasurand]}
-                  datapoints={data[i]}
-                  style={{ marginLeft: "5px", marginRight: "5px" }}
-                />
-              ) : (
-                <LoadingIcon />
-              );
-            })}
-          </ul>
-        </Modal>
-      )}
     </div>
   );
 }
 
-export default TripsDetails;
+export default memo(TripsDetails);

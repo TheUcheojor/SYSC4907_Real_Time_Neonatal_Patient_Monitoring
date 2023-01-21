@@ -1,13 +1,14 @@
-import DB from "../data/db";
+import DB from "data/db";
 import Router, { Response } from "express";
-import Logger from "../Logger";
-import { authenticateSessionToken } from "../secret/sessionToken";
-import { PostRouteRequest } from "../models/requests/PostRouteRequest";
-import { AuthenticatedRequest } from "../models/requests/AuthRequests";
+import Logger from "Logger";
+import { authenticateSessionToken } from "secret/sessionToken";
+import { PostRouteRequest } from "models/requests/PostRouteRequest";
+import { AuthenticatedRequest } from "models/requests/AuthRequests";
 import {
   getDatapointInsertionValues,
   getRouteStats,
-} from "../RouteInsertionLogic";
+} from "RouteInsertionLogic";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
@@ -20,7 +21,7 @@ routesRouter.post(
     let segments = body.route_segments;
 
     if (segments === undefined || segments.length === 0) {
-      res.status(400).send();
+      res.status(HttpStatusEnum.BAD_REQUEST).send();
       return;
     }
 

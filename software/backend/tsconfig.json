@@ -4,5 +4,5 @@
     "esModuleInterop": true,
     "lib": ["es2019"]
   },
-  "include": ["src", "src/tests"]
+  "include": ["src"]
 }

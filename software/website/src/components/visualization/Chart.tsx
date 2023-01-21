@@ -8,10 +8,12 @@ import {
   Scatter,
   Tooltip,
   Dot,
+  ResponsiveContainer,
 } from "recharts";
 import { ColorEnum } from "constants/ColorEnum";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
+import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
 
 const RenderDot = ({ cx, cy }: any) => {
   return <Dot cx={cx} cy={cy} fill={ColorEnum.Yellow} r={3} />;
@@ -27,6 +29,8 @@ function getChartColor(measurand: DatapointFieldEnum): ColorEnum {
       return ColorEnum.Blue;
     case DatapointFieldEnum.noise_db:
       return ColorEnum.Ice;
+    case DatapointFieldEnum.pressure_pascals:
+      return ColorEnum.Green;
   }
 }
 
@@ -38,13 +42,23 @@ interface ChartProps {
 
 function Chart({ data, measurand, onClick }: ChartProps) {
   console.log("CHART RENDER");
+
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div>
-          <p>{`reading : ${payload[0].payload[measurand]}`}</p>
+        <div
+          style={{
+            border: "2px solid white",
+            padding: "5px",
+            borderRadius: "6px",
+            backgroundColor: "rgba(255, 255, 255, 0.2)",
+          }}
+        >
+          <p style={{ color: ColorEnum.White, margin: 0 }}>{`Reading : ${
+            payload[0].payload[measurand]
+          } ${MeasurandUnitMap.get(measurand)}`}</p>
           {payload[0].payload[DatapointFieldEnum.annotation] !== "" ? (
-            <p>{`annotation : ${
+            <p style={{ color: ColorEnum.White, margin: 0 }}>{`${
               payload[0].payload[DatapointFieldEnum.annotation]
             }`}</p>
           ) : (
@@ -58,6 +72,7 @@ function Chart({ data, measurand, onClick }: ChartProps) {
   };
 
   const _data = [];
+  let maxLenData;
 
   data.forEach((dp) => {
     _data.push({
@@ -65,12 +80,16 @@ function Chart({ data, measurand, onClick }: ChartProps) {
         dp[DatapointFieldEnum.annotation] !== "" ? dp[measurand] : undefined,
       ...dp,
     });
+    if (
+      maxLenData === undefined ||
+      dp[measurand].toString().length > maxLenData
+    )
+      maxLenData = dp[measurand].toString().length;
   });
-
   return (
     <div
       style={{
-        backgroundColor: "#000",
+        backgroundColor: ColorEnum.Black,
         borderRadius: "6px",
         width: "fit-content",
         paddingRight: "10px",
@@ -80,18 +99,29 @@ function Chart({ data, measurand, onClick }: ChartProps) {
         width={400}
         height={200}
         data={_data}
-        margin={{ right: 20, top: 20 }}
+        margin={{
+          right: 20,
+          top: 20,
+          // left:
+          //   Math.pow(maxLenData + MeasurandUnitMap.get(measurand).length, 2) /
+          //   2,
+        }}
         onClick={onClick}
         style={{ cursor: onClick ? "pointer" : "auto" }}
       >
         <title>{measurand}</title>
         <XAxis
           dataKey={DatapointFieldEnum.time_s}
-          tick={{ fill: "white" }}
+          tick={{ fill: "white", transform: "translate(0,3)" }}
           tickLine={{ stroke: "white" }}
         />
-        <YAxis tick={{ fill: "white" }} tickLine={{ stroke: "white" }} />
-        <CartesianGrid stroke="#fff" strokeDasharray="1 4" />
+        <YAxis
+          tick={{ fill: "white", transform: "translate(-3,0)" }}
+          tickLine={{ stroke: "white" }}
+          unit={MeasurandUnitMap.get(measurand)}
+          allowDecimals={false}
+        />
+        <CartesianGrid stroke="white" strokeDasharray="1 4" />
         <Area
           type="monotone"
           dataKey={measurand}

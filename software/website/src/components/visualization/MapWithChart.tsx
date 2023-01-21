@@ -1,9 +1,9 @@
 import React, { useRef, memo } from "react";
-import Chart from "components/Chart";
+import Chart from "components/visualization/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
-import { toTitleCase } from "utility/StringUtil";
-import Map from "components/Map";
+import { toTitleCase } from "util/StringUtil";
+import Map from "components/visualization/Map";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 
 const mapStyles: CSS.Properties = {

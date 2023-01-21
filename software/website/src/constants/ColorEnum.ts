@@ -9,4 +9,6 @@ export enum ColorEnum {
   Purple = "#AA85E5",
   Grey = "#969696",
   Link = "#1877f2",
+  Black = "#000",
+  White = "#FFF",
 }

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "css/App.css";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import { PASSWORD_LENGTH_MIN } from "constants/Auth";
+import { PASSWORD_LENGTH_MIN, VALID_EMAIL_REGEX } from "constants/Auth";
 
 function SignUpModalContent() {
   const [fullName, setFullName] = useState("");
@@ -11,14 +11,12 @@ function SignUpModalContent() {
   const [passwordVerify, setPasswordVerify] = useState("");
   const [signUpResult, setSignUpResult] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isFetching, setFetching] = useState(false);
-  const [isEnabled, setEnabled] = useState(false);
-
-  const VALID_EMAIL_REGEX =
-    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g;
-
+  const [isFetching, setIsFetching] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
+  
   function handleSignUp() {
-    setFetching(true);
+    setIsFetching(true);
+    setIsEnabled(false);
     fetch(`https://localhost:3001/user`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,10 +33,12 @@ function SignUpModalContent() {
         setSignUpResult(
           "Sign up failed, account using this email already exists"
         );
+        setIsEnabled(true);
       } else {
         setSignUpResult(`${res.status}: Sign up failed...`);
+        setIsEnabled(true);
       }
-      setFetching(false);
+      setIsFetching(false);
     });
   }
 
@@ -62,16 +62,17 @@ function SignUpModalContent() {
       passwordVerifyValid &&
       passwordsMatch
     )
-      setEnabled(true);
-    else setEnabled(false);
+      setIsEnabled(true);
+    else setIsEnabled(false);
   }
 
   return (
-    <div
+    <form
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        maxWidth: "305px",
       }}
     >
       {signUpResult !== "" && (
@@ -79,7 +80,6 @@ function SignUpModalContent() {
           style={{
             color: isSuccess ? ColorEnum.Green : ColorEnum.Red,
             marginBottom: "5px",
-            maxWidth: "305px",
             wordBreak: "break-all",
           }}
         >
@@ -124,20 +124,16 @@ function SignUpModalContent() {
         onChange={(event) => setPasswordVerify(event.target.value)}
       />
       {!isFetching ? (
-        <button
-          style={{
-            fontSize: "16px",
-            cursor: !isEnabled || isSuccess ? "auto" : "pointer",
-          }}
-          disabled={!isEnabled || isSuccess}
+        <input
+          type="submit"
+          disabled={!isEnabled}
           onClick={handleSignUp}
-        >
-          Sign Up
-        </button>
+          value={"Sign Up"}
+        />
       ) : (
         <LoadingIcon diameter={"30px"} parentDiameter={"50px"} />
       )}
-    </div>
+    </form>
   );
 }
 

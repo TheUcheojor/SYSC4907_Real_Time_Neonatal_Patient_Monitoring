@@ -1,6 +1,6 @@
 import React from "react";
 import Route from "models/Route";
-import ListElement from "./ListElement";
+import ListElement from "components/pages/Trips/ListElement";
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 
 interface ListProps {
@@ -18,7 +18,8 @@ function List({ routes, elemOnClick, activeRoutes }: ListProps) {
             key={route[RouteFieldEnum.route_id]}
             route={route}
             isActive={activeRoutes.some(
-              (elem) => elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
+              (elem) =>
+                elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
             )}
             onClick={elemOnClick}
           />
