@@ -66,7 +66,7 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
           Avg vibration: {route[RouteFieldEnum.avg_vibration]}
         </p>
         <p style={statsLabelsStyles}>
-          Total exposure: {route[RouteFieldEnum.total_vibration]}
+          Vibration exposure: {route[RouteFieldEnum.total_vibration]}
         </p>
       </div>
     </div>

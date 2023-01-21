@@ -149,6 +149,14 @@ function TripsPage({ onLogout }: TripsProps) {
                 }}
               >
                 <span style={pStyles}>
+                  Patient:{" "}
+                  {
+                    selectedRoutes[selectedRoutes.length - 1][
+                      RouteFieldEnum.patient_id
+                    ]
+                  }
+                </span>
+                <span style={pStyles}>
                   Duration:{" "}
                   {elapsedDurationInHoursAndMinutes(
                     selectedRoutes[selectedRoutes.length - 1][
@@ -160,7 +168,7 @@ function TripsPage({ onLogout }: TripsProps) {
                   )}
                 </span>
                 <span style={pStyles}>
-                  Total exposure:{" "}
+                  Vibration exposure:{" "}
                   {
                     selectedRoutes[selectedRoutes.length - 1][
                       RouteFieldEnum.total_vibration

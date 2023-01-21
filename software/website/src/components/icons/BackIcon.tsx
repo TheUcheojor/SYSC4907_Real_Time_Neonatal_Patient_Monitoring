@@ -11,7 +11,7 @@ function BackIcon({ onClick }: iconProps) {
     <div
       style={{
         display: "flex",
-        marginTop: "24px",
+        marginTop: "15px",
         alignItems: "center",
         height: "fit-content",
         width: "fit-content",

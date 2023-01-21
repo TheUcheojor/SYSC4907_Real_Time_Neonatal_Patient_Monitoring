@@ -23,4 +23,5 @@ export enum RouteFieldEnum {
   avg_pressure = "avg_pressure",
   start_time_s = "start_time_s",
   end_time_s = "end_time_s",
+  patient_id = "patient_id",
 }
