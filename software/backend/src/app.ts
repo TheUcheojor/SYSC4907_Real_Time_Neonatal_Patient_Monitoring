@@ -7,20 +7,11 @@ import routesRouter from "routes/Routes";
 import userRouter from "routes/User";
 import routeMeasurementDataPointsRouter from "routes/RouteMeasurementDataPoints";
 import devRouter from "routes/dev/Dev";
-import forgotPasswordRouter from "routes/ForgotPassword";
 
-const PORT = 3001;
-const PAYLOAD_LIMIT = "10mb";
-const FILE_CHARACTER_ENCODING = "utf8";
+const port = 3001;
 
-const privateKey = fs.readFileSync(
-  "secret/server_DEVONLY.key",
-  FILE_CHARACTER_ENCODING
-);
-const certificate = fs.readFileSync(
-  "secret/server_DEVONLY.crt",
-  FILE_CHARACTER_ENCODING
-);
+const privateKey = fs.readFileSync("./secret/server_DEVONLY.key", "utf8");
+const certificate = fs.readFileSync("./secret/server_DEVONLY.crt", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 const corsOptions = {
@@ -30,18 +21,29 @@ const corsOptions = {
 const app = express();
 
 app.use(cors(corsOptions));
-app.use(express.json({ limit: PAYLOAD_LIMIT }));
-app.use(express.urlencoded({ limit: PAYLOAD_LIMIT }));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb" }));
 
 app.use(loginRouter);
 app.use(routesRouter);
 app.use(userRouter);
 app.use(routeMeasurementDataPointsRouter);
 app.use(devRouter);
-app.use(forgotPasswordRouter);
 
-const httpsServer = https.createServer(credentials, app);
-
-httpsServer.listen(PORT, () => {
-  console.log(`Https server listening on port ${PORT}`);
+/**
+ * For development purposes only, we will use a http server
+ * as it allows for communication between app and server.
+ *
+ * Using https with self-signed certificate requires extra configurations
+ * that may be time consuming
+ */
+app.listen(port, () => {
+  console.log(`server listening on port ${port}`);
 });
+
+// const httpsServer = https.createServer(credentials, app);
+
+// httpsServer.listen(port, () => {
+//   console.log(`Https server listening on port ${port}`);
+// });
+ 6 
