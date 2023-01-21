@@ -74,11 +74,13 @@ function Chart({ data, measurand, onClick }: ChartProps) {
   let maxStrLenData;
 
   data.forEach((dp) => {
+    let date = new Date(dp.time_s * 1000);
     _data.push({
       // place annotations alongside their datapoint
       annotationPos:
         dp[DatapointFieldEnum.annotation] !== "" ? dp[measurand] : undefined,
       ...dp,
+      time_s: date.getHours() + ":" + date.getMinutes(),
     });
     const strLenData = Math.round(dp[measurand]).toString().length;
     if (maxStrLenData === undefined || strLenData > maxStrLenData)

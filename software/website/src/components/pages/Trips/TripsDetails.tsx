@@ -11,9 +11,7 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import { ColorEnum } from "constants/ColorEnum";
 import LabeledText from "./LabeledText";
-import {
-  MeasurandUnitMap,
-} from "constants/MeasurandUnitEnum";
+import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
 
 const chartLabelStyles = {
   color: "black",
@@ -66,10 +64,8 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
 
   const _data = data.map((elem) => {
     return elem.map((dp) => {
-      let date = new Date(parseInt(dp.time_s) * 1000);
       return {
         ...dp,
-        time_s: date.getHours() + ":" + date.getMinutes(),
         pressure_pascals: (dp.pressure_pascals / 1000).toFixed(2),
       };
     });
