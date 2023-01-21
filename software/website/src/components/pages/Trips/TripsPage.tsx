@@ -15,6 +15,7 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import Pagination from "components/pages/Pagination";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 const pStyles = {
   fontWeight: 400,
@@ -43,7 +44,7 @@ function TripsPage({ onLogout }: TripsProps) {
 
   useEffect(() => {
     fetch(
-      `https://localhost:3001/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
+      `http://${SERVER_HOST}:${SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
       {
         headers: getFetchHeaderWithAuth(),
       }

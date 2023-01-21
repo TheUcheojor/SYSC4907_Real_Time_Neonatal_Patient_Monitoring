@@ -52,8 +52,8 @@ app.use(devRouter);
  * Using https with self-signed certificate requires extra configurations
  * that may be time consuming
  */
-app.listen(port, () => {
-  console.log(`server listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`server listening on port ${PORT}`);
 
 });
 

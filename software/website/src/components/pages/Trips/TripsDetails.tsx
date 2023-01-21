@@ -12,6 +12,7 @@ import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import { ColorEnum } from "constants/ColorEnum";
 import LabeledText from "./LabeledText";
 import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 const chartLabelStyles = {
   color: "black",
@@ -42,7 +43,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
       fetch(
-        `https://localhost:3001/routeMeasurementDataPoints/${
+        `http://${SERVER_HOST}:${SERVER_PORT}/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
         }`,
         {

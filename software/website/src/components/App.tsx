@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "css/App.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import NavHeader from "components/NavHeader";
 import LoginPage from "components/pages/LoginPage";

@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import { VALID_EMAIL_REGEX } from "constants/Auth";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 function ForgotPasswordModalContent() {
   const email = useRef("");
@@ -13,7 +15,7 @@ function ForgotPasswordModalContent() {
   function handleSubmit() {
     setIsFetching(true);
     setIsSubmitEnabled(false);
-    fetch(`https://localhost:3001/forgotPassword`, {
+    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/forgotPassword`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -22,12 +24,12 @@ function ForgotPasswordModalContent() {
         email: email.current,
       }),
     }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === HttpStatusEnum.OK) {
         setIsSuccess(true);
         setRequestResetResult(
           "If an account is associated with this email, a reset email will be sent"
         );
-      } else if (res.status === 409) {
+      } else if (res.status === HttpStatusEnum.CONFLICT) {
         setRequestResetResult("Request reset failed");
         setIsSubmitEnabled(true);
       } else {
