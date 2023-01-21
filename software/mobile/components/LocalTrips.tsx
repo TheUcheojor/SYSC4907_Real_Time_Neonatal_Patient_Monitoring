@@ -31,7 +31,7 @@ export default ({}: LocalTripsParams) => {
    *
    * Right now, the system is fetching all the the local routes at a time which scales poorly.
    * I created a getRoutesWithRestrictions function for controlled paginated fetching but there was weird
-   * behaviours. Since optimization is not a major concern at initial development  stages, the system will use
+   * behaviours. Since optimization is not a major concern at initial development stages, the system will use
    * the fetch-all behaviour for now and optimizations can be made if time permits
    */
   const getLocalTrips = () => {
@@ -71,6 +71,7 @@ export default ({}: LocalTripsParams) => {
     []
   );
 
+  const uploadTrips = () => {};
   return (
     <View style={styles.localTripsComponentContainer}>
       <View style={styles.headerMenu}>
@@ -88,6 +89,7 @@ export default ({}: LocalTripsParams) => {
             name="cloud-upload"
             size={35}
             color={ICON_DEFAULT_COLOUR}
+            onPress={uploadTrips}
           />
           <MaterialIcons
             style={styles.icon}
