@@ -1,12 +1,12 @@
-import DB from "data/db";
+import DB from "../../data/db";
 import Router from "express";
-import { generateRandomDatapoints } from "data/mock/mock";
+import { generateRandomDatapoints } from "../../data/mock/mock";
 import {
   coordsCarletonCampus,
   coordsCivicToGeneral,
   coordsCivicToHull,
   coordsOttToTo,
-} from "data/mock/coords";
+} from "../../data/mock/coords";
 
 const devRouter = Router();
 

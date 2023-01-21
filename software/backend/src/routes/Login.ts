@@ -1,8 +1,8 @@
-import DB from "data/db";
+import DB from "../data/db";
 import Router, { Response } from "express";
 import { LoginRequest } from "models/requests/AuthRequests";
-import Logger from "Logger";
-import { generateSessionToken } from "secret/sessionToken";
+import Logger from "../Logger";
+import { generateSessionToken } from "../secret/sessionToken";
 
 const logger = Logger.getInstance();
 const loginRouter = Router();

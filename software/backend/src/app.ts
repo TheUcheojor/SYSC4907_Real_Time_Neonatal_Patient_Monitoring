@@ -2,11 +2,11 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 import https from "https";
-import loginRouter from "routes/Login";
-import routesRouter from "routes/Routes";
-import userRouter from "routes/User";
-import routeMeasurementDataPointsRouter from "routes/RouteMeasurementDataPoints";
-import devRouter from "routes/dev/Dev";
+import loginRouter from "./routes/Login";
+import routesRouter from "./routes/Routes";
+import userRouter from "./routes/User";
+import routeMeasurementDataPointsRouter from "./routes/RouteMeasurementDataPoints";
+import devRouter from "./routes/dev/Dev";
 
 const port = 3001;
 

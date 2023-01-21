@@ -1,8 +1,8 @@
-import DB from "data/db";
+import DB from "../data/db";
 import Router from "express";
-import { AuthenticatedRequest } from "models/requests/AuthRequests";
-import Logger from "Logger";
-import { authenticateSessionToken } from "secret/sessionToken";
+import { AuthenticatedRequest } from "../models/requests/AuthRequests";
+import Logger from "../Logger";
+import { authenticateSessionToken } from "../secret/sessionToken";
 
 const logger = Logger.getInstance();
 const routeMeasurementDataPointsRouter = Router();
