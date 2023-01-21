@@ -5,7 +5,7 @@
  */
 
 import { BaseRequest } from "./BaseRequest";
-import { RequestType } from "./RequestType";
+import { SensorPackageRequestType } from "./RequestType";
 
 export interface ConfigurationProfile {
   /**
@@ -53,7 +53,7 @@ export class SetConfigurationProfileRequest extends BaseRequest {
    * @param configurationProfile the config profile
    */
   constructor(configurationProfile: ConfigurationProfile) {
-    super(RequestType.SET_CONFIGURATION_PROFILE);
+    super(SensorPackageRequestType.SET_CONFIGURATION_PROFILE);
     this.configurationProfile = configurationProfile;
   }
 

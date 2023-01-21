@@ -18,7 +18,7 @@ export default ({
   const [selectedSensorPackage, setSelectedSensorPackage] =
     useState<Device | null>(null);
 
-  // Create a useeffect that is trigger on selectedSensorPackage that attempts to connect to the selected sensor-package
+  // when a user attempts to connect a  sensor-package
   useEffect(() => {
     if (!selectedSensorPackage) return;
 
@@ -42,15 +42,18 @@ export default ({
     };
   }, [selectedSensorPackage]);
 
-  // /**
-  //  * Mocking a feed from the sensor package from the send
-  //  */
-  // useEffect(() => {
-  //   const generateMeasurementPacketInterval: NodeJS.Timer =
-  //     sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+  /**
+   * Mocking a feed from the sensor package from the send
+   */
+  useEffect(() => {
+    const sensorPackageController: SensorPackageController =
+      SensorPackageController.getSensorPackageController();
 
-  //   return () => clearInterval(generateMeasurementPacketInterval);
-  // }, []);
+    const generateMeasurementPacketInterval: NodeJS.Timer =
+      sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+
+    return () => clearInterval(generateMeasurementPacketInterval);
+  }, []);
 
   return (
     <View style={styles.settingsScreen}>

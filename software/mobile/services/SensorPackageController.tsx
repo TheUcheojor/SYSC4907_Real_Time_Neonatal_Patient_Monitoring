@@ -316,7 +316,7 @@ export default class SensorPackageController {
       React.SetStateAction<MeasurementPacket>
     >
   ): NodeJS.Timer {
-    const MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS = 3000;
+    const MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS = 1000;
 
     return setInterval(() => {
       const generatedMeasurementPacket = generateRandomMeasurementPacket();

@@ -5,13 +5,13 @@
  *
  */
 
-import { RequestType } from "./RequestType";
+import { SensorPackageRequestType } from "./RequestType";
 
 export interface BaseRequestInterface {
   /**
    * The request type
    */
-  readonly requestType: RequestType;
+  readonly requestType: SensorPackageRequestType;
 
   /**
    * The time at which the request was sent
@@ -23,7 +23,7 @@ export class BaseRequest implements BaseRequestInterface {
   /**
    * The request type
    */
-  public readonly requestType: RequestType;
+  public readonly requestType: SensorPackageRequestType;
 
   /**
    * The time stamp
@@ -34,7 +34,7 @@ export class BaseRequest implements BaseRequestInterface {
    * The BaseRequest constructor
    * @param requestType the request type
    */
-  constructor(requestType: RequestType) {
+  constructor(requestType: SensorPackageRequestType) {
     this.requestType = requestType;
     this.timestamp = Date.now();
   }

@@ -9,8 +9,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { DatabaseService } from "../../services/DatabaseService";
-import TripRoute from "../../services/models/Route";
-import RouteMeasurementDataPoint from "../../services/models/RouteMeasurementDataPoint";
+import TripRoute from "../../services/models/trips/Route";
+import RouteMeasurementDataPoint from "../../services/models/trips/RouteMeasurementDataPoint";
 import { MainStackParamList } from "../../types";
 import { FlashList } from "@shopify/flash-list";
 
