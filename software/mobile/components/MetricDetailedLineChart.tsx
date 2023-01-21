@@ -44,6 +44,12 @@ const segmentColours: Array<string> = [
   "#AA85E5",
 ];
 const currentSegmentColourIndex: number = 0;
+const KEY_POINT_COLOUR: string = "#C2372E";
+
+enum VictoryShapeEnum {
+  CIRCLE = "circle",
+  STAR = "star",
+}
 
 export default ({
   dataset,
@@ -89,12 +95,11 @@ export default ({
           />
 
           <VictoryScatter
-            size={({ datum }: { datum: GraphData }) =>
-              (datum.isAnnotation && 2) || (datum.isSegmentLabel && 2) || 0
-            }
-            symbol={({ datum }: { datum: GraphData }) =>
-              (datum.isAnnotation && "star") ||
-              (datum.isSegmentLabel && "circle")
+            size={({ datum }) => (datum.annotationLabel ? 5 : 2)}
+            symbol={({ datum }) =>
+              datum.annotationLabel
+                ? VictoryShapeEnum.STAR
+                : VictoryShapeEnum.CIRCLE
             }
             style={{
               data: {
