@@ -5,9 +5,8 @@
  */
 
 import { Platform } from "react-native";
-import { SecureStore } from "expo";
 
-import * as HttpConstants from "./constants/http-constants";
+import { JSON_APPLICATION_CONTENT_TYPE } from "./constants/HttpHeaderProperties";
 import { HttpRequestType } from "./constants/HttpRequestType";
 import { HttpStatusCode } from "./constants/HttpStatusCode";
 import {
@@ -15,8 +14,9 @@ import {
   LoginResponse,
 } from "./models/server-communication/AuthenticationModels";
 import { BaseServerResponse } from "./models/server-communication/ServerResponses";
-import { HttpHeaderKey } from "./constants/HttpHeaderKey";
-import UserSessionService from "./UserSessionService";
+import { HttpHeaderKey } from "./constants/HttpHeaderProperties";
+import UserSessionService, { UserSession } from "./UserSessionService";
+import { ServerTripPackage } from "./models/server-communication/ServerTripPackage";
 
 export class ServerCommnunicationService {
   /**
@@ -28,11 +28,6 @@ export class ServerCommnunicationService {
    * The API url
    */
   private static API_URL: string = "http://192.168.100.100:3001";
-
-  /**
-   * The authorization token
-   */
-  private authorizationToken: string | null = "";
 
   /**
    * The private ServerCommnunicationService constructor
@@ -58,7 +53,7 @@ export class ServerCommnunicationService {
     return fetch(`${ServerCommnunicationService.API_URL}/login`, {
       method: HttpRequestType.POST,
       headers: {
-        "Content-Type": HttpConstants.JSON_APPLICATION_CONTENT_TYPE,
+        "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
       },
       body: JSON.stringify(loginRequest),
     }).then(async (response: Response) => {
@@ -85,5 +80,39 @@ export class ServerCommnunicationService {
     });
   }
 
-  public uploadTrip;
+  /**
+   * Upload a trip to the server
+   * @param serverTripPackage the server trip package
+   * @returns the server response
+   */
+  public uploadTrip(
+    serverTripPackage: ServerTripPackage
+  ): Promise<BaseServerResponse> {
+    return UserSessionService.loadUserSession().then(
+      (userSession: UserSession | null) => {
+        if (!userSession)
+          return {
+            isSuccessful: false,
+            message: "User session has expired",
+          };
+
+        return fetch(`${ServerCommnunicationService.API_URL}/routes`, {
+          method: HttpRequestType.POST,
+          headers: {
+            "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
+            Authorization: userSession.authenticationToken,
+          },
+          body: JSON.stringify(serverTripPackage),
+        }).then((response: Response) => {
+          const isSuccessful: boolean =
+            response.status == HttpStatusCode.OK_REQUEST;
+
+          return {
+            isSuccessful: isSuccessful,
+            message: "",
+          };
+        });
+      }
+    );
+  }
 }
