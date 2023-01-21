@@ -7,7 +7,13 @@ import React from "react";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { DatabaseService } from "../../services/DatabaseService";
 import TripRoute from "../../services/models/trips/Route";
 import RouteMeasurementDataPoint from "../../services/models/trips/RouteMeasurementDataPoint";
@@ -50,6 +56,8 @@ export default ({
   route,
   navigation,
 }: NativeStackScreenProps<MainStackParamList, "TripDetails">) => {
+  const [isLoaded, setLoaded] = useState<boolean>(false);
+
   const { routeId, isLocalTrip } = route.params;
   const [tripRoute, setRoute] = useState<TripRoute | null>(null);
   const [routeMeasurementDataPoints, setRouteMeasurementDataPoints] = useState<
@@ -107,6 +115,9 @@ export default ({
 
   useEffect(() => {
     if (isLocalTrip) {
+      setLoaded(false);
+
+      console.log(isLoaded);
       //Fetch the local route
       DatabaseService.getConfiguredDatabaseController().then(
         (databaseService: DatabaseService) => {
@@ -132,6 +143,15 @@ export default ({
                 .then((routeSegements: RouteSegment[]) => {
                   setRouteSegments(routeSegements);
                 });
+
+              /**
+               * Old content does not refresh quick enough.
+               * We need to wait a brief period of time to allow the page to change
+               **/
+              setTimeout(
+                () => setLoaded(true),
+                PAGE_LOADING_DURATION_MILLISECONDS
+              );
             });
         }
       );
@@ -139,6 +159,14 @@ export default ({
 
     //Fetch from the server
   }, [routeId]);
+
+  if (!isLoaded) {
+    return (
+      <View style={{ ...styles.tripDetailsScreen, justifyContent: "center" }}>
+        <ActivityIndicator size="large" color={"black"} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.tripDetailsScreen}>
@@ -178,13 +206,19 @@ export default ({
           // contentContainerStyle={styles.chartsContainer}
           data={datasets}
           renderItem={getMetricDetailChart}
-          estimatedItemSize={4}
+          estimatedItemSize={ESTIMATED_GRAPH_ITEM_SIZE}
           showsVerticalScrollIndicator={false}
         />
       </View>
     </View>
   );
 };
+
+/**
+ * View Constants
+ */
+const PAGE_LOADING_DURATION_MILLISECONDS: number = 500;
+const ESTIMATED_GRAPH_ITEM_SIZE: number = 1;
 
 /**
  * Return a MetricDetailedLineChart component for the given item
