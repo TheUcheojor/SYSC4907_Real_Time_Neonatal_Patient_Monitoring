@@ -6,7 +6,6 @@
 
 import { Platform } from "react-native";
 import * as HttpConstants from "./constants/http-constants";
-import { HTTP_OK_SUCCESS_STATUS_CODE } from "./constants/http-constants";
 import { HttpRequestType } from "./constants/HttpRequestType";
 import { HttpStatusCode } from "./constants/HttpStatusCode";
 import { LoginRequest } from "./models/server-communication/AuthenticationRequests";
@@ -22,7 +21,7 @@ export class ServerCommnunicationService {
    * The API url
    */
   private static API_URL: string =
-    Platform.OS === "ios" ? "http://localhost:5000" : "http://10.0.2.2:5000";
+    Platform.OS === "ios" ? "http://localhost:3001" : "http://10.0.2.2:3001";
 
   /**
    * The private ServerCommnunicationService constructor
