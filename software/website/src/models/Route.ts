@@ -4,7 +4,7 @@ export default interface Route {
   organization_id: string;
   start_time: number;
   end_time: number;
-  total_vibration_exposure: number;
+  total_vibration: number;
   avg_temperature: number;
   avg_noise: number;
   avg_vibration: number;

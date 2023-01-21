@@ -8,6 +8,7 @@ import userRouter from "routes/User";
 import routeMeasurementDataPointsRouter from "routes/RouteMeasurementDataPoints";
 import devRouter from "routes/dev/Dev";
 import forgotPasswordRouter from "routes/ForgotPassword";
+import segmentsRouter from "routes/Segments";
 
 const PORT = 3001;
 const PAYLOAD_LIMIT = "10mb";
@@ -33,12 +34,16 @@ app.use(cors(corsOptions));
 app.use(express.json({ limit: PAYLOAD_LIMIT }));
 app.use(express.urlencoded({ limit: PAYLOAD_LIMIT }));
 
+// auth routes
 app.use(loginRouter);
-app.use(routesRouter);
-app.use(userRouter);
-app.use(routeMeasurementDataPointsRouter);
-app.use(devRouter);
 app.use(forgotPasswordRouter);
+app.use(userRouter);
+// data routes
+app.use(routesRouter);
+app.use(segmentsRouter);
+app.use(routeMeasurementDataPointsRouter);
+// dev only routes
+app.use(devRouter);
 
 const httpsServer = https.createServer(credentials, app);
 

@@ -6,10 +6,10 @@ import { authenticateSessionToken } from "secret/sessionToken";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
-const routeMeasurementDataPointsRouter = Router();
+const segmentsRouter = Router();
 
-routeMeasurementDataPointsRouter.get(
-  "/routeMeasurementDataPoints/:route_id",
+segmentsRouter.get(
+  "/segments/:route_id",
   authenticateSessionToken,
   (req: AuthenticatedRequest, res) => {
     let db = new DB();
@@ -36,7 +36,7 @@ routeMeasurementDataPointsRouter.get(
         }
 
         con.query(
-          "SELECT * FROM route_measurement_data_points WHERE route_id=?",
+          "SELECT * FROM segments WHERE route_id=?",
           [req.params.route_id],
           function (error, results, fields) {
             if (error) {
@@ -58,4 +58,4 @@ routeMeasurementDataPointsRouter.get(
   }
 );
 
-export default routeMeasurementDataPointsRouter;
+export default segmentsRouter;

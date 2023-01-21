@@ -100,7 +100,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 <div>
                   <LabeledText
                     label={"Total Exposure"}
-                    text={`${route.total_vibration_exposure}`}
+                    text={`${route.total_vibration}`}
                     unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
                     style={statLabelStyles}
                   />

@@ -162,7 +162,7 @@ function TripsPage({ onLogout }: TripsProps) {
                   Total exposure:{" "}
                   {
                     selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.total_vibration_exposure
+                      RouteFieldEnum.total_vibration
                     ]
                   }
                 </span>
