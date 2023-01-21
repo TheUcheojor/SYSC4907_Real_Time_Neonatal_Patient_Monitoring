@@ -7,6 +7,8 @@
 import { Platform } from "react-native";
 import * as HttpConstants from "./constants/http-constants";
 import { HTTP_OK_SUCCESS_STATUS_CODE } from "./constants/http-constants";
+import { HttpRequestType } from "./constants/HttpRequestType";
+import { HttpStatusCode } from "./constants/HttpStatusCode";
 import { LoginRequest } from "./models/server-communication/AuthenticationRequests";
 import { BaseServerResponse } from "./models/server-communication/ServerResponses";
 
@@ -44,14 +46,14 @@ export class ServerCommnunicationService {
    */
   public login(loginRequest: LoginRequest): Promise<BaseServerResponse> {
     return fetch(`${ServerCommnunicationService.API_URL}/login`, {
-      method: HttpConstants.HTTP_POST_REQUEST,
+      method: HttpRequestType.POST,
       headers: {
         "Content-Type": HttpConstants.JSON_APPLICATION_CONTENT_TYPE,
       },
       body: JSON.stringify(loginRequest),
     }).then((response: Response) => {
       const isSuccessful: boolean =
-        response.status == HTTP_OK_SUCCESS_STATUS_CODE;
+        response.status == HttpStatusCode.OK_REQUEST;
 
       const message: string = !isSuccessful ? "Login failed!" : "";
 
