@@ -13,31 +13,6 @@ import TripDetailsScreen from "../screens/trips/TripDetailsScreen";
 
 const Drawer = createDrawerNavigator<MainStackParamList>();
 
-const handleLogOut = (navigation: DrawerNavigationHelpers): void => {
-  navigation.navigate("Login");
-};
-
-const CustomDrawerMenu = ({
-  navigation,
-}: {
-  navigation: DrawerNavigationHelpers;
-}): JSX.Element => {
-  return (
-    <DrawerContentScrollView>
-      <View style={style.header}>
-        <AppIcon size={80} />
-      </View>
-
-      <DrawerItem
-        labelStyle={style.appName}
-        label="LOG OUT"
-        icon={() => <Ionicons name="exit-outline" size={30} color="black" />}
-        onPress={() => handleLogOut(navigation)}
-      />
-    </DrawerContentScrollView>
-  );
-};
-
 export default ({
   recordingState,
   setRecordingState,
@@ -71,6 +46,31 @@ export default ({
         component={TripDetailsScreen}
       ></Drawer.Screen>
     </Drawer.Navigator>
+  );
+};
+
+const handleLogOut = (navigation: DrawerNavigationHelpers): void => {
+  navigation.navigate("Login");
+};
+
+const CustomDrawerMenu = ({
+  navigation,
+}: {
+  navigation: DrawerNavigationHelpers;
+}): JSX.Element => {
+  return (
+    <DrawerContentScrollView>
+      <View style={style.header}>
+        <AppIcon size={80} />
+      </View>
+
+      <DrawerItem
+        labelStyle={style.appName}
+        label="LOG OUT"
+        icon={() => <Ionicons name="exit-outline" size={30} color="black" />}
+        onPress={() => handleLogOut(navigation)}
+      />
+    </DrawerContentScrollView>
   );
 };
 

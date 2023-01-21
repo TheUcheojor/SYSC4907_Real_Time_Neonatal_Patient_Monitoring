@@ -5,11 +5,15 @@
  */
 
 import { Platform } from "react-native";
+import { SecureStore } from "expo";
+
 import * as HttpConstants from "./constants/http-constants";
 import { HttpRequestType } from "./constants/HttpRequestType";
 import { HttpStatusCode } from "./constants/HttpStatusCode";
 import { LoginRequest } from "./models/server-communication/AuthenticationRequests";
 import { BaseServerResponse } from "./models/server-communication/ServerResponses";
+import { HttpHeaderKey } from "./constants/HttpHeaderKey";
+import UserSessionService from "./UserSessionService";
 
 export class ServerCommnunicationService {
   /**
@@ -21,6 +25,12 @@ export class ServerCommnunicationService {
    * The API url
    */
   private static API_URL: string = "http://192.168.100.100:3001";
+
+  /**
+   * The authorization token
+   */
+  private authorizationToken: string | null = "";
+
   /**
    * The private ServerCommnunicationService constructor
    */
@@ -37,7 +47,7 @@ export class ServerCommnunicationService {
   }
 
   /**
-   * Sends a loging request
+   * Sends a login request
    * @param loginRequest the login request body
    * @returns the server response
    */
@@ -47,15 +57,20 @@ export class ServerCommnunicationService {
       headers: {
         "Content-Type": HttpConstants.JSON_APPLICATION_CONTENT_TYPE,
       },
-      body: JSON.stringify({
-        email: "root",
-        password: "rootroot",
-      }),
-    }).then((response: Response) => {
+      body: JSON.stringify(loginRequest),
+    }).then(async (response: Response) => {
       const isSuccessful: boolean =
         response.status == HttpStatusCode.OK_REQUEST;
 
       const message: string = !isSuccessful ? "Login failed!" : "";
+
+      if (isSuccessful)
+        UserSessionService.saveUserSession({
+          fullName: (await response.json()).full_name,
+          authenticationToken: response.headers.get(
+            HttpHeaderKey.AUTHORIZATION_KEY
+          ) as string,
+        });
 
       return {
         isSuccessful: isSuccessful,
