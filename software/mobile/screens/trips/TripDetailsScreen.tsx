@@ -246,8 +246,7 @@ export default ({
 /**
  * View Constants
  */
-const PAGE_LOADING_DURATION_MILLISECONDS: number = 500;
-const ESTIMATED_GRAPH_ITEM_SIZE: number = 1;
+const ESTIMATED_GRAPH_ITEM_SIZE: number = 2;
 
 /**
  * Return a MetricDetailedLineChart component for the given item
