@@ -53,6 +53,10 @@ class DB {
       "INSERT INTO users (full_name, email, password) VALUES (?,?,?)",
       ["root", "root@root.ca", "rootroot"]
     );
+    this._con.query(
+      "INSERT INTO users (full_name, email, password) VALUES (?,?,?)",
+      ["ryan paul", "admins@root.ca", "rootroot"]
+    );
     console.log("db initialized");
   }
 }

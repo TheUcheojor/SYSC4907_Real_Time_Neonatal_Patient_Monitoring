@@ -10,7 +10,10 @@ import { SecureStore } from "expo";
 import * as HttpConstants from "./constants/http-constants";
 import { HttpRequestType } from "./constants/HttpRequestType";
 import { HttpStatusCode } from "./constants/HttpStatusCode";
-import { LoginRequest } from "./models/server-communication/AuthenticationRequests";
+import {
+  LoginRequest,
+  LoginResponse,
+} from "./models/server-communication/AuthenticationModels";
 import { BaseServerResponse } from "./models/server-communication/ServerResponses";
 import { HttpHeaderKey } from "./constants/HttpHeaderKey";
 import UserSessionService from "./UserSessionService";
@@ -64,13 +67,16 @@ export class ServerCommnunicationService {
 
       const message: string = !isSuccessful ? "Login failed!" : "";
 
-      if (isSuccessful)
+      if (isSuccessful) {
+        const responseBody: LoginResponse = await response.json();
+
         UserSessionService.saveUserSession({
-          fullName: (await response.json()).full_name,
+          fullName: responseBody.full_name,
           authenticationToken: response.headers.get(
             HttpHeaderKey.AUTHORIZATION_KEY
           ) as string,
         });
+      }
 
       return {
         isSuccessful: isSuccessful,

@@ -10,6 +10,7 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import AppIcon from "../components/AppIcon";
 import { Ionicons } from "@expo/vector-icons";
 import TripDetailsScreen from "../screens/trips/TripDetailsScreen";
+import UserSessionService from "../services/UserSessionService";
 
 const Drawer = createDrawerNavigator<MainStackParamList>();
 
@@ -49,15 +50,16 @@ export default ({
   );
 };
 
-const handleLogOut = (navigation: DrawerNavigationHelpers): void => {
-  navigation.navigate("Login");
-};
-
 const CustomDrawerMenu = ({
   navigation,
 }: {
   navigation: DrawerNavigationHelpers;
 }): JSX.Element => {
+  const handleLogOut = (navigation: DrawerNavigationHelpers): void => {
+    UserSessionService.deleteUserSession().then(() =>
+      navigation.navigate("Login")
+    );
+  };
   return (
     <DrawerContentScrollView>
       <View style={style.header}>
