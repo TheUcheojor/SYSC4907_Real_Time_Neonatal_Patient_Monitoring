@@ -2,6 +2,9 @@ import RouteMeasurementDataPoint from "../RouteMeasurementDataPoint";
 import { AuthenticatedRequest } from "./AuthRequests";
 
 export interface PostRouteRequest extends AuthenticatedRequest {
+  patient_id?: number;
+  start_time_s?: number;
+  end_time_s?: number;
   route_segments?: RouteSegment[];
 }
 

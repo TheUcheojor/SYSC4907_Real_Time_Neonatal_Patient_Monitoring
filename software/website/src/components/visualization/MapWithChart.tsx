@@ -8,7 +8,6 @@ import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 
 const mapStyles: CSS.Properties = {
   height: "calc(100vh - 430px)",
-  width: "410px",
   borderRadius: "6px",
   marginTop: "10px",
 };
@@ -47,7 +46,7 @@ function MapWithChart({ datapoints, measurand, style }: mwcProps) {
         }}
       >
         <span
-          style={{ marginBottom: "10px", textAlign: "center", fontWeight: 700 }}
+          style={{ marginBottom: "5px", textAlign: "center", fontWeight: 700, marginTop: "5px" }}
         >
           {toTitleCase(measurand)}
         </span>

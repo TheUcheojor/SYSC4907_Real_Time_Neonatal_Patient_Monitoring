@@ -26,7 +26,7 @@ routeMeasurementDataPointsRouter.get(
           });
         }
         if (routeResults.length === 0) {
-          res.status(HttpStatusEnum.UNAUTHORIZED).send();
+          res.status(HttpStatusEnum.NOT_FOUND).send();
           return;
         }
 

@@ -4,6 +4,8 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import NewPassword from "components/pages/Trips/NewPassword";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface changePasswordProps {
   setIsChangingPassword: (bool: boolean) => void;
@@ -36,7 +38,7 @@ function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
 
   function handleChangePassword() {
     setIsFetching(true);
-    fetch(`https://localhost:3001/user`, {
+    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/user`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -47,10 +49,10 @@ function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
         oldPassword: oldPassword.current,
       }),
     }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === HttpStatusEnum.OK) {
         setChangePasswordResult("Password succesfully changed");
         setIsSuccess(true);
-      } else if (res.status === 409) {
+      } else if (res.status === HttpStatusEnum.CONFLICT) {
         setChangePasswordResult("Password change failed");
       } else {
         setChangePasswordResult(`${res.status}: Password change failed...`);

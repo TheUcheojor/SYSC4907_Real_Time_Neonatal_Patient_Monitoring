@@ -6,6 +6,8 @@ import SignUpModalContent from "components/modal/SignUpModalContent";
 import BabyIcon from "components/icons/BabyIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const loginModalLinkSpanStyles: CSS.Properties = {
   color: ColorEnum.Link,
@@ -38,7 +40,7 @@ function LoginPage({
   function handleLogin() {
     setFetching(true);
     let _token;
-    fetch(`https://localhost:3001/login`, {
+    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -47,7 +49,7 @@ function LoginPage({
       }),
     })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === HttpStatusEnum.OK) {
           _token = res.headers.get("Authorization").split(" ")[1];
           return res.json();
         } else {

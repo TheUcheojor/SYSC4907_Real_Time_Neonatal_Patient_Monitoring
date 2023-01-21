@@ -11,10 +11,8 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import { ColorEnum } from "constants/ColorEnum";
 import LabeledText from "./LabeledText";
-import {
-  MeasurandUnitEnum,
-  MeasurandUnitMap,
-} from "constants/MeasurandUnitEnum";
+import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 const chartLabelStyles = {
   color: "black",
@@ -45,7 +43,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
       fetch(
-        `https://localhost:3001/routeMeasurementDataPoints/${
+        `http://${SERVER_HOST}:${SERVER_PORT}/routeMeasurementDataPoints/${
           route[RouteFieldEnum.route_id]
         }`,
         {
@@ -65,174 +63,180 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     });
   }, []);
 
-  data.forEach((elem) => {
-    elem.forEach((dp) => {
-      let date = new Date(parseInt(dp.time_s) * 1000);
-      dp.time_s = date.getHours() + ":" + date.getMinutes();
-      dp.pressure_pascals = (dp.pressure_pascals / 1000).toFixed(2);
+  const _data = data.map((elem) => {
+    return elem.map((dp) => {
+      return {
+        ...dp,
+        pressure_pascals: (dp.pressure_pascals / 1000).toFixed(2),
+      };
     });
   });
 
+  const colWidth = 450;
+
+  const mapStyles = { width: `${colWidth}px`, height: "200px" };
+
   return (
-    <div style={{ marginLeft: "10px" }}>
-      <ul style={{ display: "flex" }}>
-        {selectedRoutes.map((route, i) => {
-          return data[i] !== undefined ? (
-            <div style={{ marginLeft: "10px" }}>
-              <span style={chartLabelStyles}>
-                {toDateString(route[RouteFieldEnum.start_time_s])}
-              </span>
-              <p style={{ color: "#000", fontSize: "12px", margin: 0 }}>
-                {toClockString(
-                  route[RouteFieldEnum.start_time_s],
-                  route[RouteFieldEnum.end_time_s]
-                )}
-              </p>
-              <p style={chartLabelStyles}>Stats</p>
-              <div
-                style={{
-                  backgroundColor: ColorEnum.Black,
-                  padding: "10px",
-                  borderRadius: "6px",
-                  display: "grid",
-                  gridAutoFlow: "column",
-                  columnGap: "10px",
-                }}
-              >
-                <div>
-                  <LabeledText
-                    label={"Total Exposure"}
-                    text={`${route.total_vibration_exposure}`}
-                    unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
-                    style={statLabelStyles}
-                  />
-                  <LabeledText
-                    label={"Average vibration"}
-                    text={`${route.avg_vibration}`}
-                    unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
-                    style={statLabelStyles}
-                  />
-                  <LabeledText
-                    label={"Average noise"}
-                    text={`${route.avg_noise}`}
-                    unit={MeasurandUnitMap.get(DatapointFieldEnum.noise_db)}
-                    style={statLabelStyles}
-                  />
-                </div>
-                <div>
-                  <LabeledText
-                    label={"Average temperature"}
-                    text={`${route.avg_temperature}`}
-                    unit={MeasurandUnitMap.get(
-                      DatapointFieldEnum.temperature_celsius
-                    )}
-                    style={statLabelStyles}
-                  />
-                  <LabeledText
-                    label={"Average velocity"}
-                    text={`${route.avg_temperature}`}
-                    unit={MeasurandUnitMap.get(
-                      DatapointFieldEnum.velocity_kmps
-                    )}
-                    style={statLabelStyles}
-                  />
-                  <LabeledText
-                    label={"Average pressure"}
-                    text={`${route.avg_pressure}`}
-                    unit={MeasurandUnitMap.get(
-                      DatapointFieldEnum.pressure_pascals
-                    )}
-                    style={statLabelStyles}
-                  />
-                </div>
-              </div>
-              <p style={chartLabelStyles}>Vibration</p>
-              <Chart
-                data={data[i]}
-                measurand={DatapointFieldEnum.vibration}
-                onClick={chartClickHandler}
-              />
-              {activeMeasurand === DatapointFieldEnum.vibration && (
-                <Map
-                  data={data[i]}
-                  measurand={DatapointFieldEnum.vibration}
-                  setMapRef={() => {}}
-                  style={{ height: "200px", width: "410px" }}
-                />
+    <ul style={{ display: "flex", marginLeft: "5px", paddingLeft: 0 }}>
+      {selectedRoutes.map((route, i) => {
+        return _data[i] !== undefined ? (
+          <div style={{ marginLeft: "10px", width: `${colWidth}px` }}>
+            <span style={chartLabelStyles}>
+              {toDateString(route[RouteFieldEnum.start_time_s])}
+            </span>
+            <p style={{ color: ColorEnum.Black, fontSize: "12px", margin: 0 }}>
+              {toClockString(
+                route[RouteFieldEnum.start_time_s],
+                route[RouteFieldEnum.end_time_s]
               )}
-              <p style={chartLabelStyles}>Noise</p>
-              <Chart
-                data={data[i]}
-                measurand={DatapointFieldEnum.noise_db}
-                onClick={chartClickHandler}
-              />
-              {activeMeasurand === DatapointFieldEnum.noise_db && (
-                <Map
-                  data={data[i]}
-                  measurand={DatapointFieldEnum.noise_db}
-                  setMapRef={() => {}}
-                  style={{ height: "200px", width: "410px" }}
-                />
-              )}
-              <p style={chartLabelStyles}>Temperature</p>
-              <Chart
-                data={data[i]}
-                measurand={DatapointFieldEnum.temperature_celsius}
-                onClick={chartClickHandler}
-              />
-              {activeMeasurand === DatapointFieldEnum.temperature_celsius && (
-                <Map
-                  data={data[i]}
-                  measurand={DatapointFieldEnum.temperature_celsius}
-                  setMapRef={() => {}}
-                  style={{ height: "200px", width: "410px" }}
-                />
-              )}
-              <p style={chartLabelStyles}>Velocity</p>
-              <Chart
-                data={data[i]}
-                measurand={DatapointFieldEnum.velocity_kmps}
-                onClick={chartClickHandler}
-              />
-              {activeMeasurand === DatapointFieldEnum.velocity_kmps && (
-                <Map
-                  data={data[i]}
-                  measurand={DatapointFieldEnum.velocity_kmps}
-                  setMapRef={() => {}}
-                  style={{ height: "200px", width: "410px" }}
-                />
-              )}
-              <p style={chartLabelStyles}>Pressure</p>
-              <Chart
-                data={data[i]}
-                measurand={DatapointFieldEnum.pressure_pascals}
-                onClick={chartClickHandler}
-              />
-              {activeMeasurand === DatapointFieldEnum.pressure_pascals && (
-                <Map
-                  data={data[i]}
-                  measurand={DatapointFieldEnum.pressure_pascals}
-                  setMapRef={() => {}}
-                  style={{ height: "200px", width: "410px" }}
-                />
-              )}
-            </div>
-          ) : (
+            </p>
+            <p style={chartLabelStyles}>Stats</p>
             <div
               style={{
-                width: "410px",
-                height: "100%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                backgroundColor: ColorEnum.Black,
+                padding: "10px",
+                borderRadius: "6px",
+                display: "grid",
+                gridAutoFlow: "column",
+                columnGap: "10px",
               }}
             >
-              <LoadingIcon />
+              <div>
+                <LabeledText
+                  label={"Vibration exposure"}
+                  text={`${route.total_vibration}`}
+                  unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
+                  style={statLabelStyles}
+                />
+                <LabeledText
+                  label={"Average vibration"}
+                  text={`${route.avg_vibration}`}
+                  unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
+                  style={statLabelStyles}
+                />
+                <LabeledText
+                  label={"Average noise"}
+                  text={`${route.avg_noise}`}
+                  unit={MeasurandUnitMap.get(DatapointFieldEnum.noise_db)}
+                  style={statLabelStyles}
+                />
+              </div>
+              <div>
+                <LabeledText
+                  label={"Average temperature"}
+                  text={`${route.avg_temperature}`}
+                  unit={MeasurandUnitMap.get(
+                    DatapointFieldEnum.temperature_celsius
+                  )}
+                  style={statLabelStyles}
+                />
+                <LabeledText
+                  label={"Average velocity"}
+                  text={`${route.avg_temperature}`}
+                  unit={MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}
+                  style={statLabelStyles}
+                />
+                <LabeledText
+                  label={"Average pressure"}
+                  text={`${route.avg_pressure}`}
+                  unit={MeasurandUnitMap.get(
+                    DatapointFieldEnum.pressure_pascals
+                  )}
+                  style={statLabelStyles}
+                />
+              </div>
             </div>
-          );
-        })}
-      </ul>
-    </div>
+            <p style={chartLabelStyles}>Vibration</p>
+            <Chart
+              data={_data[i]}
+              measurand={DatapointFieldEnum.vibration}
+              widthPx={colWidth}
+              onClick={chartClickHandler}
+            />
+            {activeMeasurand === DatapointFieldEnum.vibration && (
+              <Map
+                data={_data[i]}
+                measurand={DatapointFieldEnum.vibration}
+                setMapRef={() => {}}
+                style={mapStyles}
+              />
+            )}
+            <p style={chartLabelStyles}>Noise</p>
+            <Chart
+              data={_data[i]}
+              measurand={DatapointFieldEnum.noise_db}
+              widthPx={colWidth}
+              onClick={chartClickHandler}
+            />
+            {activeMeasurand === DatapointFieldEnum.noise_db && (
+              <Map
+                data={_data[i]}
+                measurand={DatapointFieldEnum.noise_db}
+                setMapRef={() => {}}
+                style={mapStyles}
+              />
+            )}
+            <p style={chartLabelStyles}>Temperature</p>
+            <Chart
+              data={_data[i]}
+              measurand={DatapointFieldEnum.temperature_celsius}
+              widthPx={colWidth}
+              onClick={chartClickHandler}
+            />
+            {activeMeasurand === DatapointFieldEnum.temperature_celsius && (
+              <Map
+                data={data[i]}
+                measurand={DatapointFieldEnum.temperature_celsius}
+                setMapRef={() => {}}
+                style={mapStyles}
+              />
+            )}
+            <p style={chartLabelStyles}>Velocity</p>
+            <Chart
+              data={_data[i]}
+              measurand={DatapointFieldEnum.velocity_kmps}
+              widthPx={colWidth}
+              onClick={chartClickHandler}
+            />
+            {activeMeasurand === DatapointFieldEnum.velocity_kmps && (
+              <Map
+                data={_data[i]}
+                measurand={DatapointFieldEnum.velocity_kmps}
+                setMapRef={() => {}}
+                style={mapStyles}
+              />
+            )}
+            <p style={chartLabelStyles}>Pressure</p>
+            <Chart
+              data={_data[i]}
+              measurand={DatapointFieldEnum.pressure_pascals}
+              widthPx={colWidth}
+              onClick={chartClickHandler}
+            />
+            {activeMeasurand === DatapointFieldEnum.pressure_pascals && (
+              <Map
+                data={_data[i]}
+                measurand={DatapointFieldEnum.pressure_pascals}
+                setMapRef={() => {}}
+                style={mapStyles}
+              />
+            )}
+          </div>
+        ) : (
+          <div
+            style={{
+              width: `${colWidth}px`,
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <LoadingIcon />
+          </div>
+        );
+      })}
+    </ul>
   );
 }
 

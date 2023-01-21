@@ -1,9 +1,10 @@
 import React, { useState, useEffect, memo } from "react";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
-import MapWithChart from "./MapWithChart";
-import LoadingIcon from "../icons/LoadingIcon";
+import MapWithChart from "components/visualization/MapWithChart";
+import LoadingIcon from "components/icons/LoadingIcon";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 interface mwcNetProps {
   routeId: number;
@@ -19,9 +20,12 @@ function MapWithChartNet({ onLogout, routeId, measurand, style }: mwcNetProps) {
 
   useEffect(() => {
     setDatapoints(undefined);
-    fetch(`https://localhost:3001/routeMeasurementDataPoints/${routeId}`, {
-      headers: getFetchHeaderWithAuth(),
-    })
+    fetch(
+      `http://${SERVER_HOST}:${SERVER_PORT}/routeMeasurementDataPoints/${routeId}`,
+      {
+        headers: getFetchHeaderWithAuth(),
+      }
+    )
       .then((res) => {
         if (res.status === 401) {
           onLogout();

@@ -4,6 +4,8 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import { PASSWORD_LENGTH_MIN } from "constants/Auth";
 import { ColorEnum } from "constants/ColorEnum";
 import NewPassword from "components/pages/Trips/NewPassword";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface resetPasswordProps {
   onReset: () => void;
@@ -21,7 +23,7 @@ function ResetPasswordPage({ onReset }: resetPasswordProps) {
 
   function handleResetPassword() {
     setIsFetching(true);
-    fetch(`https://localhost:3001/forgotPassword`, {
+    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/forgotPassword`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -31,9 +33,9 @@ function ResetPasswordPage({ onReset }: resetPasswordProps) {
         newPassword: newPassword.current,
       }),
     }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === HttpStatusEnum.OK) {
         onReset();
-      } else if (res.status === 409) {
+      } else if (res.status === HttpStatusEnum.CONFLICT) {
         setResetPasswordResult("Password change failed");
       } else {
         setResetPasswordResult(`${res.status}: Password change failed...`);

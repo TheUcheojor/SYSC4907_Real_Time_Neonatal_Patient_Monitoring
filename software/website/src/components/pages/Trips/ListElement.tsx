@@ -7,7 +7,7 @@ import { toDateString, toClockString } from "util/StringUtil";
 const statsLabelsStyles = {
   fontSize: "10px",
   margin: 0,
-  color: ColorEnum.White
+  color: ColorEnum.White,
 };
 
 interface listElementProps {
@@ -66,7 +66,7 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
           Avg vibration: {route[RouteFieldEnum.avg_vibration]}
         </p>
         <p style={statsLabelsStyles}>
-          Total exposure: {route[RouteFieldEnum.total_vibration_exposure]}
+          Vibration exposure: {route[RouteFieldEnum.total_vibration]}
         </p>
       </div>
     </div>
