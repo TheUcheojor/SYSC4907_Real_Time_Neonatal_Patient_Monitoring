@@ -12,7 +12,7 @@ import moment from "moment";
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 export const HOUR_IN_MILLISECONDS = MINUTE_IN_MILLISECONDS * 60;
-export const DATABASE_FULL_DATE_FORMAT = "YYYY-DD-MM T hh:mm:SSZ";
+export const DATABASE_FULL_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ssZ";
 export const FULL_DISPLAY_TIME_FORMAT = "hh:mm:SS A";
 export const SIMPLIFIED_DISPLAY_TIME_FORMAT = "hh:mm A";
 

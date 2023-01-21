@@ -93,7 +93,7 @@ export class DatabaseService {
     // Prepare and execute table-creation queries
     const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseService.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text );`;
     const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text );`;
-    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentid integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
+    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentId integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
 
     console.log(createRoutesTableQuery);
     await this.database.executeSql(createRoutesTableQuery);
@@ -221,7 +221,7 @@ export class DatabaseService {
     const saveRouteMeasurementDataPointQuery = `INSERT INTO ${
       DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
     } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location) VALUES 
-    ('${routeMeasurementDataPoint.routeSegmentId}',
+    ('${routeMeasurementDataPoint.segmentId}',
     '${routeMeasurementDataPoint.routeId}',
     '${routeMeasurementDataPoint.time}','
     ${routeMeasurementDataPoint.velocity}',

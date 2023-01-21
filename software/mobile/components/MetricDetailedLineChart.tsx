@@ -12,13 +12,17 @@ import {
   VictoryZoomContainer,
   VictoryScatter,
   VictoryTheme,
+  VictoryLine,
+  createContainer,
+  VictoryVoronoiContainer,
 } from "victory-native";
 
 export interface GraphData {
-  x: number;
+  x: Date;
   y: number;
-  label: string;
-  annotationLabel: string | undefined;
+  label?: string;
+  isAnnotation: boolean;
+  isSegmentLabel: boolean;
 }
 
 export interface MetricDetailedLineChartParams {
@@ -28,9 +32,18 @@ export interface MetricDetailedLineChartParams {
   units: string;
 }
 
-const KEY_POINT_COLOUR: string = "#C2372E";
+const ANNOTATION_COLOUR: string = "#C2372E";
+const SEGMENT_LABEL_COLOUR: string = "black";
 
-const NUMBER_OF_VISIBLE_POINTS: number = 5;
+const NUMBER_OF_VISIBLE_POINTS: number = 50;
+
+const segmentColours: Array<string> = [
+  "#0E9CFF",
+  "#59D9F5",
+  "#9B9E0A",
+  "#AA85E5",
+];
+const currentSegmentColourIndex: number = 0;
 
 export default ({
   dataset,
@@ -54,13 +67,11 @@ export default ({
           }}
           height={250}
           theme={VictoryTheme.material}
-          domainPadding={{ x: [100, 25], y: [10, 60] }}
+          domainPadding={{ x: [25, 0], y: 20 }}
           containerComponent={
-            <VictoryZoomContainer
-              zoomDimension="x"
-              downsample={NUMBER_OF_VISIBLE_POINTS}
-            />
+            <VictoryZoomContainer zoomDimension="x" downsample={true} />
           }
+          scale={{ x: "time", y: "linear" }}
         >
           <VictoryArea
             interpolation="monotoneX"
@@ -68,7 +79,6 @@ export default ({
               data: {
                 stroke: graphColor,
                 fill: graphColor,
-
                 fillOpacity: 0.2,
                 strokeWidth: 2,
               },
@@ -79,24 +89,32 @@ export default ({
           />
 
           <VictoryScatter
-            size={({ datum }) => (datum.annotationLabel ? 5 : 2)}
-            symbol={({ datum }) => (datum.annotationLabel ? "star" : "circle")}
+            size={({ datum }: { datum: GraphData }) =>
+              (datum.isAnnotation && 2) || (datum.isSegmentLabel && 2) || 0
+            }
+            symbol={({ datum }: { datum: GraphData }) =>
+              (datum.isAnnotation && "star") ||
+              (datum.isSegmentLabel && "circle")
+            }
             style={{
               data: {
-                fill: ({ datum }) =>
-                  datum.annotationLabel ? KEY_POINT_COLOUR : graphColor,
-                stroke: ({ datum }) =>
-                  datum.annotationLabel ? KEY_POINT_COLOUR : graphColor,
+                fill: ({ datum }: { datum: GraphData }) =>
+                  (datum.isAnnotation && ANNOTATION_COLOUR) ||
+                  (datum.isSegmentLabel && SEGMENT_LABEL_COLOUR),
+                stroke: ({ datum }: { datum: GraphData }) =>
+                  (datum.isAnnotation && ANNOTATION_COLOUR) ||
+                  (datum.isSegmentLabel && SEGMENT_LABEL_COLOUR),
                 strokeWidth: 2,
               },
 
               labels: {
-                stroke: KEY_POINT_COLOUR,
-                fill: ({ datum }) =>
-                  datum.annotationLabel ? KEY_POINT_COLOUR : graphColor,
+                stroke: ANNOTATION_COLOUR,
+                fill: ({ datum }: { datum: GraphData }) =>
+                  (datum.isAnnotation && ANNOTATION_COLOUR) ||
+                  (datum.isSegmentLabel && SEGMENT_LABEL_COLOUR),
                 fontFamily: "Montserrat_700Bold",
                 fontSize: 10,
-                // angle: -30,
+                angle: -30,
                 dx: 5,
               },
             }}
@@ -119,6 +137,14 @@ export default ({
                 fontFamily: "Montserrat_700Bold",
                 fontSize: 12,
               },
+            }}
+          />
+          <VictoryAxis
+            style={{
+              axis: { stroke: "white" },
+              ticks: { stroke: "white" },
+              tickLabels: { stroke: "grey" },
+              grid: { stroke: "grey" },
             }}
           />
         </VictoryChart>

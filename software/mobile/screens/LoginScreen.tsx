@@ -38,6 +38,11 @@ export default ({
    * Authenticate the user
    */
   const login = (): void => {
+    navigation.navigate("Main", {
+      screen: "Paramedic",
+    });
+    return;
+
     // If an invalid email is present, do not waste time sending the request
     if (!isEmail(emailRef.current)) {
       setErrorFlag(true);

@@ -56,7 +56,8 @@ export default ({
   route,
   navigation,
 }: NativeStackScreenProps<MainStackParamList, "TripDetails">) => {
-  const [isLoaded, setLoaded] = useState<boolean>(false);
+  const [isViewLoaded, setViewLoaded] = useState<boolean>(false);
+  const [isGraphLoaded, setGraphLoaded] = useState<boolean>(false);
 
   const { routeId, isLocalTrip } = route.params;
   const [tripRoute, setRoute] = useState<TripRoute | null>(null);
@@ -68,19 +69,37 @@ export default ({
   const mapToMetricDataset = (
     metricKey: keyof MeasurementPacket
   ): Array<GraphData> => {
+    const segementIds: Array<number> = [];
+
     return routeMeasurementDataPoints.map(
       (routeMeasurementDataPoint: RouteMeasurementDataPoint, index: number) => {
+        let segmentNumberText: string = "";
+
+        if (!segementIds.includes(routeMeasurementDataPoint.segmentId)) {
+          segementIds.push(routeMeasurementDataPoint.segmentId);
+          segmentNumberText = `Sgmt ${segementIds.length.toString()}.`;
+        }
+
         return {
-          x: index + 1,
+          x: new Date(routeMeasurementDataPoint.time),
           y: routeMeasurementDataPoint[metricKey] as number,
-          label: routeMeasurementDataPoint.annotation
-            ? getSimplifiedTimeString(
-                routeMeasurementDataPoint.time as string
-              ) +
-              ": " +
-              routeMeasurementDataPoint.annotation
-            : getSimplifiedTimeString(routeMeasurementDataPoint.time as string),
-          annotationLabel: routeMeasurementDataPoint.annotation,
+          // label: routeMeasurementDataPoint.annotation
+          //   ? getSimplifiedTimeString(
+          //       routeMeasurementDataPoint.time as string
+          //     ) +
+          //     ": " +
+          //     routeMeasurementDataPoint.annotation
+          //   : getSimplifiedTimeString(routeMeasurementDataPoint.time as string),
+          label:
+            (segmentNumberText &&
+              routeMeasurementDataPoint.annotation &&
+              segmentNumberText + ":" + routeMeasurementDataPoint.annotation) ||
+            segmentNumberText ||
+            routeMeasurementDataPoint.annotation,
+          isAnnotation:
+            routeMeasurementDataPoint.annotation !== "" &&
+            routeMeasurementDataPoint.annotation !== undefined,
+          isSegmentLabel: segmentNumberText !== "",
         };
       }
     );
@@ -115,9 +134,10 @@ export default ({
 
   useEffect(() => {
     if (isLocalTrip) {
-      setLoaded(false);
+      setViewLoaded(false);
+      setGraphLoaded(false);
 
-      console.log(isLoaded);
+      console.log(isViewLoaded);
       //Fetch the local route
       DatabaseService.getConfiguredDatabaseController().then(
         (databaseService: DatabaseService) => {
@@ -128,30 +148,29 @@ export default ({
 
               if (fetchedTripRoute == null) return;
 
-              // Fetch the associated route measurement points
-              databaseService
-                .getRouteMeasurementDataPointsByRouteId(routeId)
-                .then(
-                  (routeMeasurementDataPoints: RouteMeasurementDataPoint[]) => {
-                    setRouteMeasurementDataPoints(routeMeasurementDataPoints);
-                  }
-                );
-
               // Fetch the associated route segments
               databaseService
                 .getRouteSegmentsByRouteId(routeId)
                 .then((routeSegements: RouteSegment[]) => {
                   setRouteSegments(routeSegements);
+                })
+                .then(() => {
+                  // Fetch the associated route measurement points
+                  databaseService
+                    .getRouteMeasurementDataPointsByRouteId(routeId)
+                    .then(
+                      (
+                        routeMeasurementDataPoints: RouteMeasurementDataPoint[]
+                      ) => {
+                        setRouteMeasurementDataPoints(
+                          routeMeasurementDataPoints
+                        );
+                      }
+                    )
+                    .then(() => {
+                      setViewLoaded(true);
+                    });
                 });
-
-              /**
-               * Old content does not refresh quick enough.
-               * We need to wait a brief period of time to allow the page to change
-               **/
-              setTimeout(
-                () => setLoaded(true),
-                PAGE_LOADING_DURATION_MILLISECONDS
-              );
             });
         }
       );
@@ -160,7 +179,7 @@ export default ({
     //Fetch from the server
   }, [routeId]);
 
-  if (!isLoaded) {
+  if (!isViewLoaded) {
     return (
       <View style={{ ...styles.tripDetailsScreen, justifyContent: "center" }}>
         <ActivityIndicator size="large" color={"black"} />
@@ -202,12 +221,22 @@ export default ({
           ))}
         </View>
 
+        {!isGraphLoaded && (
+          <ActivityIndicator
+            size="large"
+            color={"black"}
+            style={{ justifyContent: "center", flexGrow: 100 }}
+          />
+        )}
+
         <FlashList
           // contentContainerStyle={styles.chartsContainer}
+          // contentContainerStyle={{display: "hidden"}}
           data={datasets}
           renderItem={getMetricDetailChart}
           estimatedItemSize={ESTIMATED_GRAPH_ITEM_SIZE}
           showsVerticalScrollIndicator={false}
+          onLoad={() => setGraphLoaded(true)}
         />
       </View>
     </View>
