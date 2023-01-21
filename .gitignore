@@ -2,6 +2,9 @@
 /software/test-2
 
 .vscode/settings.json
+.idea
+*.lock
+.DS_Store
 
 *.lock
 node_modules
