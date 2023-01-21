@@ -5,10 +5,8 @@ import {
   SignUpRequest,
 } from "models/requests/AuthRequests";
 import Logger from "Logger";
-import {
-  authenticateSessionToken,
-  generateSessionToken,
-} from "secret/sessionToken";
+import { authenticateSessionToken } from "secret/sessionToken";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const userRouter = Router();
@@ -20,7 +18,7 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
     req.email === undefined ||
     req.password === undefined
   ) {
-    res.status(400).send();
+    res.status(HttpStatusEnum.BAD_REQUEST).send();
     return;
   }
 
@@ -38,7 +36,7 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
         });
       }
       if (results.length > 0) {
-        res.status(409).send();
+        res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         return;
       }
 
@@ -65,10 +63,9 @@ userRouter.put(
   "/user",
   authenticateSessionToken,
   (req: ChangePasswordRequest, res: Response) => {
-    console.log("HMM");
     let body = req.body;
     if (body.oldPassword === undefined || body.newPassword === undefined) {
-      res.status(400).send();
+      res.status(HttpStatusEnum.BAD_REQUEST).send();
       return;
     }
 
@@ -86,7 +83,7 @@ userRouter.put(
           });
         }
         if (results.length === 0) {
-          res.status(409).send();
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           return;
         }
 
@@ -100,7 +97,7 @@ userRouter.put(
               });
             }
             logger.info("change password request success");
-            res.status(200).send();
+            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           }
         );
       }

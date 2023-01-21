@@ -3,6 +3,7 @@ import Router, { Response } from "express";
 import { LoginRequest } from "models/requests/AuthRequests";
 import Logger from "Logger";
 import { generateSessionToken } from "secret/sessionToken";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const loginRouter = Router();
@@ -10,7 +11,7 @@ const loginRouter = Router();
 loginRouter.post("/login", (req: LoginRequest, res: Response) => {
   req = req.body;
   if (req.email === undefined || req.password === undefined) {
-    res.status(400).send();
+    res.status(HttpStatusEnum.BAD_REQUEST).send();
     return;
   }
 
@@ -38,12 +39,23 @@ loginRouter.post("/login", (req: LoginRequest, res: Response) => {
             full_name: user.full_name,
           });
       } else if (results.length === 0) {
+        con.query(
+          "SELECT * FROM users WHERE email=?",
+          [req.email, req.password],
+          function (error, tmp, fields) {
+            if (error) {
+              return con.rollback(function () {
+                logger.error(error);
+              });
+            }
+          }
+        );
         res.status(404).send();
       } else {
         logger.warning(
           "db query found multiple users with same email and password"
         );
-        res.status(500).send({
+        res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send({
           msg: "Account conflict",
         });
       }

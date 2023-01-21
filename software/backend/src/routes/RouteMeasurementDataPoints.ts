@@ -3,6 +3,7 @@ import Router from "express";
 import { AuthenticatedRequest } from "models/requests/AuthRequests";
 import Logger from "Logger";
 import { authenticateSessionToken } from "secret/sessionToken";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const routeMeasurementDataPointsRouter = Router();
@@ -25,12 +26,12 @@ routeMeasurementDataPointsRouter.get(
           });
         }
         if (routeResults.length === 0) {
-          res.status(404).send();
+          res.status(HttpStatusEnum.NOT_FOUND).send();
           return;
         }
 
         if (routeResults[0].owner_id !== req.user_id) {
-          res.status(401).send();
+          res.status(HttpStatusEnum.UNAUTHORIZED).send();
           return;
         }
 
@@ -45,7 +46,7 @@ routeMeasurementDataPointsRouter.get(
             }
 
             if (results.length === 0) {
-              res.status(404).send();
+              res.status(HttpStatusEnum.NOT_FOUND).send();
               return;
             }
 

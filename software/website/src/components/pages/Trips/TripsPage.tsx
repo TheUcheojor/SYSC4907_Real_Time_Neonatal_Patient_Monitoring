@@ -5,22 +5,26 @@ import {
   DatapointFieldEnum,
   RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import List from "components/List";
-import { elapsedDurationInHoursAndMinutes } from "utility/StringUtil";
+import List from "components/pages/Trips/List";
+import { elapsedDurationInHoursAndMinutes } from "util/StringUtil";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import TripsDetails from "./TripsDetails";
+import TripsDetails from "components/pages/Trips/TripsDetails";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
-import MapWithChartNet from "components/MapWithChartNet";
-import { getFetchHeaderWithAuth } from "utility/AuthUtil";
-import Pagination from "components/Pagination";
+import MapWithChartNet from "components/visualization/MapWithChartNet";
+import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import Pagination from "components/pages/Pagination";
+import {
+  MeasurandUnitEnum,
+  MeasurandUnitMap,
+} from "constants/MeasurandUnitEnum";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 const pStyles = {
-  fontWeight: 700,
+  fontWeight: 400,
   marginLeft: "10px",
-  color: "#FFF",
-  width: "100%",
+  color: ColorEnum.White,
   display: "block",
   paddingTop: "5px",
   paddingBottom: "5px",
@@ -36,7 +40,6 @@ function TripsPage({ onLogout }: TripsProps) {
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
-  const [netError, setNetError] = useState(true);
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
@@ -44,7 +47,7 @@ function TripsPage({ onLogout }: TripsProps) {
 
   useEffect(() => {
     fetch(
-      `https://localhost:3001/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
+      `http://${SERVER_HOST}:${SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
       {
         headers: getFetchHeaderWithAuth(),
       }
@@ -56,12 +59,10 @@ function TripsPage({ onLogout }: TripsProps) {
           return res.json();
         }
       })
-      .then(
-        (result) => {
-          setRoutes(result.routes);
-          setTotalRoutes(result.totalRoutes);
-        }
-      );
+      .then((result) => {
+        setRoutes(result.routes);
+        setTotalRoutes(result.totalRoutes);
+      });
   }, [currentPage, onLogout]);
 
   function onListElemClick(e) {
@@ -102,7 +103,14 @@ function TripsPage({ onLogout }: TripsProps) {
   function getContent() {
     if (!isComparing) {
       return (
-        <div style={{ marginLeft: "10px", marginTop: "10px", display: "flex" }}>
+        <div
+          style={{
+            marginLeft: "10px",
+            marginTop: "10px",
+            display: "flex",
+            columnGap: "5px",
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -112,7 +120,7 @@ function TripsPage({ onLogout }: TripsProps) {
           >
             <p
               style={{
-                color: "#000",
+                color: ColorEnum.Black,
                 fontWeight: 700,
                 width: "334px",
                 textAlign: "center",
@@ -141,46 +149,59 @@ function TripsPage({ onLogout }: TripsProps) {
             />
           </div>
           {selectedRoutes.length > 0 && (
-            <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+            <div
+              style={{
+                minWidth: "200px",
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: 3,
+              }}
+            >
               <div
                 style={{
-                  width: "410px",
-                  height: "fit-content",
-                  backgroundColor: "#000",
-                  borderRadius: "6px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <span style={pStyles}>
-                  Owner:{" "}
-                  {
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.owner_id
-                    ]
-                  }
-                </span>
-                <span style={pStyles}>
-                  Duration:{" "}
-                  {elapsedDurationInHoursAndMinutes(
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.start_time_s
-                    ],
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.end_time_s
-                    ]
-                  )}
-                </span>
-                <span style={pStyles}>
-                  Total exposure:{" "}
-                  {
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.total_vibration_exposure
-                    ]
-                  }
-                </span>
-              </div>
-              <div style={{ marginTop: "10px" }}>
+                <div
+                  style={{
+                    backgroundColor: ColorEnum.Black,
+                    borderRadius: "6px",
+                  }}
+                >
+                  <span style={pStyles}>
+                    Patient:{" "}
+                    {
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.patient_id
+                      ]
+                    }
+                  </span>
+                  <span style={pStyles}>
+                    Duration:{" "}
+                    {elapsedDurationInHoursAndMinutes(
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.start_time_s
+                      ],
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.end_time_s
+                      ]
+                    )}
+                  </span>
+                  <span style={pStyles}>
+                    Vibration exposure:{" "}
+                    {
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.total_vibration
+                      ]
+                    }{" "}
+                    {MeasurandUnitMap.get(RouteFieldEnum.total_vibration)}
+                  </span>
+                </div>
                 <MapWithChartNet
-                onLogout={onLogout}
+                  onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
                     selectedRoutes[selectedRoutes.length - 1][
@@ -192,9 +213,9 @@ function TripsPage({ onLogout }: TripsProps) {
             </div>
           )}
           {isSelecting && (
-            <span style={{ color: "#000", marginLeft: "5px" }}>
+            <p style={{ color: ColorEnum.Black, margin: 0 }}>
               Select 1-4 routes to compare
-            </span>
+            </p>
           )}
           <div
             style={{
@@ -206,6 +227,7 @@ function TripsPage({ onLogout }: TripsProps) {
                 style={{
                   marginRight: "5px",
                   marginBottom: "5px",
+                  marginLeft: "5px",
                 }}
                 onClick={() => setIsComparing(true)}
                 bgColor={ColorEnum.Green}
@@ -216,6 +238,7 @@ function TripsPage({ onLogout }: TripsProps) {
               <CancelIcon
                 style={{
                   marginRight: "5px",
+                  marginLeft: "5px",
                 }}
                 onClick={() => {
                   setIsSelecting(false);
@@ -225,16 +248,16 @@ function TripsPage({ onLogout }: TripsProps) {
                       ])
                     : setSelectedRoutes([]);
                 }}
-                bgColor="#000"
-                bgColorHover="#2a2a2a"
+                bgColor={ColorEnum.Black}
+                bgColorHover={ColorEnum.Grey}
               />
             )}
             {!isSelecting && (
               <CompareIcon
-                style={{ marginRight: "5px" }}
+                style={{ marginRight: "5px", marginLeft: "5px" }}
                 onClick={() => setIsSelecting(true)}
-                bgColor="#000"
-                bgColorHover="#2a2a2a"
+                bgColor={ColorEnum.Black}
+                bgColorHover={ColorEnum.Grey}
               />
             )}
           </div>

@@ -1,58 +1,61 @@
-import React, { useState } from "react";
-import "css/App.css";
+import React, { useState, useRef } from "react";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import { PASSWORD_LENGTH_MIN } from "constants/Auth";
+import { PASSWORD_LENGTH_MIN, VALID_EMAIL_REGEX } from "constants/Auth";
+import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 function SignUpModalContent() {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVerify, setPasswordVerify] = useState("");
+  const fullName = useRef("");
+  const email = useRef("");
+  const password = useRef("");
+  const passwordVerify = useRef("");
   const [signUpResult, setSignUpResult] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isFetching, setFetching] = useState(false);
-  const [isEnabled, setEnabled] = useState(false);
-
-  const VALID_EMAIL_REGEX =
-    /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g;
+  const [isFetching, setIsFetching] = useState(false);
+  const [isEnabled, setIsEnabled] = useState(false);
 
   function handleSignUp() {
-    setFetching(true);
-    fetch(`https://localhost:3001/user`, {
+    setIsFetching(true);
+    setIsEnabled(false);
+    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/user`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: email,
+        email: email.current,
         password: password,
         full_name: fullName,
       }),
     }).then((res) => {
-      if (res.status === 200) {
+      if (res.status === HttpStatusEnum.OK) {
         setSignUpResult("Sign up success!");
         setIsSuccess(true);
-      } else if (res.status === 409) {
+      } else if (res.status === HttpStatusEnum.CONFLICT) {
         setSignUpResult(
           "Sign up failed, account using this email already exists"
         );
+        setIsEnabled(true);
       } else {
         setSignUpResult(`${res.status}: Sign up failed...`);
+        setIsEnabled(true);
       }
-      setFetching(false);
+      setIsFetching(false);
     });
   }
 
   function handleKeyUp() {
-    let regexMatches = email.trim().match(VALID_EMAIL_REGEX);
+    let regexMatches = email.current.trim().match(VALID_EMAIL_REGEX);
     let regexMatch =
       regexMatches != null && regexMatches.length > 0 ? regexMatches[0] : null;
 
-    let fullNameValid = fullName.length > 1 && fullName.length < 255;
+    let fullNameValid =
+      fullName.current.length > 1 && fullName.current.length < 255;
     let emailValid =
-      regexMatch != null && regexMatch.length === email.trim().length;
-    let passwordValid = password.length >= 8 && password.length <= 16;
+      regexMatch != null && regexMatch.length === email.current.trim().length;
+    let passwordValid =
+      password.current.length >= 8 && password.current.length <= 16;
     let passwordVerifyValid =
-      passwordVerify.length >= 8 && passwordVerify.length <= 16;
+      passwordVerify.current.length >= 8 && passwordVerify.current.length <= 16;
     let passwordsMatch = password === passwordVerify;
 
     if (
@@ -62,16 +65,17 @@ function SignUpModalContent() {
       passwordVerifyValid &&
       passwordsMatch
     )
-      setEnabled(true);
-    else setEnabled(false);
+      setIsEnabled(true);
+    else setIsEnabled(false);
   }
 
   return (
-    <div
+    <form
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        maxWidth: "305px",
       }}
     >
       {signUpResult !== "" && (
@@ -79,7 +83,6 @@ function SignUpModalContent() {
           style={{
             color: isSuccess ? ColorEnum.Green : ColorEnum.Red,
             marginBottom: "5px",
-            maxWidth: "305px",
             wordBreak: "break-all",
           }}
         >
@@ -89,16 +92,14 @@ function SignUpModalContent() {
       <input
         className="text-input"
         placeholder="Full Name"
-        value={fullName}
         onKeyUp={handleKeyUp}
-        onChange={(event) => setFullName(event.target.value)}
+        onChange={(e) => (fullName.current = e.target.value)}
       />
       <input
         className="text-input"
         placeholder="Email"
-        value={email}
         onKeyUp={handleKeyUp}
-        onChange={(event) => setEmail(event.target.value)}
+        onChange={(e) => (email.current = e.target.value)}
       />
       <span
         style={{
@@ -111,33 +112,27 @@ function SignUpModalContent() {
         className="text-input"
         placeholder="Password"
         type="password"
-        value={password}
         onKeyUp={handleKeyUp}
-        onChange={(event) => setPassword(event.target.value)}
+        onChange={(e) => (password.current = e.target.value)}
       />
       <input
         className="text-input"
         placeholder="Password again"
         type="password"
-        value={passwordVerify}
         onKeyUp={handleKeyUp}
-        onChange={(event) => setPasswordVerify(event.target.value)}
+        onChange={(e) => (passwordVerify.current = e.target.value)}
       />
       {!isFetching ? (
-        <button
-          style={{
-            fontSize: "16px",
-            cursor: !isEnabled || isSuccess ? "auto" : "pointer",
-          }}
-          disabled={!isEnabled || isSuccess}
+        <input
+          type="submit"
+          disabled={!isEnabled}
           onClick={handleSignUp}
-        >
-          Sign Up
-        </button>
+          value={"Sign Up"}
+        />
       ) : (
         <LoadingIcon diameter={"30px"} parentDiameter={"50px"} />
       )}
-    </div>
+    </form>
   );
 }
 
