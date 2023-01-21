@@ -30,8 +30,20 @@ app.use(userRouter);
 app.use(routeMeasurementDataPointsRouter);
 app.use(devRouter);
 
-const httpsServer = https.createServer(credentials, app);
-
-httpsServer.listen(port, () => {
-  console.log(`Https server listening on port ${port}`);
+/**
+ * For development purposes only, we will use a http server
+ * as it allows for communication between app and server.
+ *
+ * Using https with self-signed certificate requires extra configurations
+ * that may be time consuming
+ */
+app.listen(port, () => {
+  console.log(`server listening on port ${port}`);
 });
+
+// const httpsServer = https.createServer(credentials, app);
+
+// httpsServer.listen(port, () => {
+//   console.log(`Https server listening on port ${port}`);
+// });
+ 6 
