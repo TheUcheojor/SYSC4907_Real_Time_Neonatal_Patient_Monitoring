@@ -10,5 +10,7 @@ export interface PostRouteRequest extends AuthenticatedRequest {
 
 interface RouteSegment {
   segment_type: string;
+  start_time_s?: number;
+  end_time_s?: number;
   route_measurement_datapoints: RouteMeasurementDataPoint[];
 }
