@@ -8,7 +8,6 @@ import {
   Scatter,
   Tooltip,
   Dot,
-  ResponsiveContainer,
 } from "recharts";
 import { ColorEnum } from "constants/ColorEnum";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
@@ -72,20 +71,20 @@ function Chart({ data, measurand, onClick }: ChartProps) {
   };
 
   const _data = [];
-  let maxLenData;
+  let maxStrLenData;
 
   data.forEach((dp) => {
     _data.push({
+      // place annotations alongside their datapoint
       annotationPos:
         dp[DatapointFieldEnum.annotation] !== "" ? dp[measurand] : undefined,
       ...dp,
     });
-    if (
-      maxLenData === undefined ||
-      dp[measurand].toString().length > maxLenData
-    )
-      maxLenData = dp[measurand].toString().length;
+    const strLenData = Math.round(dp[measurand]).toString().length;
+    if (maxStrLenData === undefined || strLenData > maxStrLenData)
+      maxStrLenData = strLenData;
   });
+
   return (
     <div
       style={{
@@ -102,9 +101,11 @@ function Chart({ data, measurand, onClick }: ChartProps) {
         margin={{
           right: 20,
           top: 20,
-          // left:
-          //   Math.pow(maxLenData + MeasurandUnitMap.get(measurand).length, 2) /
-          //   2,
+          left:
+            // dynamically compute chart left margin, otherwise axis ticks fall outside div
+            maxStrLenData + MeasurandUnitMap.get(measurand).length > 3
+              ? 4 * (maxStrLenData + MeasurandUnitMap.get(measurand).length)
+              : 0,
         }}
         onClick={onClick}
         style={{ cursor: onClick ? "pointer" : "auto" }}

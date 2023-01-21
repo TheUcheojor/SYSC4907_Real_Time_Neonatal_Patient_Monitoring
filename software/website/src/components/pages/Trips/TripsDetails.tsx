@@ -64,7 +64,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     });
   }, []);
 
-  let _data = data.map((elem) => {
+  const _data = data.map((elem) => {
     return elem.map((dp) => {
       let date = new Date(parseInt(dp.time_s) * 1000);
       return {
