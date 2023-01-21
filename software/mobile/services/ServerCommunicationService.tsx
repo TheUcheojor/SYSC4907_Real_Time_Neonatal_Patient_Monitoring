@@ -20,9 +20,7 @@ export class ServerCommnunicationService {
   /**
    * The API url
    */
-  private static API_URL: string =
-    Platform.OS === "ios" ? "http://localhost:3001" : "http://10.0.2.2:3001";
-
+  private static API_URL: string = "http://192.168.100.100:3001";
   /**
    * The private ServerCommnunicationService constructor
    */
@@ -49,7 +47,10 @@ export class ServerCommnunicationService {
       headers: {
         "Content-Type": HttpConstants.JSON_APPLICATION_CONTENT_TYPE,
       },
-      body: JSON.stringify(loginRequest),
+      body: JSON.stringify({
+        email: "root",
+        password: "rootroot",
+      }),
     }).then((response: Response) => {
       const isSuccessful: boolean =
         response.status == HttpStatusCode.OK_REQUEST;

@@ -50,14 +50,15 @@ export default ({
         password: passwordRef.current,
       })
       .then((serverResponse: BaseServerResponse) => {
+        console.log(serverResponse);
         if (serverResponse.isSuccessful) {
           setErrorFlag(false);
           navigation.navigate("Main", {
             screen: "Paramedic",
           });
-
           return;
         }
+
         setErrorFlag(true);
       });
 
