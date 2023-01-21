@@ -15,13 +15,16 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import Pagination from "components/pages/Pagination";
+import {
+  MeasurandUnitEnum,
+  MeasurandUnitMap,
+} from "constants/MeasurandUnitEnum";
 import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 const pStyles = {
   fontWeight: 400,
   marginLeft: "10px",
   color: ColorEnum.White,
-  width: "100%",
   display: "block",
   paddingTop: "5px",
   paddingBottom: "5px",
@@ -100,7 +103,14 @@ function TripsPage({ onLogout }: TripsProps) {
   function getContent() {
     if (!isComparing) {
       return (
-        <div style={{ marginLeft: "10px", marginTop: "10px", display: "flex" }}>
+        <div
+          style={{
+            marginLeft: "10px",
+            marginTop: "10px",
+            display: "flex",
+            columnGap: "5px",
+          }}
+        >
           <div
             style={{
               display: "flex",
@@ -139,44 +149,57 @@ function TripsPage({ onLogout }: TripsProps) {
             />
           </div>
           {selectedRoutes.length > 0 && (
-            <div style={{ marginLeft: "10px", marginRight: "10px" }}>
+            <div
+              style={{
+                minWidth: "200px",
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: 3,
+              }}
+            >
               <div
                 style={{
-                  width: "410px",
-                  height: "fit-content",
-                  backgroundColor: ColorEnum.Black,
-                  borderRadius: "6px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
-                <span style={pStyles}>
-                  Patient:{" "}
-                  {
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.patient_id
-                    ]
-                  }
-                </span>
-                <span style={pStyles}>
-                  Duration:{" "}
-                  {elapsedDurationInHoursAndMinutes(
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.start_time_s
-                    ],
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.end_time_s
-                    ]
-                  )}
-                </span>
-                <span style={pStyles}>
-                  Vibration exposure:{" "}
-                  {
-                    selectedRoutes[selectedRoutes.length - 1][
-                      RouteFieldEnum.total_vibration
-                    ]
-                  }
-                </span>
-              </div>
-              <div style={{ marginTop: "10px" }}>
+                <div
+                  style={{
+                    backgroundColor: ColorEnum.Black,
+                    borderRadius: "6px",
+                  }}
+                >
+                  <span style={pStyles}>
+                    Patient:{" "}
+                    {
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.patient_id
+                      ]
+                    }
+                  </span>
+                  <span style={pStyles}>
+                    Duration:{" "}
+                    {elapsedDurationInHoursAndMinutes(
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.start_time_s
+                      ],
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.end_time_s
+                      ]
+                    )}
+                  </span>
+                  <span style={pStyles}>
+                    Vibration exposure:{" "}
+                    {
+                      selectedRoutes[selectedRoutes.length - 1][
+                        RouteFieldEnum.total_vibration
+                      ]
+                    }{" "}
+                    {MeasurandUnitMap.get(RouteFieldEnum.total_vibration)}
+                  </span>
+                </div>
                 <MapWithChartNet
                   onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
@@ -190,9 +213,9 @@ function TripsPage({ onLogout }: TripsProps) {
             </div>
           )}
           {isSelecting && (
-            <span style={{ color: ColorEnum.Black, marginLeft: "5px" }}>
+            <p style={{ color: ColorEnum.Black, margin: 0 }}>
               Select 1-4 routes to compare
-            </span>
+            </p>
           )}
           <div
             style={{
@@ -204,6 +227,7 @@ function TripsPage({ onLogout }: TripsProps) {
                 style={{
                   marginRight: "5px",
                   marginBottom: "5px",
+                  marginLeft: "5px",
                 }}
                 onClick={() => setIsComparing(true)}
                 bgColor={ColorEnum.Green}
@@ -214,6 +238,7 @@ function TripsPage({ onLogout }: TripsProps) {
               <CancelIcon
                 style={{
                   marginRight: "5px",
+                  marginLeft: "5px",
                 }}
                 onClick={() => {
                   setIsSelecting(false);
@@ -229,7 +254,7 @@ function TripsPage({ onLogout }: TripsProps) {
             )}
             {!isSelecting && (
               <CompareIcon
-                style={{ marginRight: "5px" }}
+                style={{ marginRight: "5px", marginLeft: "5px" }}
                 onClick={() => setIsSelecting(true)}
                 bgColor={ColorEnum.Black}
                 bgColorHover={ColorEnum.Grey}
