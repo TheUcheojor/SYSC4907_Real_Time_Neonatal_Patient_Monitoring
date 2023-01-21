@@ -18,7 +18,7 @@ import AppIcon from "../components/AppIcon";
 import { ClickableText } from "../components/ClickableText";
 import { useState, useRef } from "react";
 import { ServerCommnunicationService } from "../services/ServerCommunicationService";
-import { BaseServerResponse } from "../services/models/server-communication/ServerResponses";
+import { BaseServerResponse } from "../services/models/server-communication/requests/ServerResponses";
 import { isEmail } from "../utils/ValidatorUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 

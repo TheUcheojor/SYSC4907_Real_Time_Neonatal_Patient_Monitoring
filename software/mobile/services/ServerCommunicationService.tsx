@@ -13,7 +13,7 @@ import {
   LoginRequest,
   LoginResponse,
 } from "./models/server-communication/AuthenticationModels";
-import { BaseServerResponse } from "./models/server-communication/ServerResponses";
+import { BaseServerResponse } from "./models/server-communication/requests/ServerResponses";
 import { HttpHeaderKey } from "./constants/HttpHeaderProperties";
 import UserSessionService, { UserSession } from "./UserSessionService";
 import { ServerTripPackage } from "./models/server-communication/ServerTripPackage";

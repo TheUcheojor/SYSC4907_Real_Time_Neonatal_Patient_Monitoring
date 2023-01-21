@@ -3,7 +3,8 @@
  * File: ServerRoute
  * Purpose: exports server route measurement data point model
  */
-export default interface RouteMeasurementDataPoint {
+
+export default interface ServerRouteMeasurementDataPoint {
   time_s: number;
   velocity_kmps: number;
   noise_db: number;
