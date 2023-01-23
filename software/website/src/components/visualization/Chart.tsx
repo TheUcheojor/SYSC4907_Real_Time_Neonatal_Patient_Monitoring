@@ -41,7 +41,7 @@ interface ChartProps {
   onClick?: (data: any) => void;
 }
 
-function Chart({ data, measurand, widthPx = 400, onClick }: ChartProps) {
+function Chart({ data, measurand, widthPx, onClick }: ChartProps) {
   console.log("CHART RENDER");
 
   const CustomTooltip = ({ active, payload }: any) => {
@@ -99,7 +99,6 @@ function Chart({ data, measurand, widthPx = 400, onClick }: ChartProps) {
     >
       <ResponsiveContainer height={200} width="100%">
         <ComposedChart
-          width={400}
           height={200}
           data={_data}
           margin={{
