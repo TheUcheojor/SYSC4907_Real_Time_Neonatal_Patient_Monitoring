@@ -21,7 +21,7 @@ routesRouter.post(
   (req: PostRouteRequest, res: Response) => {
     let body = req.body;
     let segments = body.route_segments;
-
+    console.log(body);
     if (
       segments === undefined ||
       segments.length === 0 ||

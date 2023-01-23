@@ -12,11 +12,15 @@ import { HttpStatusCode } from "./constants/HttpStatusCode";
 import {
   LoginRequest,
   LoginResponse,
-} from "./models/server-communication/AuthenticationModels";
-import { BaseServerResponse } from "./models/server-communication/requests/ServerResponses";
+} from "./models/server-communication/requests/authenticationRequestsResponses";
+import { BaseServerResponse } from "./models/server-communication/requests/BaseServerResponse";
 import { HttpHeaderKey } from "./constants/HttpHeaderProperties";
 import UserSessionService, { UserSession } from "./UserSessionService";
 import { ServerTripPackage } from "./models/server-communication/ServerTripPackage";
+import {
+  ServerUploadRouteRequest,
+  ServerUploadRouteResponse,
+} from "./models/server-communication/requests/UploadRouteRequestResponse";
 
 export class ServerCommnunicationService {
   /**
@@ -27,7 +31,7 @@ export class ServerCommnunicationService {
   /**
    * The API url
    */
-  private static API_URL: string = "http://192.168.100.100:3001";
+  private static API_URL: string = "http://172.17.182.68:3001";
 
   /**
    * The private ServerCommnunicationService constructor
@@ -57,6 +61,7 @@ export class ServerCommnunicationService {
       },
       body: JSON.stringify(loginRequest),
     }).then(async (response: Response) => {
+      console.log("status: ", response.status);
       const isSuccessful: boolean =
         response.status == HttpStatusCode.OK_REQUEST;
 
@@ -82,17 +87,19 @@ export class ServerCommnunicationService {
 
   /**
    * Upload a trip to the server
-   * @param serverTripPackage the server trip package
+   * @param serverPostRouteRequest the server trip package
    * @returns the server response
    */
   public uploadTrip(
-    serverTripPackage: ServerTripPackage
-  ): Promise<BaseServerResponse> {
+    serverPostRouteRequest: ServerUploadRouteRequest,
+    tripId: number
+  ): Promise<ServerUploadRouteResponse> {
     return UserSessionService.loadUserSession().then(
       (userSession: UserSession | null) => {
         if (!userSession)
           return {
             isSuccessful: false,
+            deletedTripRouteId: -1,
             message: "User session has expired",
           };
 
@@ -102,14 +109,16 @@ export class ServerCommnunicationService {
             "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
             Authorization: userSession.authenticationToken,
           },
-          body: JSON.stringify(serverTripPackage),
+          body: JSON.stringify(serverPostRouteRequest),
         }).then((response: Response) => {
+          console.log("status: ", response.status);
           const isSuccessful: boolean =
             response.status == HttpStatusCode.OK_REQUEST;
 
           return {
             isSuccessful: isSuccessful,
             message: "",
+            deletedTripRouteId: tripId,
           };
         });
       }

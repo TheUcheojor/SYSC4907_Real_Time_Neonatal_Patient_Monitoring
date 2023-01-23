@@ -5,12 +5,12 @@
  */
 
 import { DatabaseService } from "./DatabaseService";
-import TripRoute from "../models/Route";
+import TripRoute from "./models/trips/Route";
 import { ResultSet } from "react-native-sqlite-storage";
 import RouteSegment, { RouteSegmentType } from "./models/trips/RouteSegment";
 import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
 import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
-import RouteMeasurementDataPoint from "../models/RouteMeasurementDataPoint";
+import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
 
 export class TripRecordingService {
   /**
@@ -142,10 +142,15 @@ export class TripRecordingService {
     const routeMeasurementDataPoint: RouteMeasurementDataPoint = {
       ...measurementPacket,
       routeMeasurementDataPointId: -1,
-      routeSegmentId: this.currentRouteSegment.segmentId,
+      segmentId: this.currentRouteSegment.segmentId,
       routeId: this.currentRoute.routeId,
       annotation: annotation,
     };
+
+    console.log(
+      "this.currentRouteSegment.segmentId: ",
+      this.currentRouteSegment.segmentId
+    );
     const results: [ResultSet] | undefined =
       await TripRecordingService.databaseService?.saveRouteMeasurementDataPoint(
         routeMeasurementDataPoint

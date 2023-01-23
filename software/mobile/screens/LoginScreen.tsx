@@ -18,7 +18,7 @@ import AppIcon from "../components/AppIcon";
 import { ClickableText } from "../components/ClickableText";
 import { useState, useRef } from "react";
 import { ServerCommnunicationService } from "../services/ServerCommunicationService";
-import { BaseServerResponse } from "../services/models/server-communication/requests/ServerResponses";
+import { BaseServerResponse } from "../services/models/server-communication/requests/BaseServerResponse";
 import { isEmail } from "../utils/ValidatorUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 
@@ -38,10 +38,10 @@ export default ({
    * Authenticate the user
    */
   const login = (): void => {
-    navigation.navigate("Main", {
-      screen: "Paramedic",
-    });
-    return;
+    // navigation.navigate("Main", {
+    //   screen: "Paramedic",
+    // });
+    // return;
 
     // If an invalid email is present, do not waste time sending the request
     if (!isEmail(emailRef.current)) {

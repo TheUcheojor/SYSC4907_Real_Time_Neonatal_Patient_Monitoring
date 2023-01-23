@@ -218,6 +218,10 @@ export class DatabaseService {
   public async saveRouteMeasurementDataPoint(
     routeMeasurementDataPoint: RouteMeasurementDataPoint
   ) {
+    console.log(
+      "saveRouteMeasurementDataPoint",
+      routeMeasurementDataPoint.segmentId
+    );
     const saveRouteMeasurementDataPointQuery = `INSERT INTO ${
       DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
     } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location) VALUES 
@@ -245,19 +249,45 @@ export class DatabaseService {
   ): Promise<RouteMeasurementDataPoint[]> {
     const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId=${routeId}; `;
 
-    return await this.database
-      .executeSql(getRouteMeasurementDataPointsByIdQuery)
-      .then((resultSet: [ResultSet]) => {
-        const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
+    return this.exceuteRouteMeasurementDataPointsFetchQuery(
+      getRouteMeasurementDataPointsByIdQuery
+    );
+  }
 
-        resultSet.forEach((result) => {
-          for (let index = 0; index < result.rows.length; index++) {
-            routeMeasurementDataPoints.push(result.rows.item(index));
-          }
-        });
+  /**
+   * Get route measurement data points by segment id
+   * @param segmentId the segment id
+   * @returns the collection of route measurement data points
+   */
+  public getRouteMeasurementDataPointsBySegmentId(
+    segmentId: number
+  ): Promise<RouteMeasurementDataPoint[]> {
+    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE segmentId=${segmentId}; `;
 
-        return routeMeasurementDataPoints;
+    return this.exceuteRouteMeasurementDataPointsFetchQuery(
+      getRouteMeasurementDataPointsByIdQuery
+    );
+  }
+
+  /**
+   * Executes a query related to RouteMeasurementDataPoints
+   * @param query query related to RouteMeasurementDataPoints
+   * @returns an array RouteMeasurementDataPoint
+   */
+  private async exceuteRouteMeasurementDataPointsFetchQuery(
+    query: string
+  ): Promise<RouteMeasurementDataPoint[]> {
+    return this.database.executeSql(query).then((resultSet: [ResultSet]) => {
+      const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
+
+      resultSet.forEach((result) => {
+        for (let index = 0; index < result.rows.length; index++) {
+          routeMeasurementDataPoints.push(result.rows.item(index));
+        }
       });
+
+      return routeMeasurementDataPoints;
+    });
   }
 
   /**
@@ -282,6 +312,30 @@ export class DatabaseService {
         });
 
         return routeSegments;
+      });
+  }
+
+  /**
+   * Deletes Route, Segements, and DataPoints related to a route id
+   * @param routeId the route id
+   */
+  public async deleteAllRelatedContentsByRouteId(
+    routeId: number
+  ): Promise<void> {
+    const deleteSegmentByRouteIdQuery = `DELETE FROM ${DatabaseService.ROUTE_SEGMENTS_TABLE} WHERE routeId=${routeId}; `;
+    const deleteRouteByRouteIdQuery = `DELETE FROM ${DatabaseService.ROUTES_TABLE} WHERE routeId=${routeId}; `;
+    const deleteDataPointsByRouteIdQuery = `DELETE FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId=${routeId}; `;
+
+    return await this.database
+      .executeSql(deleteRouteByRouteIdQuery)
+      .then(() => {
+        return this.database
+          .executeSql(deleteSegmentByRouteIdQuery)
+          .then(() => {
+            return this.database
+              .executeSql(deleteDataPointsByRouteIdQuery)
+              .then(() => {});
+          });
       });
   }
 }
