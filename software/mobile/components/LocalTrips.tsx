@@ -61,6 +61,14 @@ export default ({
   const getLocalTrips = () => {
     DatabaseService.getConfiguredDatabaseController().then(
       (databaseService: DatabaseService) => {
+        /**
+         * Add trips outside the query pagination fetch window.
+         * These are trips that not present in the database at the bootup.
+         * The query pagination fetch window starts at the bottom of the trip table to the top.
+         * The window size is fized and progresses from the bottom to top.
+         * New trips are added at the bottom of the datatable and hence, the trips need to fetched separatly as
+         * the windows will conatin them
+         */
         if (numberOfUnfetchedTrip > 0) {
           databaseService
             .getEarliestRoutes(numberOfUnfetchedTrip)
