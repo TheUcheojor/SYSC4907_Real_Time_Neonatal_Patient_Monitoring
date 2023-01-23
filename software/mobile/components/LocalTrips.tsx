@@ -30,41 +30,60 @@ import { BaseServerResponse } from "../services/models/server-communication/requ
 import { SystemErrors } from "../constants/SystemErrors";
 import { ServerUploadRouteResponse } from "../services/models/server-communication/requests/UploadRouteRequestResponse";
 import { Color } from "../constants/ColorEnum";
+import { getItemsFromResultSet } from "../utils/ArrayUtil";
 
 /**
  * View Constants
  */
-interface LocalTripsParams {}
+interface LocalTripsParams {
+  numberOfUnfetchedTrip: number;
+  setNumberOfUnfetchedTrip: React.Dispatch<React.SetStateAction<number>>;
+}
 
 const ERROR_DISPLAY_PERIOD_MILLISECONDS: number = 3000;
 
-export default ({}: LocalTripsParams) => {
+export default ({
+  numberOfUnfetchedTrip,
+  setNumberOfUnfetchedTrip,
+}: LocalTripsParams) => {
   const [localTrips, setLocalTrips] = useState<Array<TripRoute>>([]);
 
   const [uploadingError, setUploadingError] = useState<SystemErrors>(
     SystemErrors.NO_ERROR
   );
 
+  const currentPagination = useRef<number>(0);
+  // const numberOfUnfetchedTrip = useRef<number>(0);
+
   /**
-   * Fetches local trips from the database
-   *
-   * Right now, the system is fetching all the the local routes at a time which scales poorly.
-   * I created a getRoutesWithRestrictions function for controlled paginated fetching but there was weird
-   * behaviours. Since optimization is not a major concern at initial development stages, the system will use
-   * the fetch-all behaviour for now and optimizations can be made if time permits
+   * Fetches local trips from the database with paginations
    */
   const getLocalTrips = () => {
     DatabaseService.getConfiguredDatabaseController().then(
       (databaseService: DatabaseService) => {
-        databaseService.getAllRoutes().then((results: [ResultSet]) => {
-          const result: ResultSet = results[0];
-          const newLocalTrips: Array<TripRoute> = [];
+        if (numberOfUnfetchedTrip > 0) {
+          databaseService
+            .getEarliestRoutes(numberOfUnfetchedTrip)
+            .then((results: [ResultSet]) => {
+              const earlierTrips: Array<TripRoute> =
+                getItemsFromResultSet(results);
 
-          for (let index = 0; index < result.rows.length; index++) {
-            newLocalTrips.push(result.rows.item(index));
-          }
-          setLocalTrips(newLocalTrips);
-        });
+              setLocalTrips((localTrips) => [...earlierTrips, ...localTrips]);
+            });
+        }
+
+        databaseService
+          .getRoutesWithPagination(currentPagination.current)
+          .then((results: [ResultSet]) => {
+            const newLaterTrips: Array<TripRoute> =
+              getItemsFromResultSet(results);
+
+            if (newLaterTrips) {
+              setNumberOfUnfetchedTrip(0);
+              setLocalTrips((localTrips) => [...localTrips, ...newLaterTrips]);
+              currentPagination.current += 1;
+            }
+          });
       }
     );
   };
@@ -73,10 +92,13 @@ export default ({}: LocalTripsParams) => {
    * Fetch local trips on page transition
    */
   useEffect(() => {
+    currentPagination.current = 0;
     getLocalTrips();
   }, []);
 
   const clearTrips = () => {
+    setNumberOfUnfetchedTrip(0);
+    currentPagination.current = 0;
     setLocalTrips([]);
   };
 

@@ -152,18 +152,37 @@ export class DatabaseService {
 
   /**
    * Returns the query results for fetching routes with restrictions
-   * @param maxNumberOfFetchedRoutes  the max number of routes that can be fetched at a time
+   * @param numberOfUnfetchedTrip  the number of trips that have not been fetched
    * @param fetchOffset  the offset from which the next trip routes will be fetched
    * @returns the query result
    */
-  public async getRoutesWithRestrictions(
-    maxNumberOfFetchedRoutes: number,
+  public async getRoutesWithPagination(
     fetchOffset: number
   ): Promise<[ResultSet]> {
-    const getRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${maxNumberOfFetchedRoutes} OFFSET ${fetchOffset};`;
+    console.log("getRoutesWithRestrictions:", fetchOffset);
+    const MAX_NUMBER_OF_FETCHED_ROUTES = 2;
+
+    const getRoutesQuery: string = `SELECT * FROM ${
+      DatabaseService.ROUTES_TABLE
+    } ORDER BY routeId DESC LIMIT ${
+      fetchOffset * MAX_NUMBER_OF_FETCHED_ROUTES
+    }, ${MAX_NUMBER_OF_FETCHED_ROUTES};`;
 
     console.log("getRoutesQuery: ", getRoutesQuery);
     return await this.database.executeSql(getRoutesQuery);
+  }
+
+  /**
+   * Returns the specified number of routes starting from the earliest
+   * @param numberOfUnfetchedTrip  the number of trips that have not been fetched
+   * @returns the query result
+   */
+  public async getEarliestRoutes(
+    numberOfUnfetchedTrip: number
+  ): Promise<[ResultSet]> {
+    const getEarliestRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${numberOfUnfetchedTrip}`;
+
+    return await this.database.executeSql(getEarliestRoutesQuery);
   }
 
   /**
