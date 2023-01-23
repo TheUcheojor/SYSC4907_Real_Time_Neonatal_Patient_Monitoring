@@ -54,7 +54,6 @@ app.use(devRouter);
  */
 app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
-
 });
 
 // const httpsServer = https.createServer(credentials, app);
@@ -62,4 +61,4 @@ app.listen(PORT, () => {
 // httpsServer.listen(port, () => {
 //   console.log(`Https server listening on port ${port}`);
 // });
- 6 
+6;

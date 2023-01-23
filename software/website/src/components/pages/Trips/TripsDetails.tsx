@@ -67,20 +67,35 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     return elem.map((dp) => {
       return {
         ...dp,
-        pressure_pascals: (dp.pressure_pascals / 1000).toFixed(2),
+        pressure_pascals: parseFloat((dp.pressure_pascals / 1000).toFixed(2)),
       };
     });
   });
 
   const colWidth = 450;
 
-  const mapStyles = { width: `${colWidth}px`, height: "200px" };
+  const mapStyles = { height: "200px" };
 
   return (
-    <ul style={{ display: "flex", marginLeft: "5px", paddingLeft: 0 }}>
+    <ul
+      style={{
+        display: "flex",
+        width: "calc(100vw - 47px)",
+        marginLeft: "5px",
+        marginRight: "5px",
+        overflow: "hidden",
+        paddingLeft: 0,
+      }}
+    >
       {selectedRoutes.map((route, i) => {
         return _data[i] !== undefined ? (
-          <div style={{ marginLeft: "10px", width: `${colWidth}px` }}>
+          <div
+            style={{
+              marginLeft: "10px",
+              minWidth: `${colWidth}px`,
+              flexBasis: "100%",
+            }}
+          >
             <span style={chartLabelStyles}>
               {toDateString(route[RouteFieldEnum.start_time_s])}
             </span>
@@ -138,7 +153,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 />
                 <LabeledText
                   label={"Average pressure"}
-                  text={`${route.avg_pressure}`}
+                  text={`${route.avg_pressure / 1000}`}
                   unit={MeasurandUnitMap.get(
                     DatapointFieldEnum.pressure_pascals
                   )}
@@ -150,7 +165,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.vibration}
-              widthPx={colWidth}
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.vibration && (
@@ -165,7 +179,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.noise_db}
-              widthPx={colWidth}
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.noise_db && (
@@ -180,7 +193,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.temperature_celsius}
-              widthPx={colWidth}
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.temperature_celsius && (
@@ -195,7 +207,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.velocity_kmps}
-              widthPx={colWidth}
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.velocity_kmps && (
@@ -210,7 +221,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.pressure_pascals}
-              widthPx={colWidth}
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.pressure_pascals && (

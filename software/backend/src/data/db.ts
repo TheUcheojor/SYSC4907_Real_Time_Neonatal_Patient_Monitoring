@@ -42,24 +42,20 @@ class DB {
     this._con.query("DROP TABLE IF EXISTS route_measurement_data_points");
     this._con.query("DROP TABLE IF EXISTS users");
     this._con.query(
-      "CREATE TABLE routes (route_id INT AUTO_INCREMENT PRIMARY KEY, owner_id INT, patient_id BIGINT, organization_id INT, total_vibration INT, avg_temperature TINYINT, avg_noise TINYINT, avg_vibration TINYINT, avg_velocity SMALLINT, avg_pressure MEDIUMINT, start_time_s BIGINT, end_time_s BIGINT)"
+      "CREATE TABLE routes (route_id INT AUTO_INCREMENT PRIMARY KEY, owner_id INT, patient_id VARCHAR(255), organization_id INT, total_vibration INT, avg_temperature TINYINT, avg_noise TINYINT, avg_vibration TINYINT, avg_velocity SMALLINT, avg_pressure MEDIUMINT, start_time_s BIGINT, end_time_s BIGINT)"
     );
     this._con.query(
       "CREATE TABLE segments (segment_id INT AUTO_INCREMENT PRIMARY KEY, route_id INT, start_time_s BIGINT, end_time_s BIGINT, segment_type enum('road', 'aerial', 'boat'))"
     );
     this._con.query(
-      "CREATE TABLE route_measurement_data_points (route_data_point_id INT AUTO_INCREMENT PRIMARY KEY, route_id INT, segment_id INT, time_s BIGINT, velocity_kmps MEDIUMINT, noise_db TINYINT, vibration FLOAT(10), temperature_celsius TINYINT, pressure_pascals MEDIUMINT, annotation TEXT, latitude FLOAT(9,5), longitude FLOAT(9,5))"
+      "CREATE TABLE route_measurement_data_points (route_data_point_id INT AUTO_INCREMENT PRIMARY KEY, route_id INT, segment_id INT, time_s BIGINT, velocity_kmps MEDIUMINT, noise_db TINYINT, vibration FLOAT(7,4), temperature_celsius TINYINT, pressure_pascals MEDIUMINT, annotation TEXT, latitude FLOAT(9,5), longitude FLOAT(9,5))"
     );
     this._con.query(
       "CREATE TABLE users (user_id INT AUTO_INCREMENT PRIMARY KEY, full_name VARCHAR(255), email VARCHAR(320), password VARCHAR(255), organization_id INT, organization_permission ENUM('admin', 'owner', 'member'))"
     );
     this._con.query(
       "INSERT INTO users (full_name, email, password) VALUES (?,?,?)",
-      ["root", "root@root.ca", "rootroot"]
-    );
-    this._con.query(
-      "INSERT INTO users (full_name, email, password) VALUES (?,?,?)",
-      ["ryan paul", "admins@root.ca", "rootroot"]
+      ["root", "root", "rootroot"]
     );
     console.log("db initialized");
   }
