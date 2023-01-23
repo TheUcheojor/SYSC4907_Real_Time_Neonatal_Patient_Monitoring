@@ -15,8 +15,8 @@ import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
 
-const RenderDot = ({ cx, cy }: any) => {
-  return <Dot cx={cx} cy={cy} fill={ColorEnum.Yellow} r={3} />;
+const RenderDot = ({ cx, cy, fill }: any) => {
+  return <Dot cx={cx} cy={cy} fill={fill} r={3} />;
 };
 
 function getChartColor(measurand: DatapointFieldEnum): ColorEnum {
@@ -33,6 +33,21 @@ function getChartColor(measurand: DatapointFieldEnum): ColorEnum {
       return ColorEnum.Green;
   }
 }
+
+const RenderLabel = ({ x, y, value }: any) => {
+  return (
+    <text
+      x={x}
+      y={y}
+      dy={-4}
+      fill={ColorEnum.White}
+      fontSize={10}
+      textAnchor="start"
+    >
+      {`Segment ${value}`}
+    </text>
+  );
+};
 
 interface ChartProps {
   data: RouteMeasurementDataPoint[];
@@ -74,16 +89,24 @@ function Chart({ data, measurand, widthPx, onClick }: ChartProps) {
 
   const _data = [];
   let maxStrLenData;
-  let max, min;
+  let seenSeg = [];
 
   data.forEach((dp) => {
     let date = new Date(dp.time_s * 1000);
+    let segUpdate = false;
+    if (!seenSeg.includes(dp[DatapointFieldEnum.segment_id])) {
+      seenSeg.push(dp[DatapointFieldEnum.segment_id]);
+      segUpdate = true;
+    }
     _data.push({
       // place annotations alongside their datapoint
       annotationPos:
         dp[DatapointFieldEnum.annotation] !== "" ? dp[measurand] : undefined,
+      segmentPos: segUpdate ? dp[measurand] : undefined,
       ...dp,
       time_s: date.getHours() + ":" + date.getMinutes(),
+      // only way for segment label to properly get seg value
+      value: seenSeg.length,
     });
     const strLenData = Math.round(dp[measurand]).toString().length;
     if (maxStrLenData === undefined || strLenData > maxStrLenData)
@@ -140,7 +163,17 @@ function Chart({ data, measurand, widthPx, onClick }: ChartProps) {
             fillOpacity={0.2}
           />
           <Tooltip content={<CustomTooltip />} />
-          <Scatter dataKey="annotationPos" shape={<RenderDot />}></Scatter>
+          <Scatter
+            dataKey="annotationPos"
+            shape={<RenderDot fill={ColorEnum.Yellow} />}
+          />
+          <Scatter
+            dataKey="segmentPos"
+            shape={<RenderDot fill={ColorEnum.White} />}
+            label={({ x, y, value }: any) => (
+              <RenderLabel x={x} y={y} value={value} />
+            )}
+          />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

@@ -147,7 +147,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 />
                 <LabeledText
                   label={"Average velocity"}
-                  text={`${route.avg_temperature}`}
+                  text={`${route.avg_velocity}`}
                   unit={MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}
                   style={statLabelStyles}
                 />

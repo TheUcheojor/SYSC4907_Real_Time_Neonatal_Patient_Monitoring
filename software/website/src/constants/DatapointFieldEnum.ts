@@ -1,5 +1,6 @@
 export enum DatapointFieldEnum {
   route_id = "route_id",
+  segment_id = "segment_id",
   vibration = "vibration",
   temperature_celsius = "temperature_celsius",
   velocity_kmps = "velocity_kmps",
