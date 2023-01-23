@@ -67,7 +67,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     return elem.map((dp) => {
       return {
         ...dp,
-        pressure_pascals: (dp.pressure_pascals / 1000).toFixed(2),
+        pressure_pascals: parseFloat((dp.pressure_pascals / 1000).toFixed(2)),
       };
     });
   });
@@ -153,7 +153,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 />
                 <LabeledText
                   label={"Average pressure"}
-                  text={`${route.avg_pressure}`}
+                  text={`${route.avg_pressure / 1000}`}
                   unit={MeasurandUnitMap.get(
                     DatapointFieldEnum.pressure_pascals
                   )}
