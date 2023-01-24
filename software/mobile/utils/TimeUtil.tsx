@@ -61,7 +61,7 @@ export const getFormatedTimeFromMilliSeconds = (
  * @param timeString the given time string
  * @returns unix timestamp
  */
-export const getTimeStringToUnixTimestamp = (timeString: string): number => {
+export const covertTimeStringToUnixTimestamp = (timeString: string): number => {
   return moment(timeString, DATABASE_FULL_DATE_FORMAT).unix();
 };
 /**

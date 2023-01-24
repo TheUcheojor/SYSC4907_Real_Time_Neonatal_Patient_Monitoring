@@ -10,7 +10,7 @@ import RouteMeasurementDataPoint from "../services/models/trips/RouteMeasurement
 import RouteSegment, {
   RouteSegmentType,
 } from "../services/models/trips/RouteSegment";
-import { getTimeStringToUnixTimestamp } from "./TimeUtil";
+import { covertTimeStringToUnixTimestamp } from "./TimeUtil";
 
 /**
  * Give a route, segments, and data points, generate a post route request
@@ -27,13 +27,13 @@ export const generateServerRouteModel = (
   console.log(routeMeasurementDataPoints);
   return {
     patient_id: -1,
-    start_time_s: getTimeStringToUnixTimestamp(route.startTime),
-    end_time_s: getTimeStringToUnixTimestamp(route.endTime),
+    start_time_s: covertTimeStringToUnixTimestamp(route.startTime),
+    end_time_s: covertTimeStringToUnixTimestamp(route.endTime),
     route_segments: segments.map((segment: RouteSegment) => {
       return {
         segment_type: getServerSegmentType(segment.segmentType),
-        start_time_s: getTimeStringToUnixTimestamp(segment.startTime),
-        end_time_s: getTimeStringToUnixTimestamp(segment.endTime),
+        start_time_s: covertTimeStringToUnixTimestamp(segment.startTime),
+        end_time_s: covertTimeStringToUnixTimestamp(segment.endTime),
         route_measurement_datapoints: routeMeasurementDataPoints
           .filter(
             (routeMeasurementDataPoint: RouteMeasurementDataPoint) =>
@@ -41,7 +41,7 @@ export const generateServerRouteModel = (
           )
           .map((routeMeasurementDataPoint: RouteMeasurementDataPoint) => {
             return {
-              time_s: getTimeStringToUnixTimestamp(
+              time_s: covertTimeStringToUnixTimestamp(
                 routeMeasurementDataPoint.time as string
               ),
               velocity_kmps: routeMeasurementDataPoint.velocity,

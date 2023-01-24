@@ -73,7 +73,7 @@ export default ({
           }}
           height={250}
           theme={VictoryTheme.material}
-          domainPadding={{ x: [25, 0], y: 20 }}
+          domainPadding={{ x: [30, 0], y: [60, 40] }}
           containerComponent={
             <VictoryZoomContainer zoomDimension="x" downsample={true} />
           }
@@ -120,7 +120,8 @@ export default ({
                 fontFamily: "Montserrat_700Bold",
                 fontSize: 10,
                 angle: -30,
-                dx: 5,
+                dx: 15,
+                // dy: -2,
               },
             }}
             data={dataset}

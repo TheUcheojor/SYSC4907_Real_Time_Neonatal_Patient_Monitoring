@@ -35,7 +35,7 @@ export default interface MeasurementPacket {
   /**
    * The battern percentage
    */
-  readonly battery: number;
+  readonly battery: number | undefined;
 
   /**
    * The time stamp formatted in the UTC Format:  YYYY-DD-MM T HH:MM:SSZ.

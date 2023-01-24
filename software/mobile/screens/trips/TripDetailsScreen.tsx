@@ -51,6 +51,8 @@ import MeasurementPacket, {
   VIBRATION_KEY_MEASUREMENT_PACKET,
 } from "../../services/models/sensor-package-communication/MeasurementPacket";
 import RouteSegment from "../../services/models/trips/RouteSegment";
+import demoRouteDataPoints from "../../mock/demoRouteDataPoints";
+import demoSegments from "../../mock/demoSegments";
 
 export default ({
   route,
@@ -133,6 +135,14 @@ export default ({
   ];
 
   useEffect(() => {
+    //For Demo purposes
+    setRouteSegments(demoSegments);
+    setRouteMeasurementDataPoints(demoRouteDataPoints);
+    setViewLoaded(true);
+    setGraphLoaded(true);
+
+    return;
+
     if (isLocalTrip) {
       setViewLoaded(false);
       setGraphLoaded(false);
