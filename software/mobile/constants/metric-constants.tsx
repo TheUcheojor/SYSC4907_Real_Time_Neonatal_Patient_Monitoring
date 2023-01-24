@@ -29,7 +29,7 @@ export const VELOCITY_METRIC_TITLE: string = "Velocity";
 // export const VELOCITY_METRIC_KEY: string = "velocity";
 export const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
 export const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
-export const VELOCITY_UNITS: string = "m/s";
+export const VELOCITY_UNITS: string = "km/hr";
 
 // export const START_DATE_KEY: string = "startDate";
 export const START_DATE_LABEL: string = "Start Date";
