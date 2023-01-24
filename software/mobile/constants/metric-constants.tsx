@@ -11,7 +11,7 @@ export const VIBRATION_METRIC_TITLE: string = "Vibration";
 // export const VIBRATION_METRIC_KEY: string = "vibration";
 export const VIBRATION_GRAPH_COLOUR: string = "#0E9CFF";
 export const VIBRATION_ICON_SOURCE: ImageSourcePropType = require("../assets/images/shake.png");
-export const VIBRATION_UNITS: string = "Hz";
+export const VIBRATION_UNITS: string = "m/s²";
 
 export const NOISE_METRIC_TITLE: string = "Noise";
 // export const NOISE_METRIC_KEY: string = "noise";
