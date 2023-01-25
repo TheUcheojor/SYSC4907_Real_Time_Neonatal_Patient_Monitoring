@@ -185,7 +185,9 @@ export class TripRecordingService {
     //Update the current route segment
     this.currentRouteSegment.routeId = this.currentRoute.routeId;
     this.currentRouteSegment.segmentType = segmentType;
-    this.currentRouteSegment.startTime = this.currentRoute.startTime;
+    this.currentRouteSegment.startTime = convertUnixTimestampToUTCTime(
+      Date.now()
+    );
 
     const saveRouteSegmentResults: [ResultSet] | undefined =
       await TripRecordingService.databaseService?.saveRouteSegment(
