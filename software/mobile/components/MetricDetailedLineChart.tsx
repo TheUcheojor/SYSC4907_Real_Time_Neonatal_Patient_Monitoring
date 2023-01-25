@@ -46,6 +46,8 @@ const segmentColours: Array<string> = [
 const currentSegmentColourIndex: number = 0;
 const KEY_POINT_COLOUR: string = "#C2372E";
 
+const DOWN_SAMPLE_DATASET: boolean = false;
+
 enum VictoryShapeEnum {
   CIRCLE = "circle",
   STAR = "star",
@@ -73,9 +75,12 @@ export default ({
           }}
           height={250}
           theme={VictoryTheme.material}
-          domainPadding={{ x: [30, 0], y: [60, 40] }}
+          domainPadding={{ x: [20, 0], y: [60, 40] }}
           containerComponent={
-            <VictoryZoomContainer zoomDimension="x" downsample={true} />
+            <VictoryZoomContainer
+              zoomDimension="x"
+              downsample={DOWN_SAMPLE_DATASET}
+            />
           }
           scale={{ x: "time", y: "linear" }}
         >
@@ -95,7 +100,9 @@ export default ({
           />
 
           <VictoryScatter
-            size={({ datum }) => (datum.annotationLabel ? 5 : 2)}
+            size={({ datum }: { datum: GraphData }) =>
+              (datum.isAnnotation && 3) || (datum.label && 3) || 0
+            }
             symbol={({ datum }) =>
               datum.annotationLabel
                 ? VictoryShapeEnum.STAR
@@ -113,7 +120,7 @@ export default ({
               },
 
               labels: {
-                stroke: ANNOTATION_COLOUR,
+                stroke: "white",
                 fill: ({ datum }: { datum: GraphData }) =>
                   (datum.isAnnotation && ANNOTATION_COLOUR) ||
                   (datum.isSegmentLabel && SEGMENT_LABEL_COLOUR),
@@ -121,6 +128,7 @@ export default ({
                 fontSize: 10,
                 angle: -30,
                 dx: 15,
+                strokeWidth: 0.2,
                 // dy: -2,
               },
             }}
