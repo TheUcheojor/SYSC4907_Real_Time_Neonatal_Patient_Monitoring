@@ -25,7 +25,7 @@ export const TEMPERATURE_GRAPH_COLOUR: string = "#9B9E0A";
 export const TEMPERATURE_ICON_SOURCE: ImageSourcePropType = require("../assets/images/temperature.png");
 export const TEMPERATURE_UNITS: string = "C";
 
-export const VELOCITY_METRIC_TITLE: string = "Velocity";
+export const VELOCITY_METRIC_TITLE: string = "Speed";
 // export const VELOCITY_METRIC_KEY: string = "velocity";
 export const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
 export const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
