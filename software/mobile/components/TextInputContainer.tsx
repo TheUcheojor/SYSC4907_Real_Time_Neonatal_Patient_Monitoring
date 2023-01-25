@@ -6,6 +6,7 @@ interface TextInputContainerParams {
   width?: number;
   isError?: boolean;
   inputRef: React.MutableRefObject<String>;
+  secureTextEntry?: boolean;
 }
 
 /**
@@ -20,6 +21,7 @@ export const TextInputContainer = ({
   width,
   isError,
   inputRef,
+  secureTextEntry,
 }: TextInputContainerParams) => {
   // Assign the width accordingly (the default width is 300 px)
   width = width ? width : 300;
@@ -33,6 +35,7 @@ export const TextInputContainer = ({
         style={{ ...styles.textInput, borderColor: borderColor }}
         placeholder={placeholder}
         onChangeText={(updatedText) => (inputRef.current = updatedText)}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );
