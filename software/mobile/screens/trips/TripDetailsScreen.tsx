@@ -135,14 +135,6 @@ export default ({
   ];
 
   useEffect(() => {
-    //For Demo purposes
-    setRouteSegments(demoSegments);
-    setRouteMeasurementDataPoints(demoRouteDataPoints);
-    setViewLoaded(true);
-    setGraphLoaded(true);
-
-    return;
-
     if (isLocalTrip) {
       setViewLoaded(false);
       setGraphLoaded(false);
