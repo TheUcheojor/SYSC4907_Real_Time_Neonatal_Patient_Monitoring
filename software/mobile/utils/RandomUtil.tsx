@@ -26,7 +26,7 @@ export const generateRandomMeasurementPacket = (): MeasurementPacket => {
   return {
     noise: getRandomInt(1, 50),
     temperature: getRandomInt(1, 50),
-    vibration: getRandomInt(1, 50),
+    vibration: getRandomInt(110, 170),
     airPressure: getRandomInt(1, 50),
     velocity: getRandomInt(1, 50),
     battery: getRandomInt(1, 50),
