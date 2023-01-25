@@ -84,12 +84,13 @@ export const convertUnixTimestampToUTCTime = (unixTimestamp: number) => {
 };
 
 export const getDateFromTimestamp = (timeStamp: string): string => {
+  console.log(timeStamp);
   const date = moment(timeStamp, DATABASE_FULL_DATE_FORMAT);
 
   return (
     MONTH_INDEX_TO_TEXT.get(date.month()) +
     " " +
-    date.day() +
+    date.date() +
     ", " +
     date.year()
   );
