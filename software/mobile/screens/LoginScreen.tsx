@@ -90,6 +90,7 @@ export default ({
         title={PASSWORD_TITLE}
         placeholder={PASSWORD_PLACEHOLDER}
         isError={isError}
+        secureTextEntry={true}
       />
 
       <ClickableText
