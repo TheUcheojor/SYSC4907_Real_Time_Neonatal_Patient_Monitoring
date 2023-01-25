@@ -69,6 +69,7 @@ export default ({
          * New trips are added at the bottom of the datatable and hence, the trips need to fetched separately as
          * the windows will conatin them
          */
+        console.log("numberOfUnfetchedTrip: ", numberOfUnfetchedTrip);
         if (numberOfUnfetchedTrip > 0) {
           databaseService
             .getEarliestRoutes(numberOfUnfetchedTrip)
@@ -100,8 +101,12 @@ export default ({
    * Fetch local trips on page transition
    */
   useEffect(() => {
-    currentPagination.current = 0;
     getLocalTrips();
+
+    () => {
+      setNumberOfUnfetchedTrip(0);
+      currentPagination.current = 0;
+    };
   }, []);
 
   const clearTrips = () => {
