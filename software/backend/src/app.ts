@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import fs from "fs";
 import https from "https";
 import loginRouter from "routes/Login";
 import routesRouter from "routes/Routes";
@@ -9,20 +8,10 @@ import routeMeasurementDataPointsRouter from "routes/RouteMeasurementDataPoints"
 import devRouter from "routes/dev/Dev";
 import forgotPasswordRouter from "routes/ForgotPassword";
 import segmentsRouter from "routes/Segments";
+import dotenv from "dotenv";
 
-const PORT = 3001;
 const PAYLOAD_LIMIT = "10mb";
-const FILE_CHARACTER_ENCODING = "utf8";
-
-const privateKey = fs.readFileSync(
-  "secret/server_DEVONLY.key",
-  FILE_CHARACTER_ENCODING
-);
-const certificate = fs.readFileSync(
-  "secret/server_DEVONLY.crt",
-  FILE_CHARACTER_ENCODING
-);
-const credentials = { key: privateKey, cert: certificate };
+dotenv.config();
 
 const corsOptions = {
   exposedHeaders: ["Authorization"],
@@ -52,6 +41,8 @@ app.use(devRouter);
  * Using https with self-signed certificate requires extra configurations
  * that may be time consuming
  */
+const PORT = process.env.SERVER_PORT;
+
 app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 });
