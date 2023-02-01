@@ -56,13 +56,13 @@ import MeasurementPacket, {
 import RouteSegment from "../../services/models/trips/RouteSegment";
 import Map from "../../components/Map";
 import { Color } from "../../constants/ColorEnum";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default ({
   route,
   navigation,
 }: NativeStackScreenProps<MainStackParamList, "TripDetails">) => {
   const [isViewLoaded, setViewLoaded] = useState<boolean>(false);
-  const [isGraphLoaded, setGraphLoaded] = useState<boolean>(false);
 
   const { routeId, isLocalTrip } = route.params;
   const [tripRoute, setRoute] = useState<TripRoute | null>(null);
@@ -145,7 +145,6 @@ export default ({
   useEffect(() => {
     if (isLocalTrip) {
       setViewLoaded(false);
-      setGraphLoaded(false);
 
       console.log(isViewLoaded);
       //Fetch the local route
@@ -210,80 +209,79 @@ export default ({
         </Text>
       </View>
 
-      <Pressable
-        style={styles.exitTripBreakdownContainer}
-        onPress={() => navigation.navigate("Trips")}
-      >
-        <Ionicons name="arrow-back-circle" size={24} color="black" />
+      <ScrollView>
+        <Pressable
+          style={styles.exitTripBreakdownContainer}
+          onPress={() => navigation.navigate("Trips")}
+        >
+          <Ionicons name="arrow-back-circle" size={24} color="black" />
 
-        <Text style={styles.exitTripBreakdownText}>Exit Trip Breakdown</Text>
-      </Pressable>
-
-      <View style={{ ...styles.sectionContainer }}>
-        <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
-          Route Segments
-        </Text>
-        {routeSegements.map((routeSegment: RouteSegment) => (
-          <Text style={styles.routeSegmentText}>
-            {getTripTimeString(routeSegment.startTime, routeSegment.endTime) +
-              ": " +
-              routeSegment.segmentType}
+          <Text style={styles.exitTripBreakdownText}>Exit Trip Breakdown</Text>
+        </Pressable>
+        <View style={{ ...styles.sectionContainer }}>
+          <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
+            Route Segments
           </Text>
-        ))}
-      </View>
-      <View style={{ ...styles.sectionContainer }}>
-        <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
-          Metric Map
-        </Text>
-        <Map
-          routeMeasurementDataPoints={routeMeasurementDataPoints}
-          metricThreshold={getMetricThreshold(curentMapMetricSelection)}
-          metricKey={curentMapMetricSelection}
-        />
-
-        <View style={styles.metricMapMenu}>
-          {NUMERIC_METRIC_MEASUREMENT_PACKET_KEYS.map(
-            (metricKey: NumericMetricMeasurementPacketKey) => {
-              const isSelected: boolean = metricKey == curentMapMetricSelection;
-
-              const backgroundColor: string = isSelected
-                ? Color.BLACK
-                : Color.WHITE;
-              const textColour: string = isSelected ? Color.WHITE : Color.BLACK;
-
-              return (
-                <Pressable
-                  style={{
-                    ...styles.menuButton,
-                    backgroundColor: backgroundColor,
-                  }}
-                  onPress={() => setCurrentMapMetricSelection(metricKey)}
-                >
-                  <Text
-                    style={{
-                      ...styles.tertiaryText,
-                      ...styles.mapMenuText,
-                      color: textColour,
-                    }}
-                  >
-                    {metricKey}
-                  </Text>
-                </Pressable>
-              );
-            }
-          )}
+          {routeSegements.map((routeSegment: RouteSegment) => (
+            <Text style={styles.routeSegmentText}>
+              {getTripTimeString(routeSegment.startTime, routeSegment.endTime) +
+                ": " +
+                routeSegment.segmentType}
+            </Text>
+          ))}
         </View>
-      </View>
-
-      <View style={{ ...styles.sectionContainer, flex: 1 }}>
-        {!isGraphLoaded && (
-          <ActivityIndicator
-            size="large"
-            color={"black"}
-            style={{ justifyContent: "center", flexGrow: 100 }}
+        <View style={{ ...styles.sectionContainer }}>
+          <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
+            Metric Map
+          </Text>
+          <Map
+            routeMeasurementDataPoints={routeMeasurementDataPoints}
+            metricThreshold={getMetricThreshold(curentMapMetricSelection)}
+            metricKey={curentMapMetricSelection}
           />
-        )}
-        <FlashList
+
+          <View style={styles.metricMapMenu}>
+            {NUMERIC_METRIC_MEASUREMENT_PACKET_KEYS.map(
+              (metricKey: NumericMetricMeasurementPacketKey) => {
+                const isSelected: boolean =
+                  metricKey == curentMapMetricSelection;
+
+                const backgroundColor: string = isSelected
+                  ? Color.BLACK
+                  : Color.WHITE;
+                const textColour: string = isSelected
+                  ? Color.WHITE
+                  : Color.BLACK;
+
+                return (
+                  <Pressable
+                    style={{
+                      ...styles.menuButton,
+                      backgroundColor: backgroundColor,
+                    }}
+                    onPress={() => setCurrentMapMetricSelection(metricKey)}
+                  >
+                    <Text
+                      style={{
+                        ...styles.tertiaryText,
+                        ...styles.mapMenuText,
+                        color: textColour,
+                      }}
+                    >
+                      {metricKey}
+                    </Text>
+                  </Pressable>
+                );
+              }
+            )}
+          </View>
+        </View>
+
+        <View style={{ ...styles.sectionContainer, flex: 1 }}>
+          {datasets.map((chartParams: MetricDetailedLineChartParams) => {
+            return getMetricDetailChart({ item: chartParams });
+          })}
+          {/* <FlashList
           // contentContainerStyle={styles.chartsContainer}
           // contentContainerStyle={{display: "hidden"}}
           data={datasets}
@@ -291,8 +289,9 @@ export default ({
           estimatedItemSize={ESTIMATED_GRAPH_ITEM_SIZE}
           showsVerticalScrollIndicator={false}
           onLoad={() => setGraphLoaded(true)}
-        />
-      </View>
+        /> */}
+        </View>
+      </ScrollView>
     </View>
   );
 };
