@@ -41,7 +41,14 @@ function App() {
       case PageEnum.MyAccount:
         return <MyAccountPage onLogout={onLogout} />;
       case PageEnum.DefaultLandingPage:
-        return <OrganizationsPage />;
+        return (
+          <TripsPage
+            onLogout={() => {
+              onLogout();
+              setLoginMessage("Session expired");
+            }}
+          />
+        );
     }
   }
 

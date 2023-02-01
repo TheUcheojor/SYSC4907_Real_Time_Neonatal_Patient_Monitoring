@@ -146,7 +146,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                   style={statLabelStyles}
                 />
                 <LabeledText
-                  label={"Average velocity"}
+                  label={"Average speed"}
                   text={`${route.avg_velocity}`}
                   unit={MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}
                   style={statLabelStyles}
@@ -203,7 +203,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 style={mapStyles}
               />
             )}
-            <p style={chartLabelStyles}>Velocity</p>
+            <p style={chartLabelStyles}>Speed</p>
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.velocity_kmps}
