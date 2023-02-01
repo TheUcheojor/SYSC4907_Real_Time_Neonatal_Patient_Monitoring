@@ -20,7 +20,7 @@ target 'mobile' do
 
   config = use_native_modules!
 
-  # use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
+  use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
 
   # required custom import of permission handler
   permissions_path = '../node_modules/react-native-permissions/ios'
