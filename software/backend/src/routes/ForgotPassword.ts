@@ -1,17 +1,17 @@
-import DB from "data/db";
+import DB from "./../data/db";
 import Router, { Response } from "express";
 import {
   ForgotPasswordRequest,
   ResetPasswordRequest,
-} from "models/requests/AuthRequests";
-import Logger from "Logger";
+} from "./../models/requests/AuthRequests";
+import Logger from "./../Logger";
 import nodemailer from "nodemailer";
 import {
   authenticateForgotPasswordToken,
   generateForgotPasswordToken,
-} from "secret/forgotPasswordToken";
-import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "constants/AuthConstants";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+} from "./../secret/forgotPasswordToken";
+import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const forgotPasswordRouter = Router();

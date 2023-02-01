@@ -1,8 +1,8 @@
-import jsonwebtoken, { TokenExpiredError } from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
-import Logger from "Logger";
-import { DEFAULT_SESSION_TOKEN_TIME } from "constants/AuthConstants";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+import Logger from "./../Logger";
+import { DEFAULT_SESSION_TOKEN_TIME } from "./../constants/AuthConstants";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 
@@ -25,7 +25,7 @@ export function authenticateSessionToken(req, res, next) {
     process.env.TOKEN_SECRET as string,
     (err: any, decodedToken: any) => {
       if (err) {
-        if (err instanceof TokenExpiredError) {
+        if (err instanceof jsonwebtoken.TokenExpiredError) {
           return res.sendStatus(HttpStatusEnum.UNAUTHORIZED);
         }
 

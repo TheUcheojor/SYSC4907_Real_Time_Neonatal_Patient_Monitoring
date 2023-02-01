@@ -2,7 +2,14 @@
   "compilerOptions": {
     "baseUrl": "src",
     "esModuleInterop": true,
-    "lib": ["es2019"]
+    "lib": ["es2019"],
+    "module": "ESNext",
+    "moduleResolution": "Node"
   },
-  "include": ["src"]
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["src/", "routes", "/**/*.ts"],
+  "exclude": ["node_modules"]
 }

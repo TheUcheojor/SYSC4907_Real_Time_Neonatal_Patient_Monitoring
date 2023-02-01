@@ -1,12 +1,12 @@
-import DB from "data/db";
+import DB from "./../data/db";
 import Router, { Response } from "express";
 import {
   ChangePasswordRequest,
   SignUpRequest,
-} from "models/requests/AuthRequests";
-import Logger from "Logger";
-import { authenticateSessionToken } from "secret/sessionToken";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+} from "./../models/requests/AuthRequests";
+import Logger from "./../Logger";
+import { authenticateSessionToken } from "./../secret/sessionToken";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
 
 const logger = Logger.getInstance();
 const userRouter = Router();

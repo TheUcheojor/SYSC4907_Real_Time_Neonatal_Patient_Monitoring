@@ -1,5 +1,5 @@
 import mysql, { Connection } from "mysql";
-import { DB_NAME } from "constants/dbConstants";
+import { DB_NAME } from "./../constants/dbConstants";
 
 class DB {
   dbName: string;

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "App.ts",
+  "type": "module",
   "scripts": {
     "serve": "npm test && nodemon App.ts",
     "test": "set TS_NODE_COMPILER_OPTIONS={\"module\": \"commonjs\" } && mocha -r ts-node/register 'tests/**/*.ts'"
