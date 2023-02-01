@@ -27,12 +27,12 @@ export const generateRandomMeasurementPacket = (
   location: RouteLocation
 ): MeasurementPacket => {
   return {
-    noise: getRandomInt(1, 50),
-    temperature: getRandomInt(1, 50),
+    noise: getRandomInt(20, 170),
+    temperature: getRandomInt(20, 170),
     vibration: getRandomInt(20, 170),
-    airPressure: getRandomInt(1, 50),
-    velocity: getRandomInt(1, 50),
-    battery: getRandomInt(1, 50),
+    airPressure: getRandomInt(20, 170),
+    velocity: getRandomInt(20, 170),
+    battery: getRandomInt(20, 170),
     time: convertUnixTimestampToUTCTime(Date.now()),
     location: location,
   } as MeasurementPacket;
