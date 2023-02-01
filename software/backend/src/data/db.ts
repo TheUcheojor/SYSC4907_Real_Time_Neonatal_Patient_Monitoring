@@ -1,10 +1,5 @@
 import mysql, { Connection } from "mysql";
-import {
-  DB_HOST,
-  DB_NAME,
-  DB_PASSWORD,
-  DB_USER,
-} from "../constants/dbConstants";
+import { DB_NAME } from "constants/dbConstants";
 
 class DB {
   dbName: string;
@@ -14,9 +9,9 @@ class DB {
   connect() {
     if (!this.con) {
       this._con = mysql.createConnection({
-        host: DB_HOST,
-        user: DB_USER,
-        password: DB_PASSWORD,
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
         database: DB_NAME,
       });
       console.log("connected");
