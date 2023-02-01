@@ -31,6 +31,7 @@ import MetricDetailedLineChart, {
   MetricDetailedLineChartParams,
 } from "../../components/MetricDetailedLineChart";
 import {
+  getMetricThreshold,
   NOISE_GRAPH_COLOUR,
   NOISE_METRIC_TITLE,
   NOISE_UNITS,
@@ -46,13 +47,15 @@ import {
 } from "../../constants/metric-constants";
 import MeasurementPacket, {
   NOISE_KEY_MEASUREMENT_PACKET,
+  NumericMetricMeasurementPacketKey,
+  NUMERIC_METRIC_MEASUREMENT_PACKET_KEYS,
   TEMPERATURE_KEY_MEASUREMENT_PACKET,
   VELOCITY_KEY_MEASUREMENT_PACKET,
   VIBRATION_KEY_MEASUREMENT_PACKET,
 } from "../../services/models/sensor-package-communication/MeasurementPacket";
 import RouteSegment from "../../services/models/trips/RouteSegment";
-import demoRouteDataPoints from "../../mock/demoRouteDataPoints";
-import demoSegments from "../../mock/demoSegments";
+import Map from "../../components/Map";
+import { Color } from "../../constants/ColorEnum";
 
 export default ({
   route,
@@ -67,6 +70,11 @@ export default ({
     RouteMeasurementDataPoint[]
   >([]);
   const [routeSegements, setRouteSegments] = useState<RouteSegment[]>([]);
+
+  const [curentMapMetricSelection, setCurrentMapMetricSelection] =
+    useState<NumericMetricMeasurementPacketKey>(
+      VIBRATION_KEY_MEASUREMENT_PACKET
+    );
 
   const mapToMetricDataset = (
     metricKey: keyof MeasurementPacket
@@ -211,18 +219,63 @@ export default ({
         <Text style={styles.exitTripBreakdownText}>Exit Trip Breakdown</Text>
       </Pressable>
 
-      <View style={styles.chartsContainer}>
-        <View style={styles.routeSegmentContainer}>
-          <Text style={styles.primaryText}>Route Segments</Text>
-          {routeSegements.map((routeSegment: RouteSegment) => (
-            <Text style={styles.routeSegmentText}>
-              {getTripTimeString(routeSegment.startTime, routeSegment.endTime) +
-                ": " +
-                routeSegment.segmentType}
-            </Text>
-          ))}
-        </View>
+      <View style={{ ...styles.sectionContainer }}>
+        <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
+          Route Segments
+        </Text>
+        {routeSegements.map((routeSegment: RouteSegment) => (
+          <Text style={styles.routeSegmentText}>
+            {getTripTimeString(routeSegment.startTime, routeSegment.endTime) +
+              ": " +
+              routeSegment.segmentType}
+          </Text>
+        ))}
+      </View>
+      <View style={{ ...styles.sectionContainer }}>
+        <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
+          Metric Map
+        </Text>
+        <Map
+          routeMeasurementDataPoints={routeMeasurementDataPoints}
+          metricThreshold={getMetricThreshold(curentMapMetricSelection)}
+          metricKey={curentMapMetricSelection}
+        />
 
+        <View style={styles.metricMapMenu}>
+          {NUMERIC_METRIC_MEASUREMENT_PACKET_KEYS.map(
+            (metricKey: NumericMetricMeasurementPacketKey) => {
+              const isSelected: boolean = metricKey == curentMapMetricSelection;
+
+              const backgroundColor: string = isSelected
+                ? Color.BLACK
+                : Color.WHITE;
+              const textColour: string = isSelected ? Color.WHITE : Color.BLACK;
+
+              return (
+                <Pressable
+                  style={{
+                    ...styles.menuButton,
+                    backgroundColor: backgroundColor,
+                  }}
+                  onPress={() => setCurrentMapMetricSelection(metricKey)}
+                >
+                  <Text
+                    style={{
+                      ...styles.tertiaryText,
+                      ...styles.mapMenuText,
+                      color: textColour,
+                    }}
+                  >
+                    {metricKey}
+                  </Text>
+                </Pressable>
+              );
+            }
+          )}
+        </View>
+      </View>
+
+      <View style={{ ...styles.sectionContainer, flex: 1 }}>
         {!isGraphLoaded && (
           <ActivityIndicator
             size="large"
@@ -230,7 +283,6 @@ export default ({
             style={{ justifyContent: "center", flexGrow: 100 }}
           />
         )}
-
         <FlashList
           // contentContainerStyle={styles.chartsContainer}
           // contentContainerStyle={{display: "hidden"}}
@@ -328,20 +380,45 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
 
-  chartsContainer: {
+  sectionContainer: {
     width: "100%",
-    flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+  },
+
+  alignTextLeft: {
+    textAlign: "left",
   },
 
   routeSegmentContainer: {
+    width: "100%",
     flexDirection: "column",
     alignItems: "flex-start",
     marginBottom: 10,
+    paddingHorizontal: 20,
   },
 
   routeSegmentText: {
     fontFamily: "Montserrat_600SemiBold",
     fontSize: 12,
+  },
+
+  metricMapMenu: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    marginTop: 15,
+  },
+
+  mapMenuText: {
+    color: "black",
+    textTransform: "capitalize",
+  },
+
+  menuButton: {
+    padding: 10,
+    borderRadius: 10,
+    borderWidth: 2,
   },
 });

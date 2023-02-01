@@ -151,6 +151,7 @@ export class TripRecordingService {
       "this.currentRouteSegment.segmentId: ",
       this.currentRouteSegment.segmentId
     );
+
     const results: [ResultSet] | undefined =
       await TripRecordingService.databaseService?.saveRouteMeasurementDataPoint(
         routeMeasurementDataPoint

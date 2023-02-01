@@ -31,7 +31,7 @@ export class ServerCommnunicationService {
   /**
    * The API url
    */
-  private static API_URL: string = "http://172.17.182.68:3001";
+  private static API_URL: string = "http://192.168.100.100:3001";
 
   /**
    * The private ServerCommnunicationService constructor

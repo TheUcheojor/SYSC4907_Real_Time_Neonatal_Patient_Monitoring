@@ -4,6 +4,7 @@
  * Purpose: Export random-generating helper functions
  */
 
+import RouteLocation from "../services/models/common/Location";
 import MeasurementPacket from "../services/models/sensor-package-communication/MeasurementPacket";
 import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
 import { convertUnixTimestampToUTCTime } from "./TimeUtil";
@@ -22,19 +23,18 @@ export function getRandomInt(min: number, max: number) {
  * Generates a random measurement packet
  * @returns
  */
-export const generateRandomMeasurementPacket = (): MeasurementPacket => {
+export const generateRandomMeasurementPacket = (
+  location: RouteLocation
+): MeasurementPacket => {
   return {
     noise: getRandomInt(1, 50),
     temperature: getRandomInt(1, 50),
-    vibration: getRandomInt(110, 170),
+    vibration: getRandomInt(20, 170),
     airPressure: getRandomInt(1, 50),
     velocity: getRandomInt(1, 50),
     battery: getRandomInt(1, 50),
     time: convertUnixTimestampToUTCTime(Date.now()),
-    location: {
-      longitude: getRandomInt(1, 1000),
-      latitude: getRandomInt(1, 1000),
-    },
+    location: location,
   } as MeasurementPacket;
 };
 

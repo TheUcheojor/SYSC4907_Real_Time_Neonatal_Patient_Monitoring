@@ -29,6 +29,7 @@ import { circularArrayPush } from "../utils/ArrayUtil";
 import { useEffect } from "react";
 import { measure } from "react-native-reanimated";
 import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
+import demoRouteDataPoints from "../mock/demoRouteDataPoints";
 
 export default class SensorPackageController {
   /**
@@ -317,9 +318,18 @@ export default class SensorPackageController {
     >
   ): NodeJS.Timer {
     const MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS = 1000;
+    let currentLocationIndex: number = 0;
 
     return setInterval(() => {
-      const generatedMeasurementPacket = generateRandomMeasurementPacket();
+      const generatedMeasurementPacket = generateRandomMeasurementPacket(
+        demoRouteDataPoints[currentLocationIndex].location
+      );
+      // console.log(
+      //   "currentLocationIndex: ",
+      //   demoRouteDataPoints[currentLocationIndex].location
+      // );
+      currentLocationIndex =
+        (currentLocationIndex + 1) % demoRouteDataPoints.length;
 
       setMeasurementPacket(generatedMeasurementPacket);
     }, MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS);

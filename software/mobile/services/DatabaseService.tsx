@@ -241,6 +241,12 @@ export class DatabaseService {
       "saveRouteMeasurementDataPoint",
       routeMeasurementDataPoint.segmentId
     );
+
+    console.log(
+      "saveRouteMeasurementDataPoint: ",
+      routeMeasurementDataPoint.location
+    );
+
     const saveRouteMeasurementDataPointQuery = `INSERT INTO ${
       DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
     } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location) VALUES 
@@ -300,8 +306,17 @@ export class DatabaseService {
       const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
 
       resultSet.forEach((result) => {
+        // console.log(result.rows.item(0));
         for (let index = 0; index < result.rows.length; index++) {
-          routeMeasurementDataPoints.push(result.rows.item(index));
+          const currentDataPoint: any = result.rows.item(index);
+          console.log(
+            "exceuteRouteMeasurementDataPointsFetchQuery currentDataPoint.location: ",
+            currentDataPoint
+          );
+          routeMeasurementDataPoints.push({
+            ...currentDataPoint,
+            location: JSON.parse(currentDataPoint.location),
+          });
         }
       });
 
