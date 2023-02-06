@@ -1,9 +1,9 @@
-import DB from "./../data/db";
+import DB from "./../data/db.js";
 import Router from "express";
-import { AuthenticatedRequest } from "./../models/requests/AuthRequests";
-import Logger from "./../Logger";
-import { authenticateSessionToken } from "./../secret/sessionToken";
-import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
+import { AuthenticatedRequest } from "./../models/requests/AuthRequests.js";
+import Logger from "./../Logger.js";
+import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 
 const logger = Logger.getInstance();
 const routeMeasurementDataPointsRouter = Router();

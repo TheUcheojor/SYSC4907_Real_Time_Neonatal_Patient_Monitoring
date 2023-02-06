@@ -1,8 +1,8 @@
 import jsonwebtoken from "jsonwebtoken";
 import dotenv from "dotenv";
-import Logger from "./../Logger";
-import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants";
-import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
+import Logger from "./../Logger.js";
+import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 var logger = Logger.getInstance();
 export function generateForgotPasswordToken(user_id) {
     dotenv.config();

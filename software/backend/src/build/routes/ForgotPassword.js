@@ -1,10 +1,10 @@
-import DB from "./../data/db";
+import DB from "./../data/db.js";
 import Router from "express";
-import Logger from "./../Logger";
+import Logger from "./../Logger.js";
 import nodemailer from "nodemailer";
-import { authenticateForgotPasswordToken, generateForgotPasswordToken, } from "./../secret/forgotPasswordToken";
-import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants";
-import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
+import { authenticateForgotPasswordToken, generateForgotPasswordToken, } from "./../secret/forgotPasswordToken.js";
+import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 var logger = Logger.getInstance();
 var forgotPasswordRouter = Router();
 forgotPasswordRouter.post("/forgotPassword", function (req, res) {

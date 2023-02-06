@@ -1,8 +1,8 @@
-import DB from "./../data/db";
+import DB from "./../data/db.js";
 import Router from "express";
-import Logger from "./../Logger";
-import { authenticateSessionToken } from "./../secret/sessionToken";
-import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
+import Logger from "./../Logger.js";
+import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 var logger = Logger.getInstance();
 var routeMeasurementDataPointsRouter = Router();
 routeMeasurementDataPointsRouter.get("/routeMeasurementDataPoints/:route_id", authenticateSessionToken, function (req, res) {

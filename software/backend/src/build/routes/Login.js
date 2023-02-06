@@ -1,8 +1,8 @@
-import DB from "./../data/db";
+import DB from "./../data/db.js";
 import Router from "express";
-import Logger from "./../Logger";
-import { generateSessionToken } from "./../secret/sessionToken";
-import { HttpStatusEnum } from "./../constants/HttpStatusEnum";
+import Logger from "./../Logger.js";
+import { generateSessionToken } from "./../secret/sessionToken.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 var logger = Logger.getInstance();
 var loginRouter = Router();
 loginRouter.post("/login", function (req, res) {

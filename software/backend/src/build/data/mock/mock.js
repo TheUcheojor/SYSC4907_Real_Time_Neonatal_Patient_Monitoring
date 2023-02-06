@@ -1,4 +1,4 @@
-import { coordsBarrhavenToQueensway, coordsQueenswayToGeneral } from "./coords";
+import { coordsBarrhavenToQueensway, coordsQueenswayToGeneral } from "./coords.js";
 export function generateRandomDatapoints(coords) {
     var dps = [];
     for (var i = 0; i < coords.length; i++) {
