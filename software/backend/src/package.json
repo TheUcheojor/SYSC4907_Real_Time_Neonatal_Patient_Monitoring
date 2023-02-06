@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "serve": "npm test && nodemon App.ts",
-    "test": "set TS_NODE_COMPILER_OPTIONS={\"module\": \"commonjs\" } && mocha -r ts-node/register 'tests/**/*.ts'"
+    "test": "set TS_NODE_COMPILER_OPTIONS={\"module\": \"commonjs\" } && mocha -r ts-node/register 'tests/**/*.ts'",
+    "tsc": "tsc --outDir build"
   },
   "nodemonConfig": {
     "exec": "node -r tsconfig-paths/register -r ts-node/register App.ts",
