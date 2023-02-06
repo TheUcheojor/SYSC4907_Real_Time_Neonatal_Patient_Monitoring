@@ -16,12 +16,12 @@ segmentsRouter.get(
     db.connect();
     let con = db.con;
 
-    con.query(
+    con().query(
       "SELECT * FROM routes WHERE route_id=?",
       [req.params.route_id],
       function (error, routeResults, fields) {
         if (error) {
-          return con.rollback(function () {
+          return con().rollback(function () {
             logger.error(error);
           });
         }
@@ -35,12 +35,12 @@ segmentsRouter.get(
           return;
         }
 
-        con.query(
+        con().query(
           "SELECT * FROM segments WHERE route_id=?",
           [req.params.route_id],
           function (error, results, fields) {
             if (error) {
-              return con.rollback(function () {
+              return con().rollback(function () {
                 logger.error(error);
               });
             }

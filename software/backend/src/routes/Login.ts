@@ -19,12 +19,12 @@ loginRouter.post("/login", (req: LoginRequest, res: Response) => {
   db.connect();
   let con = db.con;
 
-  con.query(
+  con().query(
     "SELECT * FROM users WHERE email=? AND password=?",
     [req.email, req.password],
     function (error, results, fields) {
       if (error) {
-        return con.rollback(function () {
+        return con().rollback(function () {
           logger.error(error);
         });
       }
@@ -39,12 +39,12 @@ loginRouter.post("/login", (req: LoginRequest, res: Response) => {
             full_name: user.full_name,
           });
       } else if (results.length === 0) {
-        con.query(
+        con().query(
           "SELECT * FROM users WHERE email=?",
           [req.email, req.password],
           function (error, tmp, fields) {
             if (error) {
-              return con.rollback(function () {
+              return con().rollback(function () {
                 logger.error(error);
               });
             }
