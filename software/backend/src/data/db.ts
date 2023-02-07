@@ -1,4 +1,4 @@
-import mysql, { Connection } from "mysql2";
+import mysql, { Connection } from "mysql";
 import { DB_NAME } from "./../constants/DbConstants.js";
 
 class DB {
