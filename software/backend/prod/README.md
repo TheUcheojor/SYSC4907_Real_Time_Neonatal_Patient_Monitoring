@@ -6,3 +6,10 @@
 4. run npm run tsc in backend/src
 4. systemctl enable ${template.service}
 5. systemctl start ${template.service}
+
+### TO DEPLOY DB IN EC2
+1. install mysql
+2. start mysql
+3. add users for connection
+
+**ensure all port are open for connection
