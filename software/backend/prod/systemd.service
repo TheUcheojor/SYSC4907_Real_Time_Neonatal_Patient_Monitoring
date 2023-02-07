@@ -10,7 +10,7 @@ StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=YourAppName
 User=ubuntu
-EnvironmentFile=/home/ubuntu/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/src/app.env
+EnvironmentFile=/home/ubuntu/app.env
 
 [Install]
 WantedBy=multi-user.target
