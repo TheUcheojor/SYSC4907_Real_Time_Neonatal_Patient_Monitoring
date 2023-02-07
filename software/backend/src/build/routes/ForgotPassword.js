@@ -17,10 +17,10 @@ forgotPasswordRouter.post("/forgotPassword", function (req, res) {
     res.send();
     var db = new DB();
     db.connect();
-    var con = db.con;
-    con().query("SELECT * FROM users WHERE email=?", [req.email], function (error, results, fields) {
+    var con = db.con();
+    con.query("SELECT * FROM users WHERE email=?", [req.email], function (error, results, fields) {
         if (error) {
-            return con().rollback(function () {
+            return con.rollback(function () {
                 logger.error(error);
             });
         }
@@ -61,10 +61,10 @@ forgotPasswordRouter.put("/forgotPassword", authenticateForgotPasswordToken, fun
     }
     var db = new DB();
     db.connect();
-    var con = db.con;
-    con().query("UPDATE users SET password=? WHERE user_id=?", [body.newPassword, req.user_id], function (error, results, fields) {
+    var con = db.con();
+    con.query("UPDATE users SET password=? WHERE user_id=?", [body.newPassword, req.user_id], function (error, results, fields) {
         if (error) {
-            return con().rollback(function () {
+            return con.rollback(function () {
                 logger.error(error);
             });
         }
@@ -78,7 +78,7 @@ forgotPasswordRouter.put("/forgotPassword", authenticateForgotPasswordToken, fun
         else {
             // multiple rows affected, rollback changes
             res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
-            return con().rollback(function () {
+            return con.rollback(function () {
                 logger.error(error);
             });
         }

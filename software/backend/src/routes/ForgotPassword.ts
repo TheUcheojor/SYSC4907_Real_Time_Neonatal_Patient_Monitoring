@@ -30,14 +30,14 @@ forgotPasswordRouter.post(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
-    con().query(
+    con.query(
       "SELECT * FROM users WHERE email=?",
       [req.email],
       function (error, results, fields) {
         if (error) {
-          return con().rollback(function () {
+          return con.rollback(function () {
             logger.error(error);
           });
         }
@@ -89,14 +89,14 @@ forgotPasswordRouter.put(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
-    con().query(
+    con.query(
       "UPDATE users SET password=? WHERE user_id=?",
       [body.newPassword, req.user_id],
       function (error, results, fields) {
         if (error) {
-          return con().rollback(function () {
+          return con.rollback(function () {
             logger.error(error);
           });
         }
@@ -108,7 +108,7 @@ forgotPasswordRouter.put(
         } else {
           // multiple rows affected, rollback changes
           res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
-          return con().rollback(function () {
+          return con.rollback(function () {
             logger.error(error);
           });
         }

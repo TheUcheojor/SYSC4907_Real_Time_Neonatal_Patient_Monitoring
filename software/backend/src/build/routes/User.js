@@ -15,10 +15,10 @@ userRouter.post("/user", function (req, res) {
     }
     var db = new DB();
     db.connect();
-    var con = db.con;
-    con().query("SELECT * FROM users WHERE email=?", [req.email], function (error, results, fields) {
+    var con = db.con();
+    con.query("SELECT * FROM users WHERE email=?", [req.email], function (error, results, fields) {
         if (error) {
-            return con().rollback(function () {
+            return con.rollback(function () {
                 logger.error(error);
             });
         }
@@ -26,9 +26,9 @@ userRouter.post("/user", function (req, res) {
             res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             return;
         }
-        con().query("INSERT INTO users (full_name, email, password, organization_id, organization_permission) VALUES (?, ?, ?, null, null)", [req.full_name, req.email, req.password], function (error, results, fields) {
+        con.query("INSERT INTO users (full_name, email, password, organization_id, organization_permission) VALUES (?, ?, ?, null, null)", [req.full_name, req.email, req.password], function (error, results, fields) {
             if (error) {
-                return con().rollback(function () {
+                return con.rollback(function () {
                     logger.error(error);
                 });
             }
@@ -47,10 +47,10 @@ userRouter.put("/user", authenticateSessionToken, function (req, res) {
     }
     var db = new DB();
     db.connect();
-    var con = db.con;
-    con().query("SELECT * FROM users WHERE user_id = ? AND password=?", [req.user_id, body.oldPassword], function (error, results, fields) {
+    var con = db.con();
+    con.query("SELECT * FROM users WHERE user_id = ? AND password=?", [req.user_id, body.oldPassword], function (error, results, fields) {
         if (error) {
-            return con().rollback(function () {
+            return con.rollback(function () {
                 logger.error(error);
             });
         }
@@ -58,9 +58,9 @@ userRouter.put("/user", authenticateSessionToken, function (req, res) {
             res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             return;
         }
-        con().query("UPDATE users SET password=? WHERE user_id=?", [body.newPassword, req.user_id], function (error, results, fields) {
+        con.query("UPDATE users SET password=? WHERE user_id=?", [body.newPassword, req.user_id], function (error, results, fields) {
             if (error) {
-                return con().rollback(function () {
+                return con.rollback(function () {
                     logger.error(error);
                 });
             }

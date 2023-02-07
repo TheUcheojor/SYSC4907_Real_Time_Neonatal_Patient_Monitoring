@@ -44,15 +44,15 @@ routesRouter.post(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
     //insert route into table
-    con().beginTransaction(function (err) {
+    con.beginTransaction(function (err) {
       if (err) {
         logger.error("BEGIN ROUTE TRANSACTION ERROR: " + err);
         return;
       }
-      con().query(
+      con.query(
         "INSERT INTO routes (owner_id, organization_id, patient_id, total_vibration, avg_temperature, avg_noise, avg_vibration, avg_velocity, avg_pressure, start_time_s, end_time_s) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
         [
           req.user_id,
@@ -69,7 +69,7 @@ routesRouter.post(
         ],
         function (error, routeResult, fields) {
           if (error) {
-            return con().rollback(function () {
+            return con.rollback(function () {
               logger.error("ROUTE INSERT ERROR: " + error);
             });
           }
@@ -80,12 +80,12 @@ routesRouter.post(
               routeResult.insertId
             );
 
-            con().query(
+            con.query(
               "INSERT INTO segments (route_id, segment_type, start_time_s, end_time_s) VALUES ?",
               [dbSegmentValues],
               function (error, segmentResult, fields) {
                 if (error) {
-                  return con().rollback(function () {
+                  return con.rollback(function () {
                     logger.error("SEG INSERT ERROR: " + error);
                   });
                 }
@@ -96,12 +96,12 @@ routesRouter.post(
                   segmentResult.insertId
                 );
 
-                con().query(
+                con.query(
                   "INSERT INTO route_measurement_data_points (route_id, segment_id, time_s, velocity_kmps, noise_db, vibration, temperature_celsius, pressure_pascals, annotation, latitude, longitude) VALUES ?",
                   [dbDatapointValues],
                   function (error, results, fields) {
                     if (error) {
-                      return con().rollback(function () {
+                      return con.rollback(function () {
                         logger.error("DP INSERT ERROR: " + error);
                       });
                     }
@@ -112,9 +112,9 @@ routesRouter.post(
           });
 
           // after inserting route + segments + datapoints, commit all changes at once
-          con().commit(function (err) {
+          con.commit(function (err) {
             if (err) {
-              return con().rollback(function () {
+              return con.rollback(function () {
                 logger.error(error);
               });
             }
@@ -137,23 +137,23 @@ routesRouter.get(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
-    con().query(
+    con.query(
       "SELECT * FROM routes WHERE owner_id=? LIMIT ?,?",
       [req.user_id, (page - 1) * limit, limit],
       function (error, results, fields) {
         if (error) {
-          return con().rollback(function () {
+          return con.rollback(function () {
             logger.error(error);
           });
         }
-        con().query(
+        con.query(
           "SELECT COUNT(*) FROM routes WHERE owner_id=?",
           [req.user_id],
           function (error, countResult, fields) {
             if (error) {
-              return con().rollback(function () {
+              return con.rollback(function () {
                 logger.error(error);
               });
             }

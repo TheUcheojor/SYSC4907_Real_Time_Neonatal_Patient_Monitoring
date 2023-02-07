@@ -13,10 +13,10 @@ loginRouter.post("/login", function (req, res) {
     }
     var db = new DB();
     db.connect();
-    var con = db.con;
-    con().query("SELECT * FROM users WHERE email=? AND password=?", [req.email, req.password], function (error, results, fields) {
+    var con = db.con();
+    con.query("SELECT * FROM users WHERE email=? AND password=?", [req.email, req.password], function (error, results, fields) {
         if (error) {
-            return con().rollback(function () {
+            return con.rollback(function () {
                 logger.error(error);
             });
         }
@@ -31,9 +31,9 @@ loginRouter.post("/login", function (req, res) {
             });
         }
         else if (results.length === 0) {
-            con().query("SELECT * FROM users WHERE email=?", [req.email, req.password], function (error, tmp, fields) {
+            con.query("SELECT * FROM users WHERE email=?", [req.email, req.password], function (error, tmp, fields) {
                 if (error) {
-                    return con().rollback(function () {
+                    return con.rollback(function () {
                         logger.error(error);
                     });
                 }

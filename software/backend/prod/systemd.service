@@ -1,0 +1,16 @@
+[Unit]
+Description=tca-backend
+After=multi-user.target
+
+[Service]
+ExecStart=/usr/bin/node /home/ubuntu/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/src/build/app.js
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=YourAppName
+User=ubuntu
+EnvironmentFile=/home/ubuntu/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/src/app.env
+
+[Install]
+WantedBy=multi-user.target
