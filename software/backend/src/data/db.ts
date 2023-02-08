@@ -28,10 +28,13 @@ class DB {
       return;
     }
 
-    // this.con.query("CREATE DATABASE tca_db", function (err, result) {
-    //   if (err) throw err;
-    //   console.log("Result: " + result);
-    // });
+    this._con.query(
+      "CREATE DATABASE IF NOT EXISTS tca_db",
+      function (err, result) {
+        if (err) throw err;
+        console.log("Result: " + result);
+      }
+    );
     this._con.query("DROP TABLE IF EXISTS routes");
     this._con.query("DROP TABLE IF EXISTS segments");
     this._con.query("DROP TABLE IF EXISTS route_measurement_data_points");
