@@ -11,9 +11,15 @@ import {
 } from "./../RouteInsertionLogic.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import RouteSegment from "./../models/RouteSegment.js";
+import { OkPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
+
+type IOverload = {
+  (param: number): number[];
+  (param: object): object[];
+};
 
 routesRouter.post(
   "/routes",
@@ -75,6 +81,7 @@ routesRouter.post(
           }
 
           segments.forEach((seg: RouteSegment) => {
+            routeResult = <OkPacket>routeResult;
             const dbSegmentValues = getSegmentInsertionValues(
               [seg],
               routeResult.insertId
@@ -84,11 +91,13 @@ routesRouter.post(
               "INSERT INTO segments (route_id, segment_type, start_time_s, end_time_s) VALUES ?",
               [dbSegmentValues],
               function (error, segmentResult, fields) {
+                routeResult = <OkPacket>routeResult;
                 if (error) {
                   return con.rollback(function () {
                     logger.error("SEG INSERT ERROR: " + error);
                   });
                 }
+                segmentResult = <OkPacket>segmentResult;
 
                 const dbDatapointValues = getDatapointInsertionValues(
                   seg.route_measurement_datapoints,

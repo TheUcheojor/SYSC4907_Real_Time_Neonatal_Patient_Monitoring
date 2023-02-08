@@ -15,6 +15,7 @@ routeMeasurementDataPointsRouter.get("/routeMeasurementDataPoints/:route_id", au
                 logger.error(error);
             });
         }
+        routeResults = routeResults;
         if (routeResults.length === 0) {
             res.status(HttpStatusEnum.NOT_FOUND).send();
             return;
@@ -29,6 +30,7 @@ routeMeasurementDataPointsRouter.get("/routeMeasurementDataPoints/:route_id", au
                     logger.error(error);
                 });
             }
+            results = results;
             if (results.length === 0) {
                 res.status(HttpStatusEnum.NOT_FOUND).send();
                 return;

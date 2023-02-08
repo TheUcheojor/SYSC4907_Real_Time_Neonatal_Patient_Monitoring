@@ -22,6 +22,7 @@ userRouter.post("/user", function (req, res) {
                 logger.error(error);
             });
         }
+        results = results;
         if (results.length > 0) {
             res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             return;
@@ -54,6 +55,7 @@ userRouter.put("/user", authenticateSessionToken, function (req, res) {
                 logger.error(error);
             });
         }
+        results = results;
         if (results.length === 0) {
             res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             return;

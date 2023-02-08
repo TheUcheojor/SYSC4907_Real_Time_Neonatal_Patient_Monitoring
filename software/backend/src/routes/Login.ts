@@ -4,6 +4,7 @@ import { LoginRequest } from "./../models/requests/AuthRequests.js";
 import Logger from "./../Logger.js";
 import { generateSessionToken } from "./../secret/sessionToken.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const loginRouter = Router();
@@ -28,6 +29,7 @@ loginRouter.post("/login", (req: LoginRequest, res: Response) => {
           logger.error(error);
         });
       }
+      results = <Array<RowDataPacket>>results;
 
       if (results.length === 1) {
         let user = results[0];

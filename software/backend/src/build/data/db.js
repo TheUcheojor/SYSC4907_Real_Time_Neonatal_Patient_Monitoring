@@ -1,4 +1,4 @@
-import mysql from "mysql";
+import mysql from "mysql2";
 import { DB_NAME } from "./../constants/DbConstants.js";
 var DB = /** @class */ (function () {
     function DB() {

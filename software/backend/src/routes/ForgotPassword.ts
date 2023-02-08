@@ -12,6 +12,7 @@ import {
 } from "./../secret/forgotPasswordToken.js";
 import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { OkPacket, RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const forgotPasswordRouter = Router();
@@ -41,6 +42,7 @@ forgotPasswordRouter.post(
             logger.error(error);
           });
         }
+        results = <Array<RowDataPacket>>results;
 
         if (results.length === 0) return;
         const user = results[0];
@@ -100,6 +102,9 @@ forgotPasswordRouter.put(
             logger.error(error);
           });
         }
+
+        results = <OkPacket>results;
+
         if (results.affectedRows === 1) {
           logger.info("reset password request success");
           res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();

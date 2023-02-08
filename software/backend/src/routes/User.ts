@@ -7,6 +7,7 @@ import {
 import Logger from "./../Logger.js";
 import { authenticateSessionToken } from "./../secret/sessionToken.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const userRouter = Router();
@@ -35,6 +36,8 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
           logger.error(error);
         });
       }
+      results = <Array<RowDataPacket>>results;
+
       if (results.length > 0) {
         res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         return;
@@ -82,6 +85,8 @@ userRouter.put(
             logger.error(error);
           });
         }
+        results = <Array<RowDataPacket>>results;
+
         if (results.length === 0) {
           res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           return;

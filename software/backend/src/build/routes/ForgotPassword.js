@@ -24,6 +24,7 @@ forgotPasswordRouter.post("/forgotPassword", function (req, res) {
                 logger.error(error);
             });
         }
+        results = results;
         if (results.length === 0)
             return;
         var user = results[0];
@@ -68,6 +69,7 @@ forgotPasswordRouter.put("/forgotPassword", authenticateForgotPasswordToken, fun
                 logger.error(error);
             });
         }
+        results = results;
         if (results.affectedRows === 1) {
             logger.info("reset password request success");
             res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();

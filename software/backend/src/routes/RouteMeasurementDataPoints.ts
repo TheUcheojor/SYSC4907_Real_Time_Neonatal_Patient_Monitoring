@@ -4,6 +4,7 @@ import { AuthenticatedRequest } from "./../models/requests/AuthRequests.js";
 import Logger from "./../Logger.js";
 import { authenticateSessionToken } from "./../secret/sessionToken.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const routeMeasurementDataPointsRouter = Router();
@@ -25,6 +26,8 @@ routeMeasurementDataPointsRouter.get(
             logger.error(error);
           });
         }
+        routeResults = <Array<RowDataPacket>>routeResults;
+
         if (routeResults.length === 0) {
           res.status(HttpStatusEnum.NOT_FOUND).send();
           return;
@@ -44,6 +47,7 @@ routeMeasurementDataPointsRouter.get(
                 logger.error(error);
               });
             }
+            results = <Array<RowDataPacket>>results;
 
             if (results.length === 0) {
               res.status(HttpStatusEnum.NOT_FOUND).send();

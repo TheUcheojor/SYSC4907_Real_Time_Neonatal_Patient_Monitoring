@@ -1,3 +1,5 @@
+import { QueryError } from "mysql2";
+
 export default class Logger {
   private static instance: Logger;
 
@@ -11,17 +13,17 @@ export default class Logger {
     return Logger.instance;
   }
 
-  info(msg: string) {
+  info(msg: string | QueryError) {
     const date = new Date();
     console.log(`[INFO] ${date.toJSON()}: ${msg}`);
   }
 
-  warning(msg: string) {
+  warning(msg: string| QueryError) {
     const date = new Date();
     console.log(`[WARN] ${date.toJSON()}: ${msg}`);
   }
 
-  error(msg: string) {
+  error(msg: string| QueryError) {
     const date = new Date();
     console.log(`[ERROR] ${date.toJSON()}: ${msg}`);
   }

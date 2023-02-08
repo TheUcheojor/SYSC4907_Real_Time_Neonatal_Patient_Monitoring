@@ -20,6 +20,7 @@ loginRouter.post("/login", function (req, res) {
                 logger.error(error);
             });
         }
+        results = results;
         if (results.length === 1) {
             var user = results[0];
             res

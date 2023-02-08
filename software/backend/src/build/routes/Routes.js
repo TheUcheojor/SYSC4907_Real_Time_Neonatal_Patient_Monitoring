@@ -44,13 +44,16 @@ routesRouter.post("/routes", authenticateSessionToken, function (req, res) {
                 });
             }
             segments.forEach(function (seg) {
+                routeResult = routeResult;
                 var dbSegmentValues = getSegmentInsertionValues([seg], routeResult.insertId);
                 con.query("INSERT INTO segments (route_id, segment_type, start_time_s, end_time_s) VALUES ?", [dbSegmentValues], function (error, segmentResult, fields) {
+                    routeResult = routeResult;
                     if (error) {
                         return con.rollback(function () {
                             logger.error("SEG INSERT ERROR: " + error);
                         });
                     }
+                    segmentResult = segmentResult;
                     var dbDatapointValues = getDatapointInsertionValues(seg.route_measurement_datapoints, routeResult.insertId, segmentResult.insertId);
                     con.query("INSERT INTO route_measurement_data_points (route_id, segment_id, time_s, velocity_kmps, noise_db, vibration, temperature_celsius, pressure_pascals, annotation, latitude, longitude) VALUES ?", [dbDatapointValues], function (error, results, fields) {
                         if (error) {

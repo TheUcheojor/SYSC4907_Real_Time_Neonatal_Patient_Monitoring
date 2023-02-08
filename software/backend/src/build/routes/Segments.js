@@ -15,6 +15,7 @@ segmentsRouter.get("/segments/:route_id", authenticateSessionToken, function (re
                 logger.error(error);
             });
         }
+        routeResults = routeResults;
         if (routeResults.length === 0) {
             res.status(HttpStatusEnum.NOT_FOUND).send();
             return;
@@ -23,17 +24,18 @@ segmentsRouter.get("/segments/:route_id", authenticateSessionToken, function (re
             res.status(HttpStatusEnum.UNAUTHORIZED).send();
             return;
         }
-        con.query("SELECT * FROM segments WHERE route_id=?", [req.params.route_id], function (error, results, fields) {
+        con.query("SELECT * FROM segments WHERE route_id=?", [req.params.route_id], function (error, segmentResults, fields) {
             if (error) {
                 return con.rollback(function () {
                     logger.error(error);
                 });
             }
-            if (results.length === 0) {
+            segmentResults = segmentResults;
+            if (segmentResults.length === 0) {
                 res.status(HttpStatusEnum.NOT_FOUND).send();
                 return;
             }
-            res.send(results);
+            res.send(segmentResults);
         });
     });
 });
