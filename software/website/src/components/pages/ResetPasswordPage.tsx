@@ -23,16 +23,19 @@ function ResetPasswordPage({ onReset }: resetPasswordProps) {
 
   function handleResetPassword() {
     setIsFetching(true);
-    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/forgotPassword`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${resetCode}`,
-      },
-      body: JSON.stringify({
-        newPassword: newPassword.current,
-      }),
-    }).then((res) => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/forgotPassword`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${resetCode}`,
+        },
+        body: JSON.stringify({
+          newPassword: newPassword.current,
+        }),
+      }
+    ).then((res) => {
       if (res.status === HttpStatusEnum.OK) {
         onReset();
       } else if (res.status === HttpStatusEnum.CONFLICT) {

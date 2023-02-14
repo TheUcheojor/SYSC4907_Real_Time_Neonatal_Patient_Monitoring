@@ -18,15 +18,18 @@ function SignUpModalContent() {
   function handleSignUp() {
     setIsFetching(true);
     setIsEnabled(false);
-    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/user`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email.current,
-        password: password,
-        full_name: fullName,
-      }),
-    }).then((res) => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/user`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.current,
+          password: password,
+          full_name: fullName,
+        }),
+      }
+    ).then((res) => {
       if (res.status === HttpStatusEnum.OK) {
         setSignUpResult("Sign up success!");
         setIsSuccess(true);

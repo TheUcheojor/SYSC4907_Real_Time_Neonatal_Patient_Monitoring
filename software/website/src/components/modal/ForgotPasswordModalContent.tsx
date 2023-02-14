@@ -15,15 +15,18 @@ function ForgotPasswordModalContent() {
   function handleSubmit() {
     setIsFetching(true);
     setIsSubmitEnabled(false);
-    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/forgotPassword`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email.current,
-      }),
-    }).then((res) => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/forgotPassword`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email.current,
+        }),
+      }
+    ).then((res) => {
       if (res.status === HttpStatusEnum.OK) {
         setIsSuccess(true);
         setRequestResetResult(

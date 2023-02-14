@@ -38,17 +38,20 @@ function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
 
   function handleChangePassword() {
     setIsFetching(true);
-    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/user`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        ...getFetchHeaderWithAuth(),
-      },
-      body: JSON.stringify({
-        newPassword: newPassword.current,
-        oldPassword: oldPassword.current,
-      }),
-    }).then((res) => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/user`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          ...getFetchHeaderWithAuth(),
+        },
+        body: JSON.stringify({
+          newPassword: newPassword.current,
+          oldPassword: oldPassword.current,
+        }),
+      }
+    ).then((res) => {
       if (res.status === HttpStatusEnum.OK) {
         setChangePasswordResult("Password succesfully changed");
         setIsSuccess(true);
