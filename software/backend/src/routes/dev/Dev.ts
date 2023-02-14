@@ -1,22 +1,18 @@
-import DB from "data/db";
+import DB from "./../../data/db.js";
 import Router from "express";
-import { generateRandomDatapoints } from "data/mock/mock";
 import {
-  coordsCarletonCampus,
-  coordsCivicToGeneral,
-  coordsCivicToHull,
-  coordsOttToTo,
-} from "data/mock/coords";
-
+  generateRoadAerialTrip,
+} from "./../../data/mock/mock.js";
 const devRouter = Router();
 
 devRouter.get("/mock", (req, res) => {
-  res.send({
-    coordsCarletonCampus: generateRandomDatapoints(coordsCarletonCampus),
-    coordsCivicToGeneral: generateRandomDatapoints(coordsCivicToGeneral),
-    coordsCivicToHull: generateRandomDatapoints(coordsCivicToHull),
-    coordsOttToTo: generateRandomDatapoints(coordsOttToTo),
-  });
+  res.send(generateRoadAerialTrip(100));
+  // res.send({
+  //   coordsCarletonCampus: generateRandomDatapoints(coordsCarletonCampus),
+  //   coordsCivicToGeneral: generateRandomDatapoints(coordsCivicToGeneral),
+  //   coordsCivicToHull: generateRandomDatapoints(coordsCivicToHull),
+  //   coordsOttToTo: generateRandomDatapoints(coordsOttToTo),
+  // });
 });
 
 devRouter.get("/initDb", (req, res) => {

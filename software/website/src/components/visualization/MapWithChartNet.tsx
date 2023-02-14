@@ -21,7 +21,7 @@ function MapWithChartNet({ onLogout, routeId, measurand, style }: mwcNetProps) {
   useEffect(() => {
     setDatapoints(undefined);
     fetch(
-      `http://${SERVER_HOST}:${SERVER_PORT}/routeMeasurementDataPoints/${routeId}`,
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routeMeasurementDataPoints/${routeId}`,
       {
         headers: getFetchHeaderWithAuth(),
       }

@@ -1,9 +1,10 @@
-import DB from "data/db";
+import DB from "./../data/db.js";
 import Router, { Response } from "express";
-import { LoginRequest } from "models/requests/AuthRequests";
-import Logger from "Logger";
-import { generateSessionToken } from "secret/sessionToken";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+import { LoginRequest } from "./../models/requests/AuthRequests.js";
+import Logger from "./../Logger.js";
+import { generateSessionToken } from "./../secret/sessionToken.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const loginRouter = Router();
@@ -17,7 +18,7 @@ loginRouter.post("/login", (req: LoginRequest, res: Response) => {
 
   let db = new DB();
   db.connect();
-  let con = db.con;
+  let con = db.con();
 
   con.query(
     "SELECT * FROM users WHERE email=? AND password=?",
@@ -28,6 +29,7 @@ loginRouter.post("/login", (req: LoginRequest, res: Response) => {
           logger.error(error);
         });
       }
+      results = <Array<RowDataPacket>>results;
 
       if (results.length === 1) {
         let user = results[0];

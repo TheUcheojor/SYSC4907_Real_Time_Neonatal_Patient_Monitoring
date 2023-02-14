@@ -28,7 +28,7 @@ function MapWithChart({ datapoints, measurand, style }: mwcProps) {
         lat: data.activePayload[0].payload[DatapointFieldEnum.latitude],
         lng: data.activePayload[0].payload[DatapointFieldEnum.longitude],
       });
-      map.current.setZoom(20);
+      map.current.setZoom(15);
     }
   };
 

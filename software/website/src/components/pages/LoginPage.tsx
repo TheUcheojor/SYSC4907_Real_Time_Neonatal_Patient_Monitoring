@@ -40,14 +40,17 @@ function LoginPage({
   function handleLogin() {
     setFetching(true);
     let _token;
-    fetch(`http://${SERVER_HOST}:${SERVER_PORT}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email: email.current,
-        password: password.current,
-      }),
-    })
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.current,
+          password: password.current,
+        }),
+      }
+    )
       .then((res) => {
         if (res.status === HttpStatusEnum.OK) {
           _token = res.headers.get("Authorization").split(" ")[1];
