@@ -1,2 +1,0 @@
-export var DEFAULT_FORGOT_PASSWORD_TOKEN_TIME = "1h";
-export var DEFAULT_SESSION_TOKEN_TIME = "1h";
