@@ -4,11 +4,22 @@
  * Purpose: exports constants related to trip metrics
  */
 
-import { Montserrat_600SemiBold } from "@expo-google-fonts/montserrat";
 import { ImageSourcePropType } from "react-native";
 import MaskInput, { createNumberMask, Mask } from "react-native-mask-input";
-import { NumericMetricMeasurementPacketKey } from "../services/models/sensor-package-communication/MeasurementPacket";
+import {
+  NumericMetricMeasurementPacketKey,
+  StatisticsMeasurementPacketKey,
+} from "../services/models/sensor-package-communication/MeasurementPacket";
 
+/**
+ * Prefixes
+ */
+export const AVERAGE_LABEL_PREFIX = "Average ";
+export const AVERAGE_KEY_PREFIX = "avg_";
+
+/**
+ * Vibration Constants
+ */
 export const VIBRATION_METRIC_TITLE: string = "Vibration";
 // export const VIBRATION_METRIC_KEY: string = "vibration";
 export const VIBRATION_GRAPH_COLOUR: string = "#0E9CFF";
@@ -17,6 +28,9 @@ export const VIBRATION_UNITS: string = "m/s²";
 export const VIBRATION_LOW_MEDIUM_THRESHOLD: number = 60;
 export const VIBRATION_MEDIUM_HIGH_THRESHOLD: number = 120;
 
+/**
+ * Noise Constants
+ */
 export const NOISE_METRIC_TITLE: string = "Noise";
 // export const NOISE_METRIC_KEY: string = "noise";
 export const NOISE_GRAPH_COLOUR: string = "#59D9F5";
@@ -25,6 +39,9 @@ export const NOISE_UNITS: string = "dB";
 export const NOISE_LOW_MEDIUM_THRESHOLD: number = 60;
 export const NOISE_MEDIUM_HIGH_THRESHOLD: number = 120;
 
+/**
+ * Temperature Constants
+ */
 export const TEMPERATURE_METRIC_TITLE: string = "Temperature";
 // export const TEMPERATURE_METRIC_KEY: string = "temperature";
 export const TEMPERATURE_GRAPH_COLOUR: string = "#9B9E0A";
@@ -33,6 +50,9 @@ export const TEMPERATURE_UNITS: string = "C";
 export const TEMPERATURE_LOW_MEDIUM_THRESHOLD: number = 60;
 export const TEMPERATURE_MEDIUM_HIGH_THRESHOLD: number = 120;
 
+/**
+ * Velocity Constants
+ */
 export const VELOCITY_METRIC_TITLE: string = "Speed";
 // export const VELOCITY_METRIC_KEY: string = "velocity";
 export const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
@@ -41,10 +61,8 @@ export const VELOCITY_UNITS: string = "km/hr";
 export const VELOCITY_LOW_MEDIUM_THRESHOLD: number = 60;
 export const VELOCITY_MEDIUM_HIGH_THRESHOLD: number = 120;
 
-// export const START_DATE_KEY: string = "startDate";
+// Date Contstants
 export const START_DATE_LABEL: string = "Start Date";
-
-// export const END_DATE_KEY: string = "endDate";
 export const END_DATE_LABEL: string = "End Date";
 
 export enum MetricKey {
@@ -108,27 +126,27 @@ export const getMetricThreshold = (
  * @param metricKey the metric key
  * @returns
  */
-export const getUnits = (
-  metricKey: NumericMetricMeasurementPacketKey
-): string => {
+export const getUnits = (metricKey: StatisticsMeasurementPacketKey): string => {
   switch (metricKey) {
-    case MetricKey.NOISE_METRIC_KEY:
+    case "avg_noise":
       return NOISE_UNITS;
 
-    case MetricKey.VIBRATION_METRIC_KEY:
+    case "avg_vibration":
       return VIBRATION_UNITS;
 
-    case MetricKey.TEMPERATURE_METRIC_KEY:
+    case "avg_temperature":
       return TEMPERATURE_UNITS;
 
-    case MetricKey.VELOCITY_METRIC_KEY:
+    case "avg_velocity":
       return VELOCITY_UNITS;
   }
 
   return "";
 };
 
-export const getMetricMask = (metricKey: MetricKey): Mask => {
+export const getMetricMask = (
+  metricKey: StatisticsMeasurementPacketKey
+): Mask => {
   return createNumberMask({
     prefix: [getUnits(metricKey), " "],
     delimiter: ",",
