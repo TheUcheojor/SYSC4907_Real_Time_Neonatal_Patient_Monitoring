@@ -177,4 +177,64 @@ routesRouter.get(
   }
 );
 
+routesRouter.get(
+  "/routes/search",
+  authenticateSessionToken,
+  (req: AuthenticatedRequest, res: Response) => {
+    // Return bad request status if required query params are missing
+    if (
+      !req.query.route_metric_key ||
+      !req.query.comparison_operator ||
+      !req.query.threshold
+    ) {
+      return res.status(HttpStatusEnum.BAD_REQUEST).send();
+    }
+
+    let page = parseInt(req.query.page as undefined as string) || 1;
+    let limit = parseInt(req.query.limit as undefined as string) || 3;
+
+    let route_metric_key: string = req.query.route_metric_key as string;
+    let comparison_operator: string = req.query.comparison_operator as string;
+    let threshold: string = req.query.threshold as string;
+
+    let db = new DB();
+    db.connect();
+    let con = db.con();
+
+    console.log(
+      `SELECT * FROM routes WHERE owner_id=? ${
+        route_metric_key + comparison_operator
+      }? LIMIT ?,?`
+    );
+    con.query(
+      `SELECT * FROM routes WHERE owner_id=? AND ${
+        route_metric_key + comparison_operator
+      }? LIMIT ?,?`,
+      [req.user_id, threshold, (page - 1) * limit, limit],
+      function (error, results, fields) {
+        if (error) {
+          return con.rollback(function () {
+            logger.error(error);
+          });
+        }
+        con.query(
+          "SELECT COUNT(*) FROM routes WHERE owner_id=?",
+          [req.user_id],
+          function (error, countResult, fields) {
+            if (error) {
+              return con.rollback(function () {
+                logger.error(error);
+              });
+            }
+            res.send({
+              routes: results,
+              totalRoutes: countResult[0][COUNT_KEY],
+            });
+          }
+        );
+      }
+    );
+  }
+);
+
 export default routesRouter;
