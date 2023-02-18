@@ -63,15 +63,6 @@ export const VELOCITY_MEDIUM_HIGH_THRESHOLD: number = 120;
 export const START_DATE_LABEL: string = "Start Date";
 export const END_DATE_LABEL: string = "End Date";
 
-export enum ServerMetricKey {
-  VIBRATION_METRIC_KEY = "avg_vibration",
-  NOISE_METRIC_KEY = "avg_noise",
-  TEMPERATURE_METRIC_KEY = "avg_temperature",
-  VELOCITY_METRIC_KEY = "avg_velocity",
-  END_DATE_KEY = "avg_endDate",
-  START_DATE_KEY = "avg_startDate",
-}
-
 /**
  * Metric Threshold
  */

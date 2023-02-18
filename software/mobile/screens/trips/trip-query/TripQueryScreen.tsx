@@ -6,8 +6,8 @@
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { FlashList } from "@shopify/flash-list";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { View, Text, Pressable } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import MaskInput, { Masks, Mask } from "react-native-mask-input";
 import styles from "./styles";
@@ -16,10 +16,6 @@ import TripItem from "../../../components/TripItem";
 import * as comparsionConstants from "../../../constants/comparsion-constants";
 import * as metricConstants from "../../../constants/metric-constants";
 import * as viewConstants from "./view-constants";
-import {
-  NumericMetricMeasurementPacketKey,
-  StatisticsMeasurementPacketKey,
-} from "../../../services/models/sensor-package-communication/MeasurementPacket";
 import ServerTripRoute from "../../../services/models/server-communication/ServerTripRoute";
 import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
 import { generateRandomServerTripRoute } from "../../../utils/RandomUtil";
@@ -36,7 +32,7 @@ export default (): JSX.Element => {
   const [propertyDropDownOpen, setPropertyDropDownOpen] =
     useState<boolean>(false);
   const [selectedTripProperty, setSelectedTripProperty] = useState<string>(
-    metricConstants.ServerMetricKey.END_DATE_KEY
+    viewConstants.ServerMetricKey.END_DATE_KEY
   );
   const [tripPropertyItems, setTripPropertyItems] = useState<
     viewConstants.DropdownItem[]
@@ -84,13 +80,13 @@ export default (): JSX.Element => {
 
       case viewConstants.ItemTypeKey.Number:
         const mask: Mask = metricConstants.getMetricMask(
-          selectedTripPropertyItem.value as StatisticsMeasurementPacketKey
+          selectedTripPropertyItem.value as viewConstants.StatisticsMeasurementPacketKey
         );
         setMaskRegex([mask]);
         setPlaceHolderFormat(
           viewConstants.ENTER_NUMBER_PLACEHOLDER +
             metricConstants.getUnits(
-              selectedTripPropertyItem.value as StatisticsMeasurementPacketKey
+              selectedTripPropertyItem.value as viewConstants.StatisticsMeasurementPacketKey
             )
         );
         break;
@@ -107,13 +103,14 @@ export default (): JSX.Element => {
     if (!textInputValue) return;
     console.log("hello");
 
-    let threshold: string;
+    let threshold: string | number;
 
     if (viewConstants.allowedStatistics.includes(selectedTripProperty)) {
       let textCollection: string[] = textInputValue.split(" ");
       threshold = textCollection[textCollection.length - 1];
     } else {
-      threshold = textInputValue;
+      //Convert to int
+      threshold = Date.parse(textInputValue);
     }
 
     console.log(selectedTripProperty, selectedComparsionOperator, threshold);
