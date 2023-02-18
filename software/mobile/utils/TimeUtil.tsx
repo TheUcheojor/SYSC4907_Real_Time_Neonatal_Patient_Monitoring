@@ -78,7 +78,7 @@ const formatTimeComponent = (timeComponent: number): string => {
  * @param unixTimestamp the unix timestamp
  * @returns the formatted date
  */
-export const convertUnixTimestampToUTCTime = (unixTimestamp: number) => {
+export const formatUnixTimestamp = (unixTimestamp: number): string => {
   var unformattedDate = new Date(unixTimestamp);
   return moment(unformattedDate).format(DATABASE_FULL_DATE_FORMAT);
 };

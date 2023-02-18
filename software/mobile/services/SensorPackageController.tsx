@@ -19,7 +19,7 @@ import {
 } from "react-native-permissions";
 
 import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
-import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
+import { formatUnixTimestamp } from "../utils/TimeUtil";
 import {
   BaseRequest,
   BaseRequestInterface,
@@ -296,7 +296,7 @@ export default class SensorPackageController {
           );
 
           // //Covert the unix time stamp
-          measurementPacket.time = convertUnixTimestampToUTCTime(
+          measurementPacket.time = formatUnixTimestamp(
             parseInt(measurementPacket.time as string)
           );
 

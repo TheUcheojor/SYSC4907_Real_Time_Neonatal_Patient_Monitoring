@@ -7,7 +7,7 @@
 import RouteLocation from "../services/models/common/Location";
 import MeasurementPacket from "../services/models/sensor-package-communication/MeasurementPacket";
 import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
-import { convertUnixTimestampToUTCTime } from "./TimeUtil";
+import { formatUnixTimestamp } from "./TimeUtil";
 
 /**
  * Get a random number between the min and max values
@@ -33,7 +33,7 @@ export const generateRandomMeasurementPacket = (
     airPressure: getRandomInt(20, 170),
     velocity: getRandomInt(20, 170),
     battery: getRandomInt(20, 170),
-    time: convertUnixTimestampToUTCTime(Date.now()),
+    time: formatUnixTimestamp(Date.now()),
     location: location,
   } as MeasurementPacket;
 };
@@ -44,18 +44,17 @@ export const generateRandomMeasurementPacket = (
  */
 export const generateRandomServerTripRoute = (): ServerTripRoute => {
   return {
-    routeId: 2,
-    patientId: "john",
-    startTime: convertUnixTimestampToUTCTime(Date.now()),
-    endTime: convertUnixTimestampToUTCTime(Date.now()),
-
-    ownerId: "",
+    route_id: 2,
+    patient_id: "john",
     organizationId: "",
-    totalVibrationExposure: getRandomInt(1, 100),
-    avgTemperature: getRandomInt(1, 100),
-    avgNoise: getRandomInt(1, 100),
-    avgPressure: getRandomInt(1, 100),
-    avgVibration: getRandomInt(1, 100),
-    avgVelocity: getRandomInt(1, 100),
+    total_vibration: getRandomInt(1, 100),
+    avg_temperature: getRandomInt(1, 100),
+    avg_noise: getRandomInt(1, 100),
+    avg_pressure: getRandomInt(1, 100),
+    avg_vibration: getRandomInt(1, 100),
+    avg_velocity: getRandomInt(1, 100),
+    start_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
+    end_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
+    modelType: "server",
   };
 };
