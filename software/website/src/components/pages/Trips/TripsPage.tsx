@@ -47,7 +47,7 @@ function TripsPage({ onLogout }: TripsProps) {
 
   useEffect(() => {
     fetch(
-      `http://${SERVER_HOST}:${SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
       {
         headers: getFetchHeaderWithAuth(),
       }

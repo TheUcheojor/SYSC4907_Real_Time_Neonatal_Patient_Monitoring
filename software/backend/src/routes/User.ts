@@ -1,12 +1,13 @@
-import DB from "data/db";
+import DB from "./../data/db.js";
 import Router, { Response } from "express";
 import {
   ChangePasswordRequest,
   SignUpRequest,
-} from "models/requests/AuthRequests";
-import Logger from "Logger";
-import { authenticateSessionToken } from "secret/sessionToken";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+} from "./../models/requests/AuthRequests.js";
+import Logger from "./../Logger.js";
+import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const userRouter = Router();
@@ -24,7 +25,7 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
 
   let db = new DB();
   db.connect();
-  let con = db.con;
+  let con = db.con();
 
   con.query(
     "SELECT * FROM users WHERE email=?",
@@ -35,6 +36,8 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
           logger.error(error);
         });
       }
+      results = <Array<RowDataPacket>>results;
+
       if (results.length > 0) {
         res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         return;
@@ -71,7 +74,7 @@ userRouter.put(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
     con.query(
       "SELECT * FROM users WHERE user_id = ? AND password=?",
@@ -82,6 +85,8 @@ userRouter.put(
             logger.error(error);
           });
         }
+        results = <Array<RowDataPacket>>results;
+
         if (results.length === 0) {
           res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           return;

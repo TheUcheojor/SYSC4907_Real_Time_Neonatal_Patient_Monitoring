@@ -1,8 +1,8 @@
-import jsonwebtoken, { TokenExpiredError } from "jsonwebtoken";
+import jsonwebtoken  from "jsonwebtoken";
 import dotenv from "dotenv";
-import Logger from "Logger";
-import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "constants/AuthConstants";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+import Logger from "./../Logger.js";
+import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 
 const logger = Logger.getInstance();
 
@@ -29,7 +29,7 @@ export function authenticateForgotPasswordToken(req, res, next) {
     process.env.RESET_PASSWORD_TOKEN_SECRET as string,
     (err: any, decodedToken: any) => {
       if (err) {
-        if (err instanceof TokenExpiredError) {
+        if (err instanceof jsonwebtoken.TokenExpiredError) {
           return res.sendStatus(HttpStatusEnum.UNAUTHORIZED);
         }
 

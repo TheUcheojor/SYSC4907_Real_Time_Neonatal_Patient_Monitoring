@@ -1,9 +1,10 @@
-import DB from "data/db";
+import DB from "./../data/db.js";
 import Router from "express";
-import { AuthenticatedRequest } from "models/requests/AuthRequests";
-import Logger from "Logger";
-import { authenticateSessionToken } from "secret/sessionToken";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
+import { AuthenticatedRequest } from "./../models/requests/AuthRequests.js";
+import Logger from "./../Logger.js";
+import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import { RowDataPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const segmentsRouter = Router();
@@ -14,7 +15,7 @@ segmentsRouter.get(
   (req: AuthenticatedRequest, res) => {
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
     con.query(
       "SELECT * FROM routes WHERE route_id=?",
@@ -25,6 +26,8 @@ segmentsRouter.get(
             logger.error(error);
           });
         }
+        routeResults = <Array<RowDataPacket>>routeResults;
+
         if (routeResults.length === 0) {
           res.status(HttpStatusEnum.NOT_FOUND).send();
           return;
@@ -38,19 +41,20 @@ segmentsRouter.get(
         con.query(
           "SELECT * FROM segments WHERE route_id=?",
           [req.params.route_id],
-          function (error, results, fields) {
+          function (error, segmentResults, fields) {
             if (error) {
               return con.rollback(function () {
                 logger.error(error);
               });
             }
+            segmentResults = <Array<RowDataPacket>>segmentResults;
 
-            if (results.length === 0) {
+            if (segmentResults.length === 0) {
               res.status(HttpStatusEnum.NOT_FOUND).send();
               return;
             }
 
-            res.send(results);
+            res.send(segmentResults);
           }
         );
       }

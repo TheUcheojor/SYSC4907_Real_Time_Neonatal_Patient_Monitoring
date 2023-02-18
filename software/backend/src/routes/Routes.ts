@@ -1,19 +1,25 @@
-import DB from "data/db";
+import DB from "./../data/db.js";
 import Router, { Response } from "express";
-import Logger from "Logger";
-import { authenticateSessionToken } from "secret/sessionToken";
-import { PostRouteRequest } from "models/requests/PostRouteRequest";
-import { AuthenticatedRequest } from "models/requests/AuthRequests";
+import Logger from "./../Logger.js";
+import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { PostRouteRequest } from "./../models/requests/PostRouteRequest.js";
+import { AuthenticatedRequest } from "./../models/requests/AuthRequests.js";
 import {
   getDatapointInsertionValues,
   getRouteStats,
   getSegmentInsertionValues,
-} from "RouteInsertionLogic";
-import { HttpStatusEnum } from "constants/HttpStatusEnum";
-import RouteSegment from "models/RouteSegment";
+} from "./../RouteInsertionLogic.js";
+import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
+import RouteSegment from "./../models/RouteSegment.js";
+import { OkPacket } from "mysql2";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
+
+type IOverload = {
+  (param: number): number[];
+  (param: object): object[];
+};
 
 routesRouter.post(
   "/routes",
@@ -44,7 +50,7 @@ routesRouter.post(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
     //insert route into table
     con.beginTransaction(function (err) {
@@ -75,6 +81,7 @@ routesRouter.post(
           }
 
           segments.forEach((seg: RouteSegment) => {
+            routeResult = <OkPacket>routeResult;
             const dbSegmentValues = getSegmentInsertionValues(
               [seg],
               routeResult.insertId
@@ -84,11 +91,13 @@ routesRouter.post(
               "INSERT INTO segments (route_id, segment_type, start_time_s, end_time_s) VALUES ?",
               [dbSegmentValues],
               function (error, segmentResult, fields) {
+                routeResult = <OkPacket>routeResult;
                 if (error) {
                   return con.rollback(function () {
                     logger.error("SEG INSERT ERROR: " + error);
                   });
                 }
+                segmentResult = <OkPacket>segmentResult;
 
                 const dbDatapointValues = getDatapointInsertionValues(
                   seg.route_measurement_datapoints,
@@ -137,7 +146,7 @@ routesRouter.get(
 
     let db = new DB();
     db.connect();
-    let con = db.con;
+    let con = db.con();
 
     con.query(
       "SELECT * FROM routes WHERE owner_id=? LIMIT ?,?",

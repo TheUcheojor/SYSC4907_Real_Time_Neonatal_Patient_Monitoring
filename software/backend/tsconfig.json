@@ -2,7 +2,13 @@
   "compilerOptions": {
     "baseUrl": "src",
     "esModuleInterop": true,
-    "lib": ["es2019"]
+    "module": "ES2015",
+    "moduleResolution": "Node"
   },
-  "include": ["src"]
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "src/tests"]
 }

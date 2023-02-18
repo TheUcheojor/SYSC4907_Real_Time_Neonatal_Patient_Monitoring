@@ -43,9 +43,9 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
       fetch(
-        `http://${SERVER_HOST}:${SERVER_PORT}/routeMeasurementDataPoints/${
-          route[RouteFieldEnum.route_id]
-        }`,
+        `http://${process.env.SERVER_HOST}:${
+          process.env.SERVER_PORT
+        }/routeMeasurementDataPoints/${route[RouteFieldEnum.route_id]}`,
         {
           headers: getFetchHeaderWithAuth(),
         }
@@ -146,8 +146,8 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                   style={statLabelStyles}
                 />
                 <LabeledText
-                  label={"Average velocity"}
-                  text={`${route.avg_temperature}`}
+                  label={"Average speed"}
+                  text={`${route.avg_velocity}`}
                   unit={MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}
                   style={statLabelStyles}
                 />
@@ -203,7 +203,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 style={mapStyles}
               />
             )}
-            <p style={chartLabelStyles}>Velocity</p>
+            <p style={chartLabelStyles}>Speed</p>
             <Chart
               data={_data[i]}
               measurand={DatapointFieldEnum.velocity_kmps}

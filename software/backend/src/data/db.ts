@@ -1,10 +1,5 @@
-import mysql, { Connection } from "mysql";
-import {
-  DB_HOST,
-  DB_NAME,
-  DB_PASSWORD,
-  DB_USER,
-} from "../constants/dbConstants";
+import mysql, { Connection } from "mysql2";
+import { DB_NAME } from "./../constants/DbConstants.js";
 
 class DB {
   dbName: string;
@@ -12,18 +7,18 @@ class DB {
   _con: Connection;
 
   connect() {
-    if (!this.con) {
+    if (!this._con) {
       this._con = mysql.createConnection({
-        host: DB_HOST,
-        user: DB_USER,
-        password: DB_PASSWORD,
+        host: process.env.MYSQL_HOST,
+        user: process.env.MYSQL_USER,
+        password: process.env.MYSQL_PASSWORD,
         database: DB_NAME,
       });
       console.log("connected");
     }
   }
 
-  get con() {
+  con() {
     return this._con;
   }
 
@@ -33,10 +28,13 @@ class DB {
       return;
     }
 
-    // this.con.query("CREATE DATABASE tca_db", function (err, result) {
-    //   if (err) throw err;
-    //   console.log("Result: " + result);
-    // });
+    this._con.query(
+      "CREATE DATABASE IF NOT EXISTS tca_db",
+      function (err, result) {
+        if (err) throw err;
+        console.log("Result: " + result);
+      }
+    );
     this._con.query("DROP TABLE IF EXISTS routes");
     this._con.query("DROP TABLE IF EXISTS segments");
     this._con.query("DROP TABLE IF EXISTS route_measurement_data_points");
@@ -55,7 +53,7 @@ class DB {
     );
     this._con.query(
       "INSERT INTO users (full_name, email, password) VALUES (?,?,?)",
-      ["root", "root", "rootroot"]
+      ["root", "root@root.ca", "rootroot"]
     );
     console.log("db initialized");
   }
