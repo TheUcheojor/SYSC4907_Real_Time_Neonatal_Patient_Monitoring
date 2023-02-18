@@ -5,21 +5,21 @@
  */
 
 import { RouteSegmentType } from "../services/models/trips/RouteSegment";
-import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
+import { formatUnixTimestamp } from "../utils/TimeUtil";
 
 export default [
   {
     segmentId: 1,
     routeId: 1,
     segmentType: RouteSegmentType.GROUND,
-    startTime: convertUnixTimestampToUTCTime(1674507521),
-    endTime: convertUnixTimestampToUTCTime(1674508829),
+    startTime: formatUnixTimestamp(1674507521),
+    endTime: formatUnixTimestamp(1674508829),
   },
   {
     segmentId: 2,
     routeId: 1,
     segmentType: RouteSegmentType.AERIAL,
-    startTime: convertUnixTimestampToUTCTime(1674508829),
-    endTime: convertUnixTimestampToUTCTime(1674509129),
+    startTime: formatUnixTimestamp(1674508829),
+    endTime: formatUnixTimestamp(1674509129),
   },
 ];
