@@ -20,8 +20,8 @@ import { SharedScreenResources } from "../types";
 export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
   const metricLevel: React.MutableRefObject<number> = useRef<number>(0);
 
-  const VIBRATION: "vibration" = "vibration";
-  const metricThreshold: MetricThreshold = getMetricThreshold(VIBRATION);
+  const VIBRATION_KEY: "vibration" = "vibration";
+  const metricThreshold: MetricThreshold = getMetricThreshold(VIBRATION_KEY);
 
   /**
    *  The following constants are not used now but down the line, they can provide users functionality
