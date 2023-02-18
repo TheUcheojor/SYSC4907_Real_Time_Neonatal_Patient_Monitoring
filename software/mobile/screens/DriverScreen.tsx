@@ -10,7 +10,6 @@ import Gauge from "../components/gauge/Gauge";
 import {
   getMetricThreshold,
   MetricThreshold,
-  METRIC_THRESHOLD_MAP,
   VIBRATION_UNITS,
 } from "../constants/metric-constants";
 import { SharedScreenResources } from "../types";
