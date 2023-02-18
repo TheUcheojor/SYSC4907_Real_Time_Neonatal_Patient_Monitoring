@@ -5,12 +5,18 @@
  */
 
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import TripRoute from "../services/models/trips/Route";
-import { getTripDate, getTripTimeString } from "../utils/TimeUtil";
+import TripRoute, { isMobileTripRoute } from "../services/models/trips/Route";
+import {
+  formatUnixTimestamp,
+  getTripDate,
+  getTripTimeString,
+} from "../utils/TimeUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { MainStackParamList } from "../types";
-import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
+import ServerTripRoute, {
+  isServerTripRoute,
+} from "../services/models/server-communication/ServerTripRoute";
 
 interface TripItemParams {
   tripRoute: TripRoute | ServerTripRoute;
@@ -19,6 +25,28 @@ interface TripItemParams {
 
 export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
   const navigation: NavigationProp<MainStackParamList> = useNavigation();
+  // console.log(tripRoute);
+  let date: string, time: string;
+  let routedId: number;
+  let patientId: string;
+
+  if (isMobileTripRoute(tripRoute)) {
+    date = getTripDate(tripRoute.startTime, tripRoute.endTime);
+    time = getTripTimeString(tripRoute.startTime, tripRoute.endTime);
+    routedId = tripRoute.routeId;
+    patientId = tripRoute.patientId;
+  } else {
+    date = getTripDate(
+      formatUnixTimestamp(tripRoute.start_time_s),
+      formatUnixTimestamp(tripRoute.end_time_s)
+    );
+    time = getTripTimeString(
+      formatUnixTimestamp(tripRoute.start_time_s),
+      formatUnixTimestamp(tripRoute.end_time_s)
+    );
+    routedId = tripRoute.route_id;
+    patientId = tripRoute.patient_id;
+  }
 
   return (
     <Pressable
@@ -31,25 +59,20 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
       }
       onPress={() =>
         navigation.navigate("TripDetails", {
-          routeId: tripRoute.routeId,
+          routeId: routedId,
           isLocalTrip: isLocalTrip,
         })
       }
     >
       <View style={styles.tripItemDateContainer}>
-        <Text style={styles.primaryText}>
-          {getTripDate(tripRoute.startTime, tripRoute.endTime)}
-        </Text>
-        <Text style={styles.tertiaryText}>
-          {getTripTimeString(tripRoute.startTime, tripRoute.endTime)}
-        </Text>
+        <Text style={styles.primaryText}>{date}</Text>
+        <Text style={styles.tertiaryText}>{time}</Text>
       </View>
 
       <View style={styles.tripItemPatientDetailsContainer}>
-        {tripRoute.patientId && (
+        {routedId && (
           <Text style={styles.primaryText}>
-            Patient{" "}
-            <Text style={styles.primaryText}>{tripRoute.patientId}</Text>
+            Patient <Text style={styles.primaryText}>{patientId}</Text>
           </Text>
         )}
 
@@ -57,7 +80,7 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
           <View style={styles.statsContainer}>
             <Text style={styles.tertiaryText}>Total Vibration: </Text>
             <Text style={styles.tertiaryText}>
-              {(tripRoute as ServerTripRoute).totalVibrationExposure} Hz
+              {(tripRoute as ServerTripRoute).total_vibration} Hz
             </Text>
           </View>
         )}
