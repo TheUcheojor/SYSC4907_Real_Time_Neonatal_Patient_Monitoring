@@ -8,7 +8,7 @@ import { DatabaseService } from "./DatabaseService";
 import TripRoute from "./models/trips/Route";
 import { ResultSet } from "react-native-sqlite-storage";
 import RouteSegment, { RouteSegmentType } from "./models/trips/RouteSegment";
-import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
+import { formatUnixTimestamp } from "../utils/TimeUtil";
 import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
 import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
 
@@ -77,7 +77,7 @@ export class TripRecordingService {
     this.resetCurrentRoute();
 
     this.currentRoute.patientId = patientId;
-    this.currentRoute.startTime = convertUnixTimestampToUTCTime(Date.now());
+    this.currentRoute.startTime = formatUnixTimestamp(Date.now());
 
     const startRouteResults: [ResultSet] | undefined =
       await TripRecordingService.databaseService?.saveTripRoute(
@@ -106,7 +106,7 @@ export class TripRecordingService {
     segmentType: RouteSegmentType
   ): Promise<void> {
     // Close the current route segment
-    await this.closeRouteSegment(convertUnixTimestampToUTCTime(Date.now()));
+    await this.closeRouteSegment(formatUnixTimestamp(Date.now()));
 
     // Reset and set a fresh current-route-segment
     await this.configurureNewRouteSegment(segmentType);
@@ -116,10 +116,10 @@ export class TripRecordingService {
    * Complete the route
    */
   public async endRoute() {
-    const endTime = convertUnixTimestampToUTCTime(Date.now());
+    const endTime = formatUnixTimestamp(Date.now());
 
     // Close the current route segment
-    await this.closeRouteSegment(convertUnixTimestampToUTCTime(Date.now()));
+    await this.closeRouteSegment(formatUnixTimestamp(Date.now()));
 
     // console.log("endRoute: ", this.currentRoute);
     // Close the current route
@@ -186,9 +186,7 @@ export class TripRecordingService {
     //Update the current route segment
     this.currentRouteSegment.routeId = this.currentRoute.routeId;
     this.currentRouteSegment.segmentType = segmentType;
-    this.currentRouteSegment.startTime = convertUnixTimestampToUTCTime(
-      Date.now()
-    );
+    this.currentRouteSegment.startTime = formatUnixTimestamp(Date.now());
 
     const saveRouteSegmentResults: [ResultSet] | undefined =
       await TripRecordingService.databaseService?.saveRouteSegment(

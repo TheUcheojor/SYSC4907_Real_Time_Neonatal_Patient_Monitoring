@@ -1,4 +1,4 @@
-import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
+import { formatUnixTimestamp } from "../utils/TimeUtil";
 
 export default [
   {
@@ -5369,6 +5369,6 @@ export default [
     segmentId: mockDatum.time >= 1674508829 ? 2 : 1,
     routeId: 1,
     battery: 0,
-    time: convertUnixTimestampToUTCTime(mockDatum.time),
+    time: formatUnixTimestamp(mockDatum.time),
   };
 });
