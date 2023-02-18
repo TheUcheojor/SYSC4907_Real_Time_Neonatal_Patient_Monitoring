@@ -33,6 +33,11 @@ export default {
   },
 
   deleteUserSession: (): Promise<void> => {
-    return EncryptedStorage.removeItem(EncryptedStorageKeys.USER_SESSION);
+    return EncryptedStorage.removeItem(EncryptedStorageKeys.USER_SESSION).catch(
+      (error: any) => {
+        console.log("error occured in deleteUserSession: ", error);
+        return;
+      }
+    );
   },
 };
