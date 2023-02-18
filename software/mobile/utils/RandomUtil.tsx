@@ -45,8 +45,9 @@ export const generateRandomMeasurementPacket = (
 export const generateRandomServerTripRoute = (): ServerTripRoute => {
   return {
     route_id: 2,
+    owner_id: 1,
     patient_id: "john",
-    organizationId: "",
+    organization_id: "",
     total_vibration: getRandomInt(1, 100),
     avg_temperature: getRandomInt(1, 100),
     avg_noise: getRandomInt(1, 100),
@@ -55,6 +56,5 @@ export const generateRandomServerTripRoute = (): ServerTripRoute => {
     avg_velocity: getRandomInt(1, 100),
     start_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
     end_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
-    modelType: "server",
   };
 };

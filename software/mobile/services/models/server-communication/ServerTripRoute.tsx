@@ -8,8 +8,9 @@ import TripRoute from "../trips/Route";
 
 export default interface ServerTripRoute {
   route_id: number;
+  owner_id: number;
   patient_id: string;
-  organizationId: string;
+  organization_id: string;
   total_vibration: number;
   avg_temperature: number;
   avg_noise: number;
