@@ -39,6 +39,7 @@ export default ({
         width={275}
         title={EMAIL_TITLE}
         placeholder={EMAIL_PLACEHOLDER}
+        inputRef={undefined}
       />
 
       <Text style={styles.message}>
