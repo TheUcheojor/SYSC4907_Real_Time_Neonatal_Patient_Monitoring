@@ -7,7 +7,7 @@ import {
   MODERATE_TO_HIGH_THRESHOLD_DEFAULT,
 } from "../components/gauge/constants";
 import Gauge from "../components/gauge/Gauge";
-import { VIBRATION_UNITS } from "../constants/metric-constants";
+import { METRIC_THRESHOLD_MAP, VIBRATION_UNITS } from "../constants/metric-constants";
 import { SharedScreenResources } from "../types";
 
 /**
@@ -21,7 +21,7 @@ export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
    *  that allows for the modification of gauge settings
    * */
   const [lowModerateThreshold, setLowModerateThreshold] = useState<number>(
-    LOW_TO_MODERATE_THRESHOLD_DEFAULT
+    METRIC_THRESHOLD_MAP.get("vibration").lowToMeduimThreshold
   );
   const [moderateHighThreshold, setModerateHighThreshold] = useState<number>(
     MODERATE_TO_HIGH_THRESHOLD_DEFAULT

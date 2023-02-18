@@ -60,7 +60,7 @@ export enum MetricKey {
  * Metric Threshold
  */
 
-export interface Threshold {
+export interface MetricThreshold {
   lowToMeduimThreshold: number;
   mediumToHighThreshold: number;
 }
@@ -72,7 +72,7 @@ export interface Threshold {
  */
 export const getMetricThreshold = (
   metricKey: NumericMetricMeasurementPacketKey
-): Threshold => {
+): MetricThreshold => {
   switch (metricKey) {
     case MetricKey.NOISE_METRIC_KEY:
       return {
