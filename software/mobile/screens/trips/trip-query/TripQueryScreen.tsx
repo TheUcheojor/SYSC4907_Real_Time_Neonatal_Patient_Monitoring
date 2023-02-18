@@ -36,7 +36,7 @@ export default (): JSX.Element => {
   const [propertyDropDownOpen, setPropertyDropDownOpen] =
     useState<boolean>(false);
   const [selectedTripProperty, setSelectedTripProperty] = useState<string>(
-    metricConstants.MetricKey.END_DATE_KEY
+    metricConstants.ServerMetricKey.END_DATE_KEY
   );
   const [tripPropertyItems, setTripPropertyItems] = useState<
     viewConstants.DropdownItem[]
@@ -117,6 +117,7 @@ export default (): JSX.Element => {
     }
 
     console.log(selectedTripProperty, selectedComparsionOperator, threshold);
+
     // selectedTripProperty;
     // selectedComparsionOperator;
 

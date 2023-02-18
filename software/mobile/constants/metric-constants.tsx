@@ -6,10 +6,8 @@
 
 import { ImageSourcePropType } from "react-native";
 import MaskInput, { createNumberMask, Mask } from "react-native-mask-input";
-import {
-  NumericMetricMeasurementPacketKey,
-  StatisticsMeasurementPacketKey,
-} from "../services/models/sensor-package-communication/MeasurementPacket";
+import { StatisticsMeasurementPacketKey } from "../screens/trips/trip-query/view-constants";
+import { NumericMetricMeasurementPacketKey } from "../services/models/sensor-package-communication/MeasurementPacket";
 
 /**
  * Prefixes
@@ -65,13 +63,13 @@ export const VELOCITY_MEDIUM_HIGH_THRESHOLD: number = 120;
 export const START_DATE_LABEL: string = "Start Date";
 export const END_DATE_LABEL: string = "End Date";
 
-export enum MetricKey {
-  VIBRATION_METRIC_KEY = "vibration",
-  NOISE_METRIC_KEY = "noise",
-  TEMPERATURE_METRIC_KEY = "temperature",
-  VELOCITY_METRIC_KEY = "velocity",
-  END_DATE_KEY = "endDate",
-  START_DATE_KEY = "startDate",
+export enum ServerMetricKey {
+  VIBRATION_METRIC_KEY = "avg_vibration",
+  NOISE_METRIC_KEY = "avg_noise",
+  TEMPERATURE_METRIC_KEY = "avg_temperature",
+  VELOCITY_METRIC_KEY = "avg_velocity",
+  END_DATE_KEY = "avg_endDate",
+  START_DATE_KEY = "avg_startDate",
 }
 
 /**
@@ -92,23 +90,23 @@ export const getMetricThreshold = (
   metricKey: NumericMetricMeasurementPacketKey
 ): MetricThreshold => {
   switch (metricKey) {
-    case MetricKey.NOISE_METRIC_KEY:
+    case "noise":
       return {
         lowToMeduimThreshold: NOISE_LOW_MEDIUM_THRESHOLD,
         mediumToHighThreshold: NOISE_MEDIUM_HIGH_THRESHOLD,
       };
 
-    case MetricKey.VIBRATION_METRIC_KEY:
+    case "vibration":
       return {
         lowToMeduimThreshold: VELOCITY_LOW_MEDIUM_THRESHOLD,
         mediumToHighThreshold: VIBRATION_MEDIUM_HIGH_THRESHOLD,
       };
-    case MetricKey.TEMPERATURE_METRIC_KEY:
+    case "temperature":
       return {
         lowToMeduimThreshold: TEMPERATURE_LOW_MEDIUM_THRESHOLD,
         mediumToHighThreshold: TEMPERATURE_MEDIUM_HIGH_THRESHOLD,
       };
-    case MetricKey.VELOCITY_METRIC_KEY:
+    case "velocity":
       return {
         lowToMeduimThreshold: VELOCITY_LOW_MEDIUM_THRESHOLD,
         mediumToHighThreshold: VELOCITY_MEDIUM_HIGH_THRESHOLD,

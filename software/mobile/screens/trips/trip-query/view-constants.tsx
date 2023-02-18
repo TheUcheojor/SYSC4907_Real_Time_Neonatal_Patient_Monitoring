@@ -19,7 +19,7 @@ export enum ItemTypeKey {
  */
 export interface DropdownItem {
   label: string;
-  value: metricConstants.MetricKey | string;
+  value: metricConstants.ServerMetricKey | string;
   parent: string | undefined;
 }
 
@@ -76,13 +76,13 @@ export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
 
   {
     label: metricConstants.START_DATE_LABEL,
-    value: metricConstants.MetricKey.START_DATE_KEY,
+    value: metricConstants.ServerMetricKey.START_DATE_KEY,
     parent: ItemTypeKey.Date,
   },
 
   {
     label: metricConstants.END_DATE_LABEL,
-    value: metricConstants.MetricKey.END_DATE_KEY,
+    value: metricConstants.ServerMetricKey.END_DATE_KEY,
     parent: ItemTypeKey.Date,
   },
 
@@ -98,7 +98,7 @@ export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
       metricConstants.VIBRATION_METRIC_TITLE,
     value:
       metricConstants.AVERAGE_KEY_PREFIX +
-      metricConstants.MetricKey.VIBRATION_METRIC_KEY,
+      metricConstants.ServerMetricKey.VIBRATION_METRIC_KEY,
     parent: ItemTypeKey.Number,
   },
 
@@ -108,7 +108,7 @@ export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
       metricConstants.TEMPERATURE_METRIC_TITLE,
     value:
       metricConstants.AVERAGE_KEY_PREFIX +
-      metricConstants.MetricKey.TEMPERATURE_METRIC_KEY,
+      metricConstants.ServerMetricKey.TEMPERATURE_METRIC_KEY,
     parent: ItemTypeKey.Number,
   },
 
@@ -117,7 +117,7 @@ export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
       metricConstants.AVERAGE_LABEL_PREFIX + metricConstants.NOISE_METRIC_TITLE,
     value:
       metricConstants.AVERAGE_KEY_PREFIX +
-      metricConstants.MetricKey.NOISE_METRIC_KEY,
+      metricConstants.ServerMetricKey.NOISE_METRIC_KEY,
     parent: ItemTypeKey.Number,
   },
 
@@ -127,7 +127,7 @@ export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
       metricConstants.VELOCITY_METRIC_TITLE,
     value:
       metricConstants.AVERAGE_KEY_PREFIX +
-      metricConstants.MetricKey.VELOCITY_METRIC_KEY,
+      metricConstants.ServerMetricKey.VELOCITY_METRIC_KEY,
     parent: ItemTypeKey.Number,
   },
 ];
