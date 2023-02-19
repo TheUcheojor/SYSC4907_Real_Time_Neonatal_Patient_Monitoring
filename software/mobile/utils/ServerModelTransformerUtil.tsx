@@ -5,12 +5,23 @@
  */
 
 import { ServerUploadRouteRequest } from "../services/models/server-communication/requests/UploadRouteRequestResponse";
-import TripRoute from "../services/models/trips/Route";
+import ServerRouteMeasurementDataPoint from "../services/models/server-communication/ServerRouteMeasurementDataPoint";
+import {
+  ServerRouteSegment,
+  ServerRouteSegmentType,
+} from "../services/models/server-communication/ServerRouteSegment";
+import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
+import TripRoute, {
+  TripRouteWithStatistics,
+} from "../services/models/trips/Route";
 import RouteMeasurementDataPoint from "../services/models/trips/RouteMeasurementDataPoint";
 import RouteSegment, {
   RouteSegmentType,
 } from "../services/models/trips/RouteSegment";
-import { covertTimeStringToUnixTimestamp } from "./TimeUtil";
+import {
+  covertTimeStringToUnixTimestamp,
+  formatUnixTimestamp,
+} from "./TimeUtil";
 
 /**
  * Give a route, segments, and data points, generate a post route request
@@ -41,6 +52,9 @@ export const generateServerRouteModel = (
           )
           .map((routeMeasurementDataPoint: RouteMeasurementDataPoint) => {
             return {
+              route_data_point_id: -1,
+              route_id: routeMeasurementDataPoint.routeId,
+              segment_id: routeMeasurementDataPoint.segmentId,
               time_s: covertTimeStringToUnixTimestamp(
                 routeMeasurementDataPoint.time as string
               ),
@@ -62,21 +76,109 @@ export const generateServerRouteModel = (
 };
 
 /**
- * The server's segement type
+ * Generate the mobile route from the server models
+ * @param serverTripRoute the server data points
+ * @returns the mobile data points
  */
-enum ServerSegmentType {
-  AERIAL = "aerial",
-  ROAD = "road",
-  BOAT = "boat",
-}
+export const generateMobileTripRoutes = (
+  serverTripRoute: ServerTripRoute
+): TripRouteWithStatistics => {
+  return {
+    routeId: serverTripRoute.route_id,
 
-const getServerSegmentType = (routeSegementType: RouteSegmentType) => {
+    patientId: serverTripRoute.patient_id,
+
+    startTime: formatUnixTimestamp(serverTripRoute.start_time_s),
+
+    endTime: formatUnixTimestamp(serverTripRoute.end_time_s),
+
+    ...serverTripRoute,
+  };
+};
+
+/**
+ * Generate the mobile route measure data points from the server models
+ * @param serverDataPoints the server data points
+ * @returns the mobile data points
+ */
+export const generateMobileDataPoints = (
+  serverDataPoints: ServerRouteMeasurementDataPoint[]
+): RouteMeasurementDataPoint[] => {
+  return serverDataPoints.map(
+    (serverDataPoint: ServerRouteMeasurementDataPoint) => {
+      return {
+        routeMeasurementDataPointId: serverDataPoint.route_data_point_id,
+        segmentId: serverDataPoint.segment_id,
+        routeId: serverDataPoint.route_id,
+        annotation: serverDataPoint.annotation,
+        noise: serverDataPoint.noise_db,
+        temperature: serverDataPoint.temperature_celsius,
+        vibration: serverDataPoint.velocity_kmps,
+        airPressure: serverDataPoint.pressure_pascals,
+        velocity: serverDataPoint.velocity_kmps,
+        battery: -1,
+        time: formatUnixTimestamp(serverDataPoint.time_s),
+        location: {
+          longitude: 1,
+          latitude: 1,
+        },
+      };
+    }
+  );
+};
+
+/**
+ * Generate the mobile route segment from the server models
+ * @param serverRouteSegments the server data points
+ * @returns the mobile data points
+ */
+export const generateMobileRouteSegments = (
+  serverRouteSegments: ServerRouteSegment[]
+): RouteSegment[] => {
+  return serverRouteSegments.map((serverRouteSegment: ServerRouteSegment) => {
+    return {
+      segmentId: serverRouteSegment.segment_id,
+      segmentType: getMobileRouteSegmentType(serverRouteSegment.segment_type),
+      routeId: serverRouteSegment.route_id,
+      startTime: formatUnixTimestamp(serverRouteSegment.start_time_s),
+      endTime: formatUnixTimestamp(serverRouteSegment.end_time_s),
+    };
+  });
+};
+
+/**
+ * Given the mobile route segment type, generate the server's model
+ * @param routeSegementType the mobile route segment type
+ * @returns the server route segment type
+ */
+const getServerSegmentType = (
+  routeSegementType: RouteSegmentType
+): ServerRouteSegmentType => {
   switch (routeSegementType) {
     case RouteSegmentType.AERIAL:
-      return ServerSegmentType.AERIAL;
+      return ServerRouteSegmentType.AERIAL;
     case RouteSegmentType.GROUND:
-      return ServerSegmentType.ROAD;
+      return ServerRouteSegmentType.ROAD;
     case RouteSegmentType.WATER:
-      return ServerSegmentType.BOAT;
+      return ServerRouteSegmentType.BOAT;
+  }
+};
+
+/**
+ * Given the server route segment type, generate the mobile's model
+ * @param serverRouteSegment the server route segment type
+ * @returns the mobile route segment type
+ */
+const getMobileRouteSegmentType = (
+  serverRouteSegment: ServerRouteSegmentType
+): RouteSegmentType => {
+  switch (serverRouteSegment) {
+    case ServerRouteSegmentType.AERIAL:
+      return RouteSegmentType.AERIAL;
+    case ServerRouteSegmentType.BOAT:
+      return RouteSegmentType.WATER;
+
+    case ServerRouteSegmentType.ROAD:
+      return RouteSegmentType.GROUND;
   }
 };
