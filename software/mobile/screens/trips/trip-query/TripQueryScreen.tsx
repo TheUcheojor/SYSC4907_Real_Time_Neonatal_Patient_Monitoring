@@ -23,10 +23,7 @@ import { ServerCommnunicationService } from "../../../services/ServerCommunicati
 import { ServerRouteSearchResponse } from "../../../services/models/server-communication/requests/RouteSearchResponse";
 
 export default (): JSX.Element => {
-  const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([
-    generateRandomServerTripRoute(),
-    generateRandomServerTripRoute(),
-  ]);
+  const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([]);
 
   /**
    * Trip-property dropdown related states
@@ -103,7 +100,6 @@ export default (): JSX.Element => {
   const search = () => {
     // Ignore search request if there is not specified threshold
     if (!textInputValue) return;
-    console.log("hello");
 
     let threshold: string | number;
 
@@ -111,7 +107,7 @@ export default (): JSX.Element => {
       let textCollection: string[] = textInputValue.split(" ");
       threshold = textCollection[textCollection.length - 1];
     } else {
-      //Convert to int
+      //Convert data-string input to epoch timestamp
       threshold = Date.parse(textInputValue);
     }
 
@@ -119,12 +115,9 @@ export default (): JSX.Element => {
     ServerCommnunicationService.getServerCommunicationService()
       .routeSearch(selectedTripProperty, selectedComparsionOperator, threshold)
       .then((result: ServerRouteSearchResponse) => {
+        console.log(result);
         setFetchedTrips(result.routes);
       });
-    // selectedTripProperty;
-    // selectedComparsionOperator;
-
-    // setFetchedTrips(RESULTS)
   };
 
   /**
