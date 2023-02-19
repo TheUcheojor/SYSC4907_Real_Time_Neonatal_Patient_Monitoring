@@ -19,6 +19,7 @@ import * as viewConstants from "./view-constants";
 import ServerTripRoute from "../../../services/models/server-communication/ServerTripRoute";
 import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
 import { generateRandomServerTripRoute } from "../../../utils/RandomUtil";
+import { ServerCommnunicationService } from "../../../services/ServerCommunicationService";
 
 export default (): JSX.Element => {
   const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([
@@ -114,7 +115,11 @@ export default (): JSX.Element => {
     }
 
     console.log(selectedTripProperty, selectedComparsionOperator, threshold);
-
+    ServerCommnunicationService.getServerCommunicationService().routeSearch(
+      selectedTripProperty,
+      selectedComparsionOperator,
+      threshold
+    );
     // selectedTripProperty;
     // selectedComparsionOperator;
 

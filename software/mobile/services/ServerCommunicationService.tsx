@@ -21,6 +21,9 @@ import {
   ServerUploadRouteResponse,
 } from "./models/server-communication/requests/UploadRouteRequestResponse";
 import { CommunicationError } from "./models/error-handling/CommunicationError";
+import ServerTripRoute from "./models/server-communication/ServerTripRoute";
+import { Alert } from "react-native";
+import { ServerRouteSearchResponse } from "./models/server-communication/requests/RouteSearchResponse";
 
 export class ServerCommnunicationService {
   /**
@@ -139,17 +142,60 @@ export class ServerCommnunicationService {
       });
   }
 
-  // public routeSearch(
-  //   tripProperty: string,
-  //   comparisonOperator: string,
-  //   threshold: string | number
-  // ): {
-  //   getUserSession()
-  //     .then()
-  //     .catch((error: any) => {
-  //       LoggerService.warn(error);
-  //       return [];
-  //     });
-  //   // selectedTripProperty, selectedComparsionOperator, threshold
-  // }
+  /**
+   * Search for route
+   * @param tripProperty the trip property
+   * @param comparisonOperator the comparison operator
+   * @param threshold the threshold
+   * @param page the page (optional)
+   * @param limit the limit of the number of routes (options)
+   * @returns the search response
+   */
+  public routeSearch(
+    tripProperty: string,
+    comparisonOperator: string,
+    threshold: string | number,
+    page: number = 1,
+    limit: number = 5
+  ): Promise<ServerRouteSearchResponse> {
+    return this.getUserSession()
+      .then((userSession: UserSession) => {
+        return fetch(
+          `${ServerCommnunicationService.API_URL}/routes/search?route_metric_key=${tripProperty}&comparison_operator=${comparisonOperator}&threshold=${threshold}page=${page}&limit=${limit}`,
+          {
+            method: HttpRequestType.GET,
+            headers: {
+              Authorization: userSession.authenticationToken,
+            },
+          }
+        ).then((response: Response) => {
+          if (response.status != HttpStatusCode.OK_REQUEST) {
+            Alert.alert(
+              "Fetching Failure",
+              "An error occurred while fetching."
+            );
+          }
+
+          return response.json();
+        });
+      })
+      .then((result: { totalRoutes: number; routes: ServerTripRoute[] }) => {
+        console.log(result);
+        return {
+          ...result,
+          isSuccessful: true,
+        };
+      })
+      .catch((error: any) => {
+        Alert.alert("Fetching Failure", "An error occurred while fetching.");
+
+        LoggerService.warn(error);
+        return {
+          routes: [],
+          totalRoutes: -1,
+          isSuccessful: false,
+          message: error as string,
+        };
+      });
+  }
 }
