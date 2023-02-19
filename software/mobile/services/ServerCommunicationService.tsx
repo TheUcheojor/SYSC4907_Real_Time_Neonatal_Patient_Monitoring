@@ -133,6 +133,7 @@ export class ServerCommnunicationService {
         });
       })
       .catch((error: any) => {
+        Alert.alert("Error", error);
         LoggerService.warn(error);
         return {
           isSuccessful: false,
