@@ -4,7 +4,9 @@
  * Purpose: Exports the route database schema model
  */
 
-import ServerTripRoute from "../server-communication/ServerTripRoute";
+import ServerTripRoute, {
+  isServerTripRoute,
+} from "../server-communication/ServerTripRoute";
 
 export default interface TripRoute {
   /**
@@ -31,4 +33,11 @@ export const isMobileTripRoute = (
   obj: ServerTripRoute | TripRoute
 ): obj is TripRoute => {
   return "patientId" in obj;
+};
+
+export interface TripRouteWithStatistics extends TripRoute, ServerTripRoute {}
+export const isTripRouteWithStatistics = (
+  obj: TripRoute | ServerTripRoute | TripRouteWithStatistics
+): obj is TripRouteWithStatistics => {
+  return isMobileTripRoute(obj) && isServerTripRoute(obj);
 };

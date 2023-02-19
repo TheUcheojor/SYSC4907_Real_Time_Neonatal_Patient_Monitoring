@@ -24,6 +24,14 @@ import { CommunicationError } from "./models/error-handling/CommunicationError";
 import ServerTripRoute from "./models/server-communication/ServerTripRoute";
 import { Alert } from "react-native";
 import { ServerRouteSearchResponse } from "./models/server-communication/requests/RouteSearchResponse";
+import ServerRouteMeasurementDataPoint from "./models/server-communication/ServerRouteMeasurementDataPoint";
+import {
+  generateMobileDataPoints,
+  generateMobileRouteSegments,
+} from "../utils/ServerModelTransformerUtil";
+import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
+import { ServerRouteSegment } from "./models/server-communication/ServerRouteSegment";
+import RouteSegment from "./models/trips/RouteSegment";
 
 export class ServerCommnunicationService {
   /**
@@ -171,10 +179,7 @@ export class ServerCommnunicationService {
           }
         ).then((response: Response) => {
           if (response.status != HttpStatusCode.OK_REQUEST) {
-            Alert.alert(
-              "Fetching Failure",
-              "An error occurred while fetching."
-            );
+            throw new Error(CommunicationError.FETCHING_ERROR);
           }
 
           return response.json();
@@ -188,7 +193,10 @@ export class ServerCommnunicationService {
         };
       })
       .catch((error: any) => {
-        Alert.alert("Fetching Failure", "An error occurred while fetching.");
+        Alert.alert(
+          CommunicationError.SERVER_COMMUNICATION_ERROR,
+          CommunicationError.FETCHING_ERROR
+        );
 
         LoggerService.warn(error);
         return {
@@ -197,6 +205,92 @@ export class ServerCommnunicationService {
           isSuccessful: false,
           message: error as string,
         };
+      });
+  }
+
+  /**
+   * Throw an error if the reponse status is not 200.
+   * Otherwise returns the response body
+   */
+  private validateValidResponse(response: Response): Promise<any> {
+    if (response.status != HttpStatusCode.OK_REQUEST) {
+      throw new Error(
+        response.status + ". " + CommunicationError.SERVER_COMMUNICATION_ERROR
+      );
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Fetch the route measurement data points for the given id
+   * @param routeId the route id
+   * @returns route measurement data points
+   */
+  public fetchRouteMeasurementDataPointsByRouteId(
+    routeId: number
+  ): Promise<RouteMeasurementDataPoint[]> {
+    return this.getUserSession()
+      .then((userSession: UserSession) => {
+        return fetch(
+          `${ServerCommnunicationService.API_URL}/routeMeasurementDataPoints/${routeId}`,
+          {
+            method: HttpRequestType.GET,
+            headers: {
+              Authorization: userSession.authenticationToken,
+            },
+          }
+        )
+          .then(this.validateValidResponse)
+          .then(
+            (
+              serverMeasurementDataPoints: ServerRouteMeasurementDataPoint[]
+            ) => {
+              return generateMobileDataPoints(serverMeasurementDataPoints);
+            }
+          );
+      })
+      .catch((error: any) => {
+        Alert.alert(
+          CommunicationError.SERVER_COMMUNICATION_ERROR,
+          CommunicationError.FETCHING_ERROR
+        );
+
+        LoggerService.error(error);
+        return [];
+      });
+  }
+
+  /**
+   * Fetch the route for the given id
+   * @param routeId the route id
+   * @returns route measurement data points
+   */
+  public fetchSegmentsByRouteId(routeId: number): Promise<RouteSegment[]> {
+    return this.getUserSession()
+      .then((userSession: UserSession) => {
+        return fetch(
+          `${ServerCommnunicationService.API_URL}/segments/${routeId}`,
+          {
+            method: HttpRequestType.GET,
+            headers: {
+              Authorization: userSession.authenticationToken,
+            },
+          }
+        )
+          .then(this.validateValidResponse)
+          .then((serverRouteSegments: ServerRouteSegment[]) => {
+            return generateMobileRouteSegments(serverRouteSegments);
+          });
+      })
+      .catch((error: any) => {
+        Alert.alert(
+          CommunicationError.SERVER_COMMUNICATION_ERROR,
+          CommunicationError.FETCHING_ERROR
+        );
+
+        LoggerService.error(error);
+        return [];
       });
   }
 }

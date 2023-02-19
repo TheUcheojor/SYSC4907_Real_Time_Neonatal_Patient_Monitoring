@@ -15,7 +15,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { DatabaseService } from "../../services/DatabaseService";
-import TripRoute from "../../services/models/trips/Route";
+import TripRoute, {
+  isTripRouteWithStatistics,
+} from "../../services/models/trips/Route";
 import RouteMeasurementDataPoint from "../../services/models/trips/RouteMeasurementDataPoint";
 import { MainStackParamList } from "../../types";
 import { FlashList } from "@shopify/flash-list";
@@ -32,6 +34,7 @@ import MetricDetailedLineChart, {
 } from "../../components/MetricDetailedLineChart";
 import {
   getMetricThreshold,
+  getUnits,
   NOISE_GRAPH_COLOUR,
   NOISE_METRIC_TITLE,
   NOISE_UNITS,
@@ -57,15 +60,17 @@ import RouteSegment from "../../services/models/trips/RouteSegment";
 import Map from "../../components/Map";
 import { Color } from "../../constants/ColorEnum";
 import { ScrollView } from "react-native-gesture-handler";
+import { ServerCommnunicationService } from "../../services/ServerCommunicationService";
 
 export default ({
   route,
   navigation,
 }: NativeStackScreenProps<MainStackParamList, "TripDetails">) => {
   const [isViewLoaded, setViewLoaded] = useState<boolean>(false);
+  console.log(isViewLoaded);
 
-  const { routeId, isLocalTrip } = route.params;
-  const [tripRoute, setRoute] = useState<TripRoute | null>(null);
+  const { routeId, isLocalTrip, tripRoute } = route.params;
+  // const [tripRoute, setRoute] = useState<TripRoute | null>(null);
   const [routeMeasurementDataPoints, setRouteMeasurementDataPoints] = useState<
     RouteMeasurementDataPoint[]
   >([]);
@@ -93,13 +98,6 @@ export default ({
         return {
           x: new Date(routeMeasurementDataPoint.time),
           y: routeMeasurementDataPoint[metricKey] as number,
-          // label: routeMeasurementDataPoint.annotation
-          //   ? getSimplifiedTimeString(
-          //       routeMeasurementDataPoint.time as string
-          //     ) +
-          //     ": " +
-          //     routeMeasurementDataPoint.annotation
-          //   : getSimplifiedTimeString(routeMeasurementDataPoint.time as string),
           label:
             (segmentNumberText &&
               routeMeasurementDataPoint.annotation &&
@@ -150,41 +148,43 @@ export default ({
       //Fetch the local route
       DatabaseService.getConfiguredDatabaseController().then(
         (databaseService: DatabaseService) => {
+          // Fetch the associated route segments
           databaseService
-            .getTripRouteById(routeId)
-            .then((fetchedTripRoute: TripRoute | null) => {
-              setRoute(fetchedTripRoute);
-
-              if (fetchedTripRoute == null) return;
-
-              // Fetch the associated route segments
+            .getRouteSegmentsByRouteId(routeId)
+            .then((routeSegements: RouteSegment[]) => {
+              setRouteSegments(routeSegements);
+            })
+            .then(() => {
+              // Fetch the associated route measurement points
               databaseService
-                .getRouteSegmentsByRouteId(routeId)
-                .then((routeSegements: RouteSegment[]) => {
-                  setRouteSegments(routeSegements);
-                })
+                .getRouteMeasurementDataPointsByRouteId(routeId)
+                .then(
+                  (routeMeasurementDataPoints: RouteMeasurementDataPoint[]) => {
+                    setRouteMeasurementDataPoints(routeMeasurementDataPoints);
+                  }
+                )
                 .then(() => {
-                  // Fetch the associated route measurement points
-                  databaseService
-                    .getRouteMeasurementDataPointsByRouteId(routeId)
-                    .then(
-                      (
-                        routeMeasurementDataPoints: RouteMeasurementDataPoint[]
-                      ) => {
-                        setRouteMeasurementDataPoints(
-                          routeMeasurementDataPoints
-                        );
-                      }
-                    )
-                    .then(() => {
-                      setViewLoaded(true);
-                    });
+                  setViewLoaded(true);
                 });
             });
         }
       );
+    } else {
+      ServerCommnunicationService.getServerCommunicationService()
+        .fetchSegmentsByRouteId(routeId)
+        .then((routeSegements: RouteSegment[]) => {
+          setRouteSegments(routeSegements);
+
+          ServerCommnunicationService.getServerCommunicationService()
+            .fetchRouteMeasurementDataPointsByRouteId(routeId)
+            .then((routeMeasurementDataPoints: RouteMeasurementDataPoint[]) => {
+              setRouteMeasurementDataPoints(routeMeasurementDataPoints);
+              setViewLoaded(true);
+            });
+        });
     }
 
+    return () => setViewLoaded(false);
     //Fetch from the server
   }, [routeId]);
 
@@ -192,6 +192,16 @@ export default ({
     return (
       <View style={{ ...styles.tripDetailsScreen, justifyContent: "center" }}>
         <ActivityIndicator size="large" color={"black"} />
+        <Text style={styles.secondaryText}>Loading...</Text>
+
+        <Pressable
+          style={{
+            marginVertical: 50,
+          }}
+          onPress={() => navigation.navigate("Trips")}
+        >
+          <Text style={styles.exitTripBreakdownText}>Exit Trip Breakdown</Text>
+        </Pressable>
       </View>
     );
   }
@@ -200,7 +210,11 @@ export default ({
     <View style={styles.tripDetailsScreen}>
       <View style={styles.headerContainer}>
         <Text style={styles.primaryText}>TRIP BREAKDOWN </Text>
-        <Text style={styles.secondaryText}>
+        <Text style={{ ...styles.secondaryText }}>
+          Patient {tripRoute.patientId}
+        </Text>
+
+        <Text style={{ ...styles.tertiaryText, fontSize: 14 }}>
           {tripRoute && getTripDate(tripRoute.startTime, tripRoute.endTime)}
         </Text>
         <Text style={styles.tertiaryText}>
@@ -208,16 +222,50 @@ export default ({
             getTripTimeString(tripRoute.startTime, tripRoute.endTime)}
         </Text>
       </View>
+      <Pressable
+        style={styles.exitTripBreakdownContainer}
+        onPress={() => navigation.navigate("Trips")}
+      >
+        <Ionicons name="arrow-back-circle" size={24} color="black" />
+
+        <Text style={styles.exitTripBreakdownText}>Exit Trip Breakdown</Text>
+      </Pressable>
 
       <ScrollView>
-        <Pressable
-          style={styles.exitTripBreakdownContainer}
-          onPress={() => navigation.navigate("Trips")}
-        >
-          <Ionicons name="arrow-back-circle" size={24} color="black" />
+        {isTripRouteWithStatistics(tripRoute) && (
+          <View style={{ ...styles.sectionContainer }}>
+            <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
+              Trip Details
+            </Text>
+            <View style={styles.statRow}>
+              <Text style={styles.routeSegmentText}>
+                Total Vibration: {tripRoute.total_vibration}{" "}
+                {getUnits("avg_vibration")}
+              </Text>
+              <Text style={styles.routeSegmentText}>
+                Average Velocity: {tripRoute.avg_velocity}{" "}
+                {getUnits("avg_velocity")}
+              </Text>
+            </View>
 
-          <Text style={styles.exitTripBreakdownText}>Exit Trip Breakdown</Text>
-        </Pressable>
+            <View style={styles.statRow}>
+              <Text style={styles.routeSegmentText}>
+                Average Noise: {tripRoute.avg_noise} {getUnits("avg_noise")}
+              </Text>
+              <Text style={styles.routeSegmentText}>
+                Average Temperature: {tripRoute.avg_temperature}{" "}
+                {getUnits("avg_temperature")}
+              </Text>
+            </View>
+
+            <View style={styles.statRow}>
+              <Text style={styles.routeSegmentText}>
+                Average Vibration: {tripRoute.avg_vibration}{" "}
+                {getUnits("avg_vibration")}
+              </Text>
+            </View>
+          </View>
+        )}
         <View style={{ ...styles.sectionContainer }}>
           <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
             Route Segments
@@ -281,15 +329,6 @@ export default ({
           {datasets.map((chartParams: MetricDetailedLineChartParams) => {
             return getMetricDetailChart({ item: chartParams });
           })}
-          {/* <FlashList
-          // contentContainerStyle={styles.chartsContainer}
-          // contentContainerStyle={{display: "hidden"}}
-          data={datasets}
-          renderItem={getMetricDetailChart}
-          estimatedItemSize={ESTIMATED_GRAPH_ITEM_SIZE}
-          showsVerticalScrollIndicator={false}
-          onLoad={() => setGraphLoaded(true)}
-        /> */}
         </View>
       </ScrollView>
     </View>
@@ -370,6 +409,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-start",
     marginLeft: 20,
+    marginBottom: 5,
     // backgroundColor: "red",
   },
 
@@ -419,5 +459,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     borderWidth: 2,
+  },
+
+  statRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 5,
   },
 });

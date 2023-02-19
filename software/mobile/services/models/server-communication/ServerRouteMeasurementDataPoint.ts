@@ -5,6 +5,9 @@
  */
 
 export default interface ServerRouteMeasurementDataPoint {
+  route_data_point_id: number;
+  route_id: number;
+  segment_id: number;
   time_s: number;
   velocity_kmps: number;
   noise_db: number;

@@ -17,6 +17,7 @@ import { MainStackParamList } from "../types";
 import ServerTripRoute, {
   isServerTripRoute,
 } from "../services/models/server-communication/ServerTripRoute";
+import { generateMobileTripRoutes } from "../utils/ServerModelTransformerUtil";
 
 interface TripItemParams {
   tripRoute: TripRoute | ServerTripRoute;
@@ -61,6 +62,9 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
         navigation.navigate("TripDetails", {
           routeId: routedId,
           isLocalTrip: isLocalTrip,
+          tripRoute: isServerTripRoute(tripRoute)
+            ? generateMobileTripRoutes(tripRoute)
+            : tripRoute,
         })
       }
     >
@@ -76,11 +80,11 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
           </Text>
         )}
 
-        {!isLocalTrip && (
+        {isServerTripRoute(tripRoute) && (
           <View style={styles.statsContainer}>
             <Text style={styles.tertiaryText}>Total Vibration: </Text>
             <Text style={styles.tertiaryText}>
-              {(tripRoute as ServerTripRoute).total_vibration} Hz
+              {tripRoute.total_vibration} Hz
             </Text>
           </View>
         )}
