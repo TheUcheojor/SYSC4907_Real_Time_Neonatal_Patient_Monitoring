@@ -7,7 +7,7 @@
 import ServerTripRoute from "../ServerTripRoute";
 import { BaseServerResponse } from "./BaseServerResponse";
 
-export interface ServerRouteSearchResponse {
+export interface ServerRouteSearchResponse extends BaseServerResponse {
   totalRoutes: number;
   routes: ServerTripRoute[];
 }
