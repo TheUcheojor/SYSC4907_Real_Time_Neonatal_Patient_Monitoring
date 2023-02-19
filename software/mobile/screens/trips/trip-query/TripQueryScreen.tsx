@@ -20,6 +20,7 @@ import ServerTripRoute from "../../../services/models/server-communication/Serve
 import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
 import { generateRandomServerTripRoute } from "../../../utils/RandomUtil";
 import { ServerCommnunicationService } from "../../../services/ServerCommunicationService";
+import { ServerRouteSearchResponse } from "../../../services/models/server-communication/requests/RouteSearchResponse";
 
 export default (): JSX.Element => {
   const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([
@@ -115,15 +116,15 @@ export default (): JSX.Element => {
     }
 
     console.log(selectedTripProperty, selectedComparsionOperator, threshold);
-    ServerCommnunicationService.getServerCommunicationService().routeSearch(
-      selectedTripProperty,
-      selectedComparsionOperator,
-      threshold
-    );
+    ServerCommnunicationService.getServerCommunicationService()
+      .routeSearch(selectedTripProperty, selectedComparsionOperator, threshold)
+      .then((result: ServerRouteSearchResponse) => {
+        setFetchedTrips(result.routes);
+      });
     // selectedTripProperty;
     // selectedComparsionOperator;
 
-    //setFetchedTrips(RESULTS)
+    // setFetchedTrips(RESULTS)
   };
 
   /**
