@@ -39,10 +39,10 @@ export default ({
    */
   const login = (): void => {
     //For dev
-    navigation.navigate("Main", {
-      screen: "Paramedic",
-    });
-    return;
+    // navigation.navigate("Main", {
+    //   screen: "Paramedic",
+    // });
+    // return;
 
     // If an invalid email is present, do not waste time sending the request
     if (!isEmail(emailRef.current)) {
