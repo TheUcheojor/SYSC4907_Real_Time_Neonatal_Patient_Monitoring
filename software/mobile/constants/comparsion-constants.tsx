@@ -5,7 +5,7 @@
  */
 
 export const GREATER_THAN_LABEL = "Greater Than";
-export const GREATER_THAN_KEY = "Greater Than";
+export const GREATER_THAN_KEY = ">";
 
 export const LESS_THAN_LABEL = "Less Than";
 export const LESS_THAN_KEY = "<";

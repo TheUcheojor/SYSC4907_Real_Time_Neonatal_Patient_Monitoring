@@ -3,7 +3,7 @@
  */
 
 import { BaseRequest, BaseRequestInterface } from "./BaseRequest";
-import { RequestType } from "./RequestType";
+import { SensorPackageRequestType } from "./RequestType";
 
 export interface BaseResponse extends BaseRequestInterface {
   /**

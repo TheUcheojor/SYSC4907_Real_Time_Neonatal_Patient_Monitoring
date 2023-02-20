@@ -4,7 +4,7 @@
  * Purpose: Contains the different request types
  */
 
-export enum RequestType {
+export enum SensorPackageRequestType {
   /**
    * The start trip request
    */

@@ -12,6 +12,10 @@ import {
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import RouteSegment from "./../models/RouteSegment.js";
 import { OkPacket } from "mysql2";
+import {
+  QUERY_PAGE_DEFAULT,
+  QUERY_LIMIT_DEFAULT,
+} from "./../constants/QueryConstants.js";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
@@ -141,39 +145,59 @@ routesRouter.get(
   "/routes",
   authenticateSessionToken,
   (req: AuthenticatedRequest, res: Response) => {
-    let page = parseInt(req.query.page as undefined as string) || 1;
-    let limit = parseInt(req.query.limit as undefined as string) || 3;
+    let page =
+      parseInt(req.query.page as undefined as string) || QUERY_PAGE_DEFAULT;
+    let limit =
+      parseInt(req.query.limit as undefined as string) || QUERY_LIMIT_DEFAULT;
+
+    // Fetch-all query
+    let db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} LIMIT ${
+      (page - 1) * limit
+    },${limit}`;
+
+    if (
+      req.query.route_metric_key &&
+      req.query.comparison_operator &&
+      req.query.threshold
+    ) {
+      let route_metric_key: string = req.query.route_metric_key as string;
+      let comparison_operator: string = req.query.comparison_operator as string;
+      let threshold: string = req.query.threshold as string;
+
+      // Fetch with custom constraints
+      db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} AND ${
+        route_metric_key + comparison_operator + threshold
+      } LIMIT ${(page - 1) * limit},${limit}`;
+
+      logger.info("Fetch query with custom constraint: " + db_query);
+    }
 
     let db = new DB();
     db.connect();
     let con = db.con();
 
-    con.query(
-      "SELECT * FROM routes WHERE owner_id=? LIMIT ?,?",
-      [req.user_id, (page - 1) * limit, limit],
-      function (error, results, fields) {
-        if (error) {
-          return con.rollback(function () {
-            logger.error(error);
-          });
-        }
-        con.query(
-          "SELECT COUNT(*) FROM routes WHERE owner_id=?",
-          [req.user_id],
-          function (error, countResult, fields) {
-            if (error) {
-              return con.rollback(function () {
-                logger.error(error);
-              });
-            }
-            res.send({
-              routes: results,
-              totalRoutes: countResult[0][COUNT_KEY],
+    con.query(db_query, function (error, results, fields) {
+      if (error) {
+        return con.rollback(function () {
+          logger.error(error);
+        });
+      }
+      con.query(
+        "SELECT COUNT(*) FROM routes WHERE owner_id=?",
+        [req.user_id],
+        function (error, countResult, fields) {
+          if (error) {
+            return con.rollback(function () {
+              logger.error(error);
             });
           }
-        );
-      }
-    );
+          res.send({
+            routes: results,
+            totalRoutes: countResult[0][COUNT_KEY],
+          });
+        }
+      );
+    });
   }
 );
 

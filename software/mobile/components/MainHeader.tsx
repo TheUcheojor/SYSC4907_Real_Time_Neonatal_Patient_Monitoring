@@ -15,9 +15,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default ({
   recordingState,
   navigation,
+  username,
 }: {
   navigation: any;
   recordingState: RouteRecordingState;
+  username: string;
 }) => {
   const openDrawer = (): void => {
     navigation.openDrawer();
@@ -37,7 +39,7 @@ export default ({
       </Pressable>
 
       <Pressable style={style.usernameContainer} onPress={openDrawer}>
-        <Text style={style.usernameText}>Username</Text>
+        <Text style={style.usernameText}>{username}</Text>
         <FontAwesome name="user-circle-o" size={30} color="black" />
       </Pressable>
     </View>
@@ -77,13 +79,7 @@ const style = StyleSheet.create({
   usernameText: {
     fontFamily: "Montserrat_500Medium",
     padding: 5,
-
+    textTransform: "capitalize",
     fontSize: 15,
   },
-
-  // recordingInProgress: {
-  //   flex: 1,
-  //   flexDirection: "row",
-  //   justifyContent: "center",
-  // },
 });

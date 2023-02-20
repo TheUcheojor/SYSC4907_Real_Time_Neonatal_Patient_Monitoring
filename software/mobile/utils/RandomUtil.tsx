@@ -4,9 +4,10 @@
  * Purpose: Export random-generating helper functions
  */
 
+import RouteLocation from "../services/models/common/Location";
 import MeasurementPacket from "../services/models/sensor-package-communication/MeasurementPacket";
 import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
-import { convertUnixTimestampToUTCTime } from "./TimeUtil";
+import { formatUnixTimestamp } from "./TimeUtil";
 
 /**
  * Get a random number between the min and max values
@@ -22,19 +23,18 @@ export function getRandomInt(min: number, max: number) {
  * Generates a random measurement packet
  * @returns
  */
-export const generateRandomMeasurementPacket = (): MeasurementPacket => {
+export const generateRandomMeasurementPacket = (
+  location: RouteLocation
+): MeasurementPacket => {
   return {
-    noise: getRandomInt(1, 50),
-    temperature: getRandomInt(1, 50),
-    vibration: getRandomInt(1, 50),
-    airPressure: getRandomInt(1, 50),
-    velocity: getRandomInt(1, 50),
-    battery: getRandomInt(1, 50),
-    time: convertUnixTimestampToUTCTime(Date.now()),
-    location: {
-      longitude: getRandomInt(1, 1000),
-      latitude: getRandomInt(1, 1000),
-    },
+    noise: getRandomInt(20, 170),
+    temperature: getRandomInt(20, 170),
+    vibration: getRandomInt(20, 170),
+    airPressure: getRandomInt(20, 170),
+    velocity: getRandomInt(20, 170),
+    battery: getRandomInt(20, 170),
+    time: formatUnixTimestamp(Date.now()),
+    location: location,
   } as MeasurementPacket;
 };
 
@@ -44,18 +44,17 @@ export const generateRandomMeasurementPacket = (): MeasurementPacket => {
  */
 export const generateRandomServerTripRoute = (): ServerTripRoute => {
   return {
-    routeId: 2,
-    patientId: "john",
-    startTime: convertUnixTimestampToUTCTime(Date.now()),
-    endTime: convertUnixTimestampToUTCTime(Date.now()),
-
-    ownerId: "",
-    organizationId: "",
-    totalVibrationExposure: getRandomInt(1, 100),
-    avgTemperature: getRandomInt(1, 100),
-    avgNoise: getRandomInt(1, 100),
-    avgPressure: getRandomInt(1, 100),
-    avgVibration: getRandomInt(1, 100),
-    avgVelocity: getRandomInt(1, 100),
+    route_id: 2,
+    owner_id: 1,
+    patient_id: "john",
+    organization_id: "",
+    total_vibration: getRandomInt(1, 100),
+    avg_temperature: getRandomInt(1, 100),
+    avg_noise: getRandomInt(1, 100),
+    avg_pressure: getRandomInt(1, 100),
+    avg_vibration: getRandomInt(1, 100),
+    avg_velocity: getRandomInt(1, 100),
+    start_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
+    end_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
   };
 };

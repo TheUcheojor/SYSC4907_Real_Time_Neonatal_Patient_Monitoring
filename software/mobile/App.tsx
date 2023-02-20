@@ -28,6 +28,7 @@ import SensorPackageController from "./services/SensorPackageController";
 import { RouteRecordingState } from "./types";
 import { generateRandomMeasurementPacket } from "./utils/RandomUtil";
 import MeasurementPacket from "./services/models/sensor-package-communication/MeasurementPacket";
+import demoRouteDataPoints from "./mock/demoRouteDataPoints";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -42,7 +43,7 @@ export default function App() {
     RouteRecordingState.NOT_RECORDING
   );
   const [measurementPacket, setMeasurementPacket] = useState<MeasurementPacket>(
-    generateRandomMeasurementPacket()
+    generateRandomMeasurementPacket(demoRouteDataPoints[0].location)
   );
 
   //Load dependencies

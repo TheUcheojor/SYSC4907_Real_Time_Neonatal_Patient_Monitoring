@@ -10,33 +10,9 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import AppIcon from "../components/AppIcon";
 import { Ionicons } from "@expo/vector-icons";
 import TripDetailsScreen from "../screens/trips/TripDetailsScreen";
+import UserSessionService from "../services/UserSessionService";
 
 const Drawer = createDrawerNavigator<MainStackParamList>();
-
-const handleLogOut = (navigation: DrawerNavigationHelpers): void => {
-  navigation.navigate("Login");
-};
-
-const CustomDrawerMenu = ({
-  navigation,
-}: {
-  navigation: DrawerNavigationHelpers;
-}): JSX.Element => {
-  return (
-    <DrawerContentScrollView>
-      <View style={style.header}>
-        <AppIcon size={80} />
-      </View>
-
-      <DrawerItem
-        labelStyle={style.appName}
-        label="LOG OUT"
-        icon={() => <Ionicons name="exit-outline" size={30} color="black" />}
-        onPress={() => handleLogOut(navigation)}
-      />
-    </DrawerContentScrollView>
-  );
-};
 
 export default ({
   recordingState,
@@ -71,6 +47,32 @@ export default ({
         component={TripDetailsScreen}
       ></Drawer.Screen>
     </Drawer.Navigator>
+  );
+};
+
+const CustomDrawerMenu = ({
+  navigation,
+}: {
+  navigation: DrawerNavigationHelpers;
+}): JSX.Element => {
+  const handleLogOut = (navigation: DrawerNavigationHelpers): void => {
+    UserSessionService.deleteUserSession().then(() =>
+      navigation.navigate("Login")
+    );
+  };
+  return (
+    <DrawerContentScrollView>
+      <View style={style.header}>
+        <AppIcon size={80} />
+      </View>
+
+      <DrawerItem
+        labelStyle={style.appName}
+        label="LOG OUT"
+        icon={() => <Ionicons name="exit-outline" size={30} color="black" />}
+        onPress={() => handleLogOut(navigation)}
+      />
+    </DrawerContentScrollView>
   );
 };
 

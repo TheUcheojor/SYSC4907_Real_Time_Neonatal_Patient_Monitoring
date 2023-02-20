@@ -35,7 +35,7 @@ export default interface MeasurementPacket {
   /**
    * The battern percentage
    */
-  readonly battery: number;
+  readonly battery: number | undefined;
 
   /**
    * The time stamp formatted in the UTC Format:  YYYY-DD-MM T HH:MM:SSZ.
@@ -49,9 +49,22 @@ export default interface MeasurementPacket {
   readonly location: RouteLocation;
 }
 
-export const VIBRATION_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket =
+export type NumericMetricMeasurementPacketKey = keyof MeasurementPacket &
+  ("vibration" | "noise" | "temperature" | "velocity");
+
+export const VIBRATION_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
   "vibration";
-export const NOISE_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket = "noise";
-export const TEMPERATURE_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket =
+export const NOISE_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
+  "noise";
+export const TEMPERATURE_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
   "temperature";
-export const VELOCITY_KEY_MEASUREMENT_PACKET: keyof MeasurementPacket = "noise";
+export const VELOCITY_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
+  "velocity";
+
+export const NUMERIC_METRIC_MEASUREMENT_PACKET_KEYS: NumericMetricMeasurementPacketKey[] =
+  [
+    VIBRATION_KEY_MEASUREMENT_PACKET,
+    NOISE_KEY_MEASUREMENT_PACKET,
+    TEMPERATURE_KEY_MEASUREMENT_PACKET,
+    VELOCITY_KEY_MEASUREMENT_PACKET,
+  ];
