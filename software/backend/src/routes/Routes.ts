@@ -15,7 +15,7 @@ import { OkPacket } from "mysql2";
 import {
   QUERY_PAGE_DEFAULT,
   QUERY_LIMIT_DEFAULT,
-} from "../constants/QueryConstants";
+} from "./../constants/QueryConstants.js";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
