@@ -1,5 +1,6 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
 import MeasurementPacket from "./services/models/sensor-package-communication/MeasurementPacket";
+import TripRoute from "./services/models/trips/Route";
 
 /**
  * Route mapping for high level screens
@@ -23,6 +24,7 @@ export type MainStackParamList = {
   TripDetails: {
     routeId: number;
     isLocalTrip: boolean;
+    tripRoute: TripRoute;
   };
 };
 

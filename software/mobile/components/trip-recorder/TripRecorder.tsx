@@ -17,13 +17,18 @@ import RecordingTripRecorder from "./subcomponents/RecordingTripRecorder";
  */
 const MILLISECOND_INCREMENT_RATE = 100;
 
+interface TripRecorderParams extends SharedScreenResources {
+  setNumberOfUnfetchedTrip: React.Dispatch<React.SetStateAction<number>>;
+}
+
 /**
  * The Trip Recorder Component
  */
 export default ({
   recordingState,
   setRecordingState,
-}: SharedScreenResources) => {
+  setNumberOfUnfetchedTrip,
+}: TripRecorderParams) => {
   const [time, setTime] = useState<number>(0);
   const [dropDropdownOpen, setdropDownOpen] = useState<boolean>(false);
   const [segmentType, setSegmentType] = useState<RouteSegmentType>(
@@ -71,6 +76,9 @@ export default ({
     TripRecordingService.getTripController().then(
       (tripController: TripRecordingService) => {
         tripController.endRoute().then(() => {
+          setNumberOfUnfetchedTrip(
+            (currentNumberOfUnfetchedTrip) => currentNumberOfUnfetchedTrip + 1
+          );
           setRecordingState(RouteRecordingState.NOT_RECORDING);
         });
       }

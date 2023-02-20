@@ -93,7 +93,7 @@ export class DatabaseService {
     // Prepare and execute table-creation queries
     const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseService.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text );`;
     const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text );`;
-    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentid integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
+    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentId integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
 
     console.log(createRoutesTableQuery);
     await this.database.executeSql(createRoutesTableQuery);
@@ -152,18 +152,37 @@ export class DatabaseService {
 
   /**
    * Returns the query results for fetching routes with restrictions
-   * @param maxNumberOfFetchedRoutes  the max number of routes that can be fetched at a time
+   * @param numberOfUnfetchedTrip  the number of trips that have not been fetched
    * @param fetchOffset  the offset from which the next trip routes will be fetched
    * @returns the query result
    */
-  public async getRoutesWithRestrictions(
-    maxNumberOfFetchedRoutes: number,
+  public async getRoutesWithPagination(
     fetchOffset: number
   ): Promise<[ResultSet]> {
-    const getRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${maxNumberOfFetchedRoutes} OFFSET ${fetchOffset};`;
+    console.log("getRoutesWithRestrictions:", fetchOffset);
+    const MAX_NUMBER_OF_FETCHED_ROUTES = 2;
+
+    const getRoutesQuery: string = `SELECT * FROM ${
+      DatabaseService.ROUTES_TABLE
+    } ORDER BY routeId DESC LIMIT ${
+      fetchOffset * MAX_NUMBER_OF_FETCHED_ROUTES
+    }, ${MAX_NUMBER_OF_FETCHED_ROUTES};`;
 
     console.log("getRoutesQuery: ", getRoutesQuery);
     return await this.database.executeSql(getRoutesQuery);
+  }
+
+  /**
+   * Returns the specified number of routes starting from the earliest
+   * @param numberOfUnfetchedTrip  the number of trips that have not been fetched
+   * @returns the query result
+   */
+  public async getEarliestRoutes(
+    numberOfUnfetchedTrip: number
+  ): Promise<[ResultSet]> {
+    const getEarliestRoutesQuery: string = `SELECT * FROM ${DatabaseService.ROUTES_TABLE} ORDER BY routeId DESC LIMIT ${numberOfUnfetchedTrip}`;
+
+    return await this.database.executeSql(getEarliestRoutesQuery);
   }
 
   /**
@@ -218,10 +237,20 @@ export class DatabaseService {
   public async saveRouteMeasurementDataPoint(
     routeMeasurementDataPoint: RouteMeasurementDataPoint
   ) {
+    console.log(
+      "saveRouteMeasurementDataPoint",
+      routeMeasurementDataPoint.segmentId
+    );
+
+    console.log(
+      "saveRouteMeasurementDataPoint: ",
+      routeMeasurementDataPoint.location
+    );
+
     const saveRouteMeasurementDataPointQuery = `INSERT INTO ${
       DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
     } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location) VALUES 
-    ('${routeMeasurementDataPoint.routeSegmentId}',
+    ('${routeMeasurementDataPoint.segmentId}',
     '${routeMeasurementDataPoint.routeId}',
     '${routeMeasurementDataPoint.time}','
     ${routeMeasurementDataPoint.velocity}',
@@ -245,19 +274,54 @@ export class DatabaseService {
   ): Promise<RouteMeasurementDataPoint[]> {
     const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId=${routeId}; `;
 
-    return await this.database
-      .executeSql(getRouteMeasurementDataPointsByIdQuery)
-      .then((resultSet: [ResultSet]) => {
-        const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
+    return this.exceuteRouteMeasurementDataPointsFetchQuery(
+      getRouteMeasurementDataPointsByIdQuery
+    );
+  }
 
-        resultSet.forEach((result) => {
-          for (let index = 0; index < result.rows.length; index++) {
-            routeMeasurementDataPoints.push(result.rows.item(index));
-          }
-        });
+  /**
+   * Get route measurement data points by segment id
+   * @param segmentId the segment id
+   * @returns the collection of route measurement data points
+   */
+  public getRouteMeasurementDataPointsBySegmentId(
+    segmentId: number
+  ): Promise<RouteMeasurementDataPoint[]> {
+    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE segmentId=${segmentId}; `;
 
-        return routeMeasurementDataPoints;
+    return this.exceuteRouteMeasurementDataPointsFetchQuery(
+      getRouteMeasurementDataPointsByIdQuery
+    );
+  }
+
+  /**
+   * Executes a query related to RouteMeasurementDataPoints
+   * @param query query related to RouteMeasurementDataPoints
+   * @returns an array RouteMeasurementDataPoint
+   */
+  private async exceuteRouteMeasurementDataPointsFetchQuery(
+    query: string
+  ): Promise<RouteMeasurementDataPoint[]> {
+    return this.database.executeSql(query).then((resultSet: [ResultSet]) => {
+      const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
+
+      resultSet.forEach((result) => {
+        // console.log(result.rows.item(0));
+        for (let index = 0; index < result.rows.length; index++) {
+          const currentDataPoint: any = result.rows.item(index);
+          console.log(
+            "exceuteRouteMeasurementDataPointsFetchQuery currentDataPoint.location: ",
+            currentDataPoint
+          );
+          routeMeasurementDataPoints.push({
+            ...currentDataPoint,
+            location: JSON.parse(currentDataPoint.location),
+          });
+        }
       });
+
+      return routeMeasurementDataPoints;
+    });
   }
 
   /**
@@ -282,6 +346,30 @@ export class DatabaseService {
         });
 
         return routeSegments;
+      });
+  }
+
+  /**
+   * Deletes Route, Segements, and DataPoints related to a route id
+   * @param routeId the route id
+   */
+  public async deleteAllRelatedContentsByRouteId(
+    routeId: number
+  ): Promise<void> {
+    const deleteSegmentByRouteIdQuery = `DELETE FROM ${DatabaseService.ROUTE_SEGMENTS_TABLE} WHERE routeId=${routeId}; `;
+    const deleteRouteByRouteIdQuery = `DELETE FROM ${DatabaseService.ROUTES_TABLE} WHERE routeId=${routeId}; `;
+    const deleteDataPointsByRouteIdQuery = `DELETE FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE routeId=${routeId}; `;
+
+    return await this.database
+      .executeSql(deleteRouteByRouteIdQuery)
+      .then(() => {
+        return this.database
+          .executeSql(deleteSegmentByRouteIdQuery)
+          .then(() => {
+            return this.database
+              .executeSql(deleteDataPointsByRouteIdQuery)
+              .then(() => {});
+          });
       });
   }
 }

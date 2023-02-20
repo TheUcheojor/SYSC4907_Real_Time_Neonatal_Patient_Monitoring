@@ -4,6 +4,7 @@
  * Purpose: Exports the active trip screen, the screen used for recording trips
  */
 
+import { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import LocalTrips from "../../components/LocalTrips";
 import TripRecorder from "../../components/trip-recorder/TripRecorder";
@@ -14,6 +15,8 @@ export default ({
   measurementPacket,
   setMeasurementPacket,
 }: SharedScreenResources): JSX.Element => {
+  const [numberOfUnfetchedTrip, setNumberOfUnfetchedTrip] = useState<number>(0);
+
   return (
     <View style={styles.activeTripScreen}>
       <TripRecorder
@@ -21,9 +24,13 @@ export default ({
         setRecordingState={setRecordingState}
         measurementPacket={measurementPacket}
         setMeasurementPacket={setMeasurementPacket}
+        setNumberOfUnfetchedTrip={setNumberOfUnfetchedTrip}
       />
 
-      <LocalTrips />
+      <LocalTrips
+        numberOfUnfetchedTrip={numberOfUnfetchedTrip}
+        setNumberOfUnfetchedTrip={setNumberOfUnfetchedTrip}
+      />
     </View>
   );
 };

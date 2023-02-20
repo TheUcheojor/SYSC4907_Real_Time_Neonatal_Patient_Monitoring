@@ -11,6 +11,10 @@ import MainHeader from "../components/MainHeader";
 
 import TripsTopTabNavigator from "./TripsTopTabNavigator";
 import TripDetailsScreen from "../screens/trips/TripDetailsScreen";
+import { useEffect, useState } from "react";
+import UserSessionService, {
+  UserSession,
+} from "../services/UserSessionService";
 
 const BottomTab = createBottomTabNavigator<MainStackParamList>();
 
@@ -23,100 +27,118 @@ export default ({
   setRecordingState,
   measurementPacket,
   setMeasurementPacket,
-}: SharedScreenResources) => (
-  <BottomTab.Navigator
-    initialRouteName="Paramedic"
-    screenOptions={({ navigation }: { navigation: any }) => ({
-      headerTitle: () => (
-        <MainHeader recordingState={recordingState} navigation={navigation} />
-      ),
-      // header: (navigation ) => <MainHeader {...navigation}} />,
-      // headerStatusBarHeight: 50,
-      headerStyle: {
-        elevation: 0,
-        shadowOpacity: 0,
-        borderBottomWidth: 0,
-      },
-      headerShown: true,
-      tabBarShowLabel: false,
-      tabBarStyle: styles.menuContainer,
-    })}
-  >
-    <BottomTab.Screen
-      name="Driver"
-      // component={DriverScreen}
-      options={{
-        tabBarIcon: ({ focused }) => (
-          <MenuItemContainer screenName="Driver" focused={focused} />
-        ),
-      }}
-    >
-      {(props) => (
-        <DriverScreen
-          recordingState={recordingState}
-          setRecordingState={setRecordingState}
-          measurementPacket={measurementPacket}
-          setMeasurementPacket={setMeasurementPacket}
-        />
-      )}
-    </BottomTab.Screen>
-    <BottomTab.Screen
-      name="Paramedic"
-      // component={ParamedicScreen}
-      options={{
-        tabBarIcon: ({ focused }) => (
-          <MenuItemContainer screenName="Paramedic" focused={focused} />
-        ),
-      }}
-    >
-      {(props) => (
-        <ParamedicScreen
-          recordingState={recordingState}
-          setRecordingState={setRecordingState}
-          measurementPacket={measurementPacket}
-          setMeasurementPacket={setMeasurementPacket}
-        />
-      )}
-    </BottomTab.Screen>
+}: SharedScreenResources) => {
+  const [username, setUsername] = useState<string>("");
 
-    <BottomTab.Screen
-      name="Trips"
-      // component={TripsTopTabNavigator}
-      options={{
-        tabBarIcon: ({ focused }) => (
-          <MenuItemContainer screenName="Trips" focused={focused} />
+  useEffect(() => {
+    UserSessionService.loadUserSession().then(
+      (userSession: UserSession | null) => {
+        if (userSession) {
+          setUsername(userSession?.fullName);
+        }
+      }
+    );
+  }, []);
+
+  return (
+    <BottomTab.Navigator
+      initialRouteName="Paramedic"
+      screenOptions={({ navigation }: { navigation: any }) => ({
+        headerTitle: () => (
+          <MainHeader
+            recordingState={recordingState}
+            navigation={navigation}
+            username={username}
+          />
         ),
-      }}
+        // header: (navigation ) => <MainHeader {...navigation}} />,
+        // headerStatusBarHeight: 50,
+        headerStyle: {
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+        },
+        headerShown: true,
+        tabBarShowLabel: false,
+        tabBarStyle: styles.menuContainer,
+      })}
     >
-      {(props) => (
-        <TripsTopTabNavigator
-          recordingState={recordingState}
-          setRecordingState={setRecordingState}
-          measurementPacket={measurementPacket}
-          setMeasurementPacket={setMeasurementPacket}
-        />
-      )}
-    </BottomTab.Screen>
-    <BottomTab.Screen
-      name="Settings"
-      // component={SettingsScreen}
-      options={{
-        tabBarIcon: ({ focused }) => (
-          <MenuItemContainer screenName="Settings" focused={focused} />
-        ),
-      }}
-    >
-      {(props) => (
-        <SettingsScreen
-          recordingState={recordingState}
-          setRecordingState={setRecordingState}
-          measurementPacket={measurementPacket}
-          setMeasurementPacket={setMeasurementPacket}
-        />
-      )}
-    </BottomTab.Screen>
-  </BottomTab.Navigator>
-);
+      <BottomTab.Screen
+        name="Driver"
+        // component={DriverScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MenuItemContainer screenName="Driver" focused={focused} />
+          ),
+        }}
+      >
+        {(props) => (
+          <DriverScreen
+            recordingState={recordingState}
+            setRecordingState={setRecordingState}
+            measurementPacket={measurementPacket}
+            setMeasurementPacket={setMeasurementPacket}
+          />
+        )}
+      </BottomTab.Screen>
+      <BottomTab.Screen
+        name="Paramedic"
+        // component={ParamedicScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MenuItemContainer screenName="Paramedic" focused={focused} />
+          ),
+        }}
+      >
+        {(props) => (
+          <ParamedicScreen
+            recordingState={recordingState}
+            setRecordingState={setRecordingState}
+            measurementPacket={measurementPacket}
+            setMeasurementPacket={setMeasurementPacket}
+          />
+        )}
+      </BottomTab.Screen>
+
+      <BottomTab.Screen
+        name="Trips"
+        // component={TripsTopTabNavigator}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MenuItemContainer screenName="Trips" focused={focused} />
+          ),
+        }}
+      >
+        {(props) => (
+          <TripsTopTabNavigator
+            recordingState={recordingState}
+            setRecordingState={setRecordingState}
+            measurementPacket={measurementPacket}
+            setMeasurementPacket={setMeasurementPacket}
+          />
+        )}
+      </BottomTab.Screen>
+      <BottomTab.Screen
+        name="Settings"
+        // component={SettingsScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MenuItemContainer screenName="Settings" focused={focused} />
+          ),
+        }}
+      >
+        {(props) => (
+          <SettingsScreen
+            recordingState={recordingState}
+            setRecordingState={setRecordingState}
+            measurementPacket={measurementPacket}
+            setMeasurementPacket={setMeasurementPacket}
+          />
+        )}
+      </BottomTab.Screen>
+    </BottomTab.Navigator>
+  );
+};
 
 const styles = StyleSheet.create({
   menuContainer: {

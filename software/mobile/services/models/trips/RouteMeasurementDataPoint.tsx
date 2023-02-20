@@ -15,7 +15,7 @@ export default interface RouteMeasurementDataPoint extends MeasurementPacket {
   /**
    * The route segment id
    */
-  routeSegmentId: number;
+  segmentId: number;
 
   /**
    * The route id

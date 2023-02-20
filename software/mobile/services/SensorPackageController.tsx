@@ -19,7 +19,7 @@ import {
 } from "react-native-permissions";
 
 import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
-import { convertUnixTimestampToUTCTime } from "../utils/TimeUtil";
+import { formatUnixTimestamp } from "../utils/TimeUtil";
 import {
   BaseRequest,
   BaseRequestInterface,
@@ -29,6 +29,7 @@ import { circularArrayPush } from "../utils/ArrayUtil";
 import { useEffect } from "react";
 import { measure } from "react-native-reanimated";
 import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
+import demoRouteDataPoints from "../mock/demoRouteDataPoints";
 
 export default class SensorPackageController {
   /**
@@ -295,7 +296,7 @@ export default class SensorPackageController {
           );
 
           // //Covert the unix time stamp
-          measurementPacket.time = convertUnixTimestampToUTCTime(
+          measurementPacket.time = formatUnixTimestamp(
             parseInt(measurementPacket.time as string)
           );
 
@@ -316,10 +317,19 @@ export default class SensorPackageController {
       React.SetStateAction<MeasurementPacket>
     >
   ): NodeJS.Timer {
-    const MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS = 3000;
+    const MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS = 1000;
+    let currentLocationIndex: number = 0;
 
     return setInterval(() => {
-      const generatedMeasurementPacket = generateRandomMeasurementPacket();
+      const generatedMeasurementPacket = generateRandomMeasurementPacket(
+        demoRouteDataPoints[currentLocationIndex].location
+      );
+      // console.log(
+      //   "currentLocationIndex: ",
+      //   demoRouteDataPoints[currentLocationIndex].location
+      // );
+      currentLocationIndex =
+        (currentLocationIndex + 1) % demoRouteDataPoints.length;
 
       setMeasurementPacket(generatedMeasurementPacket);
     }, MEASUREMENT_PACKET_GENERATION_RATE_MILLISECONDS);

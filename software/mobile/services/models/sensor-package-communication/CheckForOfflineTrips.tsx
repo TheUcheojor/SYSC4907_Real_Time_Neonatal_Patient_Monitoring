@@ -7,14 +7,14 @@
 import MeasurementPacket from "./MeasurementPacket";
 import { BaseRequest } from "./BaseRequest";
 import { BaseResponse } from "./BaseResponse";
-import { RequestType } from "./RequestType";
+import { SensorPackageRequestType } from "./RequestType";
 
 export class CheckForOfflineTripsRequest extends BaseRequest {
   /**
    * The CheckForOfflineTripsRequest constructor
    */
   constructor() {
-    super(RequestType.CHECK_FOR_OFFLINE_TRIPS);
+    super(SensorPackageRequestType.CHECK_FOR_OFFLINE_TRIPS);
   }
 }
 

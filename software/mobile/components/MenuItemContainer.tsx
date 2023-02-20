@@ -34,7 +34,7 @@ export default ({
 
   return (
     <View style={styles.menuItemContainer}>
-      {focused ? (
+      {focused && (
         <FontAwesome
           name="circle"
           size={10}
@@ -46,8 +46,6 @@ export default ({
             top: -13,
           }}
         />
-      ) : (
-        <></>
       )}
       {MenuItemIconMapping.get(screenName)}
       <Text style={styles.menuItemText}>{screenName.toUpperCase()}</Text>

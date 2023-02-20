@@ -6,7 +6,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { View } from "react-native";
 import ActiveTripScreen from "../screens/trips/ActiveTripScreen";
-import TripQueryScreen from "../screens/trips/TripQueryScreen";
+import TripQueryScreen from "../screens/trips/trip-query/TripQueryScreen";
 import { SharedScreenResources, TripsStackParamList } from "../types";
 
 const TopTab = createMaterialTopTabNavigator<TripsStackParamList>();

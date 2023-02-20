@@ -7,6 +7,11 @@ import {
   MODERATE_TO_HIGH_THRESHOLD_DEFAULT,
 } from "../components/gauge/constants";
 import Gauge from "../components/gauge/Gauge";
+import {
+  getMetricThreshold,
+  MetricThreshold,
+  VIBRATION_UNITS,
+} from "../constants/metric-constants";
 import { SharedScreenResources } from "../types";
 
 /**
@@ -15,17 +20,21 @@ import { SharedScreenResources } from "../types";
 export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
   const metricLevel: React.MutableRefObject<number> = useRef<number>(0);
 
+  const VIBRATION_KEY: "vibration" = "vibration";
+  const metricThreshold: MetricThreshold = getMetricThreshold(VIBRATION_KEY);
+
   /**
-   *  The following constants may be used now but down the line, we can provide users functionality
+   *  The following constants are not used now but down the line, they can provide users functionality
    *  that allows for the modification of gauge settings
    * */
   const [lowModerateThreshold, setLowModerateThreshold] = useState<number>(
-    LOW_TO_MODERATE_THRESHOLD_DEFAULT
+    metricThreshold.lowToMeduimThreshold
   );
   const [moderateHighThreshold, setModerateHighThreshold] = useState<number>(
-    MODERATE_TO_HIGH_THRESHOLD_DEFAULT
+    metricThreshold.mediumToHighThreshold
   );
   const [gaugeMax, setGaugeMax] = useState<number>(GAUGE_MAX_DEFAULT);
+  const [guageUnits, setGuageUnits] = useState<string>(VIBRATION_UNITS);
 
   useEffect(() => {
     metricLevel.current = measurementPacket.vibration;
@@ -38,6 +47,7 @@ export default ({ measurementPacket }: SharedScreenResources): JSX.Element => {
         lowModerateThreshold={lowModerateThreshold}
         moderateHighThreshold={moderateHighThreshold}
         gaugeMax={gaugeMax}
+        units={guageUnits}
       />
       <Text style={styles.gaugeTitle}>VIBRATION</Text>
     </View>

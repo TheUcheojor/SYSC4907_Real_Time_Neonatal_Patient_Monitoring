@@ -50,6 +50,11 @@ export interface GaugeParameters {
    * The max gauge value
    */
   gaugeMax: number;
+
+  /**
+   * The units for the guage
+   */
+  units: string;
 }
 
 export default ({
@@ -57,6 +62,7 @@ export default ({
   lowModerateThreshold,
   moderateHighThreshold,
   gaugeMax,
+  units,
 }: GaugeParameters) => {
   // const [vibrationLevel, setVibrationLevel] = useState<number>(50);
   const data = [gaugeMax - currentMetricLevel, currentMetricLevel];
@@ -121,7 +127,7 @@ export default ({
       />
 
       <Text style={styles.title}>{currentMetricLevel}</Text>
-      <Text style={styles.units}>Hz</Text>
+      <Text style={styles.units}>{units}</Text>
       {updateIcon(
         currentMetricLevel,
         lowModerateThreshold,
