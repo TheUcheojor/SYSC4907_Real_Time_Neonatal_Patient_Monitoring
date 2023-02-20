@@ -12,6 +12,10 @@ import {
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import RouteSegment from "./../models/RouteSegment.js";
 import { OkPacket } from "mysql2";
+import {
+  QUERY_PAGE_DEFAULT,
+  QUERY_LIMIT_DEFAULT,
+} from "../constants/QueryConstants";
 
 const logger = Logger.getInstance();
 const routesRouter = Router();
@@ -20,9 +24,6 @@ type IOverload = {
   (param: number): number[];
   (param: object): object[];
 };
-
-const QUERY_LIMIT_DEFAULT: number = 3;
-const QUERY_PAGE_DEFAULT: number = 1;
 
 routesRouter.post(
   "/routes",
@@ -144,8 +145,10 @@ routesRouter.get(
   "/routes",
   authenticateSessionToken,
   (req: AuthenticatedRequest, res: Response) => {
-    let page = parseInt(req.query.page as undefined as string) || 1;
-    let limit = parseInt(req.query.limit as undefined as string) || 3;
+    let page =
+      parseInt(req.query.page as undefined as string) || QUERY_PAGE_DEFAULT;
+    let limit =
+      parseInt(req.query.limit as undefined as string) || QUERY_LIMIT_DEFAULT;
 
     // Fetch-all query
     let db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} LIMIT ${
@@ -161,13 +164,13 @@ routesRouter.get(
       let comparison_operator: string = req.query.comparison_operator as string;
       let threshold: string = req.query.threshold as string;
 
-      // Fetch with constraints
+      // Fetch with custom constraints
       db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} AND ${
         route_metric_key + comparison_operator + threshold
       } LIMIT ${(page - 1) * limit},${limit}`;
-    }
 
-    console.log(db_query);
+      logger.info("Fetch query with custom constraint: " + db_query);
+    }
 
     let db = new DB();
     db.connect();
