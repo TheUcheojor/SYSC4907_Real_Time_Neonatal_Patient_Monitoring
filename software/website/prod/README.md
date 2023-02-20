@@ -25,3 +25,12 @@ frontend:
     paths:
       - node_modules/**/*
 
+
+in backend `npm run tsc`
+
+in website `npm run build`
+
+move web build folder into backend build folder then from backend
+
+
+scp -i C:\Users\Ryan\.ssh\tca-ssh.pem -r \build\ ubuntu@44.200.39.8:/home/ubuntu/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/src/
