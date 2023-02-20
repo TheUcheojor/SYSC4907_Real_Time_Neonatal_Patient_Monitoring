@@ -170,7 +170,7 @@ export class ServerCommnunicationService {
     return this.getUserSession()
       .then((userSession: UserSession) => {
         return fetch(
-          `${ServerCommnunicationService.API_URL}/routes/search?route_metric_key=${tripProperty}&comparison_operator=${comparisonOperator}&threshold=${threshold}page=${page}&limit=${limit}`,
+          `${ServerCommnunicationService.API_URL}/routes?route_metric_key=${tripProperty}&comparison_operator=${comparisonOperator}&threshold=${threshold}&page=${page}&limit=${limit}`,
           {
             method: HttpRequestType.GET,
             headers: {

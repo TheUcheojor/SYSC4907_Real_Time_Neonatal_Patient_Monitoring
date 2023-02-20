@@ -21,13 +21,16 @@ type IOverload = {
   (param: object): object[];
 };
 
+const QUERY_LIMIT_DEFAULT: number = 3;
+const QUERY_PAGE_DEFAULT: number = 1;
+
 routesRouter.post(
   "/routes",
   authenticateSessionToken,
   (req: PostRouteRequest, res: Response) => {
     let body = req.body;
     let segments = body.route_segments;
-    console.log(body);
+
     if (
       segments === undefined ||
       segments.length === 0 ||
@@ -144,96 +147,54 @@ routesRouter.get(
     let page = parseInt(req.query.page as undefined as string) || 1;
     let limit = parseInt(req.query.limit as undefined as string) || 3;
 
-    let db = new DB();
-    db.connect();
-    let con = db.con();
+    // Fetch-all query
+    let db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} LIMIT ${
+      (page - 1) * limit
+    },${limit}`;
 
-    con.query(
-      "SELECT * FROM routes WHERE owner_id=? LIMIT ?,?",
-      [req.user_id, (page - 1) * limit, limit],
-      function (error, results, fields) {
-        if (error) {
-          return con.rollback(function () {
-            logger.error(error);
-          });
-        }
-        con.query(
-          "SELECT COUNT(*) FROM routes WHERE owner_id=?",
-          [req.user_id],
-          function (error, countResult, fields) {
-            if (error) {
-              return con.rollback(function () {
-                logger.error(error);
-              });
-            }
-            res.send({
-              routes: results,
-              totalRoutes: countResult[0][COUNT_KEY],
-            });
-          }
-        );
-      }
-    );
-  }
-);
-
-routesRouter.get(
-  "/routes/search",
-  authenticateSessionToken,
-  (req: AuthenticatedRequest, res: Response) => {
-    // Return bad request status if required query params are missing
     if (
-      !req.query.route_metric_key ||
-      !req.query.comparison_operator ||
-      !req.query.threshold
+      req.query.route_metric_key &&
+      req.query.comparison_operator &&
+      req.query.threshold
     ) {
-      return res.status(HttpStatusEnum.BAD_REQUEST).send();
+      let route_metric_key: string = req.query.route_metric_key as string;
+      let comparison_operator: string = req.query.comparison_operator as string;
+      let threshold: string = req.query.threshold as string;
+
+      // Fetch with constraints
+      db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} AND ${
+        route_metric_key + comparison_operator + threshold
+      } LIMIT ${(page - 1) * limit},${limit}`;
     }
 
-    let page = parseInt(req.query.page as undefined as string) || 1;
-    let limit = parseInt(req.query.limit as undefined as string) || 3;
-
-    let route_metric_key: string = req.query.route_metric_key as string;
-    let comparison_operator: string = req.query.comparison_operator as string;
-    let threshold: string = req.query.threshold as string;
+    console.log(db_query);
 
     let db = new DB();
     db.connect();
     let con = db.con();
 
-    console.log(
-      `SELECT * FROM routes WHERE owner_id=? ${
-        route_metric_key + comparison_operator
-      }? LIMIT ?,?`
-    );
-    con.query(
-      `SELECT * FROM routes WHERE owner_id=? AND ${
-        route_metric_key + comparison_operator
-      }? LIMIT ?,?`,
-      [req.user_id, threshold, (page - 1) * limit, limit],
-      function (error, results, fields) {
-        if (error) {
-          return con.rollback(function () {
-            logger.error(error);
-          });
-        }
-        con.query(
-          "SELECT COUNT(*) FROM routes WHERE owner_id=?",
-          [req.user_id],
-          function (error, countResult, fields) {
-            if (error) {
-              return con.rollback(function () {
-                logger.error(error);
-              });
-            }
-            res.send({
-              routes: results,
-              totalRoutes: countResult[0][COUNT_KEY],
+    con.query(db_query, function (error, results, fields) {
+      if (error) {
+        return con.rollback(function () {
+          logger.error(error);
+        });
+      }
+      con.query(
+        "SELECT COUNT(*) FROM routes WHERE owner_id=?",
+        [req.user_id],
+        function (error, countResult, fields) {
+          if (error) {
+            return con.rollback(function () {
+              logger.error(error);
             });
           }
-        );
-      }
-    );
+          res.send({
+            routes: results,
+            totalRoutes: countResult[0][COUNT_KEY],
+          });
+        }
+      );
+    });
   }
 );
 
