@@ -49,16 +49,11 @@ app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 });
 
-// const httpsServer = https.createServer(credentials, app);
-
-// httpsServer.listen(port, () => {
-//   console.log(`Https server listening on port ${port}`);
-// });
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+// serve the frontend build through default endpoint
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', function (req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });

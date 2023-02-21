@@ -63,9 +63,11 @@ forgotPasswordRouter.post(
           from: "tca.emailer@gmail.com",
           to: user.email,
           subject: "TCA - Reset Your Password",
-          text: `To reset your password for the TCA service please click the following link: http://localhost:3000/resetPassword/${generateForgotPasswordToken(
+          text: `To reset your password for the TCA service please click the following link: ${
+            process.env.SERVER_URL
+          }/resetPassword/${generateForgotPasswordToken(
             user.user_id
-          )}. This link is only valid for ${DEFAULT_FORGOT_PASSWORD_TOKEN_TIME}.`,
+          )} . This link is only valid for ${DEFAULT_FORGOT_PASSWORD_TOKEN_TIME}.`,
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -109,7 +111,7 @@ forgotPasswordRouter.put(
 
         if (results.affectedRows === 1) {
           logger.info("reset password request success");
-          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+          res.status(HttpStatusEnum.OK).send();
         } else if (results.affectedRows === 0) {
           res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         } else {
