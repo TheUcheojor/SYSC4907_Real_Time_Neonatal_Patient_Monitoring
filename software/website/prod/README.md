@@ -24,7 +24,23 @@ in website `npm run build`
 
 move web build folder into backend build folder then from backend
 
+cd backend/src 
+
+npm run tsc
+
+cd ../../website/src
+
+npm run build
+
+mv frontendBuild ../../backend/src/build
+
 scp -i C:\Users\Ryan\.ssh\tca-ssh.pem -r C:\Users\Ryan\School\4thYear\Project\SYSC4907_Real_Time_Neonatal_Patient_Monitoring\software\backend\src\build ubuntu@44.200.39.8:/home/ubuntu/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/src/
+
+ssh -i C:\Users\Ryan\.ssh\tca-ssh.pem  ubuntu@ec2-44-200-39-8.compute-1.amazonaws.com
+
+sudo systemctl restart tca-backend.service
+
+logout
 
 setup nginx reverse proxy to forward port 80 traffic to node server port 
 

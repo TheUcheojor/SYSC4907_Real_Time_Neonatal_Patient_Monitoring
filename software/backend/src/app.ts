@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import https from "https";
 import loginRouter from "./routes/Login.js";
 import routesRouter from "./routes/Routes.js";
 import userRouter from "./routes/User.js";
@@ -49,11 +48,11 @@ app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 });
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+// const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// serve the frontend build through default endpoint
-app.use(express.static(path.join(__dirname, 'build')));
+// // serve the frontend build through default endpoint
+// app.use(express.static(path.join(__dirname, 'frontendBuild')));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/*', function (req, res) {
+//   res.sendFile(path.join(__dirname, 'frontendBuild', 'index.html'));
+// });
