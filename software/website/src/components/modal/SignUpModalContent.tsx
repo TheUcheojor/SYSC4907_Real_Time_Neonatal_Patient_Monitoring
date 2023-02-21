@@ -59,7 +59,7 @@ function SignUpModalContent() {
       password.current.length >= 8 && password.current.length <= 16;
     let passwordVerifyValid =
       passwordVerify.current.length >= 8 && passwordVerify.current.length <= 16;
-    let passwordsMatch = password === passwordVerify;
+    let passwordsMatch = password.current === passwordVerify.current;
 
     if (
       fullNameValid &&
