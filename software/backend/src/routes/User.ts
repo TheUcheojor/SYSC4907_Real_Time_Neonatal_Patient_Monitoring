@@ -34,6 +34,7 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
       if (error) {
         return con.rollback(function () {
           logger.error(error);
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         });
       }
       results = <Array<RowDataPacket>>results;
@@ -50,6 +51,7 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
           if (error) {
             return con.rollback(function () {
               logger.error(error);
+              res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             });
           }
           logger.info("signup request success");

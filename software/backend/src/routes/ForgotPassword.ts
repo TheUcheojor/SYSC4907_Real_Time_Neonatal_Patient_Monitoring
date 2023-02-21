@@ -40,6 +40,7 @@ forgotPasswordRouter.post(
         if (error) {
           return con.rollback(function () {
             logger.error(error);
+            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           });
         }
         results = <Array<RowDataPacket>>results;
@@ -100,6 +101,7 @@ forgotPasswordRouter.put(
         if (error) {
           return con.rollback(function () {
             logger.error(error);
+            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           });
         }
 

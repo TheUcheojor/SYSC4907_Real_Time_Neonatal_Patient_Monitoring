@@ -24,6 +24,7 @@ segmentsRouter.get(
         if (error) {
           return con.rollback(function () {
             logger.error(error);
+            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           });
         }
         routeResults = <Array<RowDataPacket>>routeResults;
@@ -45,6 +46,7 @@ segmentsRouter.get(
             if (error) {
               return con.rollback(function () {
                 logger.error(error);
+                res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
               });
             }
             segmentResults = <Array<RowDataPacket>>segmentResults;

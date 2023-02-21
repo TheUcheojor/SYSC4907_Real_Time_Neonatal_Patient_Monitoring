@@ -25,8 +25,8 @@ function SignUpModalContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email.current,
-          password: password,
-          full_name: fullName,
+          password: password.current,
+          full_name: fullName.current,
         }),
       }
     ).then((res) => {
