@@ -88,7 +88,7 @@ function LoginPage({
           paddingTop: "40px",
         }}
       />
-      <h1>Transport Comfort Analysis Ry was here</h1>
+      <h1>Transport Comfort Analysis</h1>
       <form
         style={{
           width: "300px",

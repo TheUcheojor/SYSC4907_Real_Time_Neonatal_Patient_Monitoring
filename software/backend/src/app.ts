@@ -48,11 +48,11 @@ app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 });
 
-// const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// // serve the frontend build through default endpoint
-// app.use(express.static(path.join(__dirname, 'frontendBuild')));
+// serve the frontend build through default endpoint
+app.use(express.static(path.join(__dirname, 'frontendBuild')));
 
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'frontendBuild', 'index.html'));
-// });
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'frontendBuild', 'index.html'));
+});
