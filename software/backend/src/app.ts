@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import https from "https";
 import loginRouter from "./routes/Login.js";
 import routesRouter from "./routes/Routes.js";
 import userRouter from "./routes/User.js";
@@ -9,6 +8,8 @@ import devRouter from "./routes/dev/Dev.js";
 import forgotPasswordRouter from "./routes/ForgotPassword.js";
 import segmentsRouter from "./routes/Segments.js";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const PAYLOAD_LIMIT = "10mb";
 dotenv.config();
@@ -47,9 +48,11 @@ app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 });
 
-// const httpsServer = https.createServer(credentials, app);
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// httpsServer.listen(port, () => {
-//   console.log(`Https server listening on port ${port}`);
-// });
-6;
+// serve the frontend build through default endpoint
+app.use(express.static(path.join(__dirname, 'frontendBuild')));
+
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'frontendBuild', 'index.html'));
+});

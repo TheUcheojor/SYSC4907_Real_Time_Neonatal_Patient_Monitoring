@@ -7,7 +7,7 @@
   "scripts": {
     "serve": "nodemon App.ts",
     "test": "set TS_NODE_COMPILER_OPTIONS={\"module\": \"commonjs\" } && mocha -r ts-node/register 'tests/**/*.ts'",
-    "tsc": "tsc --outDir build",
+    "tsc": "tsc --outDir ../build",
     "dev": "ts-node-esm app.ts"
   },
   "nodemonConfig": {

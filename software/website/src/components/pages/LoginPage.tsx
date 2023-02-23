@@ -6,7 +6,6 @@ import SignUpModalContent from "components/modal/SignUpModalContent";
 import BabyIcon from "components/icons/BabyIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 const loginModalLinkSpanStyles: CSS.Properties = {

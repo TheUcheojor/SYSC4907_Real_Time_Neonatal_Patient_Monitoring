@@ -4,7 +4,6 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import { PASSWORD_LENGTH_MIN } from "constants/Auth";
 import { ColorEnum } from "constants/ColorEnum";
 import NewPassword from "components/pages/Trips/NewPassword";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface resetPasswordProps {
@@ -19,7 +18,6 @@ function ResetPasswordPage({ onReset }: resetPasswordProps) {
   const [resetPasswordResult, setResetPasswordResult] = useState("");
 
   const { resetCode } = useParams();
-  console.log(resetCode);
 
   function handleResetPassword() {
     setIsFetching(true);

@@ -60,6 +60,7 @@ routesRouter.post(
     con.beginTransaction(function (err) {
       if (err) {
         logger.error("BEGIN ROUTE TRANSACTION ERROR: " + err);
+        res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         return;
       }
       con.query(
@@ -81,6 +82,7 @@ routesRouter.post(
           if (error) {
             return con.rollback(function () {
               logger.error("ROUTE INSERT ERROR: " + error);
+              res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             });
           }
 
@@ -99,6 +101,7 @@ routesRouter.post(
                 if (error) {
                   return con.rollback(function () {
                     logger.error("SEG INSERT ERROR: " + error);
+                    res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
                   });
                 }
                 segmentResult = <OkPacket>segmentResult;
@@ -116,6 +119,7 @@ routesRouter.post(
                     if (error) {
                       return con.rollback(function () {
                         logger.error("DP INSERT ERROR: " + error);
+                        res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
                       });
                     }
                   }
@@ -129,6 +133,7 @@ routesRouter.post(
             if (err) {
               return con.rollback(function () {
                 logger.error(error);
+                res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
               });
             }
             res.send("Success");
@@ -180,6 +185,7 @@ routesRouter.get(
       if (error) {
         return con.rollback(function () {
           logger.error(error);
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         });
       }
       con.query(
@@ -189,6 +195,7 @@ routesRouter.get(
           if (error) {
             return con.rollback(function () {
               logger.error(error);
+              res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             });
           }
           res.send({

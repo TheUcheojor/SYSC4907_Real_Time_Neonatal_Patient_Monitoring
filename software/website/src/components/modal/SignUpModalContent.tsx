@@ -25,8 +25,8 @@ function SignUpModalContent() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: email.current,
-          password: password,
-          full_name: fullName,
+          password: password.current,
+          full_name: fullName.current,
         }),
       }
     ).then((res) => {
@@ -59,7 +59,7 @@ function SignUpModalContent() {
       password.current.length >= 8 && password.current.length <= 16;
     let passwordVerifyValid =
       passwordVerify.current.length >= 8 && passwordVerify.current.length <= 16;
-    let passwordsMatch = password === passwordVerify;
+    let passwordsMatch = password.current === passwordVerify.current;
 
     if (
       fullNameValid &&
