@@ -1,7 +1,8 @@
 # This script builds the backend and frontend deployment. Then bundles them together and sends them to the specified remote server. Afterwhich, restarts the systemctl process running the deployment.
 
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <remote_host_ip> <server_port> <remote host ssh key path (e.g. ~/.ssh/tca-ssh.pem)>"
+    echo "Usage: $0 <remote_host_ip> <server_port> <remote host ssh key path>"
+    echo "      e.g.: $0 100.200.300.400 3001 ~/.ssh/tca-ssh.pem"
     exit 1
 fi
 

@@ -1,15 +1,13 @@
-### TO DEPLOY BACKEND AND FRONTEND IN UBUNTU EC2
+### TO DEPLOY BACKEND (server + DB) AND FRONTEND IN UBUNTU EC2
 
-1. configure variables then run `sh deploy.sh`
-2. configure variables then run `sh startServer.sh`
-3. done, to deploy updates to same ec2 instance, repeat step 1
-
-### TO DEPLOY DB IN UBUNTU EC2
-
-1. install mysql
-2. start mysql
-3. add users for connection
-4. change mysql config bind address to 0.0.0.0, this allows the mysql server to listen to all external ips
-   https://www.youtube.com/watch?v=N9DwaThhpsg
-
-\*\*ensure all port are open for connection
+1. setup an EC2 instance using Ubuntu 18.0.4
+   max allowable free SSD size (30Gb as of 2023)
+   assign an ssh key to instance
+   save key.pem file on system (remember this path used for <ec2 instance ssh key path>)
+2. setup EC2 instance security group to allow following connections
+   port <desired server port> <-- <server ip>
+   port 80 <-- any IPv4
+   port 22 <-- system IP that will run the following scripts (for ssh connection)
+   ... (adjust ports as desired)
+3. configure variables then run `sh startServer.sh <server ip> <desired server port> <ec2 instance ssh key path>`
+4. done! To deploy updates to same ec2 instance, run `sh deploy.sh <server ip> <deployed server port> <ec2 instance ssh key path>`

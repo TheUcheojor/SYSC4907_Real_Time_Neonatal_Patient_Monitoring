@@ -1,8 +1,9 @@
-# This script configures the server to serve the TCA backend and frontend deployment through HTTP.
+# This script configures a remote server to serve the TCA backend and frontend deployment through HTTP.
 # !NOTE! This script was developed on Windows, and assumes the target server is running Ubuntu@18.0.4
 
 if [ $# -ne 3 ]; then
-    echo "Usage: $0 <remote_host_ip> <desired server port> <remote host ssh key path (e.g. ~/.ssh/tca-ssh.pem)>"
+    echo "Usage: $0 <remote_host_ip> <desired server port> <remote host ssh key path>"
+    echo "      e.g.: $0 100.200.300.400 3001 ~/.ssh/tca-ssh.pem"
     exit 1
 fi
 
