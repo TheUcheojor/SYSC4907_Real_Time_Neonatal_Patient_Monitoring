@@ -104,7 +104,7 @@ userRouter.put(
               });
             }
             logger.info("change password request success");
-            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+            res.status(HttpStatusEnum.OK).send();
           }
         );
       }

@@ -24,7 +24,7 @@ SYSTEMCTL_CONFIG="[Unit]\nDescription=tca-backend\nAfter=multi-user.target\n\n[S
 ENV_CONFIG="TOKEN_SECRET=$(openssl rand -hex 128)\nRESET_PASSWORD_TOKEN_SECRET=$(openssl rand -hex 128)\nMYSQL_HOST=localhost\nMYSQL_USER=$MYSQL_USER\nMYSQL_PASSWORD=$MYSQL_PASSWORD\nSERVER_PORT=$SERVER_PORT\nSERVER_URL=$SERVER"
 
 # DO NOT EDIT, we use nginx to reverse proxy port 80 requests to the node server port
-NGINX_CONFIG='server {\n    listen 80;\n\n    location / {\n        proxy_set_header   X-Forwarded-For \$remote_addr;\n        proxy_set_header   Host \$http_host;\n        proxy_pass         \"http://localhost'+":$SERVER_PORT\";\n    }\n}"
+NGINX_CONFIG='server {\n    listen 80;\n    client_max_body_size 10M;\n\n    location / {\n        proxy_set_header   X-Forwarded-For $remote_addr;\n        proxy_set_header   Host $http_host;\n        proxy_pass         http://localhost'":$SERVER_PORT;\n    }\n}"
 
 echo -e "\n   Install necessary libraries"
 ssh -i $SSH_KEY_PATH  $SERVER_USER@$SERVER "sudo apt update
@@ -38,10 +38,11 @@ echo -e "\n   Run deploy script"
 sh deploy.sh $SERVER $SERVER_PORT $SSH_KEY_PATH
 
 echo -e "\n   SETUP NGINX & server systemctl processes"
-ssh -i $SSH_KEY_PATH  $SERVER_USER@$SERVER "sudo apt install -y nginx
+ssh -i $SSH_KEY_PATH  $SERVER_USER@$SERVER "
+sudo apt install -y nginx
 echo -e \"$SYSTEMCTL_CONFIG\" | sudo tee -i /etc/systemd/system/tca-backend.service > /dev/null
 sudo rm /etc/nginx/sites-enabled/default
-echo -e \"$NGINX_CONFIG\" | sudo tee -i /etc/nginx/sites-available/node > /dev/null
+echo -e '$NGINX_CONFIG' | sudo tee -i /etc/nginx/sites-available/node > /dev/null
 sudo ln -s /etc/nginx/sites-available/node /etc/nginx/sites-enabled/node
 sudo systemctl enable nginx.service
 sudo systemctl enable tca-backend.service
@@ -56,7 +57,8 @@ sudo apt install -y mysql-server
 sudo systemctl enable mysql.service
 sudo systemctl start mysql.service
 "
-ssh -i $SSH_KEY_PATH $SERVER_USER@$SERVER "sudo mysql -u root -e \"CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';\"
+ssh -i $SSH_KEY_PATH $SERVER_USER@$SERVER "
+sudo mysql -u root -e \"CREATE USER IF NOT EXISTS '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';\"
 sudo mysql -u root -e \"CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;\"
 sudo mysql -u root -e \"GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'localhost';\"
 sudo mysql -u root -e \"CREATE TABLE IF NOT EXISTS $MYSQL_DATABASE.routes (route_id INT AUTO_INCREMENT PRIMARY KEY, owner_id INT, patient_id VARCHAR(255), organization_id INT, total_vibration INT, avg_temperature TINYINT, avg_noise TINYINT, avg_vibration TINYINT, avg_velocity SMALLINT, avg_pressure MEDIUMINT, start_time_s BIGINT, end_time_s BIGINT)\"

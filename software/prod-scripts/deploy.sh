@@ -18,7 +18,7 @@ export REACT_APP_SERVER_PORT=$2
 echo -e "\n  Lets build the backend deployment..."
 cd ../backend/src 
 rm -rf ../build
-npm run tsc
+npm run tsc --noEmitOnError
 # copy package.json so that we can execute dependency installation on server
 cp package.json ../build
 
