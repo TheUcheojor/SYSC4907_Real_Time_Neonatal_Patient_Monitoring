@@ -2,7 +2,7 @@
 
 # CONFIGURE THESE BEFORE RUNNING
 SERVER_USER='ubuntu'
-SERVER='ec2-44-200-39-8.compute-1.amazonaws.com'
+SERVER='ec2-3-230-125-189.compute-1.amazonaws.com'
 
 # frontend deployment code gets compiled statically, therefore the environment variables need to be set here
 export REACT_APP_SERVER_URL=http://44.200.39.8
@@ -24,14 +24,15 @@ echo -e "\n  Copy the frontend deployment into the backend..."
 cp -r frontendBuild ../backend/build
 
 echo -e "\n  Copy the deployment to the server..."
-ssh -i C:/Users/Ryan/.ssh/tca-ssh.pem $SERVER_USER@$SERVER 'sudo mkdir -p tca-backend'
-scp -q -i C:/Users/Ryan/.ssh/tca-ssh.pem -r C:/Users/Ryan/School/4thYear/Project/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/build ubuntu@44.200.39.8:/tmp
+ssh -i C:/Users/Ryan/.ssh/tca-ssh.pem $SERVER_USER@$SERVER 'sudo mkdir -p tca-backend
+sudo rm -rf tca-backend/build
+'
+scp -q -i C:/Users/Ryan/.ssh/tca-ssh.pem -r C:/Users/Ryan/School/4thYear/Project/SYSC4907_Real_Time_Neonatal_Patient_Monitoring/software/backend/build $SERVER_USER@$SERVER:/tmp
 ssh -i C:/Users/Ryan/.ssh/tca-ssh.pem  $SERVER_USER@$SERVER 'sudo mv /tmp/build /home/ubuntu/tca-backend/build'
 
 echo -e "\n  SSH into instance, install backend dependencies, then restart instance..."
 ssh -i C:/Users/Ryan/.ssh/tca-ssh.pem  $SERVER_USER@$SERVER 'cd tca-backend/build
-npm i --omit=dev 
-sudo systemctl daemon-reload 
+npm i --omit=dev
 sudo systemctl restart tca-backend.service'
 
 echo -e "\n  Done! Frontend and Backend deployed on EC2 instance."
