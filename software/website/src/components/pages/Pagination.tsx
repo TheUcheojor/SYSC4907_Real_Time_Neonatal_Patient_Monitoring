@@ -1,5 +1,5 @@
 import { ColorEnum } from "constants/ColorEnum";
-import React, { useState, useEffect, memo, useCallback } from "react";
+import React, { useCallback } from "react";
 
 const DOTS = "...";
 

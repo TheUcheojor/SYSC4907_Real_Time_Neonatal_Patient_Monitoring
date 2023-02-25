@@ -160,6 +160,8 @@ routesRouter.get(
       (page - 1) * limit
     },${limit}`;
 
+    let db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${req.user_id}`;
+
     if (
       req.query.route_metric_key &&
       req.query.comparison_operator &&
@@ -173,6 +175,10 @@ routesRouter.get(
       db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} AND ${
         route_metric_key + comparison_operator + threshold
       } LIMIT ${(page - 1) * limit},${limit}`;
+
+      db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${
+        req.user_id
+      } AND ${route_metric_key + comparison_operator + threshold}`;
 
       logger.info("Fetch query with custom constraint: " + db_query);
     }
@@ -188,22 +194,18 @@ routesRouter.get(
           res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
         });
       }
-      con.query(
-        "SELECT COUNT(*) FROM routes WHERE owner_id=? AND ?",
-        [req.user_id, `${route_metric_key + comparison_operator + threshold}`],
-        function (error, countResult, fields) {
-          if (error) {
-            return con.rollback(function () {
-              logger.error(error);
-              res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
-            });
-          }
-          res.send({
-            routes: results,
-            totalRoutes: countResult[0][COUNT_KEY],
+      con.query(db_count_query, function (error, countResult, fields) {
+        if (error) {
+          return con.rollback(function () {
+            logger.error(error);
+            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
           });
         }
-      );
+        res.send({
+          routes: results,
+          totalRoutes: countResult[0][COUNT_KEY],
+        });
+      });
     });
   }
 );

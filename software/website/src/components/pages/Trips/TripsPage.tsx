@@ -35,7 +35,7 @@ interface TripsProps {
 }
 
 function TripsPage({ onLogout }: TripsProps) {
-  const comparatorOptions = ["-","<", "=", ">"];
+  const comparatorOptions = ["-", "<", "=", ">"];
   const defaultComparatorOption = comparatorOptions[0];
 
   const measurandStatisticOptions = [
@@ -55,14 +55,20 @@ function TripsPage({ onLogout }: TripsProps) {
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
-  const [queryStat, setQueryStat] = useState("");
-  const [queryComparator, setQueryComparator] = useState("");
+  const [queryStat, setQueryStat] = useState("-");
+  const [queryComparator, setQueryComparator] = useState("-");
   const [queryValue, setQueryValue] = useState("");
   console.log("TRIPS PAGE RENDER", totalRoutes);
 
   useEffect(() => {
+    const queryString =
+      (queryStat !== "-" ? `&route_metric_key=${queryStat}` : ``) +
+      (queryComparator !== "-"
+        ? `&comparison_operator=${queryComparator}`
+        : ``) +
+      (queryValue !== "" ? `&threshold=${queryValue}` : ``);
     fetch(
-      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}&route_metric_key=${queryStat}&comparison_operator=${queryComparator}&threshold=${queryValue}`,
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}${queryString}`,
       {
         headers: getFetchHeaderWithAuth(),
       }
