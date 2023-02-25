@@ -22,7 +22,7 @@ const app = express();
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: PAYLOAD_LIMIT }));
-app.use(express.urlencoded({ limit: PAYLOAD_LIMIT }));
+app.use(express.urlencoded({ limit: PAYLOAD_LIMIT, extended: true }));
 
 // auth routes
 app.use(loginRouter);
@@ -48,11 +48,11 @@ app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);
 });
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // serve the frontend build through default endpoint
-app.use(express.static(path.join(__dirname, 'frontendBuild')));
+app.use(express.static(path.join(__dirname, "frontendBuild")));
 
-app.get('/*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'frontendBuild', 'index.html'));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "frontendBuild", "index.html"));
 });
