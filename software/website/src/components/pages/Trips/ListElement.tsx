@@ -8,6 +8,7 @@ const statsLabelsStyles = {
   fontSize: "10px",
   margin: 0,
   color: ColorEnum.White,
+  cursor: "inherit"
 };
 
 interface listElementProps {
