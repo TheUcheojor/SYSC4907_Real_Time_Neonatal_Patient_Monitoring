@@ -42,8 +42,8 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
       fetch(
-        `http://${process.env.SERVER_HOST}:${
-          process.env.SERVER_PORT
+        `${process.env.REACT_APP_SERVER_URL}:${
+          process.env.REACT_APP_SERVER_PORT
         }/routeMeasurementDataPoints/${route[RouteFieldEnum.route_id]}`,
         {
           headers: getFetchHeaderWithAuth(),
