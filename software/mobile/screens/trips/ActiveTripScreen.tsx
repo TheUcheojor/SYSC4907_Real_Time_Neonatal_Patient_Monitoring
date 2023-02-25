@@ -15,8 +15,6 @@ export default ({
   measurementPacket,
   setMeasurementPacket,
 }: SharedScreenResources): JSX.Element => {
-  const [numberOfUnfetchedTrip, setNumberOfUnfetchedTrip] = useState<number>(0);
-
   return (
     <View style={styles.activeTripScreen}>
       <TripRecorder
@@ -24,13 +22,9 @@ export default ({
         setRecordingState={setRecordingState}
         measurementPacket={measurementPacket}
         setMeasurementPacket={setMeasurementPacket}
-        setNumberOfUnfetchedTrip={setNumberOfUnfetchedTrip}
       />
 
-      <LocalTrips
-        numberOfUnfetchedTrip={numberOfUnfetchedTrip}
-        setNumberOfUnfetchedTrip={setNumberOfUnfetchedTrip}
-      />
+      <LocalTrips />
     </View>
   );
 };
