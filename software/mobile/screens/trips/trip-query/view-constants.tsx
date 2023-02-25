@@ -12,6 +12,7 @@ import * as metricConstants from "../../../constants/metric-constants";
 export enum ItemTypeKey {
   Date = "Date",
   Number = "Number",
+  Text = "Text",
 }
 
 /**
@@ -22,6 +23,8 @@ export interface DropdownItem {
   value: string | comparsionConstants.ComparsionOperator;
   parent?: string;
 }
+
+export const allowedTextProperites = ["patient_id"];
 
 /**
  * Types and Enums
@@ -54,6 +57,7 @@ export enum ServerMetricKey {
   TOTAL_VIBRATION_KEY = "total_vibration",
   END_DATE_KEY = "end_time_s",
   START_DATE_KEY = "start_time_s",
+  PATIENT_ID_KEY = "patient_id",
 }
 
 /**
@@ -81,7 +85,19 @@ export const COMPARISON_OPERATORS_ITEMS: DropdownItem[] = [
   },
 ];
 
+export const COMPARISON_OPERATOR_EQUAL_KEY: number = 2;
+
 export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
+  {
+    label: ItemTypeKey.Text,
+    value: ItemTypeKey.Text,
+    parent: undefined,
+  },
+  {
+    label: metricConstants.PATIENT_ID_TITLE,
+    value: ServerMetricKey.PATIENT_ID_KEY,
+    parent: ItemTypeKey.Text,
+  },
   {
     label: ItemTypeKey.Date,
     value: ItemTypeKey.Date,

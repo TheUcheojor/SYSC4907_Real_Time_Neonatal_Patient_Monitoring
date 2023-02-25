@@ -115,10 +115,12 @@ export default ({ recordingState, setRecordingState }: TripRecorderParams) => {
     TripRecordingService.getTripController().then(
       (tripController: TripRecordingService) => {
         console.log("startTrip: ", patientId.current);
-        tripController.startRoute(patientId.current, segmentType).then(() => {
-          patientId.current = "";
-          setRecordingState(RouteRecordingState.RECORDING);
-        });
+        tripController
+          .startRoute(patientId.current.toLowerCase(), segmentType)
+          .then(() => {
+            patientId.current = "";
+            setRecordingState(RouteRecordingState.RECORDING);
+          });
       }
     );
   };

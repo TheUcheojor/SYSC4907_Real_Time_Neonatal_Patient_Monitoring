@@ -51,6 +51,7 @@ export default (): JSX.Element => {
     useState<comparsionConstants.ComparsionOperator>(
       comparsionConstants.ComparsionOperator.LESS_THAN
     );
+
   const [comparisonOperators, setComparisonOperators] = useState<
     viewConstants.DropdownItem[]
   >(viewConstants.COMPARISON_OPERATORS_ITEMS);
@@ -62,7 +63,9 @@ export default (): JSX.Element => {
   const [placeHolderFormat, setPlaceHolderFormat] = useState<string>(
     viewConstants.ENTER_DATE_FORMAT
   );
-  const [maskRegex, setMaskRegex] = useState<[Mask]>([Masks.DATE_YYYYMMDD]);
+  const [maskRegex, setMaskRegex] = useState<[Mask] | null>([
+    Masks.DATE_YYYYMMDD,
+  ]);
 
   /**
    * When the selected trip property changes, find the dropdown item and
@@ -82,6 +85,7 @@ export default (): JSX.Element => {
       case viewConstants.ItemTypeKey.Date:
         setMaskRegex([Masks.DATE_YYYYMMDD]);
         setPlaceHolderFormat(viewConstants.ENTER_DATE_FORMAT);
+        resetComparisonOperatorForNonTextKeys();
         break;
 
       case viewConstants.ItemTypeKey.Number:
@@ -95,11 +99,37 @@ export default (): JSX.Element => {
               selectedTripPropertyItem.value as viewConstants.StatisticsMeasurementPacketKey
             )
         );
+        resetComparisonOperatorForNonTextKeys();
+
+        break;
+
+      case viewConstants.ItemTypeKey.Text:
+        setMaskRegex(null);
+        setComparisonOperators([
+          viewConstants.COMPARISON_OPERATORS_ITEMS[
+            viewConstants.COMPARISON_OPERATOR_EQUAL_KEY
+          ],
+        ]);
+        setSelectedComparisonOperator(
+          comparsionConstants.ComparsionOperator.EQUAL
+        );
+        setPlaceHolderFormat("Enter the Patient's ID");
         break;
     }
 
     setTextInputValue("");
   }, [selectedTripProperty]);
+
+  /**
+   * Reset the comparison-operator selector for non-text keys
+   */
+  const resetComparisonOperatorForNonTextKeys = () => {
+    setComparisonOperators(viewConstants.COMPARISON_OPERATORS_ITEMS);
+
+    setSelectedComparisonOperator(
+      comparsionConstants.ComparsionOperator.LESS_THAN
+    );
+  };
 
   /**
    * Query the server for the results and update the trips
@@ -108,10 +138,17 @@ export default (): JSX.Element => {
     // Ignore search request if there is not specified threshold
     if (!textInputValue) return;
 
-    let threshold: number;
+    // let threshold: number | string;
     let query: string = "";
 
-    if (viewConstants.allowedStatistics.includes(selectedTripProperty)) {
+    console.log("selectedTripProperty:", selectedTripProperty);
+
+    if (viewConstants.allowedTextProperites.includes(selectedTripProperty)) {
+      query =
+        selectedTripProperty +
+        selectedComparsionOperator +
+        encodeURI(`'${textInputValue.trim().toLowerCase()}'`);
+    } else if (viewConstants.allowedStatistics.includes(selectedTripProperty)) {
       /**
        * Since the number-strings are formatted as "UNITS NUMBERS", we split the text input
        * The numbers are formatted with commas to seperate every thousandth place and with periods for decimals.
@@ -121,7 +158,7 @@ export default (): JSX.Element => {
        */
       let textCollection: String[] = textInputValue.split(" ");
 
-      threshold = parseFloat(
+      let threshold = parseFloat(
         textCollection[textCollection.length - 1].split(",").join("")
       );
 
@@ -198,13 +235,22 @@ export default (): JSX.Element => {
         />
 
         <View style={styles.textInputContainer}>
-          <MaskInput
-            style={styles.textInput}
-            placeholder={placeHolderFormat}
-            value={textInputValue}
-            mask={maskRegex[0]}
-            onChangeText={setTextInputValue}
-          />
+          {maskRegex ? (
+            <MaskInput
+              style={styles.textInput}
+              placeholder={placeHolderFormat}
+              value={textInputValue}
+              mask={maskRegex[0]}
+              onChangeText={setTextInputValue}
+            />
+          ) : (
+            <MaskInput
+              style={styles.textInput}
+              placeholder={placeHolderFormat}
+              value={textInputValue}
+              onChangeText={setTextInputValue}
+            />
+          )}
         </View>
 
         <Pressable

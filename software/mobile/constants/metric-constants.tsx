@@ -62,6 +62,9 @@ export const VELOCITY_MEDIUM_HIGH_THRESHOLD: number = 120;
 export const START_DATE_LABEL: string = "Start Date";
 export const END_DATE_LABEL: string = "End Date";
 
+//Text
+export const PATIENT_ID_TITLE: string = "Patient ID";
+
 /**
  * Metric Threshold
  */
