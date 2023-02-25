@@ -53,6 +53,8 @@ export interface MetricLiveViewParameters {
  */
 export const NUMBER_OF_VISIBLE_METRIC_POINTS = 20;
 
+const LIVE_DATA_PRECISION = 0;
+
 /**
  * The MetricLiveView Component
  */
@@ -72,7 +74,8 @@ export default function MetricLiveView({
       <Text style={styles.title}>{metricTitle}</Text>
       <Text style={styles.text}>
         {" "}
-        {liveData[liveData.length - 1]} {unitsLabel}
+        {liveData[liveData.length - 1].toFixed(LIVE_DATA_PRECISION)}{" "}
+        {unitsLabel}
       </Text>
 
       <View style={styles.graphContainer}>
