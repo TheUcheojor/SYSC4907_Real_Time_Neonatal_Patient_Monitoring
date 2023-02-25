@@ -40,9 +40,15 @@ export class ServerCommnunicationService {
   private static serverCommnunicationService: ServerCommnunicationService;
 
   /**
-   * The API url
+   * A flag indicating whether the server is communicatating with the production backend
    */
-  private static API_URL: string = "http://192.168.100.100:7001";
+  private static productionFlag: boolean = false;
+  /**
+   * The API url - http://192.168.100.100:7001
+   */
+  private static API_URL: string = !ServerCommnunicationService.productionFlag
+    ? "http://192.168.100.100:7001"
+    : "http://100.25.144.98:3001";
 
   /**
    * The private ServerCommnunicationService constructor
@@ -71,29 +77,37 @@ export class ServerCommnunicationService {
         "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
       },
       body: JSON.stringify(loginRequest),
-    }).then(async (response: Response) => {
-      console.log("status: ", response.status);
-      const isSuccessful: boolean =
-        response.status == HttpStatusCode.OK_REQUEST;
+    })
+      .then(async (response: Response) => {
+        console.log("status: ", response.status);
+        const isSuccessful: boolean =
+          response.status == HttpStatusCode.OK_REQUEST;
 
-      const message: string = !isSuccessful ? "Login failed!" : "";
+        const message: string = !isSuccessful ? "Login failed!" : "";
 
-      if (isSuccessful) {
-        const responseBody: LoginResponse = await response.json();
+        if (isSuccessful) {
+          const responseBody: LoginResponse = await response.json();
 
-        UserSessionService.saveUserSession({
-          fullName: responseBody.full_name,
-          authenticationToken: response.headers.get(
-            HttpHeaderKey.AUTHORIZATION_KEY
-          ) as string,
-        });
-      }
+          UserSessionService.saveUserSession({
+            fullName: responseBody.full_name,
+            authenticationToken: response.headers.get(
+              HttpHeaderKey.AUTHORIZATION_KEY
+            ) as string,
+          });
+        }
 
-      return {
-        isSuccessful: isSuccessful,
-        message: message,
-      };
-    });
+        return {
+          isSuccessful: isSuccessful,
+          message: message,
+        };
+      })
+      .catch((error: any) => {
+        Alert.alert("Error", error);
+        LoggerService.warn(error);
+        return {
+          isSuccessful: false,
+        };
+      });
   }
 
   /**
@@ -129,7 +143,7 @@ export class ServerCommnunicationService {
           },
           body: JSON.stringify(serverPostRouteRequest),
         }).then((response: Response) => {
-          LoggerService.log("status: ", response.status);
+          LoggerService.info("status: ", response.status);
           const isSuccessful: boolean =
             response.status == HttpStatusCode.OK_REQUEST;
 
