@@ -31,13 +31,15 @@ export const allowedStatistics = [
   "avg_noise",
   "avg_temperature",
   "avg_velocity",
+  "total_vibration",
 ];
 
 export type StatisticsMeasurementPacketKey =
   | "avg_vibration"
   | "avg_noise"
   | "avg_temperature"
-  | "avg_velocity";
+  | "avg_velocity"
+  | "total_vibration";
 
 /**
  * The server metric key
@@ -49,6 +51,7 @@ export enum ServerMetricKey {
   NOISE_METRIC_KEY = "avg_noise",
   TEMPERATURE_METRIC_KEY = "avg_temperature",
   VELOCITY_METRIC_KEY = "avg_velocity",
+  TOTAL_VIBRATION_KEY = "total_vibration",
   END_DATE_KEY = "end_time_s",
   START_DATE_KEY = "start_time_s",
 }
@@ -131,6 +134,11 @@ export const TRIP_PROPERTY_ITEMS: DropdownItem[] = [
       metricConstants.AVERAGE_LABEL_PREFIX +
       metricConstants.VELOCITY_METRIC_TITLE,
     value: ServerMetricKey.VELOCITY_METRIC_KEY,
+    parent: ItemTypeKey.Number,
+  },
+  {
+    label: metricConstants.TOTAL_VIBRATION_METRIC_TITLE,
+    value: ServerMetricKey.TOTAL_VIBRATION_KEY,
     parent: ItemTypeKey.Number,
   },
 ];

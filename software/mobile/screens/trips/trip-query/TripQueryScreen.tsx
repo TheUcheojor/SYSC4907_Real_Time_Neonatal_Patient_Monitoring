@@ -108,12 +108,22 @@ export default (): JSX.Element => {
     // Ignore search request if there is not specified threshold
     if (!textInputValue) return;
 
-    let threshold: string | number;
+    let threshold: number;
     let query: string = "";
 
     if (viewConstants.allowedStatistics.includes(selectedTripProperty)) {
-      let textCollection: string[] = textInputValue.split(" ");
-      threshold = textCollection[textCollection.length - 1];
+      /**
+       * Since the number-strings are formatted as "UNITS NUMBERS", we split the text input
+       * The numbers are formatted with commas to seperate every thousandth place and with periods for decimals.
+       * For example, a number string could be 5,300,222.01.
+       *
+       * We want to create a float out of the number string so we remove the commas
+       */
+      let textCollection: String[] = textInputValue.split(" ");
+
+      threshold = parseFloat(
+        textCollection[textCollection.length - 1].split(",").join("")
+      );
 
       query = selectedTripProperty + selectedComparsionOperator + threshold;
     } else {

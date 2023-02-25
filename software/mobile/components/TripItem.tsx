@@ -18,6 +18,7 @@ import ServerTripRoute, {
   isServerTripRoute,
 } from "../services/models/server-communication/ServerTripRoute";
 import { generateMobileTripRoutes } from "../utils/ServerModelTransformerUtil";
+import { VIBRATION_UNITS } from "../constants/metric-constants";
 
 interface TripItemParams {
   tripRoute: TripRoute | ServerTripRoute;
@@ -84,7 +85,7 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
           <View style={styles.statsContainer}>
             <Text style={styles.tertiaryText}>Total Vibration: </Text>
             <Text style={styles.tertiaryText}>
-              {tripRoute.total_vibration} Hz
+              {tripRoute.total_vibration} {VIBRATION_UNITS}
             </Text>
           </View>
         )}
