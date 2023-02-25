@@ -86,7 +86,6 @@ export default ({}: LocalTripsParams) => {
   );
 
   const uploadTrips = () => {
-    console.log("uploadTrips!");
     // Map each trip to a promise returing the server response
     const serverPostRouteRequests: Promise<ServerUploadRouteResponse>[] =
       localTrips.map((trip: TripRoute) => {
@@ -128,21 +127,20 @@ export default ({}: LocalTripsParams) => {
       (promiseResults: PromiseSettledResult<ServerUploadRouteResponse>[]) => {
         const FULFILLED_PROMISE_STATUS: "rejected" | "fulfilled" = "fulfilled";
         let uploadFailed: boolean = false;
-        console.log(promiseResults);
+
         promiseResults.forEach(
           (promiseResult: PromiseSettledResult<ServerUploadRouteResponse>) => {
             if (promiseResult.status == FULFILLED_PROMISE_STATUS) {
               if (!promiseResult.value.isSuccessful) {
                 uploadFailed = true;
               } else {
-                DatabaseService.getConfiguredDatabaseController().then(
-                  (databaseService: DatabaseService) => {
+                DatabaseService.getConfiguredDatabaseController()
+                  .then((databaseService: DatabaseService) => {
                     databaseService.deleteAllRelatedContentsByRouteId(
                       promiseResult.value.deletedTripRouteId
                     );
-                  }
-                );
-                // .then(clearTrips);
+                  })
+                  .then(clearTrips);
               }
             }
           }
