@@ -309,10 +309,6 @@ export class DatabaseService {
         // console.log(result.rows.item(0));
         for (let index = 0; index < result.rows.length; index++) {
           const currentDataPoint: any = result.rows.item(index);
-          console.log(
-            "exceuteRouteMeasurementDataPointsFetchQuery currentDataPoint.location: ",
-            currentDataPoint
-          );
           routeMeasurementDataPoints.push({
             ...currentDataPoint,
             location: JSON.parse(currentDataPoint.location),
