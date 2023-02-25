@@ -15,8 +15,18 @@ import { formatUnixTimestamp } from "./TimeUtil";
  * @param max the max value
  * @returns a random number between the min and max values
  */
+export function getRandomNumber(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
+/**
+ * Get a random integer between the min and max values
+ * @param min the min value
+ * @param max the max value
+ * @returns a random number between the min and max values
+ */
 export function getRandomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(getRandomNumber(min, max));
 }
 
 /**
@@ -27,12 +37,12 @@ export const generateRandomMeasurementPacket = (
   location: RouteLocation
 ): MeasurementPacket => {
   return {
-    noise: getRandomInt(20, 170),
-    temperature: getRandomInt(20, 170),
-    vibration: getRandomInt(20, 170),
-    airPressure: getRandomInt(20, 170),
-    velocity: getRandomInt(20, 170),
-    battery: getRandomInt(20, 170),
+    noise: getRandomInt(0, 120),
+    temperature: getRandomInt(0, 120),
+    vibration: getRandomNumber(0, 120),
+    airPressure: getRandomInt(0, 120),
+    velocity: getRandomInt(0, 120),
+    battery: getRandomInt(0, 100),
     time: formatUnixTimestamp(Date.now()),
     location: location,
   } as MeasurementPacket;
@@ -48,12 +58,12 @@ export const generateRandomServerTripRoute = (): ServerTripRoute => {
     owner_id: 1,
     patient_id: "john",
     organization_id: "",
-    total_vibration: getRandomInt(1, 100),
-    avg_temperature: getRandomInt(1, 100),
-    avg_noise: getRandomInt(1, 100),
-    avg_pressure: getRandomInt(1, 100),
-    avg_vibration: getRandomInt(1, 100),
-    avg_velocity: getRandomInt(1, 100),
+    total_vibration: getRandomNumber(1, 100),
+    avg_temperature: getRandomNumber(1, 100),
+    avg_noise: getRandomNumber(1, 100),
+    avg_pressure: getRandomNumber(1, 100),
+    avg_vibration: getRandomNumber(1, 100),
+    avg_velocity: getRandomNumber(1, 100),
     start_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
     end_time_s: getRandomInt(1674597742 - 100000, 1674597742 + 100000),
   };
