@@ -21,6 +21,7 @@ import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil
 import { generateRandomServerTripRoute } from "../../../utils/RandomUtil";
 import { ServerCommnunicationService } from "../../../services/ServerCommunicationService";
 import { ServerRouteSearchResponse } from "../../../services/models/server-communication/requests/RouteSearchResponse";
+import { SECOND_IN_MILLISECONDS } from "../../../utils/TimeUtil";
 
 export default (): JSX.Element => {
   const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([]);
@@ -108,7 +109,9 @@ export default (): JSX.Element => {
       threshold = textCollection[textCollection.length - 1];
     } else {
       //Convert data-string input to epoch timestamp
-      threshold = Date.parse(textInputValue);
+      threshold = Math.floor(
+        Date.parse(textInputValue) / SECOND_IN_MILLISECONDS
+      );
     }
 
     console.log(selectedTripProperty, selectedComparsionOperator, threshold);
@@ -116,7 +119,7 @@ export default (): JSX.Element => {
       .routeSearch(selectedTripProperty, selectedComparsionOperator, threshold)
       .then((result: ServerRouteSearchResponse) => {
         console.log(result);
-        setFetchedTrips(result.routes);
+        setFetchedTrips(result.routes.reverse());
       });
   };
 

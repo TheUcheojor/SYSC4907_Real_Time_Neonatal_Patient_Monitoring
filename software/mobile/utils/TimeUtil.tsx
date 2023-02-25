@@ -79,7 +79,7 @@ const formatTimeComponent = (timeComponent: number): string => {
  * @returns the formatted date
  */
 export const formatUnixTimestamp = (unixTimestamp: number): string => {
-  var unformattedDate = new Date(unixTimestamp);
+  var unformattedDate = new Date(unixTimestamp * SECOND_IN_MILLISECONDS);
   return moment(unformattedDate).format(DATABASE_FULL_DATE_FORMAT);
 };
 
