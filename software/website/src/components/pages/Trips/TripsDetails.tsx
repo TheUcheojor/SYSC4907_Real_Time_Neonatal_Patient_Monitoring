@@ -12,7 +12,6 @@ import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import { ColorEnum } from "constants/ColorEnum";
 import LabeledText from "./LabeledText";
 import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 const chartLabelStyles = {
   color: "black",

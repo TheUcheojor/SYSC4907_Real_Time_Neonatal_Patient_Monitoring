@@ -4,7 +4,6 @@ import CSS from "csstype";
 import MapWithChart from "components/visualization/MapWithChart";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 
 interface mwcNetProps {
   routeId: number;

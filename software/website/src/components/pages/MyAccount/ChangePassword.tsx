@@ -4,7 +4,6 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import NewPassword from "components/pages/Trips/NewPassword";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface changePasswordProps {

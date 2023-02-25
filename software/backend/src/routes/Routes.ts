@@ -189,8 +189,8 @@ routesRouter.get(
         });
       }
       con.query(
-        "SELECT COUNT(*) FROM routes WHERE owner_id=?",
-        [req.user_id],
+        "SELECT COUNT(*) FROM routes WHERE owner_id=? AND ?",
+        [req.user_id, `${route_metric_key + comparison_operator + threshold}`],
         function (error, countResult, fields) {
           if (error) {
             return con.rollback(function () {

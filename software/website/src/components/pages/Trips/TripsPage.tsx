@@ -15,11 +15,9 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import Pagination from "components/pages/Pagination";
-import {
-  MeasurandUnitEnum,
-  MeasurandUnitMap,
-} from "constants/MeasurandUnitEnum";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
+import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 const pStyles = {
   fontWeight: 400,
@@ -37,17 +35,34 @@ interface TripsProps {
 }
 
 function TripsPage({ onLogout }: TripsProps) {
+  const comparatorOptions = ["-","<", "=", ">"];
+  const defaultComparatorOption = comparatorOptions[0];
+
+  const measurandStatisticOptions = [
+    "-",
+    RouteFieldEnum.avg_noise,
+    RouteFieldEnum.avg_pressure,
+    RouteFieldEnum.avg_temperature,
+    RouteFieldEnum.avg_velocity,
+    RouteFieldEnum.avg_vibration,
+    RouteFieldEnum.total_vibration,
+  ];
+  const defaultMeasurandStatisticOption = measurandStatisticOptions[0];
+
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
+  const [queryStat, setQueryStat] = useState("");
+  const [queryComparator, setQueryComparator] = useState("");
+  const [queryValue, setQueryValue] = useState("");
   console.log("TRIPS PAGE RENDER", totalRoutes);
 
   useEffect(() => {
     fetch(
-      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}&route_metric_key=${queryStat}&comparison_operator=${queryComparator}&threshold=${queryValue}`,
       {
         headers: getFetchHeaderWithAuth(),
       }
@@ -63,7 +78,7 @@ function TripsPage({ onLogout }: TripsProps) {
         setRoutes(result.routes);
         setTotalRoutes(result.totalRoutes);
       });
-  }, [currentPage, onLogout]);
+  }, [currentPage, onLogout, queryStat, queryComparator, queryValue]);
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -128,6 +143,28 @@ function TripsPage({ onLogout }: TripsProps) {
             >
               Trips
             </p>
+            <div style={{ display: "flex", columnGap: "5px" }}>
+              <Dropdown
+                options={measurandStatisticOptions}
+                onChange={(option) => {
+                  setQueryStat(option.value);
+                }}
+                value={defaultMeasurandStatisticOption}
+                placeholder="Select an option"
+              />
+              <Dropdown
+                options={comparatorOptions}
+                onChange={(option) => {
+                  setQueryComparator(option.value);
+                }}
+                value={defaultComparatorOption}
+                placeholder="Select an option"
+              />
+              <input
+                type="text"
+                onChange={(e) => setQueryValue(e.target.value)}
+              />
+            </div>
             {routes === undefined ? (
               <LoadingIcon />
             ) : (

@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import { VALID_EMAIL_REGEX } from "constants/Auth";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 function ForgotPasswordModalContent() {
