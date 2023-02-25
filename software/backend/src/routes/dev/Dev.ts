@@ -1,8 +1,6 @@
 import DB from "./../../data/db.js";
 import Router from "express";
-import {
-  generateRoadAerialTrip,
-} from "./../../data/mock/mock.js";
+import { generateRoadAerialTrip } from "./../../data/mock/mock.js";
 const devRouter = Router();
 
 devRouter.get("/mock", (req, res) => {
