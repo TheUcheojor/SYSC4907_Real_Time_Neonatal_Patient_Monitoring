@@ -19,8 +19,8 @@ export enum ItemTypeKey {
  */
 export interface DropdownItem {
   label: string;
-  value: ServerMetricKey | string;
-  parent: string | undefined;
+  value: string | comparsionConstants.ComparsionOperator;
+  parent?: string;
 }
 
 /**
@@ -66,18 +66,15 @@ export const ON_PRESS_SEARCH_COLOUR: string = "#2F2F2F";
 export const COMPARISON_OPERATORS_ITEMS: DropdownItem[] = [
   {
     label: comparsionConstants.GREATER_THAN_LABEL,
-    value: comparsionConstants.GREATER_THAN_KEY,
-    parent: undefined,
+    value: comparsionConstants.ComparsionOperator.GREATER_THAN,
   },
   {
     label: comparsionConstants.LESS_THAN_LABEL,
-    value: comparsionConstants.LESS_THAN_KEY,
-    parent: undefined,
+    value: comparsionConstants.ComparsionOperator.LESS_THAN,
   },
   {
     label: comparsionConstants.EQUAL_LABEL,
-    value: comparsionConstants.EQUAL_KEY,
-    parent: undefined,
+    value: comparsionConstants.ComparsionOperator.EQUAL,
   },
 ];
 

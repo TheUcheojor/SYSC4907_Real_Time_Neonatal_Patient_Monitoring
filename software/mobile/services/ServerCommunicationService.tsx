@@ -175,23 +175,20 @@ export class ServerCommnunicationService {
    * @returns the search response
    */
   public routeSearch(
-    tripProperty: string,
-    comparisonOperator: string,
-    threshold: string | number,
+    query: string,
     page: number = 1,
     limit: number = 5
   ): Promise<ServerRouteSearchResponse> {
+    const serverEndpoint: string = `${ServerCommnunicationService.API_URL}/routes?search_query=${query}&page=${page}&limit=${limit}`;
+    LoggerService.debug("Search Endpoint: ", serverEndpoint);
     return this.getUserSession()
       .then((userSession: UserSession) => {
-        return fetch(
-          `${ServerCommnunicationService.API_URL}/routes?route_metric_key=${tripProperty}&comparison_operator=${comparisonOperator}&threshold=${threshold}&page=${page}&limit=${limit}`,
-          {
-            method: HttpRequestType.GET,
-            headers: {
-              Authorization: userSession.authenticationToken,
-            },
-          }
-        ).then((response: Response) => {
+        return fetch(serverEndpoint, {
+          method: HttpRequestType.GET,
+          headers: {
+            Authorization: userSession.authenticationToken,
+          },
+        }).then((response: Response) => {
           if (response.status != HttpStatusCode.OK_REQUEST) {
             throw new Error(CommunicationError.FETCHING_ERROR);
           }
@@ -200,7 +197,7 @@ export class ServerCommnunicationService {
         });
       })
       .then((result: { totalRoutes: number; routes: ServerTripRoute[] }) => {
-        console.log(result);
+        LoggerService.debug("Server search result: ", result);
         return {
           ...result,
           isSuccessful: true,

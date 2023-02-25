@@ -21,7 +21,11 @@ import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil
 import { generateRandomServerTripRoute } from "../../../utils/RandomUtil";
 import { ServerCommnunicationService } from "../../../services/ServerCommunicationService";
 import { ServerRouteSearchResponse } from "../../../services/models/server-communication/requests/RouteSearchResponse";
-import { SECOND_IN_MILLISECONDS } from "../../../utils/TimeUtil";
+import {
+  getDayEndEpoch,
+  getDayStartEpoch,
+  SECOND_IN_MILLISECONDS,
+} from "../../../utils/TimeUtil";
 
 export default (): JSX.Element => {
   const [fetchedTrips, setFetchedTrips] = useState<ServerTripRoute[]>([]);
@@ -44,7 +48,9 @@ export default (): JSX.Element => {
   const [comparisonDropDownOpen, setComparisonDropDownOpen] =
     useState<boolean>(false);
   const [selectedComparsionOperator, setSelectedComparisonOperator] =
-    useState<string>(comparsionConstants.LESS_THAN_KEY);
+    useState<comparsionConstants.ComparsionOperator>(
+      comparsionConstants.ComparsionOperator.LESS_THAN
+    );
   const [comparisonOperators, setComparisonOperators] = useState<
     viewConstants.DropdownItem[]
   >(viewConstants.COMPARISON_OPERATORS_ITEMS);
@@ -103,22 +109,42 @@ export default (): JSX.Element => {
     if (!textInputValue) return;
 
     let threshold: string | number;
+    let query: string = "";
 
     if (viewConstants.allowedStatistics.includes(selectedTripProperty)) {
       let textCollection: string[] = textInputValue.split(" ");
       threshold = textCollection[textCollection.length - 1];
+
+      query = selectedTripProperty + selectedComparsionOperator + threshold;
     } else {
-      //Convert data-string input to epoch timestamp
-      threshold = Math.floor(
-        Date.parse(textInputValue) / SECOND_IN_MILLISECONDS
-      );
+      switch (selectedComparsionOperator) {
+        case comparsionConstants.ComparsionOperator.GREATER_THAN:
+          query =
+            selectedTripProperty +
+            selectedComparsionOperator +
+            getDayEndEpoch(textInputValue);
+          break;
+
+        case comparsionConstants.ComparsionOperator.LESS_THAN:
+          query =
+            selectedTripProperty +
+            selectedComparsionOperator +
+            getDayStartEpoch(textInputValue);
+          break;
+
+        // If date item is compared to an exact date, the query should be a range from
+        // the beginning to the end of that day
+        case comparsionConstants.ComparsionOperator.EQUAL:
+          let startTimeEpoch = getDayStartEpoch(textInputValue);
+          let endTimeEpoch = getDayEndEpoch(textInputValue);
+          query = `${selectedTripProperty}> ${startTimeEpoch} AND ${selectedTripProperty}<${endTimeEpoch}  `;
+          break;
+      }
     }
 
-    console.log(selectedTripProperty, selectedComparsionOperator, threshold);
     ServerCommnunicationService.getServerCommunicationService()
-      .routeSearch(selectedTripProperty, selectedComparsionOperator, threshold)
+      .routeSearch(query)
       .then((result: ServerRouteSearchResponse) => {
-        console.log(result);
         setFetchedTrips(result.routes.reverse());
       });
   };

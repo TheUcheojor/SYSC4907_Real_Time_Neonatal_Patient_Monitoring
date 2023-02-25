@@ -12,9 +12,13 @@ import moment from "moment";
 export const SECOND_IN_MILLISECONDS = 1000;
 export const MINUTE_IN_MILLISECONDS = 60 * SECOND_IN_MILLISECONDS;
 export const HOUR_IN_MILLISECONDS = MINUTE_IN_MILLISECONDS * 60;
+export const HOUR_IN_MINUTES = 60;
+export const MINUTE_IN_SECONDS = 60;
+export const DAY_IN_HOURS = 24;
 export const DATABASE_FULL_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ssZ";
 export const FULL_DISPLAY_TIME_FORMAT = "hh:mm:SS A";
 export const SIMPLIFIED_DISPLAY_TIME_FORMAT = "hh:mm A";
+export const SEARCH_DATE_FORMAT = "YYYY/MM/DD";
 
 export const MONTH_INDEX_TO_TEXT: Map<number, string> = new Map<number, string>(
   [
@@ -32,6 +36,28 @@ export const MONTH_INDEX_TO_TEXT: Map<number, string> = new Map<number, string>(
     [11, "Dec"],
   ]
 );
+
+/**
+ * Given a date string, return the epoch that represents the start of that day
+ */
+export const getDayStartEpoch = (date: string): number => {
+  let startTime = new Date(date).setUTCHours(0, 0, 0, 0);
+  return startTime / SECOND_IN_MILLISECONDS;
+};
+
+/**
+ * Given a date string, return the epoch that represents the start of that day
+ */
+export const getDayEndEpoch = (date: string): number => {
+  let endTime = new Date(date).setUTCHours(
+    DAY_IN_HOURS - 1,
+    HOUR_IN_MINUTES - 1,
+    MINUTE_IN_SECONDS - 1,
+    SECOND_IN_MILLISECONDS - 1
+  );
+
+  return endTime / SECOND_IN_MILLISECONDS;
+};
 
 /**
  * Formate the given milliseconds to hh:mm:ss
