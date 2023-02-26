@@ -172,7 +172,7 @@ routesRouter.get(
 
       db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${
         req.user_id
-      } AND ${route_metric_key + comparison_operator + threshold}`;
+      } AND ${seach_query}`;
 
       logger.info("Fetch query with custom constraint: " + db_query);
     }

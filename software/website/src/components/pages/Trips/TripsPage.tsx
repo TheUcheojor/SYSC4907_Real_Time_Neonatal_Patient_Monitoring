@@ -35,19 +35,32 @@ interface TripsProps {
 }
 
 function TripsPage({ onLogout }: TripsProps) {
-  const comparatorOptions = ["-", "<", "=", ">"];
-  const defaultComparatorOption = comparatorOptions[0];
-
-  const measurandStatisticOptions = [
-    "-",
-    RouteFieldEnum.avg_noise,
-    RouteFieldEnum.avg_pressure,
-    RouteFieldEnum.avg_temperature,
-    RouteFieldEnum.avg_velocity,
-    RouteFieldEnum.avg_vibration,
-    RouteFieldEnum.total_vibration,
+  const comparatorOptions = [
+    { label: "-", value: undefined },
+    { label: "<", value: "<" },
+    { label: "=", value: "=" },
+    { label: ">", value: ">" },
   ];
-  const defaultMeasurandStatisticOption = measurandStatisticOptions[0];
+  const statisticOptions = [
+    { label: "-", value: undefined },
+    { label: RouteFieldEnum.avg_noise, value: RouteFieldEnum.avg_noise },
+    { label: RouteFieldEnum.avg_pressure, value: RouteFieldEnum.avg_pressure },
+    {
+      label: RouteFieldEnum.avg_temperature,
+      value: RouteFieldEnum.avg_temperature,
+    },
+    { label: RouteFieldEnum.avg_velocity, value: RouteFieldEnum.avg_velocity },
+    {
+      label: RouteFieldEnum.avg_vibration,
+      value: RouteFieldEnum.avg_vibration,
+    },
+    {
+      label: RouteFieldEnum.total_vibration,
+      value: RouteFieldEnum.total_vibration,
+    },
+  ];
+  const defaultStatisticOption = statisticOptions[0];
+  const defaultComparatorOption = comparatorOptions[0];
 
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
@@ -55,18 +68,20 @@ function TripsPage({ onLogout }: TripsProps) {
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
-  const [queryStat, setQueryStat] = useState("-");
-  const [queryComparator, setQueryComparator] = useState("-");
+  const [queryStat, setQueryStat] = useState(defaultStatisticOption.value);
+  const [queryComparator, setQueryComparator] = useState(
+    defaultComparatorOption.value
+  );
   const [queryValue, setQueryValue] = useState("");
   console.log("TRIPS PAGE RENDER", totalRoutes);
 
   useEffect(() => {
     const queryString =
-      (queryStat !== "-" ? `&route_metric_key=${queryStat}` : ``) +
-      (queryComparator !== "-"
-        ? `&comparison_operator=${queryComparator}`
-        : ``) +
-      (queryValue !== "" ? `&threshold=${queryValue}` : ``);
+      queryStat !== undefined &&
+      queryComparator !== undefined &&
+      queryValue !== undefined
+        ? `&search_query=${queryStat}${queryComparator}${queryValue}`
+        : "";
     fetch(
       `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}${queryString}`,
       {
@@ -137,48 +152,60 @@ function TripsPage({ onLogout }: TripsProps) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              width: "334px",
             }}
           >
             <p
               style={{
-                color: ColorEnum.Black,
                 fontWeight: 700,
-                width: "334px",
-                textAlign: "center",
               }}
             >
               Trips
             </p>
-            <div style={{ display: "flex", columnGap: "5px" }}>
+            <div
+              style={{
+                display: "flex",
+                marginBottom: "5px",
+                alignItems: "center",
+              }}
+            >
               <Dropdown
-                options={measurandStatisticOptions}
+                options={statisticOptions}
                 onChange={(option) => {
                   setQueryStat(option.value);
                 }}
-                value={defaultMeasurandStatisticOption}
-                placeholder="Select an option"
+                value={defaultStatisticOption.value}
+                placeholder={defaultStatisticOption.value}
               />
               <Dropdown
                 options={comparatorOptions}
                 onChange={(option) => {
                   setQueryComparator(option.value);
                 }}
-                value={defaultComparatorOption}
-                placeholder="Select an option"
+                value={defaultComparatorOption.value}
+                placeholder={defaultComparatorOption.value}
               />
               <input
                 type="text"
                 onChange={(e) => setQueryValue(e.target.value)}
+                style={{
+                  marginBottom: 0,
+                  borderWidth: "1px",
+                  borderColor: "#ccc",
+                  color: "#333",
+                }}
               />
             </div>
             {routes === undefined ? (
               <LoadingIcon />
-            ) : (
+            ) : routes.length > 0 ? (
               <List
                 routes={routes}
                 elemOnClick={onListElemClick}
                 activeRoutes={selectedRoutes}
               />
+            ) : (
+              <p> No routes found</p>
             )}
             <Pagination
               currentPage={currentPage}
