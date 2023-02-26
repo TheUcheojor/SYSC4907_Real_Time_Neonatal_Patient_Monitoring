@@ -7,7 +7,7 @@ import ServerRouteMeasurementDataPoint from "../ServerRouteMeasurementDataPoint"
 import { BaseServerResponse } from "./BaseServerResponse";
 
 export interface ServerUploadRouteRequest {
-  patient_id?: number;
+  patient_id?: string;
   start_time_s?: number;
   end_time_s?: number;
   route_segments?: ServerRouteSegment[];

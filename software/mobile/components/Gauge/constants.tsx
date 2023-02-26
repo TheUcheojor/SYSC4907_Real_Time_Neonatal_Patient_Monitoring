@@ -12,6 +12,11 @@ import {
 import { StyleSheet } from "react-native";
 
 /**
+ * The guage data precison
+ */
+export const GAUGE_LIVE_DATA_PRECISION = 0;
+
+/**
  * The color of guage for moderate ranges
  */
 export const MODERATE_GUAGE_COLOR = "#FFF500";
