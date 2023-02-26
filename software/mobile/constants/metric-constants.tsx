@@ -19,7 +19,7 @@ export const AVERAGE_KEY_PREFIX = "avg_";
  * Vibration Constants
  */
 export const VIBRATION_METRIC_TITLE: string = "Vibration";
-// export const VIBRATION_METRIC_KEY: string = "vibration";
+export const TOTAL_VIBRATION_METRIC_TITLE: string = "Total Vibration";
 export const VIBRATION_GRAPH_COLOUR: string = "#0E9CFF";
 export const VIBRATION_ICON_SOURCE: ImageSourcePropType = require("../assets/images/shake.png");
 export const VIBRATION_UNITS: string = "m/s²";
@@ -52,16 +52,18 @@ export const TEMPERATURE_MEDIUM_HIGH_THRESHOLD: number = 120;
  * Velocity Constants
  */
 export const VELOCITY_METRIC_TITLE: string = "Speed";
-// export const VELOCITY_METRIC_KEY: string = "velocity";
 export const VELOCITY_GRAPH_COLOUR: string = "#AA85E5";
 export const VELOCITY_ICON_SOURCE: ImageSourcePropType = require("../assets/images/ambulance.png");
 export const VELOCITY_UNITS: string = "km/hr";
 export const VELOCITY_LOW_MEDIUM_THRESHOLD: number = 60;
 export const VELOCITY_MEDIUM_HIGH_THRESHOLD: number = 120;
 
-// Date Contstants
+// Date Constants
 export const START_DATE_LABEL: string = "Start Date";
 export const END_DATE_LABEL: string = "End Date";
+
+//Text
+export const PATIENT_ID_TITLE: string = "Patient ID";
 
 /**
  * Metric Threshold
@@ -128,6 +130,8 @@ export const getUnits = (metricKey: StatisticsMeasurementPacketKey): string => {
 
     case "avg_velocity":
       return VELOCITY_UNITS;
+    case "total_vibration":
+      return VIBRATION_UNITS;
   }
 
   return "";

@@ -37,7 +37,7 @@ export const generateServerRouteModel = (
 ): ServerUploadRouteRequest => {
   console.log(routeMeasurementDataPoints);
   return {
-    patient_id: -1,
+    patient_id: route.patientId,
     start_time_s: covertTimeStringToUnixTimestamp(route.startTime),
     end_time_s: covertTimeStringToUnixTimestamp(route.endTime),
     route_segments: segments.map((segment: RouteSegment) => {
@@ -119,8 +119,8 @@ export const generateMobileDataPoints = (
         battery: -1,
         time: formatUnixTimestamp(serverDataPoint.time_s),
         location: {
-          longitude: 1,
-          latitude: 1,
+          longitude: serverDataPoint.longitude,
+          latitude: serverDataPoint.latitude,
         },
       };
     }

@@ -52,7 +52,7 @@ export default ({
 
     ServerCommnunicationService.getServerCommunicationService()
       .login({
-        email: emailRef.current,
+        email: emailRef.current.trim().toLowerCase(),
         password: passwordRef.current,
       })
       .then((serverResponse: BaseServerResponse) => {
@@ -67,8 +67,6 @@ export default ({
 
         setErrorFlag(true);
       });
-
-    // setErrorFlag((isError) => !isError);
   };
 
   return (

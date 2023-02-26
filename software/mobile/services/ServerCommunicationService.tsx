@@ -40,9 +40,15 @@ export class ServerCommnunicationService {
   private static serverCommnunicationService: ServerCommnunicationService;
 
   /**
-   * The API url
+   * A flag indicating whether the server is communicatating with the production backend
    */
-  private static API_URL: string = "http://192.168.100.100:7001";
+  private static productionFlag: boolean = false;
+  /**
+   * The API url - http://192.168.100.100:7001
+   */
+  private static API_URL: string = !ServerCommnunicationService.productionFlag
+    ? "http://192.168.100.100:7001"
+    : "http://100.25.144.98:3001";
 
   /**
    * The private ServerCommnunicationService constructor
@@ -71,29 +77,37 @@ export class ServerCommnunicationService {
         "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
       },
       body: JSON.stringify(loginRequest),
-    }).then(async (response: Response) => {
-      console.log("status: ", response.status);
-      const isSuccessful: boolean =
-        response.status == HttpStatusCode.OK_REQUEST;
+    })
+      .then(async (response: Response) => {
+        console.log("status: ", response.status);
+        const isSuccessful: boolean =
+          response.status == HttpStatusCode.OK_REQUEST;
 
-      const message: string = !isSuccessful ? "Login failed!" : "";
+        const message: string = !isSuccessful ? "Login failed!" : "";
 
-      if (isSuccessful) {
-        const responseBody: LoginResponse = await response.json();
+        if (isSuccessful) {
+          const responseBody: LoginResponse = await response.json();
 
-        UserSessionService.saveUserSession({
-          fullName: responseBody.full_name,
-          authenticationToken: response.headers.get(
-            HttpHeaderKey.AUTHORIZATION_KEY
-          ) as string,
-        });
-      }
+          UserSessionService.saveUserSession({
+            fullName: responseBody.full_name,
+            authenticationToken: response.headers.get(
+              HttpHeaderKey.AUTHORIZATION_KEY
+            ) as string,
+          });
+        }
 
-      return {
-        isSuccessful: isSuccessful,
-        message: message,
-      };
-    });
+        return {
+          isSuccessful: isSuccessful,
+          message: message,
+        };
+      })
+      .catch((error: any) => {
+        Alert.alert("Error", error);
+        LoggerService.warn(error);
+        return {
+          isSuccessful: false,
+        };
+      });
   }
 
   /**
@@ -129,7 +143,7 @@ export class ServerCommnunicationService {
           },
           body: JSON.stringify(serverPostRouteRequest),
         }).then((response: Response) => {
-          LoggerService.log("status: ", response.status);
+          LoggerService.info("status: ", response.status);
           const isSuccessful: boolean =
             response.status == HttpStatusCode.OK_REQUEST;
 
@@ -161,23 +175,20 @@ export class ServerCommnunicationService {
    * @returns the search response
    */
   public routeSearch(
-    tripProperty: string,
-    comparisonOperator: string,
-    threshold: string | number,
+    query: string,
     page: number = 1,
     limit: number = 5
   ): Promise<ServerRouteSearchResponse> {
+    const serverEndpoint: string = `${ServerCommnunicationService.API_URL}/routes?search_query=${query}&page=${page}&limit=${limit}`;
+    LoggerService.debug("Search Endpoint: ", serverEndpoint);
     return this.getUserSession()
       .then((userSession: UserSession) => {
-        return fetch(
-          `${ServerCommnunicationService.API_URL}/routes?route_metric_key=${tripProperty}&comparison_operator=${comparisonOperator}&threshold=${threshold}&page=${page}&limit=${limit}`,
-          {
-            method: HttpRequestType.GET,
-            headers: {
-              Authorization: userSession.authenticationToken,
-            },
-          }
-        ).then((response: Response) => {
+        return fetch(serverEndpoint, {
+          method: HttpRequestType.GET,
+          headers: {
+            Authorization: userSession.authenticationToken,
+          },
+        }).then((response: Response) => {
           if (response.status != HttpStatusCode.OK_REQUEST) {
             throw new Error(CommunicationError.FETCHING_ERROR);
           }
@@ -186,7 +197,7 @@ export class ServerCommnunicationService {
         });
       })
       .then((result: { totalRoutes: number; routes: ServerTripRoute[] }) => {
-        console.log(result);
+        LoggerService.debug("Server search result: ", result);
         return {
           ...result,
           isSuccessful: true,

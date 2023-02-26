@@ -160,23 +160,16 @@ routesRouter.get(
       (page - 1) * limit
     },${limit}`;
 
-    if (
-      req.query.route_metric_key &&
-      req.query.comparison_operator &&
-      req.query.threshold
-    ) {
-      let route_metric_key: string = req.query.route_metric_key as string;
-      let comparison_operator: string = req.query.comparison_operator as string;
-      let threshold: string = req.query.threshold as string;
+    if (req.query.search_query) {
+      let seach_query: string = req.query.search_query as string;
 
       // Fetch with custom constraints
-      db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} AND ${
-        route_metric_key + comparison_operator + threshold
-      } LIMIT ${(page - 1) * limit},${limit}`;
+      db_query = `SELECT * FROM routes WHERE owner_id=${
+        req.user_id
+      } AND ${seach_query} LIMIT ${(page - 1) * limit},${limit}`;
 
       logger.info("Fetch query with custom constraint: " + db_query);
     }
-
     let db = new DB();
     db.connect();
     let con = db.con();

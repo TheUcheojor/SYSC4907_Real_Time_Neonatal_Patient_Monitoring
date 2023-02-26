@@ -6,7 +6,12 @@
  */
 
 import { View, StyleSheet } from "react-native";
-import MapView, { Polyline, PROVIDER_GOOGLE, Circle } from "react-native-maps";
+import MapView, {
+  Polyline,
+  PROVIDER_GOOGLE,
+  Circle,
+  Marker,
+} from "react-native-maps";
 import RouteMeasurementDataPoint from "../services/models/trips/RouteMeasurementDataPoint";
 import { Color } from "../constants/ColorEnum";
 import { NumericMetricMeasurementPacketKey } from "../services/models/sensor-package-communication/MeasurementPacket";
@@ -64,6 +69,32 @@ export default ({
           longitudeDelta: 0.0121,
         }}
       >
+        {routeMeasurementDataPoints.length > 0 && (
+          <Marker
+            title="Start"
+            coordinate={{
+              latitude: routeMeasurementDataPoints[0].location.latitude,
+              longitude: routeMeasurementDataPoints[0].location.longitude,
+            }}
+          />
+        )}
+
+        {routeMeasurementDataPoints.length > 1 && (
+          <Marker
+            title="Finish"
+            coordinate={{
+              latitude:
+                routeMeasurementDataPoints[
+                  routeMeasurementDataPoints.length - 1
+                ].location.latitude,
+              longitude:
+                routeMeasurementDataPoints[
+                  routeMeasurementDataPoints.length - 1
+                ].location.longitude,
+            }}
+          />
+        )}
+
         {routeMeasurementDataPoints
           .slice(0, routeMeasurementDataPoints.length - 2)
           .map(

@@ -19,6 +19,7 @@ import {
   INNER_RADIUS,
   ANIMATION_DURATION_MILLISECONDS,
   GAUGE_START_ANGLE,
+  GAUGE_LIVE_DATA_PRECISION,
 } from "./constants";
 import {
   generateGaugeIncrements,
@@ -126,7 +127,9 @@ export default ({
         }}
       />
 
-      <Text style={styles.title}>{currentMetricLevel}</Text>
+      <Text style={styles.title}>
+        {currentMetricLevel.toFixed(GAUGE_LIVE_DATA_PRECISION)}
+      </Text>
       <Text style={styles.units}>{units}</Text>
       {updateIcon(
         currentMetricLevel,

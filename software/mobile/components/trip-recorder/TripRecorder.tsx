@@ -17,18 +17,12 @@ import RecordingTripRecorder from "./subcomponents/RecordingTripRecorder";
  */
 const MILLISECOND_INCREMENT_RATE = 100;
 
-interface TripRecorderParams extends SharedScreenResources {
-  setNumberOfUnfetchedTrip: React.Dispatch<React.SetStateAction<number>>;
-}
+interface TripRecorderParams extends SharedScreenResources {}
 
 /**
  * The Trip Recorder Component
  */
-export default ({
-  recordingState,
-  setRecordingState,
-  setNumberOfUnfetchedTrip,
-}: TripRecorderParams) => {
+export default ({ recordingState, setRecordingState }: TripRecorderParams) => {
   const [time, setTime] = useState<number>(0);
   const [dropDropdownOpen, setdropDownOpen] = useState<boolean>(false);
   const [segmentType, setSegmentType] = useState<RouteSegmentType>(
@@ -76,9 +70,6 @@ export default ({
     TripRecordingService.getTripController().then(
       (tripController: TripRecordingService) => {
         tripController.endRoute().then(() => {
-          setNumberOfUnfetchedTrip(
-            (currentNumberOfUnfetchedTrip) => currentNumberOfUnfetchedTrip + 1
-          );
           setRecordingState(RouteRecordingState.NOT_RECORDING);
         });
       }
@@ -124,10 +115,12 @@ export default ({
     TripRecordingService.getTripController().then(
       (tripController: TripRecordingService) => {
         console.log("startTrip: ", patientId.current);
-        tripController.startRoute(patientId.current, segmentType).then(() => {
-          patientId.current = "";
-          setRecordingState(RouteRecordingState.RECORDING);
-        });
+        tripController
+          .startRoute(patientId.current.toLowerCase(), segmentType)
+          .then(() => {
+            patientId.current = "";
+            setRecordingState(RouteRecordingState.RECORDING);
+          });
       }
     );
   };
