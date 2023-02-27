@@ -118,44 +118,38 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               <div>
                 <LabeledText
                   label={"Vibration exposure"}
-                  text={`${route.total_vibration}`}
-                  unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
+                  text={`${route.total_vibration} ${MeasurandUnitMap.get(DatapointFieldEnum.vibration)}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
                   label={"Average vibration"}
-                  text={`${route.avg_vibration}`}
-                  unit={MeasurandUnitMap.get(DatapointFieldEnum.vibration)}
+                  text={`${route.avg_vibration} ${MeasurandUnitMap.get(DatapointFieldEnum.vibration)}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
                   label={"Average noise"}
-                  text={`${route.avg_noise}`}
-                  unit={MeasurandUnitMap.get(DatapointFieldEnum.noise_db)}
+                  text={`${route.avg_noise} ${MeasurandUnitMap.get(DatapointFieldEnum.noise_db)}`}
                   style={statLabelStyles}
                 />
               </div>
               <div>
                 <LabeledText
                   label={"Average temperature"}
-                  text={`${route.avg_temperature}`}
-                  unit={MeasurandUnitMap.get(
+                  text={`${route.avg_temperature} ${MeasurandUnitMap.get(
                     DatapointFieldEnum.temperature_celsius
-                  )}
+                  )}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
                   label={"Average speed"}
-                  text={`${route.avg_velocity}`}
-                  unit={MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}
+                  text={`${route.avg_velocity} ${MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
                   label={"Average pressure"}
-                  text={`${route.avg_pressure / 1000}`}
-                  unit={MeasurandUnitMap.get(
+                  text={`${route.avg_pressure / 1000} ${MeasurandUnitMap.get(
                     DatapointFieldEnum.pressure_pascals
-                  )}
+                  )}`}
                   style={statLabelStyles}
                 />
               </div>

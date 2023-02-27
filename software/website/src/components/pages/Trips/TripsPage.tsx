@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
 import {
@@ -16,72 +16,40 @@ import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import Pagination from "components/pages/Pagination";
 import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
+import QueryBar, { comparatorOptions, statisticOptions } from "./QueryBar";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
+import TripPreview from "./TripPreview";
 
-const pStyles = {
-  fontWeight: 400,
-  marginLeft: "10px",
-  color: ColorEnum.White,
-  display: "block",
-  paddingTop: "5px",
-  paddingBottom: "5px",
-};
-
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 8;
 
 interface TripsProps {
   onLogout: () => void;
 }
 
 function TripsPage({ onLogout }: TripsProps) {
-  const comparatorOptions = [
-    { label: "-", value: undefined },
-    { label: "<", value: "<" },
-    { label: "=", value: "=" },
-    { label: ">", value: ">" },
-  ];
-  const statisticOptions = [
-    { label: "-", value: undefined },
-    { label: RouteFieldEnum.avg_noise, value: RouteFieldEnum.avg_noise },
-    { label: RouteFieldEnum.avg_pressure, value: RouteFieldEnum.avg_pressure },
-    {
-      label: RouteFieldEnum.avg_temperature,
-      value: RouteFieldEnum.avg_temperature,
-    },
-    { label: RouteFieldEnum.avg_velocity, value: RouteFieldEnum.avg_velocity },
-    {
-      label: RouteFieldEnum.avg_vibration,
-      value: RouteFieldEnum.avg_vibration,
-    },
-    {
-      label: RouteFieldEnum.total_vibration,
-      value: RouteFieldEnum.total_vibration,
-    },
-  ];
-  const defaultStatisticOption = statisticOptions[0];
-  const defaultComparatorOption = comparatorOptions[0];
-
+  console.log("TRIPS PAGE RENDER");
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
-  const [queryStat, setQueryStat] = useState(defaultStatisticOption.value);
+  const [queryStat, setQueryStat] = useState(statisticOptions[0].value);
   const [queryComparator, setQueryComparator] = useState(
-    defaultComparatorOption.value
+    comparatorOptions[0].value
   );
   const [queryValue, setQueryValue] = useState("");
-  console.log("TRIPS PAGE RENDER", totalRoutes);
+
+  const queryString =
+    queryStat !== "-" &&
+    queryComparator !== "-" &&
+    queryValue !== "" &&
+    /^[0-9.]+$/.test(queryValue)
+      ? `&search_query=${queryStat}${queryComparator}${queryValue}`
+      : "";
 
   useEffect(() => {
-    const queryString =
-      queryStat !== undefined &&
-      queryComparator !== undefined &&
-      queryValue !== undefined
-        ? `&search_query=${queryStat}${queryComparator}${queryValue}`
-        : "";
+    setRoutes(undefined);
     fetch(
       `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}${queryString}`,
       {
@@ -89,7 +57,7 @@ function TripsPage({ onLogout }: TripsProps) {
       }
     )
       .then((res) => {
-        if (res.status === 401) {
+        if (res.status === HttpStatusEnum.UNAUTHORIZED) {
           onLogout();
         } else {
           return res.json();
@@ -99,7 +67,7 @@ function TripsPage({ onLogout }: TripsProps) {
         setRoutes(result.routes);
         setTotalRoutes(result.totalRoutes);
       });
-  }, [currentPage, onLogout, queryStat, queryComparator, queryValue]);
+  }, [currentPage, queryString, onLogout]);
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -162,40 +130,18 @@ function TripsPage({ onLogout }: TripsProps) {
             >
               Trips
             </p>
-            <div
-              style={{
-                display: "flex",
-                marginBottom: "5px",
-                alignItems: "center",
+            <QueryBar
+              activeSearch={queryString !== ""}
+              setQueryStat={(e) => {
+                setQueryStat(e);
               }}
-            >
-              <Dropdown
-                options={statisticOptions}
-                onChange={(option) => {
-                  setQueryStat(option.value);
-                }}
-                value={defaultStatisticOption.value}
-                placeholder={defaultStatisticOption.value}
-              />
-              <Dropdown
-                options={comparatorOptions}
-                onChange={(option) => {
-                  setQueryComparator(option.value);
-                }}
-                value={defaultComparatorOption.value}
-                placeholder={defaultComparatorOption.value}
-              />
-              <input
-                type="text"
-                onChange={(e) => setQueryValue(e.target.value)}
-                style={{
-                  marginBottom: 0,
-                  borderWidth: "1px",
-                  borderColor: "#ccc",
-                  color: "#333",
-                }}
-              />
-            </div>
+              setQueryComparator={(e) => {
+                setQueryComparator(e);
+              }}
+              setQueryValue={(e) => {
+                setQueryValue(e);
+              }}
+            />
             {routes === undefined ? (
               <LoadingIcon />
             ) : routes.length > 0 ? (
@@ -214,7 +160,6 @@ function TripsPage({ onLogout }: TripsProps) {
               siblingIndexSize={1}
               onPageChange={(page) => {
                 setCurrentPage(page);
-                setRoutes(undefined);
               }}
             />
           </div>
@@ -235,41 +180,10 @@ function TripsPage({ onLogout }: TripsProps) {
                   flexDirection: "column",
                 }}
               >
-                <div
-                  style={{
-                    backgroundColor: ColorEnum.Black,
-                    borderRadius: "6px",
-                  }}
-                >
-                  <span style={pStyles}>
-                    Patient:{" "}
-                    {
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.patient_id
-                      ]
-                    }
-                  </span>
-                  <span style={pStyles}>
-                    Duration:{" "}
-                    {elapsedDurationInHoursAndMinutes(
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.start_time_s
-                      ],
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.end_time_s
-                      ]
-                    )}
-                  </span>
-                  <span style={pStyles}>
-                    Vibration exposure:{" "}
-                    {
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.total_vibration
-                      ]
-                    }{" "}
-                    {MeasurandUnitMap.get(RouteFieldEnum.total_vibration)}
-                  </span>
-                </div>
+                <TripPreview
+                  onLogout={onLogout}
+                  selectedRoute={selectedRoutes[selectedRoutes.length - 1]}
+                />
                 <MapWithChartNet
                   onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
@@ -283,8 +197,11 @@ function TripsPage({ onLogout }: TripsProps) {
             </div>
           )}
           {isSelecting && (
-            <p style={{ color: ColorEnum.Black, margin: 0 }}>
-              Select 1-4 routes to compare
+            <p>
+              <p style={{ color: ColorEnum.Black, margin: 0 }}>
+                Select 1-4 routes to compare
+              </p>
+              <p>{selectedRoutes.length} routes selected</p>
             </p>
           )}
           <div
@@ -346,4 +263,4 @@ function TripsPage({ onLogout }: TripsProps) {
   return getContent();
 }
 
-export default TripsPage;
+export default memo(TripsPage);

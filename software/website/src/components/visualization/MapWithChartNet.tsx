@@ -4,6 +4,7 @@ import CSS from "csstype";
 import MapWithChart from "components/visualization/MapWithChart";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface mwcNetProps {
   routeId: number;
@@ -26,7 +27,7 @@ function MapWithChartNet({ onLogout, routeId, measurand, style }: mwcNetProps) {
       }
     )
       .then((res) => {
-        if (res.status === 401) {
+        if (res.status === HttpStatusEnum.UNAUTHORIZED) {
           onLogout();
         } else {
           return res.json();
@@ -40,7 +41,7 @@ function MapWithChartNet({ onLogout, routeId, measurand, style }: mwcNetProps) {
           setNetError(error);
         }
       );
-  }, [routeId]);
+  }, [routeId, onLogout]);
 
   function getContent() {
     if (datapoints === undefined) {
@@ -70,4 +71,4 @@ function MapWithChartNet({ onLogout, routeId, measurand, style }: mwcNetProps) {
   return getContent();
 }
 
-export default MapWithChartNet;
+export default memo(MapWithChartNet);
