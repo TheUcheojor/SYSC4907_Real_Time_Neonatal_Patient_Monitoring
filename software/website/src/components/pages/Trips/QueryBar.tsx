@@ -45,6 +45,8 @@ function QueryBar({
     borderWidth: activeSearch ? "2px" : "1px",
     borderRadius: "3px",
     height: "35px",
+    marginLeft: "1px",
+    marginRight: "1px"
   };
 
   return (
