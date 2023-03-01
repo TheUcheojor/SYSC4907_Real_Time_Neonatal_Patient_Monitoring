@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text, Image } from "react-native";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { MainStackParamList } from "../types";
+import { APP_WIDTH } from "../constants/ViewConstants";
 
 /**
  * The container for a menu item
@@ -13,7 +14,7 @@ export default ({
   focused: boolean;
 }): JSX.Element => {
   // Maps menu item to corresponding icon
-  const MenuItemIconMapping = new Map<keyof MainStackParamList, JSX.Element>([
+  const menuItemIconMapping = new Map<keyof MainStackParamList, JSX.Element>([
     [
       "Driver",
       <Image
@@ -47,8 +48,10 @@ export default ({
           }}
         />
       )}
-      {MenuItemIconMapping.get(screenName)}
-      <Text style={styles.menuItemText}>{screenName.toUpperCase()}</Text>
+      {menuItemIconMapping.get(screenName)}
+      <Text adjustsFontSizeToFit style={styles.menuItemText}>
+        {screenName.toUpperCase()}
+      </Text>
     </View>
   );
 };
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
+    width: APP_WIDTH / 4,
   },
 
   menuItemText: {

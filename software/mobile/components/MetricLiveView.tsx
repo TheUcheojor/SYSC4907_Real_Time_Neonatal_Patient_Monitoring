@@ -17,6 +17,7 @@ import {
   VictoryArea,
   VictoryGroup,
 } from "victory-native";
+import { APP_WIDTH } from "../constants/ViewConstants";
 
 /**
  * The metric live view parameter
@@ -53,6 +54,10 @@ export interface MetricLiveViewParameters {
  */
 export const NUMBER_OF_VISIBLE_METRIC_POINTS = 20;
 
+export const CONTAINER_WIDTH = APP_WIDTH / 2.5;
+export const GRAPH_WIDTH = APP_WIDTH / 2.5 + 90;
+export const GRAPH_HEIGHT = 160;
+
 const LIVE_DATA_PRECISION = 0;
 
 /**
@@ -79,7 +84,7 @@ export default function MetricLiveView({
       </Text>
 
       <View style={styles.graphContainer}>
-        <VictoryGroup width={260} height={160}>
+        <VictoryGroup width={GRAPH_WIDTH} height={GRAPH_HEIGHT}>
           <VictoryArea
             interpolation="monotoneX"
             style={{
@@ -109,7 +114,7 @@ export default function MetricLiveView({
 
 const styles = StyleSheet.create({
   container: {
-    width: 170,
+    width: CONTAINER_WIDTH,
     height: 200,
     backgroundColor: "black",
     borderRadius: 20,
@@ -157,7 +162,7 @@ const styles = StyleSheet.create({
   graphContainer: {
     position: "relative",
     left: -50,
-    width: 170,
+    width: CONTAINER_WIDTH,
     top: -20,
     justifyContent: "flex-start",
     alignItems: "flex-start",
