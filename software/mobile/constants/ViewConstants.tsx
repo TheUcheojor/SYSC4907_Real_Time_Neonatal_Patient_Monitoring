@@ -10,6 +10,7 @@ export const APP_NAME: string = "Transport Comfort Analysis";
 export const LOGIN_PAGE: keyof RootStackParamList = "Login";
 
 export const APP_WIDTH: number = Dimensions.get("window").width;
+export const APP_HEIGHT: number = Dimensions.get("window").height;
 
 // The name of a collection that contains core pages
 export const MAIN_PAGE_COLLECTECTION: keyof RootStackParamList = "Main";

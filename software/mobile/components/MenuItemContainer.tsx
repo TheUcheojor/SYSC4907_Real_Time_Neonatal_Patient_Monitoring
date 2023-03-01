@@ -49,7 +49,7 @@ export default ({
         />
       )}
       {menuItemIconMapping.get(screenName)}
-      <Text adjustsFontSizeToFit style={styles.menuItemText}>
+      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.menuItemText}>
         {screenName.toUpperCase()}
       </Text>
     </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     color: "white",
     fontFamily: "Montserrat_700Bold",
-    fontSize: 10,
+    fontSize: 12,
   },
 
   menuIcon: {

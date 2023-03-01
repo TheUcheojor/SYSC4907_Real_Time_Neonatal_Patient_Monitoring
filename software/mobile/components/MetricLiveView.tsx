@@ -3,12 +3,14 @@
  * File: MetricLiveView
  * Purpose: Exports a component that displays metrics in real time and exports supporting interfaces/constants
  */
+import { useState } from "react";
 import {
   View,
   StyleSheet,
   Text,
   Image,
   ImageSourcePropType,
+  Dimensions,
 } from "react-native";
 
 import {
@@ -17,7 +19,7 @@ import {
   VictoryArea,
   VictoryGroup,
 } from "victory-native";
-import { APP_WIDTH } from "../constants/ViewConstants";
+import { APP_HEIGHT, APP_WIDTH } from "../constants/ViewConstants";
 
 /**
  * The metric live view parameter
@@ -53,12 +55,12 @@ export interface MetricLiveViewParameters {
  * The number of points on the graph at any time
  */
 export const NUMBER_OF_VISIBLE_METRIC_POINTS = 20;
-
-export const CONTAINER_WIDTH = APP_WIDTH / 2.5;
-export const GRAPH_WIDTH = APP_WIDTH / 2.5 + 90;
-export const GRAPH_HEIGHT = 160;
-
 const LIVE_DATA_PRECISION = 0;
+
+type window = {
+  width: number;
+  height: number;
+};
 
 /**
  * The MetricLiveView Component
@@ -70,9 +72,27 @@ export default function MetricLiveView({
   unitsLabel,
   liveData,
 }: MetricLiveViewParameters) {
-  // console.log(liveData, metricTitle);
+  const [containerWindow, setContainerWidow] = useState<window>(
+    Dimensions.get("window")
+  );
+
+  let containerWidth = containerWindow.width / 2.5;
+  let containerHeight = (0.95 * containerWindow.height) / 4;
+  let graphWidth = containerWindow.width / 2.5 + 90;
+  let graphHeight = containerHeight - 40;
+
+  const updateStyles = () => {
+    setContainerWidow(Dimensions.get("window"));
+  };
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        width: containerWidth,
+        height: containerHeight,
+      }}
+      onLayout={updateStyles}
+    >
       <View style={styles.iconContainer}>
         <Image style={styles.icon} source={iconImageSource} />
       </View>
@@ -83,8 +103,8 @@ export default function MetricLiveView({
         {unitsLabel}
       </Text>
 
-      <View style={styles.graphContainer}>
-        <VictoryGroup width={GRAPH_WIDTH} height={GRAPH_HEIGHT}>
+      <View style={{ ...styles.graphContainer, width: containerWidth }}>
+        <VictoryGroup width={graphWidth} height={graphHeight}>
           <VictoryArea
             interpolation="monotoneX"
             style={{
@@ -114,8 +134,6 @@ export default function MetricLiveView({
 
 const styles = StyleSheet.create({
   container: {
-    width: CONTAINER_WIDTH,
-    height: 200,
     backgroundColor: "black",
     borderRadius: 20,
     position: "relative",
@@ -162,7 +180,6 @@ const styles = StyleSheet.create({
   graphContainer: {
     position: "relative",
     left: -50,
-    width: CONTAINER_WIDTH,
     top: -20,
     justifyContent: "flex-start",
     alignItems: "flex-start",
