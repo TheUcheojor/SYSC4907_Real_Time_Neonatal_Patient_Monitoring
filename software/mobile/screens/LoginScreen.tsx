@@ -21,6 +21,7 @@ import { ServerCommnunicationService } from "../services/ServerCommunicationServ
 import { BaseServerResponse } from "../services/models/server-communication/requests/BaseServerResponse";
 import { isEmail } from "../utils/ValidatorUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
+import SimpleButton from "../components/SimpleButton";
 
 /**
  * The login screen layout
@@ -71,7 +72,7 @@ export default ({
 
   return (
     <View style={styles.container}>
-      <AppIcon size={undefined} />
+      <AppIcon />
       <Text style={styles.title}>{APP_NAME}</Text>
 
       <Text style={styles.errorText}>
@@ -103,23 +104,10 @@ export default ({
         navigation={navigation}
       />
 
-      <Pressable
-        style={({ pressed }: { pressed: boolean }) =>
-          getPressedHighlightBehaviourStyle(
-            pressed,
-            styles.buttonContainer,
-            onPressedButtonColour
-          )
-        }
-        onPress={login}
-      >
-        <Text style={styles.buttonText}> {LOGIN_BUTTON_TEXT} </Text>
-      </Pressable>
+      <SimpleButton onPressFunction={login} text={LOGIN_BUTTON_TEXT} />
     </View>
   );
 };
-
-const onPressedButtonColour: string = "#1E1E1E";
 
 const styles = StyleSheet.create({
   container: {
