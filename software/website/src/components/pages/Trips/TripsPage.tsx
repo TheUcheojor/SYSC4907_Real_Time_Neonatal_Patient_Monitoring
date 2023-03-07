@@ -19,6 +19,8 @@ import { HttpStatusEnum } from "constants/HttpStatusEnum";
 import TripPreview from "./TripPreview";
 import Modal from "components/modal/Modal";
 import DeleteTripModalContent from "components/modal/DeleteTripModalContent";
+import toast from "react-hot-toast";
+import DismissToastContent from "components/toast/DismissToastContent";
 
 const PAGE_SIZE = 8;
 
@@ -51,7 +53,7 @@ function TripsPage({ onLogout }: TripsProps) {
       ? `&search_query=${queryStat}${queryComparator}${queryValue}`
       : "";
 
-  useEffect(() => {
+  const fetchRoutes = () => {
     setRoutes(undefined);
     fetch(
       `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}${queryString}`,
@@ -70,9 +72,11 @@ function TripsPage({ onLogout }: TripsProps) {
         setRoutes(result.routes);
         setTotalRoutes(result.totalRoutes);
       });
-  }, [currentPage, queryString, onLogout]);
+  };
 
-  const onDeleteTrip = useCallback(() => {
+  useEffect(fetchRoutes, [currentPage, queryString, onLogout]);
+
+  function onDeleteTrip() {
     setRoutes(undefined);
     fetch(
       `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes/${deleteTripId.current}`,
@@ -84,15 +88,35 @@ function TripsPage({ onLogout }: TripsProps) {
       .then((res) => {
         if (res.status === HttpStatusEnum.UNAUTHORIZED) {
           onLogout();
-        } else {
+        } else if (res.status === HttpStatusEnum.OK) {
           return res;
+        } else {
+          toast.error((t) => (
+            <DismissToastContent
+              text={"Trip deletion failed"}
+              onDismiss={() => toast.dismiss(t.id)}
+            />
+          ));
         }
       })
       .then((result) => {
-        console.log("DELETED TRIP");
+        toast.success((t) => (
+          <DismissToastContent
+            text={"Trip deleted"}
+            onDismiss={() => toast.dismiss(t.id)}
+          />
+        ));
         setModalOpen(false);
+        setSelectedRoutes(
+          selectedRoutes.filter((selectedRoute) => {
+            return (
+              selectedRoute[RouteFieldEnum.route_id] !== deleteTripId.current
+            );
+          })
+        );
+        fetchRoutes();
       });
-  }, []);
+  }
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -174,7 +198,7 @@ function TripsPage({ onLogout }: TripsProps) {
                 routes={routes}
                 elemOnClick={onListElemClick}
                 activeRoutes={selectedRoutes}
-                elemDeleteOnClick={(e, route) => {
+                elemDeleteOnClick={(route) => {
                   setModalOpen(true);
                   deleteTripPatient.current = route[RouteFieldEnum.patient_id];
                   deleteTripId.current = route[RouteFieldEnum.route_id];

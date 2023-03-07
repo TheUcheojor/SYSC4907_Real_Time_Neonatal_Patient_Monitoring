@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Route from "models/Route";
 import ListElement from "components/pages/Trips/ListElement";
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
+import { ColorEnum } from "constants/ColorEnum";
+import CancelIcon from "components/icons/CancelIcon";
 
 interface ListProps {
   routes: Route[];
   elemOnClick: (e: any) => void;
   activeRoutes: Route[];
-  elemDeleteOnClick: (e: any, route: Route) => void;
+  elemDeleteOnClick: (route: Route) => void;
 }
 
 function List({
@@ -16,20 +18,51 @@ function List({
   activeRoutes,
   elemDeleteOnClick,
 }: ListProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [isEditHovering, setIsEditHovering] = useState(false);
+
   return (
-    <ul style={{ padding: 0, marginTop: 0 }}>
+    <ul style={{ padding: 0, marginTop: 0, width: "333px" }}>
+      <button
+        onMouseEnter={() => setIsEditHovering(true)}
+        onMouseLeave={() => setIsEditHovering(false)}
+        onClick={() => setIsEditing(!isEditing)}
+        style={{
+          width: "fit-content",
+          height: "20px",
+          fontSize: "14px",
+          backgroundColor: isEditHovering ? "#DAF7FD" : ColorEnum.White,
+          color: ColorEnum.Link,
+          marginTop: "2px",
+          marginBottom: "2px",
+        }}
+      >
+        Edit
+      </button>
       {routes.map((route) => {
         return (
-          <ListElement
-            key={route[RouteFieldEnum.route_id]}
-            route={route}
-            isActive={activeRoutes.some(
-              (elem) =>
-                elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
+          <div style={{ display: "flex", marginBottom: "10px" }}>
+            <ListElement
+              key={route[RouteFieldEnum.route_id]}
+              route={route}
+              isActive={activeRoutes.some(
+                (elem) =>
+                  elem[RouteFieldEnum.route_id] ===
+                  route[RouteFieldEnum.route_id]
+              )}
+              onClick={elemOnClick}
+            />
+            {isEditing ? (
+              <CancelIcon
+                bgColor={ColorEnum.LightRed}
+                bgColorHover={ColorEnum.LighterRed}
+                onClick={() => elemDeleteOnClick(route)}
+                style={{ marginLeft: "5px", width: "20px", height: "20px" }}
+              />
+            ) : (
+              ""
             )}
-            onClick={elemOnClick}
-            onDeleteOnClick={elemDeleteOnClick}
-          />
+          </div>
         );
       })}
     </ul>

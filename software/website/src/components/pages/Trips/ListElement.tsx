@@ -16,15 +16,9 @@ interface listElementProps {
   route: Route;
   isActive: boolean;
   onClick?: (e: any) => void;
-  onDeleteOnClick: (e: any, route: Route) => void;
 }
 
-function ListElement({
-  route,
-  isActive,
-  onClick,
-  onDeleteOnClick,
-}: listElementProps) {
+function ListElement({ route, isActive, onClick }: listElementProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -33,7 +27,6 @@ function ListElement({
       style={{
         display: "flex",
         alignItems: "center",
-        marginBottom: "10px",
         backgroundColor: isHover ? "#2a2a2a" : "black",
         border: isActive ? "3px solid #8AB4F8" : "3px solid transparent",
         borderRadius: "6px",
@@ -76,12 +69,6 @@ function ListElement({
         <p style={statsLabelsStyles}>
           Vibration exposure: {route[RouteFieldEnum.total_vibration]}
         </p>
-      </div>
-      <div
-        id={route[RouteFieldEnum.route_id]}
-        onClick={(e) => onDeleteOnClick(e, route)}
-      >
-        X
       </div>
     </div>
   );

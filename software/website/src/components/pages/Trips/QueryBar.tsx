@@ -53,7 +53,6 @@ function QueryBar({
     <div
       style={{
         display: "flex",
-        marginBottom: "5px",
         alignItems: "center",
       }}
     >

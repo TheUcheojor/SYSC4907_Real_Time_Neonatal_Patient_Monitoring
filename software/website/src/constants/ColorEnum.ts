@@ -1,5 +1,7 @@
 export enum ColorEnum {
   Red = "#FF0000",
+  LighterRed = "#ff6c6c",
+  LightRed = "#FF5C5C",
   Yellow = "#f5d742",
   Green = "#2DB021",
   LightGreen = "#2DB621",

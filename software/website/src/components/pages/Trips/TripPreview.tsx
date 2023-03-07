@@ -13,7 +13,6 @@ const labelStyles = {
 
 function TripPreview({ selectedRoute, onLogout }) {
   const [segments, setSegments] = useState(undefined);
-  console.log(selectedRoute);
 
   useEffect(() => {
     fetch(
@@ -81,7 +80,7 @@ function TripPreview({ selectedRoute, onLogout }) {
         />
       </div>
       {segments !== undefined ? (
-        <div style={{margin: "5px 10px 5px 10px" }}>
+        <div style={{ margin: "5px 10px 5px 10px" }}>
           <h4
             style={{
               color: ColorEnum.White,
@@ -95,7 +94,7 @@ function TripPreview({ selectedRoute, onLogout }) {
           <ul style={{ padding: 0, margin: 0 }}>
             {segments.map((segment, i) => {
               return (
-                <div style={{marginTop: "5px", marginBottom: "5px"}}>
+                <div style={{ marginTop: "5px", marginBottom: "5px" }}>
                   <h5
                     style={{
                       color: ColorEnum.White,
