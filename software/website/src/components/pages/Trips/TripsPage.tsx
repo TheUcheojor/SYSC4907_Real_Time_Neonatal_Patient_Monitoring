@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useRef } from "react";
+import React, { memo, useState, useEffect, useRef, useCallback } from "react";
 import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
 import {
@@ -6,7 +6,6 @@ import {
   RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
 import List from "components/pages/Trips/List";
-import { elapsedDurationInHoursAndMinutes } from "util/StringUtil";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import TripsDetails from "components/pages/Trips/TripsDetails";
@@ -15,10 +14,11 @@ import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import Pagination from "components/pages/Pagination";
-import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
 import QueryBar, { comparatorOptions, statisticOptions } from "./QueryBar";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 import TripPreview from "./TripPreview";
+import Modal from "components/modal/Modal";
+import DeleteTripModalContent from "components/modal/DeleteTripModalContent";
 
 const PAGE_SIZE = 8;
 
@@ -39,6 +39,9 @@ function TripsPage({ onLogout }: TripsProps) {
     comparatorOptions[0].value
   );
   const [queryValue, setQueryValue] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const deleteTripId = useRef(undefined);
+  const deleteTripPatient = useRef("");
 
   const queryString =
     queryStat !== "-" &&
@@ -68,6 +71,28 @@ function TripsPage({ onLogout }: TripsProps) {
         setTotalRoutes(result.totalRoutes);
       });
   }, [currentPage, queryString, onLogout]);
+
+  const onDeleteTrip = useCallback(() => {
+    setRoutes(undefined);
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes/${deleteTripId.current}`,
+      {
+        method: "DELETE",
+        headers: getFetchHeaderWithAuth(),
+      }
+    )
+      .then((res) => {
+        if (res.status === HttpStatusEnum.UNAUTHORIZED) {
+          onLogout();
+        } else {
+          return res;
+        }
+      })
+      .then((result) => {
+        console.log("DELETED TRIP");
+        setModalOpen(false);
+      });
+  }, []);
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
@@ -149,9 +174,14 @@ function TripsPage({ onLogout }: TripsProps) {
                 routes={routes}
                 elemOnClick={onListElemClick}
                 activeRoutes={selectedRoutes}
+                elemDeleteOnClick={(e, route) => {
+                  setModalOpen(true);
+                  deleteTripPatient.current = route[RouteFieldEnum.patient_id];
+                  deleteTripId.current = route[RouteFieldEnum.route_id];
+                }}
               />
             ) : (
-              <p> No routes found</p>
+              <p>No routes found</p>
             )}
             <Pagination
               currentPage={currentPage}
@@ -248,6 +278,20 @@ function TripsPage({ onLogout }: TripsProps) {
               />
             )}
           </div>
+
+          <Modal
+            title={"Delete trip"}
+            modalOpen={isModalOpen}
+            closeModal={() => {
+              setModalOpen(false);
+            }}
+          >
+            <DeleteTripModalContent
+              trip_id={deleteTripId.current}
+              patient_id={deleteTripPatient.current.toString()}
+              onDelete={onDeleteTrip}
+            />
+          </Modal>
         </div>
       );
     } else {

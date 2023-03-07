@@ -7,9 +7,15 @@ interface ListProps {
   routes: Route[];
   elemOnClick: (e: any) => void;
   activeRoutes: Route[];
+  elemDeleteOnClick: (e: any, route: Route) => void;
 }
 
-function List({ routes, elemOnClick, activeRoutes }: ListProps) {
+function List({
+  routes,
+  elemOnClick,
+  activeRoutes,
+  elemDeleteOnClick,
+}: ListProps) {
   return (
     <ul style={{ padding: 0, marginTop: 0 }}>
       {routes.map((route) => {
@@ -22,6 +28,7 @@ function List({ routes, elemOnClick, activeRoutes }: ListProps) {
                 elem[RouteFieldEnum.route_id] === route[RouteFieldEnum.route_id]
             )}
             onClick={elemOnClick}
+            onDeleteOnClick={elemDeleteOnClick}
           />
         );
       })}

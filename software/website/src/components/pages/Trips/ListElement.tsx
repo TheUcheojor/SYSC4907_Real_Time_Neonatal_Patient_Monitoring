@@ -1,3 +1,4 @@
+import DeleteTripModalContent from "components/modal/DeleteTripModalContent";
 import { ColorEnum } from "constants/ColorEnum";
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 import Route from "models/Route";
@@ -8,16 +9,22 @@ const statsLabelsStyles = {
   fontSize: "10px",
   margin: 0,
   color: ColorEnum.White,
-  cursor: "inherit"
+  cursor: "inherit",
 };
 
 interface listElementProps {
   route: Route;
   isActive: boolean;
   onClick?: (e: any) => void;
+  onDeleteOnClick: (e: any, route: Route) => void;
 }
 
-function ListElement({ route, isActive, onClick }: listElementProps) {
+function ListElement({
+  route,
+  isActive,
+  onClick,
+  onDeleteOnClick,
+}: listElementProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -69,6 +76,12 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
         <p style={statsLabelsStyles}>
           Vibration exposure: {route[RouteFieldEnum.total_vibration]}
         </p>
+      </div>
+      <div
+        id={route[RouteFieldEnum.route_id]}
+        onClick={(e) => onDeleteOnClick(e, route)}
+      >
+        X
       </div>
     </div>
   );
