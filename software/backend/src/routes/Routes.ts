@@ -11,7 +11,7 @@ import {
 } from "./../RouteInsertionLogic.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import RouteSegment from "./../models/RouteSegment.js";
-import { OkPacket } from "mysql2";
+import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
 import {
   QUERY_PAGE_DEFAULT,
   QUERY_LIMIT_DEFAULT,
@@ -170,9 +170,7 @@ routesRouter.get(
         req.user_id
       } AND ${seach_query} LIMIT ${(page - 1) * limit},${limit}`;
 
-      db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${
-        req.user_id
-      } AND ${seach_query}`;
+      db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${req.user_id} AND ${seach_query}`;
 
       logger.info("Fetch query with custom constraint: " + db_query);
     }
@@ -198,6 +196,54 @@ routesRouter.get(
           routes: results,
           totalRoutes: countResult[0][COUNT_KEY],
         });
+      });
+    });
+  }
+);
+
+routesRouter.delete(
+  "/routes/:route_id",
+  authenticateSessionToken,
+  (req: AuthenticatedRequest, res: Response) => {
+    // select query acts as redundancy to protect against unwanted deletions
+    let db_select_query = `SELECT * FROM routes WHERE route_id=${req.params.route_id} AND owner_id=${req.user_id}`;
+    let db_delete_query = `DELETE FROM routes WHERE route_id=${req.params.route_id} AND owner_id=${req.user_id}`;
+
+    let db = new DB();
+    db.connect();
+    let con = db.con();
+
+    con.query(db_select_query, function (error, results, fields) {
+      if (error) {
+        return con.rollback(function () {
+          logger.error(error);
+          res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+        });
+      }
+      results = <Array<RowDataPacket>>results;
+
+      if (results.length > 1) {
+        res.status(HttpStatusEnum.CONFLICT).send();
+        return;
+      } else if (results.length == 0) {
+        res.status(HttpStatusEnum.NOT_FOUND).send();
+        return;
+      }
+      con.query(db_delete_query, function (error, deleteResult, fields) {
+        if (error) {
+          return con.rollback(function () {
+            logger.error(error);
+            res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+          });
+        }
+
+        deleteResult = <ResultSetHeader>deleteResult;
+        if (deleteResult.affectedRows !== 1) {
+          logger.error(
+            `Deleted unusual amount of routes: ${deleteResult.affectedRows}`
+          );
+        }
+        res.status(HttpStatusEnum.OK).send();
       });
     });
   }
