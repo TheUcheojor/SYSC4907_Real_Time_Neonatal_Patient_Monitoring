@@ -74,7 +74,7 @@ function TripsPage({ onLogout }: TripsProps) {
       });
   };
 
-  useEffect(fetchRoutes, [currentPage, queryString, onLogout]);
+  useEffect(fetchRoutes, [currentPage, onLogout]);
 
   function onDeleteTrip() {
     setRoutes(undefined);
@@ -124,7 +124,7 @@ function TripsPage({ onLogout }: TripsProps) {
     );
 
     if (targetedRoute === undefined) {
-      console.log("No route data matches the clicked list elements id");
+      console.error("No route data matches the clicked list elements id");
       return;
     }
     if (isSelecting) {
@@ -180,7 +180,6 @@ function TripsPage({ onLogout }: TripsProps) {
               Trips
             </p>
             <QueryBar
-              activeSearch={queryString !== ""}
               setQueryStat={(e) => {
                 setQueryStat(e);
               }}
@@ -190,6 +189,7 @@ function TripsPage({ onLogout }: TripsProps) {
               setQueryValue={(e) => {
                 setQueryValue(e);
               }}
+              onQuery={fetchRoutes}
             />
             {routes === undefined ? (
               <LoadingIcon />

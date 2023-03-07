@@ -1,3 +1,4 @@
+import SearchIcon from "components/icons/SearchIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 import React from "react";
@@ -28,25 +29,25 @@ export const statisticOptions = [
 ];
 
 interface QueryBarProps {
-  activeSearch: boolean;
   setQueryStat: (value) => void;
   setQueryComparator: (value) => void;
   setQueryValue: (value) => void;
+  onQuery: () => void;
 }
 
 function QueryBar({
-  activeSearch,
   setQueryStat,
   setQueryComparator,
   setQueryValue,
+  onQuery,
 }: QueryBarProps) {
   const selectStyles = {
-    borderColor: activeSearch ? ColorEnum.Green : ColorEnum.Black,
-    borderWidth: activeSearch ? "2px" : "1px",
+    borderColor: ColorEnum.Black,
+    borderWidth: "1px",
     borderRadius: "3px",
     height: "35px",
     marginLeft: "1px",
-    marginRight: "1px"
+    marginRight: "1px",
   };
 
   return (
@@ -82,8 +83,14 @@ function QueryBar({
         style={{
           marginBottom: 0,
           borderWidth: "1px",
+          minWidth: "20px",
           ...selectStyles,
         }}
+      />
+      <SearchIcon
+        fill={ColorEnum.White}
+        onClick={onQuery}
+        styles={{ height: "35px", width: "20px", borderRadius: "3px" }}
       />
     </div>
   );
