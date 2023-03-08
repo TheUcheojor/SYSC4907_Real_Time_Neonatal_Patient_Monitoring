@@ -97,6 +97,7 @@ export class ServerCommnunicationService {
 
           UserSessionService.saveUserSession({
             fullName: responseBody.full_name,
+            email: loginRequest.email.trim().toLowerCase(),
             authenticationToken: response.headers.get(
               HttpHeaderKey.AUTHORIZATION_KEY
             ) as string,
@@ -215,7 +216,12 @@ export class ServerCommnunicationService {
           CommunicationError.SERVER_INAVAILABILITY
         );
 
-        LoggerService.warn("Uploading Error: " + error);
+        LoggerService.warn(
+          "Uploading Error: " +
+            error +
+            "\nRequest: " +
+            JSON.stringify(serverPostRouteRequest)
+        );
         return {
           isSuccessful: false,
           message: "",
@@ -271,7 +277,7 @@ export class ServerCommnunicationService {
   public routeSearch(
     query: string,
     page: number = 1,
-    limit: number = 5
+    limit: number = 10
   ): Promise<ServerRouteSearchResponse> {
     const serverEndpoint: string = `${ServerCommnunicationService.API_URL}/routes?search_query=${query}&page=${page}&limit=${limit}`;
     LoggerService.debug("Search Endpoint: ", serverEndpoint);
@@ -282,12 +288,6 @@ export class ServerCommnunicationService {
           headers: {
             Authorization: userSession.authenticationToken,
           },
-        }).then((response: Response) => {
-          if (response.status != HttpStatusCode.OK_REQUEST) {
-            throw new Error(CommunicationError.FETCHING_ERROR);
-          }
-
-          return response.json();
         });
       })
       .then(this.validateValidResponse)
@@ -319,13 +319,19 @@ export class ServerCommnunicationService {
    * Otherwise returns the response body
    */
   private validateValidResponse(response: Response): Promise<any> {
+    console.log("response.status: ", response.status);
     if (response.status != HttpStatusCode.OK_REQUEST) {
       throw new Error(
         response.status + ". " + CommunicationError.SERVER_COMMUNICATION_ERROR
       );
     }
 
-    return response.json();
+    const contentType = response.headers.get("content-type");
+    if (contentType?.includes(JSON_APPLICATION_CONTENT_TYPE.toLowerCase())) {
+      return response.json();
+    }
+
+    return Promise.resolve();
   }
 
   /**

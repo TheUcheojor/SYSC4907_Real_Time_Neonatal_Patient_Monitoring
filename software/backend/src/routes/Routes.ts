@@ -136,7 +136,7 @@ routesRouter.post(
                 res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
               });
             }
-            res.send("Success");
+            res.status(HttpStatusEnum.OK).send("Success");
           });
         }
       );
@@ -191,7 +191,7 @@ routesRouter.get(
               res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             });
           }
-          res.send({
+          res.status(HttpStatusEnum.OK).send({
             routes: results,
             totalRoutes: countResult[0][COUNT_KEY],
           });

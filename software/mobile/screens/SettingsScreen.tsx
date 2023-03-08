@@ -51,17 +51,19 @@ export default ({
    * Start a demo live datafeed if the flag is set.
    * This allows developers to simulate the sensor package
    */
-  if (SYSTEM_CONFIGURATION.TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER) {
-    useEffect(() => {
+  useEffect(() => {
+    let generateMeasurementPacketInterval: NodeJS.Timer;
+
+    if (SYSTEM_CONFIGURATION.TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER) {
       const sensorPackageController: SensorPackageController =
         SensorPackageController.getSensorPackageController();
 
-      const generateMeasurementPacketInterval: NodeJS.Timer =
+      generateMeasurementPacketInterval =
         sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+    }
 
-      return () => clearInterval(generateMeasurementPacketInterval);
-    }, []);
-  }
+    return () => clearInterval(generateMeasurementPacketInterval);
+  }, []);
 
   return (
     <View style={styles.settingsScreen}>

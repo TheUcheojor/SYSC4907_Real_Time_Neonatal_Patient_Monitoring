@@ -21,5 +21,5 @@ export const SYSTEM_CONFIGURATION = {
    *
    * You may need to reload the application once changed
    */
-  TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER: false,
+  TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER: true,
 } as const;
