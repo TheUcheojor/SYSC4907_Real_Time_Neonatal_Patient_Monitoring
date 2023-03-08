@@ -28,6 +28,7 @@ export const PASSWORD_PLACEHOLDER: string = "Your Password...";
 
 export const FORGOT_PASSWORD_TEXT: string = "Forgot password?";
 export const NO_ACCOUNT_SIGNUP_TEXT: string = "No account? Signup here";
+export const RETURN_TO_LOGIN_TEXT: string = "Return to Login";
 
 export const LOGIN_BUTTON_TEXT = "Login";
 

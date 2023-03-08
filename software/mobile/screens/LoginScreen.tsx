@@ -22,6 +22,7 @@ import { BaseServerResponse } from "../services/models/server-communication/requ
 import { isEmail } from "../utils/ValidatorUtil";
 import { getPressedHighlightBehaviourStyle } from "../utils/ComponentsUtil";
 import SimpleButton from "../components/SimpleButton";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
 
 /**
  * The login screen layout
@@ -32,34 +33,40 @@ export default ({
 }: NativeStackScreenProps<RootStackParamList, "Login">): JSX.Element => {
   const [isError, setErrorFlag] = useState<boolean>(false);
 
-  const emailRef = useRef<string>("");
-  const passwordRef = useRef<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   /**
    * Authenticate the user
    */
   const login = (): void => {
-    //For dev
-    // navigation.navigate("Main", {
-    //   screen: "Paramedic",
-    // });
-    // return;
+    // For developers. Bypass authentication for developer purposes.
+    // Because expo refreshes the app, tt can become frustrating to login everytime changes are made
+    if (SYSTEM_CONFIGURATION.LOGIN_BYPASS_AUTHENTICATION) {
+      navigation.navigate("Main", {
+        screen: "Paramedic",
+      });
+      return;
+    }
 
     // If an invalid email is present, do not waste time sending the request
-    if (!isEmail(emailRef.current)) {
+    if (!isEmail(email)) {
       setErrorFlag(true);
       return;
     }
 
     ServerCommnunicationService.getServerCommunicationService()
       .login({
-        email: emailRef.current.trim().toLowerCase(),
-        password: passwordRef.current,
+        email: email.trim().toLowerCase(),
+        password: password,
       })
       .then((serverResponse: BaseServerResponse) => {
-        console.log(serverResponse);
         if (serverResponse.isSuccessful) {
           setErrorFlag(false);
+
+          setEmail("");
+          setPassword("");
+
           navigation.navigate("Main", {
             screen: "Paramedic",
           });
@@ -80,17 +87,19 @@ export default ({
       </Text>
 
       <TextInputContainer
-        inputRef={emailRef}
         title={EMAIL_TITLE}
         placeholder={EMAIL_PLACEHOLDER}
         isError={isError}
+        textInput={email}
+        setTextInput={setEmail}
       />
       <TextInputContainer
-        inputRef={passwordRef}
         title={PASSWORD_TITLE}
         placeholder={PASSWORD_PLACEHOLDER}
         isError={isError}
         secureTextEntry={true}
+        textInput={password}
+        setTextInput={setPassword}
       />
 
       <ClickableText
