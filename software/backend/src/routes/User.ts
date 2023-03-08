@@ -55,7 +55,7 @@ userRouter.post("/user", (req: SignUpRequest, res: Response) => {
             });
           }
           logger.info("signup request success");
-          res.send({
+          res.status(HttpStatusEnum.OK).send({
             msg: `User ${req.full_name} succesfully registered`,
           });
         }
