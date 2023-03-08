@@ -30,6 +30,8 @@ import { useEffect } from "react";
 import { measure } from "react-native-reanimated";
 import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
 import demoRouteDataPoints from "../mock/demoRouteDataPoints";
+import { Alert } from "react-native";
+import LoggerService from "./LoggerService";
 
 export default class SensorPackageController {
   /**
@@ -137,6 +139,16 @@ export default class SensorPackageController {
       console.log("PERMISSIONS.BLUETOOTH_CONNECT -> result: " + result);
     });
 
+    await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION, {
+      title: "Scanning Permissions",
+      message: "Required to connect to the sensor package",
+      buttonNeutral: "Later",
+      buttonNegative: "Cancel",
+      buttonPositive: "OK",
+    }).then((result: PermissionStatus) => {
+      console.log("PERMISSIONS.ACCESS_COARSE_LOCATION -> result: " + result);
+    });
+
     await request(PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION, {
       title: "Scanning Permissions",
       message: "Required to connect to the sensor package",
@@ -238,8 +250,12 @@ export default class SensorPackageController {
           }
         );
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((error: any) => {
+        Alert.alert(
+          "Sensor Package Communication",
+          "Cannot connect for sensor packages"
+        );
+        LoggerService.warn("Sensor Package Communication Error: " + error);
       });
   }
 
@@ -255,6 +271,17 @@ export default class SensorPackageController {
       .then((device: Device) => {
         this.sensorPackageDevice = null;
         this.isSensorPackageDeviceConnected = false;
+
+        if (!this.sensorPackageDevice) return;
+
+        // Alert.alert("Disconnection", "Sensor Package has been disconnected");
+      })
+      .catch((error: any) => {
+        Alert.alert(
+          "Sensor Package Communication",
+          "An error occurred when attempting disconnecting from the sensor package"
+        );
+        LoggerService.warn("Sensor Package Communication Error: " + error);
       });
   }
 
