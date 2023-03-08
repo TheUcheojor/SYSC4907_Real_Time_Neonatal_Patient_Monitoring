@@ -11,6 +11,7 @@ import { HttpStatusCode } from "./constants/HttpStatusCode";
 import {
   LoginRequest,
   LoginResponse,
+  SignupRequest,
 } from "./models/server-communication/requests/authenticationRequestsResponses";
 import { BaseServerResponse } from "./models/server-communication/requests/BaseServerResponse";
 import { HttpHeaderKey } from "./constants/HttpHeaderProperties";
@@ -32,6 +33,7 @@ import {
 import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
 import { ServerRouteSegment } from "./models/server-communication/ServerRouteSegment";
 import RouteSegment from "./models/trips/RouteSegment";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
 
 export class ServerCommnunicationService {
   /**
@@ -40,14 +42,18 @@ export class ServerCommnunicationService {
   private static serverCommnunicationService: ServerCommnunicationService;
 
   /**
-   * A flag indicating whether the server is communicatating with the production backend
+   * The local IP address
+   *
+   * Keep in mind that your local ip address is not your computer's 'localhost'.
+   * Rather, it is the IP address of the network you are logged into.
    */
-  private static productionFlag: boolean = false;
+  private static LOCAL_IP_ADDRESS: string = "http://192.168.100.100:7001";
+
   /**
    * The API url - http://192.168.100.100:7001
    */
-  private static API_URL: string = !ServerCommnunicationService.productionFlag
-    ? "http://192.168.100.100:7001"
+  private static API_URL: string = !SYSTEM_CONFIGURATION.PRODUCTION_SERVER_FLAG
+    ? ServerCommnunicationService.LOCAL_IP_ADDRESS
     : "http://100.25.144.98:3001";
 
   /**
@@ -102,10 +108,60 @@ export class ServerCommnunicationService {
         };
       })
       .catch((error: any) => {
-        Alert.alert("Error", error);
-        LoggerService.warn(error);
+        Alert.alert(
+          CommunicationError.AUTHENTICATION_ERROR,
+          CommunicationError.SERVER_INAVAILABILITY
+        );
+
+        LoggerService.warn(
+          CommunicationError.AUTHENTICATION_ERROR + ": " + error
+        );
         return {
           isSuccessful: false,
+          message: "login failed",
+        };
+      });
+  }
+
+  /**
+   * Sign up a user
+   * @param signUpRequest
+   * @returns
+   */
+  public signUp(signUpRequest: SignupRequest): Promise<BaseServerResponse> {
+    return fetch(`${ServerCommnunicationService.API_URL}/user`, {
+      method: HttpRequestType.POST,
+      headers: {
+        "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
+      },
+      body: JSON.stringify(signUpRequest),
+    })
+      .then(this.validateValidResponse)
+      .then(async (response: Response) => {
+        console.log("Sign up - response status: ", response.status);
+        // We login to retreive an authorization token
+        await this.login({
+          email: signUpRequest.email,
+          password: signUpRequest.password,
+        });
+
+        return {
+          isSuccessful: true,
+          message: "",
+        };
+      })
+      .catch((error: any) => {
+        Alert.alert(
+          CommunicationError.AUTHENTICATION_ERROR,
+          CommunicationError.SERVER_INAVAILABILITY
+        );
+
+        LoggerService.warn(
+          CommunicationError.AUTHENTICATION_ERROR + ": " + error
+        );
+        return {
+          isSuccessful: false,
+          message: "Sign-up failed",
         };
       });
   }
@@ -142,21 +198,23 @@ export class ServerCommnunicationService {
             Authorization: userSession.authenticationToken,
           },
           body: JSON.stringify(serverPostRouteRequest),
-        }).then((response: Response) => {
-          LoggerService.info("status: ", response.status);
-          const isSuccessful: boolean =
-            response.status == HttpStatusCode.OK_REQUEST;
-
-          return {
-            isSuccessful: isSuccessful,
-            message: "",
-            deletedTripRouteId: tripId,
-          };
-        });
+        })
+          .then(this.validateValidResponse)
+          .then((response: Response) => {
+            return {
+              isSuccessful: true,
+              message: "",
+              deletedTripRouteId: tripId,
+            };
+          });
       })
       .catch((error: any) => {
-        Alert.alert("Error", error);
-        LoggerService.warn(error);
+        Alert.alert(
+          CommunicationError.UPLOADING_ERROR,
+          CommunicationError.SERVER_INAVAILABILITY
+        );
+
+        LoggerService.warn("Uploading Error: " + error);
         return {
           isSuccessful: false,
           message: "",
@@ -196,6 +254,7 @@ export class ServerCommnunicationService {
           return response.json();
         });
       })
+      .then(this.validateValidResponse)
       .then((result: { totalRoutes: number; routes: ServerTripRoute[] }) => {
         LoggerService.debug("Server search result: ", result);
         return {
@@ -205,11 +264,11 @@ export class ServerCommnunicationService {
       })
       .catch((error: any) => {
         Alert.alert(
-          CommunicationError.SERVER_COMMUNICATION_ERROR,
-          CommunicationError.FETCHING_ERROR
+          CommunicationError.SEARCH_FAILURE,
+          CommunicationError.SERVER_INAVAILABILITY
         );
 
-        LoggerService.warn(error);
+        LoggerService.warn(CommunicationError.SEARCH_FAILURE + ": " + error);
         return {
           routes: [],
           totalRoutes: -1,
@@ -263,11 +322,11 @@ export class ServerCommnunicationService {
       })
       .catch((error: any) => {
         Alert.alert(
-          CommunicationError.SERVER_COMMUNICATION_ERROR,
-          CommunicationError.FETCHING_ERROR
+          CommunicationError.FETCHING_ERROR,
+          CommunicationError.SERVER_INAVAILABILITY
         );
 
-        LoggerService.error(error);
+        LoggerService.error(CommunicationError.FETCHING_ERROR + ": " + error);
         return [];
       });
   }
@@ -296,11 +355,11 @@ export class ServerCommnunicationService {
       })
       .catch((error: any) => {
         Alert.alert(
-          CommunicationError.SERVER_COMMUNICATION_ERROR,
-          CommunicationError.FETCHING_ERROR
+          CommunicationError.FETCHING_ERROR,
+          CommunicationError.SERVER_COMMUNICATION_ERROR
         );
 
-        LoggerService.error(error);
+        LoggerService.error(CommunicationError.FETCHING_ERROR + ": " + error);
         return [];
       });
   }

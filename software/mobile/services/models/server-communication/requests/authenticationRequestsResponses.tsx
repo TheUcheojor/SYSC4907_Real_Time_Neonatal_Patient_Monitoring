@@ -19,5 +19,5 @@ export interface LoginResponse {
 }
 
 export interface SignupRequest extends BaseAuthenticationRequest {
-  fullName: string;
+  full_name: string;
 }
