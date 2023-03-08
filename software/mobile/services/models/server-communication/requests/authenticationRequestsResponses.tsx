@@ -21,3 +21,7 @@ export interface LoginResponse {
 export interface SignupRequest extends BaseAuthenticationRequest {
   full_name: string;
 }
+
+export interface ForgotPasswordRequest {
+  email: string;
+}

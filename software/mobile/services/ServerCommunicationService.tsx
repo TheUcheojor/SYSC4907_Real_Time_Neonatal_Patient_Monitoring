@@ -9,6 +9,7 @@ import { JSON_APPLICATION_CONTENT_TYPE } from "./constants/HttpHeaderProperties"
 import { HttpRequestType } from "./constants/HttpRequestType";
 import { HttpStatusCode } from "./constants/HttpStatusCode";
 import {
+  ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
   SignupRequest,
@@ -219,6 +220,41 @@ export class ServerCommnunicationService {
           isSuccessful: false,
           message: "",
           deletedTripRouteId: -1,
+        };
+      });
+  }
+
+  /**
+   * Allows user to request for a new password
+   *
+   * Please note that this endpoint will always return the success flag as true.
+   * The reason is to prevent attackers from learning from the system. However,
+   * the errors will logged if the occured
+   *
+   *
+   * @param serverPostRouteRequest the server trip package
+   * @returns the server response
+   */
+  public forgotPassword(
+    forgotPasswordRequest: ForgotPasswordRequest
+  ): Promise<BaseServerResponse> {
+    return fetch(`${ServerCommnunicationService.API_URL}/forgotPassword`, {
+      method: HttpRequestType.POST,
+      headers: {
+        "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
+      },
+      body: JSON.stringify(forgotPasswordRequest),
+    })
+      .then(this.validateValidResponse)
+      .then((response: Response) => {
+        return {
+          isSuccessful: true,
+        };
+      })
+      .catch((error: any) => {
+        LoggerService.warn("Forgot passsword error: " + error);
+        return {
+          isSuccessful: true,
         };
       });
   }

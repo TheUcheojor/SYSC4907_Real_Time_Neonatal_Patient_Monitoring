@@ -9,9 +9,18 @@ import {
   EMAIL_PLACEHOLDER,
   EMAIL_TITLE,
   FORGOT_PASSWORD_HEADER,
-  SEND_TEMPORARY_PASSOWRD_BUTTON_TEXT,
+  RETURN_TO_LOGIN_TEXT,
+  SEND_TEMPORARY_PASSOWRD_BUTTON_TEXT as SEND_TEMPORARY_PASSWORD_BUTTON_TEXT,
 } from "../constants/ViewConstants";
 import { TextInputContainer } from "../components/TextInputContainer";
+import { ClickableText } from "../components/ClickableText";
+import { ServerCommnunicationService } from "../services/ServerCommunicationService";
+import { BaseServerResponse } from "../services/models/server-communication/requests/BaseServerResponse";
+
+/**
+ * The period in which the forgot password message will be remain
+ */
+const TEMPORARY_MESSAGE_TIMEOUT = 2000;
 
 /**
  * The forgot-password screen
@@ -23,7 +32,27 @@ export default ({
   "ForgotPassword"
 >): JSX.Element => {
   const [hasSentTemporaryPassword, setSentTemporaryPassword] =
-    useState<boolean>(true);
+    useState<boolean>(false);
+
+  const [email, setEmail] = useState<string>("");
+
+  const forgotPassword = () => {
+    console.log("hasSentTemporaryPassword: ", hasSentTemporaryPassword);
+
+    ServerCommnunicationService.getServerCommunicationService()
+      .forgotPassword({
+        email: email.trim().toLowerCase(),
+      })
+      .then((response: BaseServerResponse) => {
+        if (response.isSuccessful) {
+          setSentTemporaryPassword(true);
+
+          const temporaryMessage = setTimeout(() => {
+            setSentTemporaryPassword(false);
+          }, TEMPORARY_MESSAGE_TIMEOUT);
+        }
+      });
+  };
 
   return (
     <View style={styles.container}>
@@ -39,28 +68,27 @@ export default ({
         width={275}
         title={EMAIL_TITLE}
         placeholder={EMAIL_PLACEHOLDER}
-        inputRef={undefined}
+        textInput={email}
+        setTextInput={setEmail}
       />
 
       <Text style={styles.message}>
         {hasSentTemporaryPassword && "Your temporary password has been sent"}
       </Text>
 
-      <Pressable
-        style={styles.buttonContainer}
-        onPress={() => setSentTemporaryPassword(!hasSentTemporaryPassword)}
-      >
+      <Pressable style={styles.buttonContainer} onPress={forgotPassword}>
         <Text style={styles.buttonText}>
-          {SEND_TEMPORARY_PASSOWRD_BUTTON_TEXT}
+          {SEND_TEMPORARY_PASSWORD_BUTTON_TEXT}
         </Text>
       </Pressable>
 
-      <Pressable
-        style={styles.clickableTextContainer}
-        onPress={() => navigation.navigate("Login")}
-      >
-        <Text style={styles.clickableText}> Return To Login </Text>
-      </Pressable>
+      {/* Should be a clickable text */}
+      <ClickableText
+        text={RETURN_TO_LOGIN_TEXT}
+        nextPage="Login"
+        navigation={navigation}
+        version={2}
+      />
     </View>
   );
 };
@@ -110,20 +138,6 @@ const styles = StyleSheet.create({
     fontFamily: "Montserrat_700Bold",
     paddingVertical: 5,
     letterSpacing: 2,
-  },
-
-  clickableTextContainer: {
-    marginTop: 20,
-    width: 300,
-    marginVertical: 5,
-  },
-
-  clickableText: {
-    color: "black",
-    textAlign: "center",
-    textDecorationLine: "underline",
-    fontSize: 15,
-    fontFamily: "Montserrat_700Bold",
   },
 
   message: {
