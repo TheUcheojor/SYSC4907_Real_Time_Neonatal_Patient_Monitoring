@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { Device, Subscription } from "react-native-ble-plx";
 import SensorPackageConnectionStatus from "../components/SensorPackageConnectionStatus";
 import SensorPackageScanner from "../components/SensorPackageScanner";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
 import SensorPackageController from "../services/SensorPackageController";
 import { MainStackParamList, SharedScreenResources } from "../types";
 
@@ -18,7 +19,9 @@ export default ({
   const [selectedSensorPackage, setSelectedSensorPackage] =
     useState<Device | null>(null);
 
-  // when a user attempts to connect a  sensor-package
+  /**
+   *  When a user selects a sensor-package item, attempt to connect to the sensor-package
+   * */
   useEffect(() => {
     if (!selectedSensorPackage) return;
 
@@ -43,17 +46,22 @@ export default ({
   }, [selectedSensorPackage]);
 
   /**
-   * Mocking a feed from the sensor package from the send
+   * Mocking a feed from the sensor package
+   *
+   * Start a demo live datafeed if the flag is set.
+   * This allows developers to simulate the sensor package
    */
-  useEffect(() => {
-    const sensorPackageController: SensorPackageController =
-      SensorPackageController.getSensorPackageController();
+  if (SYSTEM_CONFIGURATION.TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER) {
+    useEffect(() => {
+      const sensorPackageController: SensorPackageController =
+        SensorPackageController.getSensorPackageController();
 
-    const generateMeasurementPacketInterval: NodeJS.Timer =
-      sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+      const generateMeasurementPacketInterval: NodeJS.Timer =
+        sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
 
-    return () => clearInterval(generateMeasurementPacketInterval);
-  }, []);
+      return () => clearInterval(generateMeasurementPacketInterval);
+    }, []);
+  }
 
   return (
     <View style={styles.settingsScreen}>
