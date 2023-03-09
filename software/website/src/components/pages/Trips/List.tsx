@@ -37,7 +37,7 @@ function List({
           marginBottom: "2px",
         }}
       >
-        Edit
+        {isEditing ? "Cancel" : "Edit"}
       </button>
       {routes.map((route) => {
         return (
