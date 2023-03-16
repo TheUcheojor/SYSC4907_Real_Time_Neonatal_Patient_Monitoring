@@ -2,12 +2,11 @@ import { ColorEnum } from "constants/ColorEnum";
 import React, { useState } from "react";
 
 interface searchIconProps {
-  fill?: string;
   styles?: React.CSSProperties;
   onClick?: () => void;
 }
 
-function SearchIcon({ fill, styles, onClick }: searchIconProps) {
+function SearchIcon({ styles, onClick }: searchIconProps) {
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -25,10 +24,10 @@ function SearchIcon({ fill, styles, onClick }: searchIconProps) {
       onMouseLeave={() => setIsHover(false)}
       onClick={onClick}
     >
-      <svg version="1.0" viewBox="0 0 752 752" fill={fill}>
+      <svg version="1.0" viewBox="0 0 752 752" fill="white">
         <g
           transform="translate(-300.000000,1050.000000) scale(0.18,-0.18)"
-          fill={fill}
+          fill="white"
           stroke="none"
         >
           <path

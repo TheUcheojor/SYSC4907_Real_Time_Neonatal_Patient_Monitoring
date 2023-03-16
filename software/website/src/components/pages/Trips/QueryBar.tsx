@@ -88,7 +88,6 @@ function QueryBar({
         }}
       />
       <SearchIcon
-        fill={ColorEnum.White}
         onClick={onQuery}
         styles={{ height: "35px", width: "20px", borderRadius: "3px" }}
       />
