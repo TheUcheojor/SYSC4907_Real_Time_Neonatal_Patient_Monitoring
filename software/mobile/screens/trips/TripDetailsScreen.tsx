@@ -233,7 +233,7 @@ export default ({
 
       <ScrollView>
         {isTripRouteWithStatistics(tripRoute) && (
-          <View style={{ ...styles.sectionContainer }}>
+          <View key="trip-details" style={{ ...styles.sectionContainer }}>
             <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
               Trip Details
             </Text>
@@ -258,7 +258,7 @@ export default ({
               </Text>
             </View>
 
-            <View style={styles.statRow}>
+            <View key="stats" style={styles.statRow}>
               <Text style={styles.routeSegmentText}>
                 Average Vibration: {tripRoute.avg_vibration}{" "}
                 {getUnits("avg_vibration")}
@@ -266,7 +266,7 @@ export default ({
             </View>
           </View>
         )}
-        <View style={{ ...styles.sectionContainer }}>
+        <View key="route-segments" style={{ ...styles.sectionContainer }}>
           <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
             Route Segments
           </Text>
@@ -278,7 +278,7 @@ export default ({
             </Text>
           ))}
         </View>
-        <View style={{ ...styles.sectionContainer }}>
+        <View key="metric-map" style={{ ...styles.sectionContainer }}>
           <Text style={{ ...styles.primaryText, ...styles.alignTextLeft }}>
             Metric Map
           </Text>
@@ -325,10 +325,12 @@ export default ({
           </View>
         </View>
 
-        <View style={{ ...styles.sectionContainer, flex: 1 }}>
-          {datasets.map((chartParams: MetricDetailedLineChartParams) => {
-            return getMetricDetailChart({ item: chartParams });
-          })}
+        <View key="maps" style={{ ...styles.sectionContainer, flex: 1 }}>
+          {datasets.map(
+            (chartParams: MetricDetailedLineChartParams, index: number) => {
+              return getMetricDetailChart({ item: chartParams, key: index });
+            }
+          )}
         </View>
       </ScrollView>
     </View>
@@ -347,14 +349,17 @@ const ESTIMATED_GRAPH_ITEM_SIZE: number = 2;
  */
 const getMetricDetailChart = ({
   item,
+  key,
 }: {
   item: MetricDetailedLineChartParams;
+  key: number;
 }) => (
   <MetricDetailedLineChart
     title={item.title}
     dataset={item.dataset}
     graphColor={item.graphColor}
     units={item.units}
+    key={key}
   />
 );
 

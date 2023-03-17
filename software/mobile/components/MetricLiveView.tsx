@@ -84,6 +84,7 @@ export default function MetricLiveView({
   const updateStyles = () => {
     setContainerWidow(Dimensions.get("window"));
   };
+
   return (
     <View
       style={{
