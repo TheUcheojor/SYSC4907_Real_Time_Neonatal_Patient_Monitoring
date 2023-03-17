@@ -58,7 +58,7 @@ export const generateServerRouteModel = (
               time_s: covertTimeStringToUnixTimestamp(
                 routeMeasurementDataPoint.time as string
               ),
-              velocity_kmps: routeMeasurementDataPoint.velocity,
+              velocity_kmps: routeMeasurementDataPoint.speed,
               noise_db: routeMeasurementDataPoint.noise,
               vibration: routeMeasurementDataPoint.vibration,
               temperature_celsius: routeMeasurementDataPoint.temperature,

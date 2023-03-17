@@ -57,8 +57,8 @@ export default ({
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
 
-  const sensorPackageController: SensorPackageController =
-    SensorPackageController.getSensorPackageController();
+  // const sensorPackageController: SensorPackageController =
+  //   SensorPackageController.getSensorPackageController();
 
   /**
    * Update the feeds as when measurement-packet changes
@@ -78,7 +78,7 @@ export default ({
     );
     velocityFeed.current = circularArrayPush(
       velocityFeed.current,
-      measurementPacket.velocity
+      measurementPacket.speed
     );
   }, [measurementPacket]);
 
@@ -123,6 +123,8 @@ export default ({
       setAnnotationInput("");
     });
   };
+
+  console.log();
 
   return (
     <View style={styles.screenContainer}>

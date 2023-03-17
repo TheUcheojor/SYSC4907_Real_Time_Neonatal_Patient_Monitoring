@@ -28,9 +28,9 @@ export default interface MeasurementPacket {
   readonly airPressure: number;
 
   /**
-   * The velocity in meters per seconds
+   * The speed in meters per seconds
    */
-  readonly velocity: number;
+  readonly speed: number;
 
   /**
    * The battern percentage
@@ -49,8 +49,21 @@ export default interface MeasurementPacket {
   readonly location: RouteLocation;
 }
 
+export const MEASUREMENT_PACKET_KEYS = [
+  "noise",
+  "temperature",
+  "vibration",
+  "airPressure",
+  "speed",
+  "battery",
+  "time",
+  "location",
+];
+
+export const LOCATION_KEYS = ["longitude", "latitude"];
+
 export type NumericMetricMeasurementPacketKey = keyof MeasurementPacket &
-  ("vibration" | "noise" | "temperature" | "velocity");
+  ("vibration" | "noise" | "temperature" | "speed");
 
 export const VIBRATION_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
   "vibration";
@@ -59,7 +72,7 @@ export const NOISE_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
 export const TEMPERATURE_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
   "temperature";
 export const VELOCITY_KEY_MEASUREMENT_PACKET: NumericMetricMeasurementPacketKey =
-  "velocity";
+  "speed";
 
 export const NUMERIC_METRIC_MEASUREMENT_PACKET_KEYS: NumericMetricMeasurementPacketKey[] =
   [

@@ -14,6 +14,7 @@ import TripRoute from "./models/trips/Route";
 import RouteSegment from "./models/trips/RouteSegment";
 import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
 import UserSessionService, { UserSession } from "./UserSessionService";
+import LoggerService from "./LoggerService";
 
 //Enable promises for the sqlite databases
 enablePromise(true);
@@ -79,7 +80,7 @@ export class DatabaseService {
       location: "default",
     });
 
-    // // For clearing the database
+    // For clearing the database
     // await this.database.executeSql(
     //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTES_TABLE};`
     // );
@@ -92,8 +93,8 @@ export class DatabaseService {
 
     // Prepare and execute table-creation queries
     const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseService.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text, userEmail VARCHAR(100) );`;
-    const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text, userEmail VARCHAR(100) );`;
-    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentId integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, velocity float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL,userEmail VARCHAR(100) );`;
+    const createRouteSegmentsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE} ( segmentId integer PRIMARY KEY AUTOINCREMENT, routeId integer NOT NULL, segmentType text NOT NULL, startTime text NOT NULL, endTime text );`;
+    const createRouteMeasurementDataPointsTableQuery: string = `CREATE TABLE IF NOT EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} ( routeDataPointId integer PRIMARY KEY AUTOINCREMENT, segmentId integer NOT NULL, routeId integer NOT NULL, time float NOT NULL, speed float NOT NULL, noise float NOT NULL, vibration float NOT NULL, temperature float NOT NULL, airPressure float NOT NULL, annotation text, location text NOT NULL );`;
 
     console.log(createRoutesTableQuery);
     await this.database.executeSql(createRoutesTableQuery);
@@ -147,8 +148,8 @@ export class DatabaseService {
   ): Promise<[ResultSet]> {
     return UserSessionService.loadUserSession().then(
       (user: UserSession | null) => {
-        const saveRouteSegmentQuery: string = `INSERT INTO ${DatabaseService.ROUTE_SEGMENTS_TABLE} (routeId, segmentType, startTime, endTime, userEmail) VALUES
-        ('${trip.routeId}', '${routeSegement.segmentType}', '${routeSegement.startTime}',  '${routeSegement.endTime}', '${user?.email}' ) `;
+        const saveRouteSegmentQuery: string = `INSERT INTO ${DatabaseService.ROUTE_SEGMENTS_TABLE} (routeId, segmentType, startTime, endTime) VALUES
+        ('${trip.routeId}', '${routeSegement.segmentType}', '${routeSegement.startTime}',  '${routeSegement.endTime}') `;
 
         console.log("saveRouteSegmentQuery: ", saveRouteSegmentQuery);
 
@@ -215,6 +216,10 @@ export class DatabaseService {
       .executeSql(getRouteByIdQuery)
       .then((results: [ResultSet]) => {
         return results[0].rows.length > 0 ? results[0].rows.item(0) : null;
+      })
+      .catch((error: any) => {
+        LoggerService.error("DB error: ", error);
+        return null;
       });
   }
 
@@ -245,7 +250,11 @@ export class DatabaseService {
     routeId = ${routeSegement.routeId}
     WHERE segmentId = ${routeSegement.segmentId}`;
 
-    return await this.database.executeSql(updateRouteSegmentQuery);
+    return await this.database
+      .executeSql(updateRouteSegmentQuery)
+      .catch((error: any) => {
+        LoggerService.error("DB error: ", error);
+      });
   }
 
   /**
@@ -256,36 +265,37 @@ export class DatabaseService {
   public async saveRouteMeasurementDataPoint(
     routeMeasurementDataPoint: RouteMeasurementDataPoint
   ) {
-    return UserSessionService.loadUserSession().then(
-      (user: UserSession | null) => {
-        console.log(
-          "saveRouteMeasurementDataPoint",
-          routeMeasurementDataPoint.segmentId
-        );
+    return UserSessionService.loadUserSession()
+      .then((user: UserSession | null) => {
+        // console.log(
+        //   "saveRouteMeasurementDataPoint",
+        //   routeMeasurementDataPoint.segmentId
+        // );
 
-        console.log(
-          "saveRouteMeasurementDataPoint: ",
-          routeMeasurementDataPoint.location
-        );
+        // console.log(
+        //   "routeMeasurementDataPoint.time: ",
+        //   routeMeasurementDataPoint.time
+        // );
 
         const saveRouteMeasurementDataPointQuery = `INSERT INTO ${
           DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE
-        } (segmentId, routeId, time, velocity, noise, vibration, temperature, airPressure, annotation, location, userEmail) VALUES 
+        } (segmentId, routeId, time, speed, noise, vibration, temperature, airPressure, annotation, location) VALUES 
         ('${routeMeasurementDataPoint.segmentId}',
         '${routeMeasurementDataPoint.routeId}',
         '${routeMeasurementDataPoint.time}','
-        ${routeMeasurementDataPoint.velocity}',
+        ${routeMeasurementDataPoint.speed}',
         '${routeMeasurementDataPoint.noise}',
         '${routeMeasurementDataPoint.vibration}',
         '${routeMeasurementDataPoint.temperature}',
         '${routeMeasurementDataPoint.airPressure}',
         '${routeMeasurementDataPoint.annotation}',
-        '${JSON.stringify(routeMeasurementDataPoint.location)}',
-        '${user?.email}' ) `;
+        '${JSON.stringify(routeMeasurementDataPoint.location)}' ) `;
 
         return this.database.executeSql(saveRouteMeasurementDataPointQuery);
-      }
-    );
+      })
+      .catch((error: any) => {
+        LoggerService.error("DB error: ", error);
+      });
   }
 
   /**
@@ -311,7 +321,7 @@ export class DatabaseService {
   public getRouteMeasurementDataPointsBySegmentId(
     segmentId: number
   ): Promise<RouteMeasurementDataPoint[]> {
-    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE segmentId=${segmentId}; `;
+    const getRouteMeasurementDataPointsByIdQuery = `SELECT * FROM ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE} WHERE segmentId=${segmentId};`;
 
     return this.exceuteRouteMeasurementDataPointsFetchQuery(
       getRouteMeasurementDataPointsByIdQuery
@@ -326,22 +336,28 @@ export class DatabaseService {
   private async exceuteRouteMeasurementDataPointsFetchQuery(
     query: string
   ): Promise<RouteMeasurementDataPoint[]> {
-    return this.database.executeSql(query).then((resultSet: [ResultSet]) => {
-      const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
+    return this.database
+      .executeSql(query)
+      .then((resultSet: [ResultSet]) => {
+        const routeMeasurementDataPoints: Array<RouteMeasurementDataPoint> = [];
 
-      resultSet.forEach((result) => {
-        // console.log(result.rows.item(0));
-        for (let index = 0; index < result.rows.length; index++) {
-          const currentDataPoint: any = result.rows.item(index);
-          routeMeasurementDataPoints.push({
-            ...currentDataPoint,
-            location: JSON.parse(currentDataPoint.location),
-          });
-        }
+        resultSet.forEach((result) => {
+          // console.log(result.rows.item(0));
+          for (let index = 0; index < result.rows.length; index++) {
+            const currentDataPoint: any = result.rows.item(index);
+            routeMeasurementDataPoints.push({
+              ...currentDataPoint,
+              location: JSON.parse(currentDataPoint.location),
+            });
+          }
+        });
+
+        return routeMeasurementDataPoints;
+      })
+      .catch((error: any) => {
+        LoggerService.error("DB error: ", error);
+        return [];
       });
-
-      return routeMeasurementDataPoints;
-    });
   }
 
   /**
@@ -366,6 +382,10 @@ export class DatabaseService {
         });
 
         return routeSegments;
+      })
+      .catch((error: any) => {
+        LoggerService.error("DB error: ", error);
+        return [];
       });
   }
 
@@ -390,6 +410,9 @@ export class DatabaseService {
               .executeSql(deleteDataPointsByRouteIdQuery)
               .then(() => {});
           });
+      })
+      .catch((error: any) => {
+        LoggerService.error("DB error: ", error);
       });
   }
 }
