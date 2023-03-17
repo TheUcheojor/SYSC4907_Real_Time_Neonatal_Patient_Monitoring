@@ -4,6 +4,11 @@
  * Purpose: Exports validator functions
  */
 
+import MeasurementPacket, {
+  LOCATION_KEYS,
+  MEASUREMENT_PACKET_KEYS,
+} from "../services/models/sensor-package-communication/MeasurementPacket";
+
 /**
  * The min password length
  */
@@ -59,4 +64,43 @@ export const isValidPassword = (password: string): boolean => {
  */
 export const isValidFullName = (fullName: string) => {
   return fullName.length > MINIMUM_FULL_NAME_LENGTH;
+};
+
+/**
+ * Return true if the measurementPacket is valid
+ * @param measurementPacket the measurement-packet
+ * @returns true if the measurementPacket is valid
+ */
+export const isValidMeasurePacket = (
+  measurementPacket: MeasurementPacket
+): boolean => {
+  // Check that the correct keys are presented
+  if (
+    !Object.keys(measurementPacket).every((packetKey: string) =>
+      MEASUREMENT_PACKET_KEYS.includes(packetKey)
+    ) &&
+    !Object.keys(measurementPacket.location).every((locationKey: string) =>
+      LOCATION_KEYS.includes(locationKey)
+    )
+  ) {
+    return false;
+  }
+
+  // Validate the type of each property value
+  if (
+    typeof measurementPacket.noise == "number" &&
+    typeof measurementPacket.temperature == "number" &&
+    typeof measurementPacket.vibration == "number" &&
+    typeof measurementPacket.airPressure == "number" &&
+    typeof measurementPacket.speed == "number" &&
+    typeof measurementPacket.time == "number" &&
+    typeof measurementPacket.battery == "number" &&
+    typeof measurementPacket.location == "object" &&
+    typeof measurementPacket.location.latitude == "number" &&
+    typeof measurementPacket.location.longitude == "number"
+  ) {
+    return true;
+  }
+
+  return false;
 };

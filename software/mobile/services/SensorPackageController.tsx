@@ -18,7 +18,9 @@ import {
   PermissionStatus,
 } from "react-native-permissions";
 
-import MeasurementPacket from "./models/sensor-package-communication/MeasurementPacket";
+import MeasurementPacket, {
+  MEASUREMENT_PACKET_KEYS,
+} from "./models/sensor-package-communication/MeasurementPacket";
 import { formatUnixTimestamp } from "../utils/TimeUtil";
 import {
   BaseRequest,
@@ -32,6 +34,7 @@ import { generateRandomMeasurementPacket } from "../utils/RandomUtil";
 import demoRouteDataPoints from "../mock/demoRouteDataPoints";
 import { Alert } from "react-native";
 import LoggerService from "./LoggerService";
+import { isValidMeasurePacket } from "../utils/ValidatorUtil";
 
 export default class SensorPackageController {
   /**
@@ -253,7 +256,7 @@ export default class SensorPackageController {
       .catch((error: any) => {
         Alert.alert(
           "Sensor Package Communication",
-          "Cannot connect for sensor packages"
+          "Cannot connect to the sensor package"
         );
         LoggerService.warn("Sensor Package Communication Error: " + error);
       });
@@ -316,17 +319,32 @@ export default class SensorPackageController {
         characteristic.read().then((characteristic: Characteristic) => {
           if (!characteristic || error || !characteristic.value) return;
 
-          console.log(base64.decode(characteristic.value as string));
+          LoggerService.debug(
+            "Sensor package sent the following: ",
+            base64.decode(characteristic.value as string)
+          );
 
           let measurementPacket: MeasurementPacket = JSON.parse(
             base64.decode(characteristic.value as string)
           );
 
-          // //Covert the unix time stamp
+          /**
+           * Validate the measurement-packet keys. Do not update the measurement packet to app if invalid.
+           *
+           * The reason I think we receive invalid packet sometimes is that the json parsing gets
+           * interrupted, corrupting the data
+           */
+          if (!isValidMeasurePacket(measurementPacket)) {
+            return;
+          }
+
+          //Covert the unix time stamp
           measurementPacket.time = formatUnixTimestamp(
             parseInt(measurementPacket.time as string)
           );
 
+          //Update the measurement packet
+          //This means that the measurementPacket is pushed to the app
           setMeasurementPacket(measurementPacket);
 
           console.log("Received new measurementpacket: ", measurementPacket);
