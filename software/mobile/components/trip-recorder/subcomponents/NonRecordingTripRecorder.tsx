@@ -4,7 +4,7 @@
  * Purpose: Exports the visuals of the Trip Recorder when not recording
  */
 
-import { Text, StyleSheet, Pressable, TextInput } from "react-native";
+import { Text, StyleSheet, Pressable, TextInput, View } from "react-native";
 
 import DropDownPicker from "react-native-dropdown-picker";
 import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
@@ -25,21 +25,29 @@ export default ({
   const onPressedButtonBackgroundColour: string = "black";
   return (
     <>
-      <DropDownPicker
-        style={styles.dropdownNotRecording}
-        labelStyle={styles.dropdownText}
-        open={dropDownOpen}
-        value={segmentType}
-        items={routeSegmentTypeOptions}
-        setOpen={setdropDownOpen}
-        setValue={setSegmentType}
-        setItems={setRouteSegmentTypeOptions}
-      />
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputSubtitle}> Transport Type </Text>
+
+        <DropDownPicker
+          style={styles.dropdownNotRecording}
+          labelStyle={styles.dropdownText}
+          open={dropDownOpen}
+          value={segmentType}
+          items={routeSegmentTypeOptions}
+          setOpen={setdropDownOpen}
+          setValue={setSegmentType}
+          setItems={setRouteSegmentTypeOptions}
+        />
+
+        <Text style={styles.inputSubtitle}> Patient Id </Text>
+      </View>
+
       <TextInput
         style={styles.textInput}
         placeholder={PATIENT_ID_PLACEHOLDER}
         onChangeText={updatePatientId}
       />
+
       <Pressable
         onPress={startTrip}
         style={({ pressed }: { pressed: boolean }) =>
@@ -66,6 +74,15 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 
+  inputSubtitle: {
+    fontFamily: "Montserrat_700Bold",
+    fontSize: 16,
+    marginVertical: 5,
+    color: "white",
+    textTransform: "uppercase",
+    // textAlign: "left",
+  },
+
   startTripContainer: {
     backgroundColor: "#2F2F2F",
     width: "100%",
@@ -79,12 +96,17 @@ const styles = StyleSheet.create({
     borderBottomColor: "black",
   },
 
+  inputContainer: {
+    marginTop: 10,
+    marginBottom: 0,
+    // width: "100%",
+  },
   dropdownNotRecording: {
     padding: 20,
     borderWidth: 0,
     alignSelf: "center",
     width: "90%",
-    marginTop: 15,
+    marginBottom: 10,
   },
 
   dropdownText: {
@@ -93,7 +115,7 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    margin: 10,
+    marginBottom: 10,
     padding: 10,
     width: "90%",
     fontFamily: "Montserrat_700Bold",
