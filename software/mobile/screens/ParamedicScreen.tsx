@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    alignContent: "center",
+    alignContent: "space-around",
     flexWrap: "wrap",
     backgroundColor: "white",
   },
