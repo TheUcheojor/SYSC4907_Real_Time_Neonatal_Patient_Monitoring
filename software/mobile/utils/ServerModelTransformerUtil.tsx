@@ -115,7 +115,7 @@ export const generateMobileDataPoints = (
         temperature: serverDataPoint.temperature_celsius,
         vibration: serverDataPoint.velocity_kmps,
         airPressure: serverDataPoint.pressure_pascals,
-        velocity: serverDataPoint.velocity_kmps,
+        speed: serverDataPoint.velocity_kmps,
         battery: -1,
         time: formatUnixTimestamp(serverDataPoint.time_s),
         location: {
