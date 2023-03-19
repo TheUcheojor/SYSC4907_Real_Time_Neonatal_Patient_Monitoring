@@ -4,7 +4,7 @@
  * Purpose: Exports a trip item, containing high level details about the trip
  */
 
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import TripRoute, { isMobileTripRoute } from "../services/models/trips/Route";
 import {
   formatUnixTimestamp,
@@ -19,13 +19,20 @@ import ServerTripRoute, {
 } from "../services/models/server-communication/ServerTripRoute";
 import { generateMobileTripRoutes } from "../utils/ServerModelTransformerUtil";
 import { VIBRATION_UNITS } from "../constants/metric-constants";
-
+import { Color } from "../constants/ColorEnum";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { DatabaseService } from "../services/DatabaseService";
 interface TripItemParams {
   tripRoute: TripRoute | ServerTripRoute;
   isLocalTrip: boolean;
+  setLocalTrips: React.Dispatch<React.SetStateAction<TripRoute[]>>;
 }
 
-export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
+export default ({
+  tripRoute,
+  isLocalTrip,
+  setLocalTrips,
+}: TripItemParams): JSX.Element => {
   const navigation: NavigationProp<MainStackParamList> = useNavigation();
   // console.log(tripRoute);
   let date: string, time: string;
@@ -49,6 +56,38 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
     routedId = tripRoute.route_id;
     patientId = tripRoute.patient_id;
   }
+
+  const deleteTrip = () => {
+    const deleteMessageEnd =
+      patientId.trim().length > 0
+        ? `the trip for Patient ${patientId.toUpperCase()}?`
+        : `the trip with ID ${routedId}?`;
+    Alert.alert(
+      "Local Trip Deletion",
+      "Are you sure you want to delete " + deleteMessageEnd,
+      [
+        {
+          text: "YES",
+          onPress: () => {
+            DatabaseService.getConfiguredDatabaseController().then(
+              (databaseService: DatabaseService) => {
+                databaseService
+                  .deleteAllRelatedContentsByRouteId(routedId)
+                  .then(() => {
+                    setLocalTrips([]);
+                  });
+              }
+            );
+          },
+          style: "destructive",
+        },
+        {
+          text: "NO",
+          onPress: () => {},
+        },
+      ]
+    );
+  };
 
   return (
     <Pressable
@@ -90,6 +129,17 @@ export default ({ tripRoute, isLocalTrip }: TripItemParams): JSX.Element => {
           </View>
         )}
       </View>
+
+      {isLocalTrip && (
+        <View>
+          <MaterialCommunityIcons
+            name="delete-circle"
+            size={35}
+            color={Color.RED}
+            onPress={deleteTrip}
+          />
+        </View>
+      )}
     </Pressable>
   );
 };
@@ -148,5 +198,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
+  },
+  deleteText: {
+    fontFamily: "Montserrat_600SemiBold",
+    color: Color.RED,
+    fontSize: 30,
   },
 });
