@@ -17,9 +17,9 @@ export const SYSTEM_CONFIGURATION = {
 
   /**
    * True when the developer wants to begin demoing live data when
-   * the settings page rendered(first navigated to). Simulates a sensor-package feed.
+   * the user logins. Simulates a sensor-package feed.
    *
    * You may need to reload the application once changed
    */
-  TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER: true,
+  TRIGGER_DEMO_LIVE_DATAFEED_ON_LOGIN: false,
 } as const;
