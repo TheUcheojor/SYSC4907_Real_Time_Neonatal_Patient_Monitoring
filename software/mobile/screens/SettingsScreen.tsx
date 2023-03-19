@@ -45,26 +45,6 @@ export default ({
     };
   }, [selectedSensorPackage]);
 
-  /**
-   * Mocking a feed from the sensor package
-   *
-   * Start a demo live datafeed if the flag is set.
-   * This allows developers to simulate the sensor package
-   */
-  useEffect(() => {
-    let generateMeasurementPacketInterval: NodeJS.Timer;
-
-    if (SYSTEM_CONFIGURATION.TRIGGER_DEMO_LIVE_DATAFEED_ON_SETTINGS_RENDER) {
-      const sensorPackageController: SensorPackageController =
-        SensorPackageController.getSensorPackageController();
-
-      generateMeasurementPacketInterval =
-        sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
-    }
-
-    return () => clearInterval(generateMeasurementPacketInterval);
-  }, []);
-
   return (
     <View style={styles.settingsScreen}>
       <SensorPackageConnectionStatus
