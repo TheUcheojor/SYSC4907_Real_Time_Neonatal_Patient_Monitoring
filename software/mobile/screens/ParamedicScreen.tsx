@@ -1,3 +1,8 @@
+/**
+ * File: ParamedicScreen
+ * Author: Paul Okenne
+ * Purpose: Returns the paramedic screen component
+ */
 import { View, TextInput, Pressable, Text } from "react-native";
 import { RouteRecordingState, SharedScreenResources } from "../types";
 import { StyleSheet } from "react-native";
@@ -27,11 +32,12 @@ import {
   VELOCITY_UNITS,
   VIBRATION_UNITS,
 } from "../constants/metric-constants";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
+import LoggerService from "../services/LoggerService";
 
 /**
  * View Constants
  */
-
 const ANNOATION_TEXT_INPUT_PLACEHOLDER: string = "Enter your comments";
 
 /**
@@ -43,43 +49,34 @@ export default ({
   measurementPacket,
   setMeasurementPacket,
 }: SharedScreenResources): JSX.Element => {
-  const vibrationFeed: React.MutableRefObject<number[]> = useRef<Array<number>>(
+  const [vibrationFeed, setVibrationFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
-  const noiseFeed = useRef<Array<number>>(
+  const [noiseFeed, setNoiseFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
-
-  const temperatureFeed = useRef<Array<number>>(
+  const [temperatureFeed, setTemperatureFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
-  const velocityFeed = useRef<Array<number>>(
+  const [velocityFeed, setVelocityFeed] = useState<Array<number>>(
     new Array<number>(NUMBER_OF_VISIBLE_METRIC_POINTS).fill(0)
   );
-
-  // const sensorPackageController: SensorPackageController =
-  //   SensorPackageController.getSensorPackageController();
 
   /**
    * Update the feeds as when measurement-packet changes
    */
   useEffect(() => {
-    vibrationFeed.current = circularArrayPush(
-      vibrationFeed.current,
-      measurementPacket.vibration
+    setVibrationFeed(
+      circularArrayPush(vibrationFeed, measurementPacket.vibration)
     );
-    noiseFeed.current = circularArrayPush(
-      noiseFeed.current,
-      measurementPacket.noise
+
+    setNoiseFeed(circularArrayPush(noiseFeed, measurementPacket.noise));
+
+    setTemperatureFeed(
+      circularArrayPush(temperatureFeed, measurementPacket.temperature)
     );
-    temperatureFeed.current = circularArrayPush(
-      temperatureFeed.current,
-      measurementPacket.temperature
-    );
-    velocityFeed.current = circularArrayPush(
-      velocityFeed.current,
-      measurementPacket.speed
-    );
+
+    setVelocityFeed(circularArrayPush(velocityFeed, measurementPacket.speed));
   }, [measurementPacket]);
 
   const [annotationInput, setAnnotationInput] = useState<string>("");
@@ -93,7 +90,10 @@ export default ({
     if (recordingState == RouteRecordingState.RECORDING) {
       return TripRecordingService.getTripController().then(
         (tripController: TripRecordingService) => {
-          console.log("annotationInput: ", measurementPacketAnnotation);
+          LoggerService.debug(
+            "Saving the measurement packet: ",
+            measurementPacket
+          );
 
           return tripController.saveMeasurementPacket(
             measurementPacket,
@@ -124,7 +124,25 @@ export default ({
     });
   };
 
-  console.log();
+  /**
+   * Mocking a feed from the sensor package
+   *
+   * Start a demo live datafeed if the flag is set.
+   * This allows developers to simulate the sensor package
+   */
+  useEffect(() => {
+    let generateMeasurementPacketInterval: NodeJS.Timer;
+
+    if (SYSTEM_CONFIGURATION.TRIGGER_DEMO_LIVE_DATAFEED_ON_LOGIN) {
+      const sensorPackageController: SensorPackageController =
+        SensorPackageController.getSensorPackageController();
+
+      generateMeasurementPacketInterval =
+        sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
+    }
+
+    return () => clearInterval(generateMeasurementPacketInterval);
+  }, []);
 
   return (
     <View style={styles.screenContainer}>
@@ -133,7 +151,7 @@ export default ({
         graphColor={VIBRATION_GRAPH_COLOUR}
         iconImageSource={VIBRATION_ICON_SOURCE}
         unitsLabel={VIBRATION_UNITS}
-        liveData={vibrationFeed.current}
+        liveData={vibrationFeed}
       />
 
       <MetricLiveView
@@ -141,7 +159,7 @@ export default ({
         graphColor={NOISE_GRAPH_COLOUR}
         iconImageSource={NOISE_ICON_SOURCE}
         unitsLabel={NOISE_UNITS}
-        liveData={noiseFeed.current}
+        liveData={noiseFeed}
       />
 
       <MetricLiveView
@@ -149,7 +167,7 @@ export default ({
         graphColor={TEMPERATURE_GRAPH_COLOUR}
         iconImageSource={TEMPERATURE_ICON_SOURCE}
         unitsLabel={TEMPERATURE_UNITS}
-        liveData={temperatureFeed.current}
+        liveData={temperatureFeed}
       />
 
       <MetricLiveView
@@ -157,7 +175,7 @@ export default ({
         graphColor={VELOCITY_GRAPH_COLOUR}
         iconImageSource={VELOCITY_ICON_SOURCE}
         unitsLabel={VELOCITY_UNITS}
-        liveData={velocityFeed.current}
+        liveData={velocityFeed}
       />
 
       <View style={styles.annotationContainer}>
