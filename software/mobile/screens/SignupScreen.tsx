@@ -1,3 +1,8 @@
+/**
+ * File: SignupScreen
+ * Author: Paul Okenne
+ * Purpose: Returns the signup screen component
+ */
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useRef, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
@@ -37,6 +42,7 @@ export default ({
   const [password, setPassword] = useState<string>("");
 
   const signup = () => {
+    // Validate the input values
     if (!isEmail(email)) {
       setErrorMessage("Enter a valid email");
       return;
@@ -56,6 +62,9 @@ export default ({
 
     setErrorMessage("");
 
+    /**
+     * Sign up using the user
+     */
     ServerCommnunicationService.getServerCommunicationService()
       .signUp({
         email: email,
@@ -67,6 +76,8 @@ export default ({
           navigation.navigate("Main", {
             screen: "Paramedic",
           });
+        } else {
+          setErrorMessage("Sign-up process failed");
         }
       });
   };

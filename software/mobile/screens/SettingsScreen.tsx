@@ -1,12 +1,15 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+/**
+ * File: SettingsScreen
+ * Author: Paul Okenne
+ * Purpose: Returns the settig screen component
+ */
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Device, Subscription } from "react-native-ble-plx";
 import SensorPackageConnectionStatus from "../components/SensorPackageConnectionStatus";
 import SensorPackageScanner from "../components/SensorPackageScanner";
-import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
 import SensorPackageController from "../services/SensorPackageController";
-import { MainStackParamList, SharedScreenResources } from "../types";
+import { SharedScreenResources } from "../types";
 
 /**
  * The setttings screen

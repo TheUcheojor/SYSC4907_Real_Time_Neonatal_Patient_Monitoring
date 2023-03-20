@@ -1,3 +1,9 @@
+/**
+ * File: ForgotPasswordScreen
+ * Author: Paul Okenne
+ * Purpose: Returns the forgot-password screen component
+ */
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { View, Text, Pressable } from "react-native";
 import AppIcon from "../components/AppIcon";

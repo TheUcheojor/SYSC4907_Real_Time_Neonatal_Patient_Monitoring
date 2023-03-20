@@ -1,3 +1,8 @@
+/**
+ * File: LoginScree
+ * Author: Paul Okenne
+ * Purpose: Returns the login screen component
+ */
 import { View, Text, Pressable, TextInput } from "react-native";
 import { StyleSheet } from "react-native";
 
