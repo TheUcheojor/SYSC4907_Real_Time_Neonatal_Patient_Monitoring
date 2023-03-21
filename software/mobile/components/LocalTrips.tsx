@@ -83,7 +83,7 @@ export default ({}: LocalTripsParams) => {
       <TripItem
         tripRoute={item}
         isLocalTrip={true}
-        setLocalTrips={setLocalTrips}
+        getLocalTrips={getLocalTrips}
       />
     ),
     []

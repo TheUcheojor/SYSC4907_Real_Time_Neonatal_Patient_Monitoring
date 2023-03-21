@@ -25,13 +25,13 @@ import { DatabaseService } from "../services/DatabaseService";
 interface TripItemParams {
   tripRoute: TripRoute | ServerTripRoute;
   isLocalTrip: boolean;
-  setLocalTrips: React.Dispatch<React.SetStateAction<TripRoute[]>>;
+  getLocalTrips: () => any;
 }
 
 export default ({
   tripRoute,
   isLocalTrip,
-  setLocalTrips,
+  getLocalTrips,
 }: TripItemParams): JSX.Element => {
   const navigation: NavigationProp<MainStackParamList> = useNavigation();
   // console.log(tripRoute);
@@ -74,7 +74,8 @@ export default ({
                 databaseService
                   .deleteAllRelatedContentsByRouteId(routedId)
                   .then(() => {
-                    setLocalTrips([]);
+                    // Refresh the trips view
+                    getLocalTrips();
                   });
               }
             );
