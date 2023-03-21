@@ -1,7 +1,9 @@
-import DB from "./../../data/db.js";
+import MySQLRepository from "data/MySQLRepository.js";
 import Router from "express";
 import { generateRoadAerialTrip } from "./../../data/mock/mock.js";
 const devRouter = Router();
+
+const db = MySQLRepository.getInstance();
 
 devRouter.get("/mock", (req, res) => {
   res.send(generateRoadAerialTrip(100));
@@ -14,8 +16,6 @@ devRouter.get("/mock", (req, res) => {
 });
 
 devRouter.get("/initDb", (req, res) => {
-  let db = new DB();
-  db.connect();
   db.initDb();
   res.send("success");
 });
