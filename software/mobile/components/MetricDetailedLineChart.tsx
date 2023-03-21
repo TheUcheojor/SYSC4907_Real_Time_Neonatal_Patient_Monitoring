@@ -61,7 +61,7 @@ export default ({
   key,
 }: MetricDetailedLineChartParams & { key: number }) => {
   return (
-    <View key={key} style={styles.componentContainer}>
+    <View style={styles.componentContainer}>
       <Text style={styles.chartTitle}>{title}</Text>
       <View style={styles.graphContainer}>
         <VictoryChart
