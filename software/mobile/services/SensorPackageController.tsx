@@ -303,7 +303,6 @@ export default class SensorPackageController {
       this.sensorPackageDevice == null ||
       !this.isSensorPackageDeviceConnected
     ) {
-      console.log("NULL EXIT");
       return null;
     }
 
@@ -316,39 +315,54 @@ export default class SensorPackageController {
       (error, characteristic) => {
         if (!characteristic || error || !characteristic.value) return;
 
-        characteristic.read().then((characteristic: Characteristic) => {
-          if (!characteristic || error || !characteristic.value) return;
+        characteristic
+          .read()
+          .then((characteristic: Characteristic) => {
+            if (!characteristic || error || !characteristic.value) return;
 
-          LoggerService.debug(
-            "Sensor package sent the following: ",
-            base64.decode(characteristic.value as string)
-          );
+            LoggerService.debug(
+              "Sensor package sent the following: ",
+              base64.decode(characteristic.value as string)
+            );
 
-          let measurementPacket: MeasurementPacket = JSON.parse(
-            base64.decode(characteristic.value as string)
-          );
+            let measurementPacket: MeasurementPacket = JSON.parse(
+              base64.decode(characteristic.value as string)
+            );
 
-          /**
-           * Validate the measurement-packet keys. Do not update the measurement packet to app if invalid.
-           *
-           * The reason I think we receive invalid packet sometimes is that the json parsing gets
-           * interrupted, corrupting the data
-           */
-          if (!isValidMeasurePacket(measurementPacket)) {
-            return;
-          }
+            /**
+             * Validate the measurement-packet keys. Do not update the measurement packet to app if invalid.
+             *
+             * The reason I think we receive invalid packet sometimes is that the json parsing gets
+             * interrupted, corrupting the data
+             */
+            if (!isValidMeasurePacket(measurementPacket)) {
+              return;
+            }
 
-          //Covert the unix time stamp
-          measurementPacket.time = formatUnixTimestamp(
-            parseInt(measurementPacket.time as string)
-          );
+            //Covert the unix time stamp
+            measurementPacket.time = formatUnixTimestamp(
+              parseInt(measurementPacket.time as string)
+            );
 
-          //Update the measurement packet
-          //This means that the measurementPacket is pushed to the app
-          setMeasurementPacket(measurementPacket);
+            //Update the measurement packet
+            //This means that the measurementPacket is pushed to the app
+            setMeasurementPacket(measurementPacket);
 
-          console.log("Received new measurementpacket: ", measurementPacket);
-        });
+            console.log(
+              "Received new measurementpacket (getMeasurementPacketFeed): ",
+              measurementPacket
+            );
+          })
+          .catch((error: any) => {
+            Alert.alert(
+              "Sensor Package Communication Error",
+              "An error occurred when fetching data from the sensor package"
+            );
+            LoggerService.warn(
+              "Sensor Package Communication Error (getMeasurementPacketFeed): " +
+                error
+            );
+          });
       }
     );
   }
