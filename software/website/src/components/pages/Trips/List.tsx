@@ -22,7 +22,7 @@ function List({
   const [isEditHovering, setIsEditHovering] = useState(false);
 
   return (
-    <ul style={{ padding: 0, marginTop: 0, width: "333px" }}>
+    <ul style={{ padding: 0, marginTop: 0, marginBottom: 0, width: "333px" }}>
       <button
         onMouseEnter={() => setIsEditHovering(true)}
         onMouseLeave={() => setIsEditHovering(false)}

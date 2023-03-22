@@ -1,4 +1,4 @@
-import MySQLRepository from "data/MySQLRepository.js";
+import MySQLRepository from "./../../data/MySQLRepository.js";
 import Router from "express";
 import { generateRoadAerialTrip } from "./../../data/mock/mock.js";
 const devRouter = Router();

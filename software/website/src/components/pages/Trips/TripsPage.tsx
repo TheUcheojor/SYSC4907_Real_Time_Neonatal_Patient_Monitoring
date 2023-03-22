@@ -22,13 +22,16 @@ import DeleteTripModalContent from "components/modal/DeleteTripModalContent";
 import toast from "react-hot-toast";
 import DismissToastContent from "components/toast/DismissToastContent";
 
-const PAGE_SIZE = 8;
-
 interface TripsProps {
   onLogout: () => void;
 }
 
 function TripsPage({ onLogout }: TripsProps) {
+  const ADJACENT_COMPONENTS_SIZE = 235;
+  const LIST_ELEM_SIZE = 60;
+  const PAGE_SIZE = Math.floor(
+    (window.innerHeight - ADJACENT_COMPONENTS_SIZE) / LIST_ELEM_SIZE
+  );
   console.log("TRIPS PAGE RENDER");
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);

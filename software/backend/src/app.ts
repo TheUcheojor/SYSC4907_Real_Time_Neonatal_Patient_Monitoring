@@ -10,6 +10,7 @@ import segmentsRouter from "./routes/Segments.js";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import Logger from "./Logger.js";
 
 const PAYLOAD_LIMIT = "10mb";
 dotenv.config();
@@ -19,6 +20,14 @@ const corsOptions = {
 };
 
 const app = express();
+const logger = Logger.getInstance();
+
+function logEndpoint(req, res, next) {
+  logger.info(`Endpoint hit: ${req.url}, Request Type: ${req.method}`);
+  next();
+}
+
+app.use(logEndpoint);
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: PAYLOAD_LIMIT }));

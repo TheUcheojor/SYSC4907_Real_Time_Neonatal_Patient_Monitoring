@@ -1,4 +1,4 @@
-import Logger from "Logger.js";
+import Logger from "./../Logger.js";
 import mysql from "mysql2";
 import Connection from "mysql2/typings/mysql/lib/Connection.js";
 import Pool from "mysql2/typings/mysql/lib/Pool.js";
@@ -8,13 +8,20 @@ const logger = Logger.getInstance();
 
 export default class MySQLRepository {
   private static instance: MySQLRepository;
-  private static pool: Pool;
+  private pool: Pool;
 
   private constructor() {}
 
   public static getInstance() {
     if (!MySQLRepository.instance) {
       MySQLRepository.instance = new MySQLRepository();
+    }
+
+    return MySQLRepository.instance;
+  }
+
+  private getPool(): Pool {
+    if (!this.pool) {
       this.pool = mysql.createPool({
         host: process.env.MYSQL_HOST,
         user: process.env.MYSQL_USER,
@@ -28,17 +35,17 @@ export default class MySQLRepository {
       });
     }
 
-    return MySQLRepository.instance;
+    return this.pool;
   }
 
   query(queryFunction: (conn: Connection) => void) {
-    MySQLRepository.pool.getConnection(function (err, conn) {
+    this.getPool().getConnection((err, conn) => {
       if (err) {
         logger.error(err.toString());
         return;
       }
       queryFunction(conn);
-      this.pool.releaseConnection(conn);
+      conn.release();
     });
   }
 
