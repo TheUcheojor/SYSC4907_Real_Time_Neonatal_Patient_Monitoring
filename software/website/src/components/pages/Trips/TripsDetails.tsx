@@ -81,7 +81,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
         display: "flex",
         width: "calc(100vw - 47px)",
         marginLeft: "5px",
-        marginRight: "5px",
         overflow: "hidden",
         paddingLeft: 0,
       }}
@@ -93,6 +92,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               marginLeft: "10px",
               minWidth: `${colWidth}px`,
               flexBasis: "100%",
+              marginRight: "10px",
             }}
           >
             <span style={chartLabelStyles}>
@@ -118,17 +118,23 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               <div>
                 <LabeledText
                   label={"Vibration exposure"}
-                  text={`${route.total_vibration} ${MeasurandUnitMap.get(DatapointFieldEnum.vibration)}`}
+                  text={`${route.total_vibration} ${MeasurandUnitMap.get(
+                    DatapointFieldEnum.vibration
+                  )}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
                   label={"Average vibration"}
-                  text={`${route.avg_vibration} ${MeasurandUnitMap.get(DatapointFieldEnum.vibration)}`}
+                  text={`${route.avg_vibration} ${MeasurandUnitMap.get(
+                    DatapointFieldEnum.vibration
+                  )}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
                   label={"Average noise"}
-                  text={`${route.avg_noise} ${MeasurandUnitMap.get(DatapointFieldEnum.noise_db)}`}
+                  text={`${route.avg_noise} ${MeasurandUnitMap.get(
+                    DatapointFieldEnum.noise_db
+                  )}`}
                   style={statLabelStyles}
                 />
               </div>
@@ -142,7 +148,9 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
                 />
                 <LabeledText
                   label={"Average speed"}
-                  text={`${route.avg_velocity} ${MeasurandUnitMap.get(DatapointFieldEnum.velocity_kmps)}`}
+                  text={`${route.avg_velocity} ${MeasurandUnitMap.get(
+                    DatapointFieldEnum.velocity_kmps
+                  )}`}
                   style={statLabelStyles}
                 />
                 <LabeledText
