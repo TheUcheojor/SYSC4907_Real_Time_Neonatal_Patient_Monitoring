@@ -157,9 +157,9 @@ routesRouter.get(
       parseInt(req.query.limit as undefined as string) || QUERY_LIMIT_DEFAULT;
 
     // Fetch-all query
-    let db_query = `SELECT * FROM routes WHERE owner_id=${req.user_id} LIMIT ${
-      (page - 1) * limit
-    },${limit}`;
+    let db_query = `SELECT * FROM routes WHERE owner_id=${
+      req.user_id
+    } ORDER BY start_time_s DESC LIMIT ${(page - 1) * limit},${limit} `;
 
     let db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${req.user_id}`;
 
@@ -169,7 +169,9 @@ routesRouter.get(
       // Fetch with custom constraints
       db_query = `SELECT * FROM routes WHERE owner_id=${
         req.user_id
-      } AND ${seach_query} LIMIT ${(page - 1) * limit},${limit}`;
+      } AND ${seach_query} ORDER BY start_time_s DESC LIMIT ${
+        (page - 1) * limit
+      },${limit} `;
 
       db_count_query = `SELECT COUNT(*) FROM routes WHERE owner_id=${req.user_id} AND ${seach_query}`;
 
