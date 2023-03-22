@@ -44,7 +44,7 @@ export default ({
       });
 
     return () => {
-      if (packetFeedSubscription !== null) packetFeedSubscription.remove();
+      if (packetFeedSubscription) packetFeedSubscription.remove();
     };
   }, [selectedSensorPackage]);
 
