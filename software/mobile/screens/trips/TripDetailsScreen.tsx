@@ -326,11 +326,9 @@ export default ({
         </View>
 
         <View key="maps" style={{ ...styles.sectionContainer, flex: 1 }}>
-          {datasets.map(
-            (chartParams: MetricDetailedLineChartParams, index: number) => {
-              return getMetricDetailChart({ item: chartParams, key: index });
-            }
-          )}
+          {datasets.map((chartParams: MetricDetailedLineChartParams) => {
+            return getMetricDetailChart({ item: chartParams });
+          })}
         </View>
       </ScrollView>
     </View>
@@ -349,17 +347,14 @@ const ESTIMATED_GRAPH_ITEM_SIZE: number = 2;
  */
 const getMetricDetailChart = ({
   item,
-  key,
 }: {
   item: MetricDetailedLineChartParams;
-  key: number;
 }) => (
   <MetricDetailedLineChart
     title={item.title}
     dataset={item.dataset}
     graphColor={item.graphColor}
     units={item.units}
-    key={key}
   />
 );
 
