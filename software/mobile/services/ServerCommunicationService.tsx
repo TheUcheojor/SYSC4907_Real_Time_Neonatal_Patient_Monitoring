@@ -35,6 +35,9 @@ import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint"
 import { ServerRouteSegment } from "./models/server-communication/ServerRouteSegment";
 import RouteSegment from "./models/trips/RouteSegment";
 import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types";
+import { NavigationContainerRefWithCurrent } from "@react-navigation/native";
 
 export class ServerCommnunicationService {
   /**
@@ -48,19 +51,39 @@ export class ServerCommnunicationService {
    * Keep in mind that your local ip address is not your computer's 'localhost'.
    * Rather, it is the IP address of the network you are logged into.
    */
-  private static LOCAL_IP_ADDRESS: string = "http://192.168.100.100:7001";
+  private static LOCAL_IP_ADDRESS: string = "http://192.168.100.102:7001";
 
   /**
-   * The API url - http://192.168.100.100:7001
+   * The PRODUCTION address
+   */
+  private static PRODUCTION_IP_ADDRESS: string = "http://100.26.151.54:80";
+
+  /**
+   * The API url - http://192.168.100.102:7001
    */
   private static API_URL: string = !SYSTEM_CONFIGURATION.PRODUCTION_SERVER_FLAG
     ? ServerCommnunicationService.LOCAL_IP_ADDRESS
-    : "http://100.25.144.98:3001";
+    : ServerCommnunicationService.PRODUCTION_IP_ADDRESS;
+
+  /**
+   * The view navigator
+   */
+  private static navigation: NavigationContainerRefWithCurrent<RootStackParamList> | null =
+    null;
 
   /**
    * The private ServerCommnunicationService constructor
    */
   private constructor() {}
+
+  /**
+   * Setup the Server Communication Service
+   */
+  public static init(
+    navigation: NavigationContainerRefWithCurrent<RootStackParamList>
+  ) {
+    ServerCommnunicationService.navigation = navigation;
+  }
 
   /**
    * @returns the single instance of server communication service
@@ -110,11 +133,6 @@ export class ServerCommnunicationService {
         };
       })
       .catch((error: any) => {
-        Alert.alert(
-          CommunicationError.AUTHENTICATION_ERROR,
-          CommunicationError.SERVER_INAVAILABILITY
-        );
-
         LoggerService.warn(
           CommunicationError.AUTHENTICATION_ERROR + ": " + error
         );
@@ -137,10 +155,13 @@ export class ServerCommnunicationService {
         "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
       },
       body: JSON.stringify(signUpRequest),
-    })
-      .then(this.validateValidResponse)
-      .then(async (response: Response) => {
-        console.log("Sign up - response status: ", response.status);
+    }).then(async (response: Response) => {
+      const isSuccessful: boolean =
+        response.status == HttpStatusCode.OK_REQUEST;
+
+      console.log("Sign up - response status: ", response.status);
+
+      if (isSuccessful) {
         // We login to retreive an authorization token
         await this.login({
           email: signUpRequest.email,
@@ -151,21 +172,13 @@ export class ServerCommnunicationService {
           isSuccessful: true,
           message: "",
         };
-      })
-      .catch((error: any) => {
-        Alert.alert(
-          CommunicationError.AUTHENTICATION_ERROR,
-          CommunicationError.SERVER_INAVAILABILITY
-        );
+      }
 
-        LoggerService.warn(
-          CommunicationError.AUTHENTICATION_ERROR + ": " + error
-        );
-        return {
-          isSuccessful: false,
-          message: "Sign-up failed",
-        };
-      });
+      return {
+        isSuccessful: false,
+        message: "Sign-up failed",
+      };
+    });
   }
 
   /**
@@ -180,6 +193,43 @@ export class ServerCommnunicationService {
         return userSession;
       }
     );
+  }
+
+  /**
+   * Throw an error if the reponse status is not 200.
+   * Otherwise returns the response body.
+   *
+   * This funtion will also log the user out if the request receives
+   * an unauthorized response
+   */
+  private validateValidResponse(response: Response): Promise<any> {
+    console.log("response.status: ", response.status);
+
+    // If the user's token expires, the user is logged out
+    if (
+      ServerCommnunicationService.navigation &&
+      response.status == HttpStatusCode.UNAUTHORIZED
+    ) {
+      UserSessionService.deleteUserSession().then(() => {
+        ServerCommnunicationService.navigation?.navigate("Login");
+        Alert.alert("Session Timeout", "Session has expired");
+      });
+    }
+
+    // Throw an error if the request status does not indicate success
+    else if (response.status != HttpStatusCode.OK_REQUEST) {
+      throw new Error(
+        response.status + ". " + CommunicationError.SERVER_COMMUNICATION_ERROR
+      );
+    }
+
+    //Depending on the response, return the json body or an empty promise
+    const contentType = response.headers.get("content-type");
+    if (contentType?.includes(JSON_APPLICATION_CONTENT_TYPE.toLowerCase())) {
+      return response.json();
+    }
+
+    return Promise.resolve();
   }
 
   /**
@@ -312,26 +362,6 @@ export class ServerCommnunicationService {
           message: error as string,
         };
       });
-  }
-
-  /**
-   * Throw an error if the reponse status is not 200.
-   * Otherwise returns the response body
-   */
-  private validateValidResponse(response: Response): Promise<any> {
-    console.log("response.status: ", response.status);
-    if (response.status != HttpStatusCode.OK_REQUEST) {
-      throw new Error(
-        response.status + ". " + CommunicationError.SERVER_COMMUNICATION_ERROR
-      );
-    }
-
-    const contentType = response.headers.get("content-type");
-    if (contentType?.includes(JSON_APPLICATION_CONTENT_TYPE.toLowerCase())) {
-      return response.json();
-    }
-
-    return Promise.resolve();
   }
 
   /**
