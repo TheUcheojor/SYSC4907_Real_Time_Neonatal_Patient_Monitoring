@@ -41,7 +41,7 @@ export const MONTH_INDEX_TO_TEXT: Map<number, string> = new Map<number, string>(
  * Given a date string, return the epoch that represents the start of that day
  */
 export const getDayStartEpoch = (date: string): number => {
-  let startTime = new Date(date).setUTCHours(0, 0, 0, 0);
+  let startTime = new Date(date).setHours(0, 0, 0, 0);
   return startTime / SECOND_IN_MILLISECONDS;
 };
 
@@ -49,7 +49,7 @@ export const getDayStartEpoch = (date: string): number => {
  * Given a date string, return the epoch that represents the start of that day
  */
 export const getDayEndEpoch = (date: string): number => {
-  let endTime = new Date(date).setUTCHours(
+  let endTime = new Date(date).setHours(
     DAY_IN_HOURS - 1,
     HOUR_IN_MINUTES - 1,
     MINUTE_IN_SECONDS - 1,

@@ -24,7 +24,7 @@ import {
 } from "./TimeUtil";
 
 /**
- * Give a route, segments, and data points, generate a post route request
+ * Given a route, segments, and data points, generate a post route request
  * @param route the route
  * @param segments the segments
  * @param routeMeasurementDataPoints the data points
@@ -58,7 +58,7 @@ export const generateServerRouteModel = (
               time_s: covertTimeStringToUnixTimestamp(
                 routeMeasurementDataPoint.time as string
               ),
-              velocity_kmps: routeMeasurementDataPoint.velocity,
+              velocity_kmps: routeMeasurementDataPoint.speed,
               noise_db: routeMeasurementDataPoint.noise,
               vibration: routeMeasurementDataPoint.vibration,
               temperature_celsius: routeMeasurementDataPoint.temperature,
@@ -115,7 +115,7 @@ export const generateMobileDataPoints = (
         temperature: serverDataPoint.temperature_celsius,
         vibration: serverDataPoint.velocity_kmps,
         airPressure: serverDataPoint.pressure_pascals,
-        velocity: serverDataPoint.velocity_kmps,
+        speed: serverDataPoint.velocity_kmps,
         battery: -1,
         time: formatUnixTimestamp(serverDataPoint.time_s),
         location: {

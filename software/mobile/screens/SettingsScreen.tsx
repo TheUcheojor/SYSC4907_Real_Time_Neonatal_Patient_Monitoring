@@ -1,11 +1,15 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+/**
+ * File: SettingsScreen
+ * Author: Paul Okenne
+ * Purpose: Returns the settig screen component
+ */
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Device, Subscription } from "react-native-ble-plx";
 import SensorPackageConnectionStatus from "../components/SensorPackageConnectionStatus";
 import SensorPackageScanner from "../components/SensorPackageScanner";
 import SensorPackageController from "../services/SensorPackageController";
-import { MainStackParamList, SharedScreenResources } from "../types";
+import { SharedScreenResources } from "../types";
 
 /**
  * The setttings screen
@@ -18,7 +22,9 @@ export default ({
   const [selectedSensorPackage, setSelectedSensorPackage] =
     useState<Device | null>(null);
 
-  // when a user attempts to connect a  sensor-package
+  /**
+   *  When a user selects a sensor-package item, attempt to connect to the sensor-package
+   * */
   useEffect(() => {
     if (!selectedSensorPackage) return;
 
@@ -38,22 +44,9 @@ export default ({
       });
 
     return () => {
-      if (packetFeedSubscription !== null) packetFeedSubscription.remove();
+      if (packetFeedSubscription) packetFeedSubscription.remove();
     };
   }, [selectedSensorPackage]);
-
-  /**
-   * Mocking a feed from the sensor package from the send
-   */
-  useEffect(() => {
-    const sensorPackageController: SensorPackageController =
-      SensorPackageController.getSensorPackageController();
-
-    const generateMeasurementPacketInterval: NodeJS.Timer =
-      sensorPackageController.mockMeasurementPacketFeed(setMeasurementPacket);
-
-    return () => clearInterval(generateMeasurementPacketInterval);
-  }, []);
 
   return (
     <View style={styles.settingsScreen}>

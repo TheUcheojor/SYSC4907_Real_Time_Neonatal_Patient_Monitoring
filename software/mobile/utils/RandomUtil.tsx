@@ -7,7 +7,7 @@
 import RouteLocation from "../services/models/common/Location";
 import MeasurementPacket from "../services/models/sensor-package-communication/MeasurementPacket";
 import ServerTripRoute from "../services/models/server-communication/ServerTripRoute";
-import { formatUnixTimestamp } from "./TimeUtil";
+import { formatUnixTimestamp, SECOND_IN_MILLISECONDS } from "./TimeUtil";
 
 /**
  * Get a random number between the min and max values
@@ -41,9 +41,9 @@ export const generateRandomMeasurementPacket = (
     temperature: getRandomInt(0, 120),
     vibration: getRandomNumber(0, 120),
     airPressure: getRandomInt(0, 120),
-    velocity: getRandomInt(0, 120),
+    speed: getRandomInt(0, 120),
     battery: getRandomInt(0, 100),
-    time: formatUnixTimestamp(Date.now()),
+    time: formatUnixTimestamp(Date.now() / SECOND_IN_MILLISECONDS),
     location: location,
   } as MeasurementPacket;
 };

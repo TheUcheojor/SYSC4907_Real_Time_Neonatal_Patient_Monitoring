@@ -80,7 +80,11 @@ export default ({}: LocalTripsParams) => {
    */
   const getLocalTripItem = useCallback(
     ({ item }: { item: TripRoute }): JSX.Element => (
-      <TripItem tripRoute={item} isLocalTrip={true} />
+      <TripItem
+        tripRoute={item}
+        isLocalTrip={true}
+        getLocalTrips={getLocalTrips}
+      />
     ),
     []
   );

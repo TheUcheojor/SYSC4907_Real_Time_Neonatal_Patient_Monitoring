@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   container: {
     width: 420,
     height: 350,
+    alignItems: "center",
   },
 
   title: {

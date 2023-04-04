@@ -9,7 +9,8 @@ import {
   MaterialIcons,
   FontAwesome5,
 } from "@expo/vector-icons";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
+import { APP_WIDTH } from "../../constants/ViewConstants";
 
 /**
  * The guage data precison
@@ -44,17 +45,19 @@ export const MODERATE_TO_HIGH_THRESHOLD_DEFAULT = 130;
 /**
  * The guage heigh
  */
-export const GAUGE_HEIGHT = 350;
+export const GAUGE_HEIGHT = APP_WIDTH < 400 ? 350 : 500;
 
 /**
  * The gauge width
  */
-export const GAUGE_WIDTH = 420;
+export const GAUGE_WIDTH = APP_WIDTH < 400 ? 420 : 650;
 
+// Alert.alert(APP_WIDTH.toString());
 /**
  * The gauge inner radius, the hollowed out part of the circle
  */
-export const INNER_RADIUS = GAUGE_WIDTH / 2 - 100;
+export const INNER_RADIUS =
+  APP_WIDTH < 400 ? GAUGE_WIDTH / 2 - 100 : GAUGE_WIDTH / 2 - 150;
 
 /**
  * The max value of the guage

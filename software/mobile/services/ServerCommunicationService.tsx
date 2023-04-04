@@ -9,8 +9,10 @@ import { JSON_APPLICATION_CONTENT_TYPE } from "./constants/HttpHeaderProperties"
 import { HttpRequestType } from "./constants/HttpRequestType";
 import { HttpStatusCode } from "./constants/HttpStatusCode";
 import {
+  ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
+  SignupRequest,
 } from "./models/server-communication/requests/authenticationRequestsResponses";
 import { BaseServerResponse } from "./models/server-communication/requests/BaseServerResponse";
 import { HttpHeaderKey } from "./constants/HttpHeaderProperties";
@@ -32,6 +34,10 @@ import {
 import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
 import { ServerRouteSegment } from "./models/server-communication/ServerRouteSegment";
 import RouteSegment from "./models/trips/RouteSegment";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types";
+import { NavigationContainerRefWithCurrent } from "@react-navigation/native";
 
 export class ServerCommnunicationService {
   /**
@@ -40,20 +46,44 @@ export class ServerCommnunicationService {
   private static serverCommnunicationService: ServerCommnunicationService;
 
   /**
-   * A flag indicating whether the server is communicatating with the production backend
+   * The local IP address
+   *
+   * Keep in mind that your local ip address is not your computer's 'localhost'.
+   * Rather, it is the IP address of the network you are logged into.
    */
-  private static productionFlag: boolean = false;
+  private static LOCAL_IP_ADDRESS: string = "http://192.168.100.102:7001";
+
   /**
-   * The API url - http://192.168.100.100:7001
+   * The PRODUCTION address
    */
-  private static API_URL: string = !ServerCommnunicationService.productionFlag
-    ? "http://192.168.100.100:7001"
-    : "http://100.25.144.98:3001";
+  private static PRODUCTION_IP_ADDRESS: string = "http://100.26.151.54:80";
+
+  /**
+   * The API url - http://192.168.100.102:7001
+   */
+  private static API_URL: string = !SYSTEM_CONFIGURATION.PRODUCTION_SERVER_FLAG
+    ? ServerCommnunicationService.LOCAL_IP_ADDRESS
+    : ServerCommnunicationService.PRODUCTION_IP_ADDRESS;
+
+  /**
+   * The view navigator
+   */
+  private static navigation: NavigationContainerRefWithCurrent<RootStackParamList> | null =
+    null;
 
   /**
    * The private ServerCommnunicationService constructor
    */
   private constructor() {}
+
+  /**
+   * Setup the Server Communication Service
+   */
+  public static init(
+    navigation: NavigationContainerRefWithCurrent<RootStackParamList>
+  ) {
+    ServerCommnunicationService.navigation = navigation;
+  }
 
   /**
    * @returns the single instance of server communication service
@@ -90,6 +120,7 @@ export class ServerCommnunicationService {
 
           UserSessionService.saveUserSession({
             fullName: responseBody.full_name,
+            email: loginRequest.email.trim().toLowerCase(),
             authenticationToken: response.headers.get(
               HttpHeaderKey.AUTHORIZATION_KEY
             ) as string,
@@ -102,12 +133,52 @@ export class ServerCommnunicationService {
         };
       })
       .catch((error: any) => {
-        Alert.alert("Error", error);
-        LoggerService.warn(error);
+        LoggerService.warn(
+          CommunicationError.AUTHENTICATION_ERROR + ": " + error
+        );
         return {
           isSuccessful: false,
+          message: "login failed",
         };
       });
+  }
+
+  /**
+   * Sign up a user
+   * @param signUpRequest
+   * @returns
+   */
+  public signUp(signUpRequest: SignupRequest): Promise<BaseServerResponse> {
+    return fetch(`${ServerCommnunicationService.API_URL}/user`, {
+      method: HttpRequestType.POST,
+      headers: {
+        "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
+      },
+      body: JSON.stringify(signUpRequest),
+    }).then(async (response: Response) => {
+      const isSuccessful: boolean =
+        response.status == HttpStatusCode.OK_REQUEST;
+
+      console.log("Sign up - response status: ", response.status);
+
+      if (isSuccessful) {
+        // We login to retreive an authorization token
+        await this.login({
+          email: signUpRequest.email,
+          password: signUpRequest.password,
+        });
+
+        return {
+          isSuccessful: true,
+          message: "",
+        };
+      }
+
+      return {
+        isSuccessful: false,
+        message: "Sign-up failed",
+      };
+    });
   }
 
   /**
@@ -122,6 +193,43 @@ export class ServerCommnunicationService {
         return userSession;
       }
     );
+  }
+
+  /**
+   * Throw an error if the reponse status is not 200.
+   * Otherwise returns the response body.
+   *
+   * This funtion will also log the user out if the request receives
+   * an unauthorized response
+   */
+  private validateValidResponse(response: Response): Promise<any> {
+    console.log("response.status: ", response.status);
+
+    // If the user's token expires, the user is logged out
+    if (
+      ServerCommnunicationService.navigation &&
+      response.status == HttpStatusCode.UNAUTHORIZED
+    ) {
+      UserSessionService.deleteUserSession().then(() => {
+        ServerCommnunicationService.navigation?.navigate("Login");
+        Alert.alert("Session Timeout", "Session has expired");
+      });
+    }
+
+    // Throw an error if the request status does not indicate success
+    else if (response.status != HttpStatusCode.OK_REQUEST) {
+      throw new Error(
+        response.status + ". " + CommunicationError.SERVER_COMMUNICATION_ERROR
+      );
+    }
+
+    //Depending on the response, return the json body or an empty promise
+    const contentType = response.headers.get("content-type");
+    if (contentType?.includes(JSON_APPLICATION_CONTENT_TYPE.toLowerCase())) {
+      return response.json();
+    }
+
+    return Promise.resolve();
   }
 
   /**
@@ -142,25 +250,67 @@ export class ServerCommnunicationService {
             Authorization: userSession.authenticationToken,
           },
           body: JSON.stringify(serverPostRouteRequest),
-        }).then((response: Response) => {
-          LoggerService.info("status: ", response.status);
-          const isSuccessful: boolean =
-            response.status == HttpStatusCode.OK_REQUEST;
-
-          return {
-            isSuccessful: isSuccessful,
-            message: "",
-            deletedTripRouteId: tripId,
-          };
-        });
+        })
+          .then(this.validateValidResponse)
+          .then((response: Response) => {
+            return {
+              isSuccessful: true,
+              message: "",
+              deletedTripRouteId: tripId,
+            };
+          });
       })
       .catch((error: any) => {
-        Alert.alert("Error", error);
-        LoggerService.warn(error);
+        Alert.alert(
+          CommunicationError.UPLOADING_ERROR,
+          CommunicationError.SERVER_INAVAILABILITY
+        );
+
+        LoggerService.warn(
+          "Uploading Error: " +
+            error +
+            "\nRequest: " +
+            JSON.stringify(serverPostRouteRequest)
+        );
         return {
           isSuccessful: false,
           message: "",
           deletedTripRouteId: -1,
+        };
+      });
+  }
+
+  /**
+   * Allows user to request for a new password
+   *
+   * Please note that this endpoint will always return the success flag as true.
+   * The reason is to prevent attackers from learning from the system. However,
+   * the errors will logged if the occured
+   *
+   *
+   * @param serverPostRouteRequest the server trip package
+   * @returns the server response
+   */
+  public forgotPassword(
+    forgotPasswordRequest: ForgotPasswordRequest
+  ): Promise<BaseServerResponse> {
+    return fetch(`${ServerCommnunicationService.API_URL}/forgotPassword`, {
+      method: HttpRequestType.POST,
+      headers: {
+        "Content-Type": JSON_APPLICATION_CONTENT_TYPE,
+      },
+      body: JSON.stringify(forgotPasswordRequest),
+    })
+      .then(this.validateValidResponse)
+      .then((response: Response) => {
+        return {
+          isSuccessful: true,
+        };
+      })
+      .catch((error: any) => {
+        LoggerService.warn("Forgot passsword error: " + error);
+        return {
+          isSuccessful: true,
         };
       });
   }
@@ -177,7 +327,7 @@ export class ServerCommnunicationService {
   public routeSearch(
     query: string,
     page: number = 1,
-    limit: number = 5
+    limit: number = 10
   ): Promise<ServerRouteSearchResponse> {
     const serverEndpoint: string = `${ServerCommnunicationService.API_URL}/routes?search_query=${query}&page=${page}&limit=${limit}`;
     LoggerService.debug("Search Endpoint: ", serverEndpoint);
@@ -188,14 +338,9 @@ export class ServerCommnunicationService {
           headers: {
             Authorization: userSession.authenticationToken,
           },
-        }).then((response: Response) => {
-          if (response.status != HttpStatusCode.OK_REQUEST) {
-            throw new Error(CommunicationError.FETCHING_ERROR);
-          }
-
-          return response.json();
         });
       })
+      .then(this.validateValidResponse)
       .then((result: { totalRoutes: number; routes: ServerTripRoute[] }) => {
         LoggerService.debug("Server search result: ", result);
         return {
@@ -205,11 +350,11 @@ export class ServerCommnunicationService {
       })
       .catch((error: any) => {
         Alert.alert(
-          CommunicationError.SERVER_COMMUNICATION_ERROR,
-          CommunicationError.FETCHING_ERROR
+          CommunicationError.SEARCH_FAILURE,
+          CommunicationError.SERVER_INAVAILABILITY
         );
 
-        LoggerService.warn(error);
+        LoggerService.warn(CommunicationError.SEARCH_FAILURE + ": " + error);
         return {
           routes: [],
           totalRoutes: -1,
@@ -217,20 +362,6 @@ export class ServerCommnunicationService {
           message: error as string,
         };
       });
-  }
-
-  /**
-   * Throw an error if the reponse status is not 200.
-   * Otherwise returns the response body
-   */
-  private validateValidResponse(response: Response): Promise<any> {
-    if (response.status != HttpStatusCode.OK_REQUEST) {
-      throw new Error(
-        response.status + ". " + CommunicationError.SERVER_COMMUNICATION_ERROR
-      );
-    }
-
-    return response.json();
   }
 
   /**
@@ -263,11 +394,11 @@ export class ServerCommnunicationService {
       })
       .catch((error: any) => {
         Alert.alert(
-          CommunicationError.SERVER_COMMUNICATION_ERROR,
-          CommunicationError.FETCHING_ERROR
+          CommunicationError.FETCHING_ERROR,
+          CommunicationError.SERVER_INAVAILABILITY
         );
 
-        LoggerService.error(error);
+        LoggerService.error(CommunicationError.FETCHING_ERROR + ": " + error);
         return [];
       });
   }
@@ -296,11 +427,11 @@ export class ServerCommnunicationService {
       })
       .catch((error: any) => {
         Alert.alert(
-          CommunicationError.SERVER_COMMUNICATION_ERROR,
-          CommunicationError.FETCHING_ERROR
+          CommunicationError.FETCHING_ERROR,
+          CommunicationError.SERVER_COMMUNICATION_ERROR
         );
 
-        LoggerService.error(error);
+        LoggerService.error(CommunicationError.FETCHING_ERROR + ": " + error);
         return [];
       });
   }
