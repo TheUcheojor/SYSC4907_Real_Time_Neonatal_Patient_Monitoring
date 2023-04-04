@@ -24,7 +24,7 @@ import {
 } from "./TimeUtil";
 
 /**
- * Give a route, segments, and data points, generate a post route request
+ * Given a route, segments, and data points, generate a post route request
  * @param route the route
  * @param segments the segments
  * @param routeMeasurementDataPoints the data points
