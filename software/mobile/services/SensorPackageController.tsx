@@ -318,7 +318,7 @@ export default class SensorPackageController {
         characteristic
           .read()
           .then((characteristic: Characteristic) => {
-            if (!characteristic || error || !characteristic.value) return;
+            if (!characteristic || error || !characteristic.value) return null;
 
             LoggerService.debug(
               "Sensor package sent the following: ",
@@ -336,7 +336,7 @@ export default class SensorPackageController {
              * interrupted, corrupting the data
              */
             if (!isValidMeasurePacket(measurementPacket)) {
-              return;
+              return null;
             }
 
             //Covert the unix time stamp
@@ -354,13 +354,8 @@ export default class SensorPackageController {
             );
           })
           .catch((error: any) => {
-            Alert.alert(
-              "Sensor Package Communication Error",
-              "An error occurred when fetching data from the sensor package"
-            );
             LoggerService.warn(
-              "Sensor Package Communication Error (getMeasurementPacketFeed): " +
-                error
+              "Sensor Package Error (getMeasurementPacketFeed): " + error
             );
           });
       }

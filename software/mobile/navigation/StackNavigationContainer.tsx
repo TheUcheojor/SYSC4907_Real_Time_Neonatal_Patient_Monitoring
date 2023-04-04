@@ -1,4 +1,7 @@
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  NavigationContainerRefWithCurrent,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen";
 import LoginScreen from "../screens/LoginScreen";
@@ -15,12 +18,12 @@ export const StackNavigationContainer = ({
   setRecordingState,
   measurementPacket,
   setMeasurementPacket,
-}: SharedScreenResources) => {
-  // recordingState={recordingState}
-  // setRecordingState={setRecordingState}
-
+  navigationRef,
+}: SharedScreenResources & {
+  navigationRef: NavigationContainerRefWithCurrent<ReactNavigation.RootParamList>;
+}) => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
