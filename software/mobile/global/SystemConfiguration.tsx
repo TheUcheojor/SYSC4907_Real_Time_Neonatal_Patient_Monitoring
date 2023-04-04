@@ -13,13 +13,11 @@ export const SYSTEM_CONFIGURATION = {
   /**
    * True when the system is in production; otherwise, false
    */
-  PRODUCTION_SERVER_FLAG: false,
+  PRODUCTION_SERVER_FLAG: true,
 
   /**
-   * True when the developer wants to begin demoing live data when
-   * the user logins. Simulates a sensor-package feed.
-   *
-   * You may need to reload the application once changed
+   * True when the developer wants to clear the database
+   * when the apps reloads
    */
-  TRIGGER_DEMO_LIVE_DATAFEED_ON_LOGIN: false,
+  CLEAR_DB_ON_APP_RELOAD: false,
 } as const;

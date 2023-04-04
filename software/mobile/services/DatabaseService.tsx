@@ -15,6 +15,7 @@ import RouteSegment from "./models/trips/RouteSegment";
 import RouteMeasurementDataPoint from "./models/trips/RouteMeasurementDataPoint";
 import UserSessionService, { UserSession } from "./UserSessionService";
 import LoggerService from "./LoggerService";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
 
 //Enable promises for the sqlite databases
 enablePromise(true);
@@ -81,15 +82,17 @@ export class DatabaseService {
     });
 
     // For clearing the database
-    // await this.database.executeSql(
-    //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTES_TABLE};`
-    // );
-    // await this.database.executeSql(
-    //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE};`
-    // );
-    // await this.database.executeSql(
-    //   `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
-    // );
+    if (SYSTEM_CONFIGURATION.CLEAR_DB_ON_APP_RELOAD) {
+      await this.database.executeSql(
+        `DROP TABLE IF EXISTS ${DatabaseService.ROUTES_TABLE};`
+      );
+      await this.database.executeSql(
+        `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_SEGMENTS_TABLE};`
+      );
+      await this.database.executeSql(
+        `DROP TABLE IF EXISTS ${DatabaseService.ROUTE_MEASUREMENT_DATA_POINTS_TABLE};`
+      );
+    }
 
     // Prepare and execute table-creation queries
     const createRoutesTableQuery: string = `CREATE TABLE  IF NOT EXISTS ${DatabaseService.ROUTES_TABLE} ( routeId integer PRIMARY KEY AUTOINCREMENT, patientId text,  startTime text NOT NULL, endTime text, userEmail VARCHAR(100) );`;
