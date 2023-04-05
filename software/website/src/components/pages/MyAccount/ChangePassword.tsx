@@ -3,7 +3,7 @@ import { PASSWORD_LENGTH_MIN } from "constants/Auth";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { ColorEnum } from "constants/ColorEnum";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
-import NewPassword from "components/pages/Trips/NewPassword";
+import NewPassword from "components/pages/MyAccount/NewPassword";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface changePasswordProps {
@@ -101,6 +101,7 @@ function ChangePassword({ setIsChangingPassword }: changePasswordProps) {
         <input
           style={{
             cursor: !isChangePWEnabled || isSuccess ? "auto" : "pointer",
+            textAlign: "center",
           }}
           type="submit"
           value={"Change Password"}

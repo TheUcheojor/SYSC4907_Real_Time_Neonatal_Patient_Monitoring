@@ -1,12 +1,9 @@
-import React, { memo, useEffect, useState, useCallback } from "react";
-import {
-  DatapointFieldEnum,
-  RouteFieldEnum,
-} from "constants/DatapointFieldEnum";
+import React, { memo, useEffect, useState, useCallback, useRef } from "react";
+import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import Chart from "components/visualization/Chart";
 import Route from "models/Route";
 import { toClockString, toDateString } from "util/StringUtil";
-import Map from "components/visualization/Map";
+import GoogleMap from "components/visualization/GoogleMapWrapper";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import { ColorEnum } from "constants/ColorEnum";
@@ -26,25 +23,45 @@ const statLabelStyles = {
   marginBottom: "3px",
 };
 
+const mapStyles = { height: "200px" };
+
+const colWidth = 450;
+
 interface TripsDetailsProps {
   selectedRoutes: Route[];
 }
 
-function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
+function CompareTrips({ selectedRoutes }: TripsDetailsProps) {
   const [activeMeasurand, setActiveMeasurand] = useState("");
   const [data, setData] = useState([]);
   const [netError, setNetError] = useState(undefined);
 
-  const chartClickHandler = useCallback((e: any) => {
-    setActiveMeasurand(e.activePayload[0].dataKey);
-  }, []);
+  const maps = useRef<Map<string, any>>(new Map());
+
+  // Should open the targeted charts map
+  // On further clicks should zoom into the respective map
+  const chartClickHandler = useCallback(
+    (e: any) => {
+      if (e.activePayload[0].dataKey !== activeMeasurand) {
+        setActiveMeasurand(e.activePayload[0].dataKey);
+      } else if (maps.current.size > 0) {
+        const targetedRouteMap = maps.current.get(
+          e.activePayload[0].payload.route_id
+        );
+        targetedRouteMap.panTo({
+          lat: e.activePayload[0].payload[DatapointFieldEnum.latitude],
+          lng: e.activePayload[0].payload[DatapointFieldEnum.longitude],
+        });
+        targetedRouteMap.setZoom(15);
+      }
+    },
+    [activeMeasurand]
+  );
 
   useEffect(() => {
     selectedRoutes.forEach((route, i) => {
       fetch(
-        `${process.env.REACT_APP_SERVER_URL}:${
-          process.env.REACT_APP_SERVER_PORT
-        }/routeMeasurementDataPoints/${route[RouteFieldEnum.route_id]}`,
+        `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routeMeasurementDataPoints/${route.route_id}`,
         {
           headers: getFetchHeaderWithAuth(),
         }
@@ -71,10 +88,6 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
     });
   });
 
-  const colWidth = 450;
-
-  const mapStyles = { height: "200px" };
-
   return (
     <ul
       style={{
@@ -85,7 +98,7 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
         paddingLeft: 0,
       }}
     >
-      {selectedRoutes.map((route, i) => {
+      {selectedRoutes.map((route: Route, i) => {
         return _data[i] !== undefined ? (
           <div
             style={{
@@ -96,13 +109,10 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
             }}
           >
             <span style={chartLabelStyles}>
-              {toDateString(route[RouteFieldEnum.start_time_s])}
+              {toDateString(route.start_time_s)}
             </span>
             <p style={{ color: ColorEnum.Black, fontSize: "12px", margin: 0 }}>
-              {toClockString(
-                route[RouteFieldEnum.start_time_s],
-                route[RouteFieldEnum.end_time_s]
-              )}
+              {toClockString(route.start_time_s, route.end_time_s)}
             </p>
             <p style={chartLabelStyles}>Stats</p>
             <div
@@ -169,10 +179,12 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.vibration && (
-              <Map
+              <GoogleMap
                 data={_data[i]}
                 measurand={DatapointFieldEnum.vibration}
-                setMapRef={() => {}}
+                setMapRef={(map) => {
+                  maps.current.set(route.route_id, map);
+                }}
                 style={mapStyles}
               />
             )}
@@ -183,10 +195,12 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.noise_db && (
-              <Map
+              <GoogleMap
                 data={_data[i]}
                 measurand={DatapointFieldEnum.noise_db}
-                setMapRef={() => {}}
+                setMapRef={(map) => {
+                  maps.current.set(route.route_id, map);
+                }}
                 style={mapStyles}
               />
             )}
@@ -197,10 +211,12 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.temperature_celsius && (
-              <Map
+              <GoogleMap
                 data={data[i]}
                 measurand={DatapointFieldEnum.temperature_celsius}
-                setMapRef={() => {}}
+                setMapRef={(map) => {
+                  maps.current.set(route.route_id, map);
+                }}
                 style={mapStyles}
               />
             )}
@@ -211,10 +227,12 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.velocity_kmps && (
-              <Map
+              <GoogleMap
                 data={_data[i]}
                 measurand={DatapointFieldEnum.velocity_kmps}
-                setMapRef={() => {}}
+                setMapRef={(map) => {
+                  maps.current.set(route.route_id, map);
+                }}
                 style={mapStyles}
               />
             )}
@@ -225,10 +243,12 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
               onClick={chartClickHandler}
             />
             {activeMeasurand === DatapointFieldEnum.pressure_pascals && (
-              <Map
+              <GoogleMap
                 data={_data[i]}
                 measurand={DatapointFieldEnum.pressure_pascals}
-                setMapRef={() => {}}
+                setMapRef={(map) => {
+                  maps.current.set(route.route_id, map);
+                }}
                 style={mapStyles}
               />
             )}
@@ -251,4 +271,4 @@ function TripsDetails({ selectedRoutes }: TripsDetailsProps) {
   );
 }
 
-export default memo(TripsDetails);
+export default memo(CompareTrips);

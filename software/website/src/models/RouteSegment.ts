@@ -1,9 +1,9 @@
 export default interface RouteSegment {
-    segmentId: string,
-    routeId: string,
-    segmentType: string,
-    startTime: number,
-    endTime: number,
-    startLocation: string,
-    endLocation: string
+    segment_id: string,
+    route_id: string,
+    segment_type: string,
+    start_time_s: number,
+    end_time_s: number,
+    start_location: string,
+    end_location: string
 }

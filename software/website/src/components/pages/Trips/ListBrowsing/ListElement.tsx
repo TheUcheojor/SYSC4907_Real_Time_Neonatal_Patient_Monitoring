@@ -1,6 +1,4 @@
-import DeleteTripModalContent from "components/modal/DeleteTripModalContent";
 import { ColorEnum } from "constants/ColorEnum";
-import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 import Route from "models/Route";
 import React, { useState } from "react";
 import { toDateString, toClockString } from "util/StringUtil";
@@ -23,7 +21,7 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
 
   return (
     <div
-      id={route[RouteFieldEnum.route_id]}
+      id={route.route_id}
       style={{
         display: "flex",
         alignItems: "center",
@@ -45,7 +43,7 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
             color: "white",
           }}
         >
-          {toDateString(route[RouteFieldEnum.start_time_s])}
+          {toDateString(route.start_time_s)}
         </div>
         <div>
           <span
@@ -55,19 +53,14 @@ function ListElement({ route, isActive, onClick }: listElementProps) {
               fontSize: "12px",
             }}
           >
-            {toClockString(
-              route[RouteFieldEnum.start_time_s],
-              route[RouteFieldEnum.end_time_s]
-            )}
+            {toClockString(route.start_time_s, route.end_time_s)}
           </span>
         </div>
       </div>
       <div style={{ marginLeft: "auto", marginRight: "5px" }}>
+        <p style={statsLabelsStyles}>Avg vibration: {route.avg_vibration}</p>
         <p style={statsLabelsStyles}>
-          Avg vibration: {route[RouteFieldEnum.avg_vibration]}
-        </p>
-        <p style={statsLabelsStyles}>
-          Vibration exposure: {route[RouteFieldEnum.total_vibration]}
+          Vibration exposure: {route.total_vibration}
         </p>
       </div>
     </div>

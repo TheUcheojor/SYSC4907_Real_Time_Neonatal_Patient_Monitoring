@@ -37,8 +37,9 @@ routeMeasurementDataPointsRouter.get(
             return;
           }
 
+          // Ensures datapoints are sent in chronological order
           conn.query(
-            "SELECT * FROM route_measurement_data_points WHERE route_id=? ORDER BY segment_id ASC, route_data_point_id ASC",
+            "SELECT * FROM route_measurement_data_points WHERE route_id=? ORDER BY time_s ASC",
             [req.params.route_id],
             function (error, results, fields) {
               if (error) {

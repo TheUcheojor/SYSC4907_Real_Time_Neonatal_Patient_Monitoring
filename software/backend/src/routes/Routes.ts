@@ -8,7 +8,7 @@ import {
   getDatapointInsertionValues,
   getRouteStats,
   getSegmentInsertionValues,
-} from "./../RouteInsertionLogic.js";
+} from "../data/RouteInsertionLogic.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import RouteSegment from "./../models/RouteSegment.js";
 import { OkPacket, ResultSetHeader, RowDataPacket } from "mysql2";
@@ -209,7 +209,10 @@ routesRouter.delete(
   (req: AuthenticatedRequest, res: Response) => {
     // select query acts as redundancy to protect against unwanted deletions
     let db_select_query = `SELECT * FROM routes WHERE route_id=${req.params.route_id} AND owner_id=${req.user_id}`;
-    let db_delete_query = `DELETE FROM routes WHERE route_id=${req.params.route_id} AND owner_id=${req.user_id}`;
+    // we need to delete the entire route tree
+    let db_delete_route_query = `DELETE FROM routes WHERE route_id=${req.params.route_id} AND owner_id=${req.user_id}`;
+    let db_delete_segments_query = `DELETE FROM segments WHERE route_id=${req.params.route_id}`;
+    let db_delete_dps_query = `DELETE FROM route_measurement_data_points WHERE route_id=${req.params.route_id}`;
 
     db.query((conn) => {
       conn.query(db_select_query, function (error, results, fields) {
@@ -228,7 +231,8 @@ routesRouter.delete(
           res.status(HttpStatusEnum.NOT_FOUND).send();
           return;
         }
-        conn.query(db_delete_query, function (error, deleteResult, fields) {
+
+        conn.query(db_delete_dps_query, function (error, deleteResult, fields) {
           if (error) {
             return conn.rollback(function () {
               logger.error(error);
@@ -236,13 +240,46 @@ routesRouter.delete(
             });
           }
 
-          deleteResult = <ResultSetHeader>deleteResult;
-          if (deleteResult.affectedRows !== 1) {
-            logger.error(
-              `Deleted unusual amount of routes: ${deleteResult.affectedRows}`
-            );
-          }
-          res.status(HttpStatusEnum.OK).send();
+          conn.query(
+            db_delete_segments_query,
+            function (error, deleteResult, fields) {
+              if (error) {
+                return conn.rollback(function () {
+                  logger.error(error);
+                  res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+                });
+              }
+
+              conn.query(
+                db_delete_route_query,
+                function (error, deleteResult, fields) {
+                  if (error) {
+                    return conn.rollback(function () {
+                      logger.error(error);
+                      res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+                    });
+                  }
+
+                  deleteResult = <ResultSetHeader>deleteResult;
+                  if (deleteResult.affectedRows !== 1) {
+                    logger.error(
+                      `Deleted unusual amount of routes: ${deleteResult.affectedRows}`
+                    );
+                  }
+                  // after deleting datapoints + segments + route, commit all changes at once
+                  conn.commit(function (err) {
+                    if (err) {
+                      return conn.rollback(function () {
+                        logger.error(error);
+                        res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
+                      });
+                    }
+                    res.send();
+                  });
+                }
+              );
+            }
+          );
         });
       });
     });

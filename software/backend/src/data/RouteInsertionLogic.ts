@@ -1,4 +1,3 @@
-import Route from "models/Route";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 import RouteSegment from "models/RouteSegment";
 

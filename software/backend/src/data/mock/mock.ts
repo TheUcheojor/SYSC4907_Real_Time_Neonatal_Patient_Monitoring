@@ -21,6 +21,7 @@ export function generateRandomDatapoints(coords: number[][]): any[] {
   return dps;
 }
 
+// A handmade mock trip with aerial and road segments
 export function generateRoadAerialTrip(aerialDivisions: number) {
   const start = coordsQueenswayToGeneral[0];
   const end = coordsQueenswayToGeneral[1];

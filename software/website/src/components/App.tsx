@@ -20,6 +20,7 @@ function App() {
 
   const navigate = useNavigate();
 
+  // used for logout and session expiry
   function onLogout() {
     setToken(null);
     setActivePage(PageEnum.DefaultLandingPage);

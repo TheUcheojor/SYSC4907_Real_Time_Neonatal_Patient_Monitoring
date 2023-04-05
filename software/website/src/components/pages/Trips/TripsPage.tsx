@@ -1,20 +1,19 @@
-import React, { memo, useState, useEffect, useRef, useCallback } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
 import {
   DatapointFieldEnum,
-  RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import List from "components/pages/Trips/List";
+import List from "components/pages/Trips/ListBrowsing/List";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import TripsDetails from "components/pages/Trips/TripsDetails";
+import CompareTrips from "components/pages/Trips/CompareTrips";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
-import Pagination from "components/pages/Pagination";
-import QueryBar, { comparatorOptions, statisticOptions } from "./QueryBar";
+import Pagination from "components/pages/Trips/ListBrowsing/Pagination";
+import QueryBar, { comparatorOptions, statisticOptions } from "./ListBrowsing/QueryBar";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 import TripPreview from "./TripPreview";
 import Modal from "components/modal/Modal";
@@ -112,9 +111,7 @@ function TripsPage({ onLogout }: TripsProps) {
         setModalOpen(false);
         setSelectedRoutes(
           selectedRoutes.filter((selectedRoute) => {
-            return (
-              selectedRoute[RouteFieldEnum.route_id] !== deleteTripId.current
-            );
+            return selectedRoute.route_id !== deleteTripId.current;
           })
         );
         fetchRoutes();
@@ -123,7 +120,7 @@ function TripsPage({ onLogout }: TripsProps) {
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
-      (route) => route[RouteFieldEnum.route_id] === parseInt(e.currentTarget.id)
+      (route) => route.route_id === parseInt(e.currentTarget.id)
     );
 
     if (targetedRoute === undefined) {
@@ -133,9 +130,7 @@ function TripsPage({ onLogout }: TripsProps) {
     if (isSelecting) {
       if (
         !selectedRoutes.some(
-          (elem) =>
-            elem[RouteFieldEnum.route_id] ===
-            targetedRoute[RouteFieldEnum.route_id]
+          (elem) => elem.route_id === targetedRoute.route_id
         )
       ) {
         selectedRoutes.push(targetedRoute);
@@ -143,9 +138,7 @@ function TripsPage({ onLogout }: TripsProps) {
       } else {
         setSelectedRoutes([
           ...selectedRoutes.filter(
-            (elem) =>
-              elem[RouteFieldEnum.route_id] !==
-              targetedRoute[RouteFieldEnum.route_id]
+            (elem) => elem.route_id !== targetedRoute.route_id
           ),
         ]);
       }
@@ -203,8 +196,8 @@ function TripsPage({ onLogout }: TripsProps) {
                 activeRoutes={selectedRoutes}
                 elemDeleteOnClick={(route) => {
                   setModalOpen(true);
-                  deleteTripPatient.current = route[RouteFieldEnum.patient_id];
-                  deleteTripId.current = route[RouteFieldEnum.route_id];
+                  deleteTripPatient.current = route.patient_id;
+                  deleteTripId.current = route.route_id;
                 }}
               />
             ) : (
@@ -245,9 +238,7 @@ function TripsPage({ onLogout }: TripsProps) {
                   onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
-                    selectedRoutes[selectedRoutes.length - 1][
-                      DatapointFieldEnum.route_id
-                    ]
+                    selectedRoutes[selectedRoutes.length - 1].route_id
                   )}
                 />
               </div>
@@ -325,7 +316,7 @@ function TripsPage({ onLogout }: TripsProps) {
       return (
         <div style={{ display: "flex" }}>
           <BackIcon onClick={() => setIsComparing(false)} />
-          <TripsDetails selectedRoutes={selectedRoutes} />
+          <CompareTrips selectedRoutes={selectedRoutes} />
         </div>
       );
     }

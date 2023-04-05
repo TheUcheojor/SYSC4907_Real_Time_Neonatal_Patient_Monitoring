@@ -20,7 +20,7 @@ interface MapProps {
   setMapRef?: (map) => void;
 }
 
-function Map({ data, setMapRef, measurand, style }: MapProps) {
+function GoogleMapWrapper({ data, setMapRef, measurand, style }: MapProps) {
   console.log("MAP RENDER");
   const map = useRef(undefined);
 
@@ -111,4 +111,4 @@ function Map({ data, setMapRef, measurand, style }: MapProps) {
   );
 }
 
-export default memo(Map);
+export default memo(GoogleMapWrapper);

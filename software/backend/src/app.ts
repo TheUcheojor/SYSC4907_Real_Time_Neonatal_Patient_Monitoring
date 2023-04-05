@@ -48,8 +48,7 @@ app.use(devRouter);
  * For development purposes only, we will use a http server
  * as it allows for communication between app and server.
  *
- * Using https with self-signed certificate requires extra configurations
- * that may be time consuming
+ * In prod should use https
  */
 const PORT = process.env.SERVER_PORT || 7001;
 

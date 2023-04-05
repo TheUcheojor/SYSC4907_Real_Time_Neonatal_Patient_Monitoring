@@ -1,5 +1,8 @@
 import { QueryError } from "mysql2";
 
+/**
+ * Logger class for better debugging
+ */
 export default class Logger {
   private static instance: Logger;
 

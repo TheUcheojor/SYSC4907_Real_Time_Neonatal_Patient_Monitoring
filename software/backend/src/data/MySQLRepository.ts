@@ -6,6 +6,9 @@ import { DB_NAME } from "../constants/DbConstants.js";
 
 const logger = Logger.getInstance();
 
+/**
+ * A class for interfacing with the MYSQL Repository.
+ */
 export default class MySQLRepository {
   private static instance: MySQLRepository;
   private pool: Pool;
@@ -20,6 +23,9 @@ export default class MySQLRepository {
     return MySQLRepository.instance;
   }
 
+  /**
+   * Using MySQL pool keeps connections open for X amount of time after a request terminates. Allowing the app to reuse connections when requests are clustered. 
+   */
   private getPool(): Pool {
     if (!this.pool) {
       this.pool = mysql.createPool({
@@ -38,6 +44,8 @@ export default class MySQLRepository {
     return this.pool;
   }
 
+  // A wrapper function for queries that manages the overhead of acquiring and releasing a connection
+  // Also ensures that query only uses one connection. 
   query(queryFunction: (conn: Connection) => void) {
     this.getPool().getConnection((err, conn) => {
       if (err) {
@@ -49,6 +57,7 @@ export default class MySQLRepository {
     });
   }
 
+  // Initializes the DB tables and inserts a default account
   initDb() {
     this.query((conn: Connection) => {
       conn.query(

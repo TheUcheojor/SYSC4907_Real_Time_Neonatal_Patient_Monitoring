@@ -2,23 +2,27 @@ import { ColorEnum } from "constants/ColorEnum";
 import { RouteFieldEnum } from "constants/DatapointFieldEnum";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 import { MeasurandUnitMap } from "constants/MeasurandUnitEnum";
-import { SegmentFieldEnum } from "constants/SegmentFieldEnum";
+import RouteSegment from "models/RouteSegment";
 import React, { useEffect, useState } from "react";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
 import { elapsedDurationInHoursAndMinutes } from "util/StringUtil";
+import Route from "models/Route";
 import LabeledText from "./LabeledText";
 const labelStyles = {
   marginLeft: "10px",
 };
 
-function TripPreview({ selectedRoute, onLogout }) {
+interface TripsPreviewProps {
+  selectedRoute: Route;
+  onLogout: () => void;
+}
+
+function TripPreview({ selectedRoute, onLogout }: TripsPreviewProps) {
   const [segments, setSegments] = useState(undefined);
 
   useEffect(() => {
     fetch(
-      `${process.env.REACT_APP_SERVER_URL}:${
-        process.env.REACT_APP_SERVER_PORT
-      }/segments/${selectedRoute[RouteFieldEnum.route_id]}`,
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/segments/${selectedRoute.route_id}`,
       {
         headers: getFetchHeaderWithAuth(),
       }
@@ -57,15 +61,15 @@ function TripPreview({ selectedRoute, onLogout }) {
         </h4>
         <LabeledText
           label="Patient"
-          text={selectedRoute[RouteFieldEnum.patient_id]}
+          text={selectedRoute.patient_id}
           style={labelStyles}
           isBoldLabel={false}
         />
         <LabeledText
           label="Duration"
           text={elapsedDurationInHoursAndMinutes(
-            selectedRoute[RouteFieldEnum.start_time_s],
-            selectedRoute[RouteFieldEnum.end_time_s]
+            selectedRoute.start_time_s,
+            selectedRoute.end_time_s
           )}
           style={labelStyles}
           isBoldLabel={false}
@@ -73,7 +77,7 @@ function TripPreview({ selectedRoute, onLogout }) {
         <LabeledText
           label="Total vibration exposure"
           text={`${
-            selectedRoute[RouteFieldEnum.total_vibration]
+            selectedRoute.total_vibration
           } ${MeasurandUnitMap.get(RouteFieldEnum.total_vibration)}`}
           style={labelStyles}
           isBoldLabel={false}
@@ -92,7 +96,7 @@ function TripPreview({ selectedRoute, onLogout }) {
             Segment Details
           </h4>
           <ul style={{ padding: 0, margin: 0 }}>
-            {segments.map((segment, i) => {
+            {segments.map((segment: RouteSegment, i) => {
               return (
                 <div style={{ marginTop: "5px", marginBottom: "5px" }}>
                   <h5
@@ -108,15 +112,15 @@ function TripPreview({ selectedRoute, onLogout }) {
                   <LabeledText
                     label="Duration"
                     text={elapsedDurationInHoursAndMinutes(
-                      segment[SegmentFieldEnum.start_time_s],
-                      segment[SegmentFieldEnum.end_time_s]
+                      segment.start_time_s,
+                      segment.end_time_s
                     )}
                     style={labelStyles}
                     isBoldLabel={false}
                   />
                   <LabeledText
                     label="Type"
-                    text={segment[SegmentFieldEnum.segment_type]}
+                    text={segment.segment_type}
                     style={labelStyles}
                     isBoldLabel={false}
                   />

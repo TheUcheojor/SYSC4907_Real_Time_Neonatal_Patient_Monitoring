@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Route from "models/Route";
-import ListElement from "components/pages/Trips/ListElement";
-import { RouteFieldEnum } from "constants/DatapointFieldEnum";
+import ListElement from "components/pages/Trips/ListBrowsing/ListElement";
 import { ColorEnum } from "constants/ColorEnum";
 import CancelIcon from "components/icons/CancelIcon";
 
@@ -43,12 +42,10 @@ function List({
         return (
           <div style={{ display: "flex", marginBottom: "10px" }}>
             <ListElement
-              key={route[RouteFieldEnum.route_id]}
+              key={route.route_id}
               route={route}
               isActive={activeRoutes.some(
-                (elem) =>
-                  elem[RouteFieldEnum.route_id] ===
-                  route[RouteFieldEnum.route_id]
+                (elem) => elem.route_id === route.route_id
               )}
               onClick={elemOnClick}
             />

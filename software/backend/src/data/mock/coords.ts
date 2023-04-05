@@ -1,3 +1,9 @@
+// GPS coordinates for various trips for mock trip creation purposes
+// Created using google maps, steps
+// 1. Create a road path
+// 2. Export trip to KVZ
+// 3. coordinates will be inside generate XML file
+
 export const coordsBarrhavenToQueensway = [
   [-75.71053, 45.27376],
   [-75.71061, 45.27386],
