@@ -10,6 +10,7 @@ import ResetPasswordPage from "components/pages/ResetPasswordPage";
 import useToken from "auth/useToken";
 import { PageEnum } from "constants/PageEnum";
 import { ColorEnum } from "constants/ColorEnum";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [activePage, setActivePage] = useState(PageEnum.DefaultLandingPage);
@@ -19,6 +20,7 @@ function App() {
 
   const navigate = useNavigate();
 
+  // used for logout and session expiry
   function onLogout() {
     setToken(null);
     setActivePage(PageEnum.DefaultLandingPage);
@@ -26,11 +28,13 @@ function App() {
   }
 
   function renderActivePage() {
+    let page;
     switch (activePage) {
       case PageEnum.Organization:
-        return <OrganizationsPage />;
+        page = <OrganizationsPage />;
+        break;
       case PageEnum.Trips:
-        return (
+        page = (
           <TripsPage
             onLogout={() => {
               onLogout();
@@ -38,10 +42,12 @@ function App() {
             }}
           />
         );
+        break;
       case PageEnum.MyAccount:
-        return <MyAccountPage onLogout={onLogout} />;
+        page = <MyAccountPage onLogout={onLogout} />;
+        break;
       case PageEnum.DefaultLandingPage:
-        return (
+        page = (
           <TripsPage
             onLogout={() => {
               onLogout();
@@ -49,7 +55,14 @@ function App() {
             }}
           />
         );
+        break;
     }
+    return (
+      <div>
+        <Toaster />
+        {page}
+      </div>
+    );
   }
 
   return (

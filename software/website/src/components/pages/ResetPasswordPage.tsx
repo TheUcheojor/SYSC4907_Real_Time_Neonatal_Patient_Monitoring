@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import LoadingIcon from "components/icons/LoadingIcon";
 import { PASSWORD_LENGTH_MIN } from "constants/Auth";
 import { ColorEnum } from "constants/ColorEnum";
-import NewPassword from "components/pages/Trips/NewPassword";
+import NewPassword from "components/pages/MyAccount/NewPassword";
 import { HttpStatusEnum } from "constants/HttpStatusEnum";
 
 interface resetPasswordProps {

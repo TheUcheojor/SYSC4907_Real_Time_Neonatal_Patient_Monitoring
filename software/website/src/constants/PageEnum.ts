@@ -2,5 +2,5 @@ export enum PageEnum {
     Organization,
     Trips,
     MyAccount,
-    DefaultLandingPage
+    DefaultLandingPage = 1 //default set to trips page
   }

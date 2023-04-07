@@ -3,7 +3,7 @@ import Chart from "components/visualization/Chart";
 import { DatapointFieldEnum } from "constants/DatapointFieldEnum";
 import CSS from "csstype";
 import { toTitleCase } from "util/StringUtil";
-import Map from "components/visualization/Map";
+import Map from "components/visualization/GoogleMapWrapper";
 import RouteMeasurementDataPoint from "models/RouteMeasurementDataPoint";
 
 const mapStyles: CSS.Properties = {
@@ -46,7 +46,12 @@ function MapWithChart({ datapoints, measurand, style }: mwcProps) {
         }}
       >
         <span
-          style={{ marginBottom: "5px", textAlign: "center", fontWeight: 700, marginTop: "5px" }}
+          style={{
+            marginBottom: "5px",
+            textAlign: "center",
+            fontWeight: 700,
+            marginTop: "5px",
+          }}
         >
           {toTitleCase(measurand)}
         </span>

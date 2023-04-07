@@ -1,59 +1,70 @@
-import React, { useState, useEffect } from "react";
+import React, { memo, useState, useEffect, useRef } from "react";
 import fetch from "node-fetch";
 import CompareIcon from "components/icons/CompareIcon";
 import {
   DatapointFieldEnum,
-  RouteFieldEnum,
 } from "constants/DatapointFieldEnum";
-import List from "components/pages/Trips/List";
-import { elapsedDurationInHoursAndMinutes } from "util/StringUtil";
+import List from "components/pages/Trips/ListBrowsing/List";
 import CancelIcon from "components/icons/CancelIcon";
 import { ColorEnum } from "constants/ColorEnum";
-import TripsDetails from "components/pages/Trips/TripsDetails";
+import CompareTrips from "components/pages/Trips/CompareTrips";
 import BackIcon from "components/icons/BackIcon";
 import LoadingIcon from "components/icons/LoadingIcon";
 import MapWithChartNet from "components/visualization/MapWithChartNet";
 import { getFetchHeaderWithAuth } from "util/AuthUtil";
-import Pagination from "components/pages/Pagination";
-import {
-  MeasurandUnitEnum,
-  MeasurandUnitMap,
-} from "constants/MeasurandUnitEnum";
-import { SERVER_HOST, SERVER_PORT } from "constants/SystemConfiguration";
-
-const pStyles = {
-  fontWeight: 400,
-  marginLeft: "10px",
-  color: ColorEnum.White,
-  display: "block",
-  paddingTop: "5px",
-  paddingBottom: "5px",
-};
-
-const PAGE_SIZE = 12;
+import Pagination from "components/pages/Trips/ListBrowsing/Pagination";
+import QueryBar, { comparatorOptions, statisticOptions } from "./ListBrowsing/QueryBar";
+import { HttpStatusEnum } from "constants/HttpStatusEnum";
+import TripPreview from "./TripPreview";
+import Modal from "components/modal/Modal";
+import DeleteTripModalContent from "components/modal/DeleteTripModalContent";
+import toast from "react-hot-toast";
+import DismissToastContent from "components/toast/DismissToastContent";
 
 interface TripsProps {
   onLogout: () => void;
 }
 
 function TripsPage({ onLogout }: TripsProps) {
+  const ADJACENT_COMPONENTS_SIZE = 235;
+  const LIST_ELEM_SIZE = 60;
+  const PAGE_SIZE = Math.floor(
+    (window.innerHeight - ADJACENT_COMPONENTS_SIZE) / LIST_ELEM_SIZE
+  );
+  console.log("TRIPS PAGE RENDER");
   const [isSelecting, setIsSelecting] = useState(false);
   const [selectedRoutes, setSelectedRoutes] = useState([]);
   const [isComparing, setIsComparing] = useState(false);
   const [routes, setRoutes] = useState(undefined);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalRoutes, setTotalRoutes] = useState(0);
-  console.log("TRIPS PAGE RENDER", totalRoutes);
+  const [queryStat, setQueryStat] = useState(statisticOptions[0].value);
+  const [queryComparator, setQueryComparator] = useState(
+    comparatorOptions[0].value
+  );
+  const [queryValue, setQueryValue] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
+  const deleteTripId = useRef(undefined);
+  const deleteTripPatient = useRef("");
 
-  useEffect(() => {
+  const queryString =
+    queryStat !== "-" &&
+    queryComparator !== "-" &&
+    queryValue !== "" &&
+    /^[0-9.]+$/.test(queryValue)
+      ? `&search_query=${queryStat}${queryComparator}${queryValue}`
+      : "";
+
+  const fetchRoutes = () => {
+    setRoutes(undefined);
     fetch(
-      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}`,
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes?page=${currentPage}&limit=${PAGE_SIZE}${queryString}`,
       {
         headers: getFetchHeaderWithAuth(),
       }
     )
       .then((res) => {
-        if (res.status === 401) {
+        if (res.status === HttpStatusEnum.UNAUTHORIZED) {
           onLogout();
         } else {
           return res.json();
@@ -63,23 +74,63 @@ function TripsPage({ onLogout }: TripsProps) {
         setRoutes(result.routes);
         setTotalRoutes(result.totalRoutes);
       });
-  }, [currentPage, onLogout]);
+  };
+
+  useEffect(fetchRoutes, [currentPage, onLogout]);
+
+  function onDeleteTrip() {
+    setRoutes(undefined);
+    fetch(
+      `${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_SERVER_PORT}/routes/${deleteTripId.current}`,
+      {
+        method: "DELETE",
+        headers: getFetchHeaderWithAuth(),
+      }
+    )
+      .then((res) => {
+        if (res.status === HttpStatusEnum.UNAUTHORIZED) {
+          onLogout();
+        } else if (res.status === HttpStatusEnum.OK) {
+          return res;
+        } else {
+          toast.error((t) => (
+            <DismissToastContent
+              text={"Trip deletion failed"}
+              onDismiss={() => toast.dismiss(t.id)}
+            />
+          ));
+        }
+      })
+      .then((result) => {
+        toast.success((t) => (
+          <DismissToastContent
+            text={"Trip deleted"}
+            onDismiss={() => toast.dismiss(t.id)}
+          />
+        ));
+        setModalOpen(false);
+        setSelectedRoutes(
+          selectedRoutes.filter((selectedRoute) => {
+            return selectedRoute.route_id !== deleteTripId.current;
+          })
+        );
+        fetchRoutes();
+      });
+  }
 
   function onListElemClick(e) {
     const targetedRoute = routes.find(
-      (route) => route[RouteFieldEnum.route_id] === parseInt(e.currentTarget.id)
+      (route) => route.route_id === parseInt(e.currentTarget.id)
     );
 
     if (targetedRoute === undefined) {
-      console.log("No route data matches the clicked list elements id");
+      console.error("No route data matches the clicked list elements id");
       return;
     }
     if (isSelecting) {
       if (
         !selectedRoutes.some(
-          (elem) =>
-            elem[RouteFieldEnum.route_id] ===
-            targetedRoute[RouteFieldEnum.route_id]
+          (elem) => elem.route_id === targetedRoute.route_id
         )
       ) {
         selectedRoutes.push(targetedRoute);
@@ -87,9 +138,7 @@ function TripsPage({ onLogout }: TripsProps) {
       } else {
         setSelectedRoutes([
           ...selectedRoutes.filter(
-            (elem) =>
-              elem[RouteFieldEnum.route_id] !==
-              targetedRoute[RouteFieldEnum.route_id]
+            (elem) => elem.route_id !== targetedRoute.route_id
           ),
         ]);
       }
@@ -116,26 +165,43 @@ function TripsPage({ onLogout }: TripsProps) {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
+              width: "334px",
             }}
           >
             <p
               style={{
-                color: ColorEnum.Black,
                 fontWeight: 700,
-                width: "334px",
-                textAlign: "center",
               }}
             >
               Trips
             </p>
+            <QueryBar
+              setQueryStat={(e) => {
+                setQueryStat(e);
+              }}
+              setQueryComparator={(e) => {
+                setQueryComparator(e);
+              }}
+              setQueryValue={(e) => {
+                setQueryValue(e);
+              }}
+              onQuery={fetchRoutes}
+            />
             {routes === undefined ? (
               <LoadingIcon />
-            ) : (
+            ) : routes.length > 0 ? (
               <List
                 routes={routes}
                 elemOnClick={onListElemClick}
                 activeRoutes={selectedRoutes}
+                elemDeleteOnClick={(route) => {
+                  setModalOpen(true);
+                  deleteTripPatient.current = route.patient_id;
+                  deleteTripId.current = route.route_id;
+                }}
               />
+            ) : (
+              <p>No routes found</p>
             )}
             <Pagination
               currentPage={currentPage}
@@ -144,7 +210,6 @@ function TripsPage({ onLogout }: TripsProps) {
               siblingIndexSize={1}
               onPageChange={(page) => {
                 setCurrentPage(page);
-                setRoutes(undefined);
               }}
             />
           </div>
@@ -165,56 +230,26 @@ function TripsPage({ onLogout }: TripsProps) {
                   flexDirection: "column",
                 }}
               >
-                <div
-                  style={{
-                    backgroundColor: ColorEnum.Black,
-                    borderRadius: "6px",
-                  }}
-                >
-                  <span style={pStyles}>
-                    Patient:{" "}
-                    {
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.patient_id
-                      ]
-                    }
-                  </span>
-                  <span style={pStyles}>
-                    Duration:{" "}
-                    {elapsedDurationInHoursAndMinutes(
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.start_time_s
-                      ],
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.end_time_s
-                      ]
-                    )}
-                  </span>
-                  <span style={pStyles}>
-                    Vibration exposure:{" "}
-                    {
-                      selectedRoutes[selectedRoutes.length - 1][
-                        RouteFieldEnum.total_vibration
-                      ]
-                    }{" "}
-                    {MeasurandUnitMap.get(RouteFieldEnum.total_vibration)}
-                  </span>
-                </div>
+                <TripPreview
+                  onLogout={onLogout}
+                  selectedRoute={selectedRoutes[selectedRoutes.length - 1]}
+                />
                 <MapWithChartNet
                   onLogout={onLogout}
                   measurand={DatapointFieldEnum.vibration}
                   routeId={parseInt(
-                    selectedRoutes[selectedRoutes.length - 1][
-                      DatapointFieldEnum.route_id
-                    ]
+                    selectedRoutes[selectedRoutes.length - 1].route_id
                   )}
                 />
               </div>
             </div>
           )}
           {isSelecting && (
-            <p style={{ color: ColorEnum.Black, margin: 0 }}>
-              Select 1-4 routes to compare
+            <p>
+              <p style={{ color: ColorEnum.Black, margin: 0 }}>
+                Select 1-4 routes to compare
+              </p>
+              <p>{selectedRoutes.length} routes selected</p>
             </p>
           )}
           <div
@@ -261,13 +296,27 @@ function TripsPage({ onLogout }: TripsProps) {
               />
             )}
           </div>
+
+          <Modal
+            title={"Delete trip"}
+            modalOpen={isModalOpen}
+            closeModal={() => {
+              setModalOpen(false);
+            }}
+          >
+            <DeleteTripModalContent
+              trip_id={deleteTripId.current}
+              patient_id={deleteTripPatient.current.toString()}
+              onDelete={onDeleteTrip}
+            />
+          </Modal>
         </div>
       );
     } else {
       return (
         <div style={{ display: "flex" }}>
           <BackIcon onClick={() => setIsComparing(false)} />
-          <TripsDetails selectedRoutes={selectedRoutes} />
+          <CompareTrips selectedRoutes={selectedRoutes} />
         </div>
       );
     }
@@ -276,4 +325,4 @@ function TripsPage({ onLogout }: TripsProps) {
   return getContent();
 }
 
-export default TripsPage;
+export default memo(TripsPage);

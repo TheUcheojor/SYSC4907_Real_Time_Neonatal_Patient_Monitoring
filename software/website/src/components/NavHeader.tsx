@@ -38,7 +38,6 @@ interface NavHeaderProps {
 }
 
 function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
-  const [organizationIsHover, setOrganizationIsHover] = useState(false);
   const [iconIsHover, setIconIsHover] = useState(false);
   const [tripsIsHover, setTripsIsHover] = useState(false);
   const [myAccIsHover, setMyAccIsHover] = useState(false);
@@ -59,7 +58,7 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
         }}
         onMouseEnter={() => setIconIsHover(true)}
         onMouseLeave={() => setIconIsHover(false)}
-        onClick={() => setActivePage(PageEnum.Organization)}
+        onClick={() => setActivePage(PageEnum.Trips)}
       >
         <div style={headerTabDivStyles}>
           <BabyIcon
@@ -69,26 +68,6 @@ function NavHeader({ activePage, setActivePage }: NavHeaderProps) {
               ...headerTabStyles,
             }}
           />
-        </div>
-      </div>
-      <div
-        style={{
-          backgroundColor: organizationIsHover ? "#2a2a2a" : "inherit",
-          ...headerMasterTabDivStyles,
-        }}
-        onMouseEnter={() => setOrganizationIsHover(true)}
-        onMouseLeave={() => setOrganizationIsHover(false)}
-        onClick={() => setActivePage(PageEnum.Organization)}
-      >
-        <div style={headerTabDivStyles}>
-          <span style={headerTabStyles}>Organizations</span>
-          <div
-            style={{
-              ...tabSelectorStyles,
-              visibility:
-                activePage === PageEnum.Organization ? "visible" : "hidden",
-            }}
-          ></div>
         </div>
       </div>
       <div

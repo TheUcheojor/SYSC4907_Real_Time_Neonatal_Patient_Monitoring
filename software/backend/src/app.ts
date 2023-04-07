@@ -10,6 +10,7 @@ import segmentsRouter from "./routes/Segments.js";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import Logger from "./Logger.js";
 
 const PAYLOAD_LIMIT = "10mb";
 dotenv.config();
@@ -19,6 +20,14 @@ const corsOptions = {
 };
 
 const app = express();
+const logger = Logger.getInstance();
+
+function logEndpoint(req, res, next) {
+  logger.info(`Endpoint hit: ${req.url}, Request Type: ${req.method}`);
+  next();
+}
+
+app.use(logEndpoint);
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: PAYLOAD_LIMIT }));
@@ -39,8 +48,7 @@ app.use(devRouter);
  * For development purposes only, we will use a http server
  * as it allows for communication between app and server.
  *
- * Using https with self-signed certificate requires extra configurations
- * that may be time consuming
+ * In prod should use https
  */
 const PORT = process.env.SERVER_PORT || 7001;
 
