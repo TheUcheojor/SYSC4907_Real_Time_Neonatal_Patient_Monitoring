@@ -5,6 +5,7 @@ import { RouteRecordingState } from "../../../types";
 import DropDownPicker from "react-native-dropdown-picker";
 import { TripRecorderSubcomponentParams } from "../models/NonRecordingTripRecorderParams";
 import { getPressedHighlightBehaviourStyle } from "../../../utils/ComponentsUtil";
+import { APP_WIDTH } from "../../../constants/ViewConstants";
 
 export default ({
   segmentType,
@@ -153,7 +154,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: 5,
+    padding: APP_WIDTH < 400 ? 5 : 15,
     borderRadius: 10,
     flex: 1,
     backgroundColor: "#2F2F2F",

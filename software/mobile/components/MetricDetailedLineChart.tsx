@@ -12,9 +12,6 @@ import {
   VictoryZoomContainer,
   VictoryScatter,
   VictoryTheme,
-  VictoryLine,
-  createContainer,
-  VictoryVoronoiContainer,
 } from "victory-native";
 
 export interface GraphData {
@@ -34,17 +31,6 @@ export interface MetricDetailedLineChartParams {
 
 const ANNOTATION_COLOUR: string = "#C2372E";
 const SEGMENT_LABEL_COLOUR: string = "black";
-
-const NUMBER_OF_VISIBLE_POINTS: number = 50;
-
-const segmentColours: Array<string> = [
-  "#0E9CFF",
-  "#59D9F5",
-  "#9B9E0A",
-  "#AA85E5",
-];
-const currentSegmentColourIndex: number = 0;
-const KEY_POINT_COLOUR: string = "#C2372E";
 
 const DOWN_SAMPLE_DATASET: boolean = false;
 

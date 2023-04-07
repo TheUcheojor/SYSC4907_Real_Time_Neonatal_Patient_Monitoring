@@ -1,15 +1,7 @@
-// import { GestureHandlerRootView } from "react-native-gesture-handler";
-// import "react-native-gesture-handler";
-
 import { StatusBar, StatusBarStyle } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StackNavigationContainer } from "./navigation/StackNavigationContainer";
-import {
-  View,
-  Text,
-  StyleSheet,
-  // StatusBar,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import {
   useFonts,
   Montserrat_600SemiBold_Italic,
@@ -25,10 +17,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import { DatabaseService } from "./services/DatabaseService";
 import AppIcon from "./components/AppIcon";
 import SensorPackageController from "./services/SensorPackageController";
-import { RouteRecordingState } from "./types";
+import { RootStackParamList, RouteRecordingState } from "./types";
 import { generateRandomMeasurementPacket } from "./utils/RandomUtil";
 import MeasurementPacket from "./services/models/sensor-package-communication/MeasurementPacket";
 import demoRouteDataPoints from "./mock/demoRouteDataPoints";
+import { ServerCommnunicationService } from "./services/ServerCommunicationService";
+import { useNavigationContainerRef } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 LogBox.ignoreLogs(["new NativeEventEmitter"]); // Ignore log notification by message
 LogBox.ignoreAllLogs(); //Ignore all log notifications
@@ -46,10 +41,14 @@ export default function App() {
     generateRandomMeasurementPacket(demoRouteDataPoints[0].location)
   );
 
+  const navigationRef = useNavigationContainerRef<RootStackParamList>();
+
   //Load dependencies
   const loadDependencies = useCallback(async () => {
     await DatabaseService.getConfiguredDatabaseController();
     await SensorPackageController.requestForPermissions();
+    ServerCommnunicationService.init(navigationRef);
+
     setDependenciesLoaded(true);
   }, []);
 
@@ -83,6 +82,7 @@ export default function App() {
         setRecordingState={setRecordingState}
         measurementPacket={measurementPacket}
         setMeasurementPacket={setMeasurementPacket}
+        navigationRef={navigationRef}
       />
       <StatusBar hidden={false} style={STATUS_BAR_STYLE} />
     </SafeAreaProvider>

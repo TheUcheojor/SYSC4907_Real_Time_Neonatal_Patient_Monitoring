@@ -16,6 +16,7 @@ import RouteMeasurementDataPoint from "../services/models/trips/RouteMeasurement
 import { Color } from "../constants/ColorEnum";
 import { NumericMetricMeasurementPacketKey } from "../services/models/sensor-package-communication/MeasurementPacket";
 import { MetricThreshold } from "../constants/metric-constants";
+import { APP_WIDTH } from "../constants/ViewConstants";
 
 interface MapParams {
   routeMeasurementDataPoints: RouteMeasurementDataPoint[];
@@ -138,13 +139,13 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     width: "100%",
-    height: 200,
+    height: APP_WIDTH < 400 ? 200 : 400,
     borderRadius: 10,
     overflow: "hidden",
   },
 
   map: {
     width: "100%",
-    height: 200,
+    height: APP_WIDTH < 400 ? 200 : 400,
   },
 });

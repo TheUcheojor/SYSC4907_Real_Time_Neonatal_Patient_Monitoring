@@ -193,7 +193,7 @@ routesRouter.get(
               res.status(HttpStatusEnum.INTERNAL_SERVER_ERROR).send();
             });
           }
-          res.send({
+          res.status(HttpStatusEnum.OK).send({
             routes: results,
             totalRoutes: countResult[0][COUNT_KEY],
           });

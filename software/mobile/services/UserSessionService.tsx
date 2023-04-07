@@ -4,10 +4,13 @@
  * Purpose: Exports functions for managing user sessions
  */
 import EncryptedStorage from "react-native-encrypted-storage";
+import { SYSTEM_CONFIGURATION } from "../global/SystemConfiguration";
+import LoggerService from "./LoggerService";
 
 export interface UserSession {
   fullName: string;
   authenticationToken: string;
+  email: string;
 }
 
 enum EncryptedStorageKeys {
@@ -25,7 +28,18 @@ export default {
   loadUserSession: (): Promise<UserSession | null> => {
     return EncryptedStorage.getItem(EncryptedStorageKeys.USER_SESSION).then(
       (userSession: string | null) => {
-        if (!userSession) return null;
+        // If we are bypassing authentication, we will assume the root user
+        if (!userSession && SYSTEM_CONFIGURATION.LOGIN_BYPASS_AUTHENTICATION) {
+          return {
+            fullName: "Root",
+            email: "root@root.ca",
+            authenticationToken: "",
+          };
+        }
+        if (!userSession) {
+          LoggerService.warn("Loading null user session!");
+          return null;
+        }
 
         return JSON.parse(userSession);
       }
