@@ -50,6 +50,7 @@ forgotPasswordRouter.post(
             service: "gmail",
             auth: {
               user: "tca.emailer@gmail.com",
+              // for gmail need to use an app key instead of pw
               pass: "kpbkrkmmpytquvpn",
             },
             tls: {
