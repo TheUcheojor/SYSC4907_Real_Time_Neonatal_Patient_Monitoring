@@ -50,7 +50,7 @@ forgotPasswordRouter.post(
             service: "gmail",
             auth: {
               user: "tca.emailer@gmail.com",
-              pass: "SYSC4907ROX",
+              pass: "zfhzgvqyxavohzdj",
             },
             tls: {
               rejectUnauthorized: false,
