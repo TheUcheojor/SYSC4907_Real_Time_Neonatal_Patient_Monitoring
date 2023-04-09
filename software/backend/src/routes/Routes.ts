@@ -1,7 +1,7 @@
 import MySQLRepository from "../data/MySQLRepository.js";
 import Router, { Response } from "express";
 import Logger from "./../Logger.js";
-import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { authenticateSessionToken } from "../secret/SessionToken.js";
 import { PostRouteRequest } from "./../models/requests/PostRouteRequest.js";
 import { AuthenticatedRequest } from "./../models/requests/AuthRequests.js";
 import {

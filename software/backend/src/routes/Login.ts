@@ -2,7 +2,7 @@ import MySQLRepository from "../data/MySQLRepository.js";
 import Router, { Response } from "express";
 import { LoginRequest } from "./../models/requests/AuthRequests.js";
 import Logger from "./../Logger.js";
-import { generateSessionToken } from "./../secret/sessionToken.js";
+import { generateSessionToken } from "../secret/SessionToken.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import { RowDataPacket } from "mysql2";
 

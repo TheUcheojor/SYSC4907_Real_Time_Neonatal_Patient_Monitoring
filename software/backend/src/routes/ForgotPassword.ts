@@ -9,7 +9,7 @@ import nodemailer from "nodemailer";
 import {
   authenticateForgotPasswordToken,
   generateForgotPasswordToken,
-} from "./../secret/forgotPasswordToken.js";
+} from "../secret/ForgotPasswordToken.js";
 import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import { OkPacket, RowDataPacket } from "mysql2";
