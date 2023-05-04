@@ -12,6 +12,9 @@ SSH_KEY_PATH=$3
 # CONFIGURE THESE AS DESIRED (be cautious)
 SERVER_USER='ubuntu'
 
+# TO USE GMAP API CONFIGURE HERE
+export REACT_APP_GMAP_API_KEY="foobar123"
+
 # frontend deployment code gets compiled statically, therefore the environment variables need to be set here
 export REACT_APP_SERVER_URL=http://$SERVER
 export REACT_APP_SERVER_PORT=$2
