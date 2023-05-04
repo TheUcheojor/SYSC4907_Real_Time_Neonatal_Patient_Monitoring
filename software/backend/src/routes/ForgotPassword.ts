@@ -9,7 +9,7 @@ import nodemailer from "nodemailer";
 import {
   authenticateForgotPasswordToken,
   generateForgotPasswordToken,
-} from "./../secret/forgotPasswordToken.js";
+} from "../secret/ForgotPasswordToken.js";
 import { DEFAULT_FORGOT_PASSWORD_TOKEN_TIME } from "./../constants/AuthConstants.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import { OkPacket, RowDataPacket } from "mysql2";
@@ -49,8 +49,9 @@ forgotPasswordRouter.post(
           var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-              user: "tca.emailer@gmail.com",
-              pass: "zfhzgvqyxavohzdj",
+              user: process.env.FORGOTPW_MAILER_EMAIL,
+              // for gmail need to use an third party app key instead of pw
+              pass: process.env.FORGOTPW_MAILER_PASSWORD,
             },
             tls: {
               rejectUnauthorized: false,
@@ -58,7 +59,7 @@ forgotPasswordRouter.post(
           });
 
           var mailOptions = {
-            from: "tca.emailer@gmail.com",
+            from: process.env.FORGOTPW_MAILER_EMAIL,
             to: user.email,
             subject: "TCA - Reset Your Password",
             text: `To reset your password for the TCA service please click the following link: ${

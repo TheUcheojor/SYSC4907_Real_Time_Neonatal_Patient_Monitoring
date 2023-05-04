@@ -18,6 +18,9 @@ MYSQL_USER="tca-prod"
 MYSQL_DATABASE="tca_db"
 MYSQL_PASSWORD="db_pw"
 
+FORGOTPW_MAILER_EMAIL="foo@gmail.com"
+FORGOTPW_MAILER_PASSWORD="bar"
+
 # DO NOT EDIT, we use a systemctl process to run the node backend
 SYSTEMCTL_CONFIG="[Unit]\nDescription=tca-backend\nAfter=multi-user.target\n\n[Service]\nExecStart=/usr/bin/node /home/ubuntu/tca-backend/build/app.js\nRestart=always\nRestartSec=10\nStandardOutput=syslog\nStandardError=syslog\nSyslogIdentifier=tca-backend\nUser=ubuntu\nEnvironmentFile=/home/ubuntu/tca-backend/prod.env\n\n[Install]\nWantedBy=multi-user.target"
 

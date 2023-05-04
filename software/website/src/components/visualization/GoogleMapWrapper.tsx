@@ -50,7 +50,7 @@ function GoogleMapWrapper({ data, setMapRef, measurand, style }: MapProps) {
   return (
     data !== undefined && (
       <LoadScript
-        googleMapsApiKey="AIzaSyDSQo-ic930dhxZgw83RHfVZcEc2U_6cEA"
+        googleMapsApiKey={process.env.REACT_APP_GMAP_API_KEY}
         libraries={libraries}
       >
         <GoogleMap

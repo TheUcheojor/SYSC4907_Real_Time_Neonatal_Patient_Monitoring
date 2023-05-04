@@ -5,7 +5,7 @@ import {
   SignUpRequest,
 } from "./../models/requests/AuthRequests.js";
 import Logger from "./../Logger.js";
-import { authenticateSessionToken } from "./../secret/sessionToken.js";
+import { authenticateSessionToken } from "../secret/SessionToken.js";
 import { HttpStatusEnum } from "./../constants/HttpStatusEnum.js";
 import { RowDataPacket } from "mysql2";
 
